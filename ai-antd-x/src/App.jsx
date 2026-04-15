@@ -5,6 +5,7 @@ import ConversationsApp from './components/ConversationsApp.jsx'
 import NotificationCom from './components/NotificationCom'
 import ThinkCom from './components/ThinkCom'
 import ThoughtChainCom from './components/ThoughtChainCom'
+import SenderCom from './components/SenderCom'
 
 
 
@@ -17,7 +18,8 @@ function App() {
       {/* <BubbleCom /> */}
       {/* <NotificationCom /> */}
       {/* <ThinkCom /> */}
-      <ThoughtChainCom />
+      {/* <ThoughtChainCom /> */}
+      <SenderCom />
     </>
   )
 }
