@@ -1,0 +1,10 @@
+node_modules/
+.env
+cache/
+output/
+input/*.jpg
+input/*.jpeg
+input/*.png
+input/*.webp
+!input/.gitkeep
+*.log

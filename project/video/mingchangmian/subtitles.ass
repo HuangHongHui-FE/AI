@@ -1,0 +1,66 @@
+[Script Info]
+Title: 动态字幕导演版
+ScriptType: v4.00+
+PlayResX: 1922
+PlayResY: 1080
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Danmaku,SimHei,44,&H0000D7FF,&H000000FF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,1,2,2,10,10,10,1
+Style: Variety,SimHei,76,&H0047D4FF,&H000000FF,&H00FFFFFF,&H00000000,-1,0,0,0,100,100,0,0,1,4,3,2,10,10,10,1
+Style: InnerOS,KaiTi,26,&H66FFFFFF,&H000000FF,&H00000000,&H00000000,0,-1,0,0,100,100,0,0,1,0,0,2,10,10,10,1
+Style: Glitch,SimHei,64,&HFFFFFFFF,&H000000FF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,0,0,2,10,10,10,1
+Style: GlitchBG,SimHei,64,&HFFFFFFFF,&H000000FF,&H00000000,&H66000000,-1,0,0,0,100,100,0,0,3,0,0,2,10,10,10,1
+Style: Roar,SimHei,112,&H003535FF,&H000000FF,&H00FFFFFF,&H00000000,-1,0,0,0,100,100,0,0,1,6,5,2,10,10,10,1
+Style: Literary,NotoSerifSC-VF,32,&H00E7F0F5,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,2,10,10,10,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.20,Roar,,0,0,0,,
+{\an5\pos(961,420)
+\fad(30,150)\fs112\b1
+\1c&H003333FF&\3c&H00000000&\bord5\4c&H00000000&\shad4
+}全！体！起！立！
+Dialogue: 0,0:00:00.06,0:00:00.26,Roar,,0,0,0,,
+{\an5\pos(967,416)
+\fad(30,150)\fs112\b1
+\1c&H003333FF&\3c&H00000000&\bord5\4c&H00000000&\shad4
+}全！体！起！立！
+Dialogue: 0,0:00:00.12,0:00:00.32,Roar,,0,0,0,,
+{\an5\pos(957,423)
+\fad(30,150)\fs112\b1
+\1c&H003333FF&\3c&H00000000&\bord5\4c&H00000000&\shad4
+}全！体！起！立！
+Dialogue: 0,0:00:00.18,0:00:00.38,Roar,,0,0,0,,
+{\an5\pos(964,418)
+\fad(30,150)\fs112\b1
+\1c&H003333FF&\3c&H00000000&\bord5\4c&H00000000&\shad4
+}全！体！起！立！
+Dialogue: 0,0:00:00.02,0:00:02.50,Roar,,0,0,0,,
+{\an5\pos(961,420)
+\fad(80,200)\fs112\b1
+\1c&H003535FF&\3c&H00FFFFFF&\bord6\4c&H00000000&\shad5
+}全！体！起！立！
+Dialogue: 0,0:00:02.50,0:00:06.00,InnerOS,,0,0,0,,{\an5\pos(1742,170)\move(1742,170,1742,130,400,3500)\fad(600,800)\fs26\1c&H66FFFFFF&\3c&H00000000&\bord0\shad0}这一秒·封神了
+Dialogue: 0,0:00:06.00,0:00:09.00,Danmaku,,0,0,0,,{\an5\pos(769,220)\move(2122,220,769,220,0,350)\fad(100,250)}事情要从这里说起
+Dialogue: 0,0:00:09.00,0:00:13.00,InnerOS,,0,0,0,,{\an5\pos(1742,120)\move(1742,120,1742,80,400,4000)\fad(600,800)\fs26\1c&H66FFFFFF&\3c&H00000000&\bord0\shad0}老师·已读不回
+Dialogue: 0,0:00:13.00,0:00:17.00,Danmaku,,0,0,0,,{\an5\pos(769,220)\move(2122,220,769,220,0,350)\fad(100,250)}高三八班·全员戏精
+Dialogue: 0,0:00:17.00,0:00:21.00,InnerOS,,0,0,0,,{\an5\pos(1742,220)\move(1742,220,1742,180,400,4000)\fad(600,800)\fs26\1c&H66FFFFFF&\3c&H00000000&\bord0\shad0}这表情·我熟
+Dialogue: 0,0:00:21.00,0:00:24.95,GlitchBG,,0,0,0,,
+{\an5\pos(961,580)
+\fad(50,100)\fs64\b1
+\1c&HFFFFFF&\3c&H00000000&\bord0
+}名场面预警#@%
+Dialogue: 0,0:00:21.03,0:00:24.97,Glitch,,0,0,0,,
+{\an5\pos(964,580)
+\fad(30,80)\fs64\b1
+\1c&HCC55CC&\3c&H00000000&\bord0\alpha&H88&
+}名场面预警#@%
+Dialogue: 0,0:00:21.06,0:00:25.00,Glitch,,0,0,0,,
+{\an5\pos(959,581)
+\fad(30,100)\fs64\b1
+\1c&HFF8844&\3c&H00000000&\bord0\alpha&H99&
+}名场面预警#@%
+Dialogue: 0,0:00:25.00,0:00:30.00,Literary,,0,0,0,,{\an5\pos(1041,720)\fad(1200,1500)\fs32\1c&H00E7F0F5&\3c&H00000000&\bord0\shad0\fnNotoSerif SC}青春一场·三连关注

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const p=require\\('@ffmpeg-installer/ffmpeg'\\).path; const {spawnSync}=require\\('child_process'\\); const r=spawnSync\\(p,['-i','018-高三八班、全体起立.mp4'],{encoding:'utf8'}\\); console.log\\(r.stderr\\);\")",
+      "Bash(node process.js)",
+      "Bash(node -e \"const p=require\\('@ffmpeg-installer/ffmpeg'\\).path; const {spawnSync}=require\\('child_process'\\); const r=spawnSync\\(p,['-i','018-动态字幕导演版.mp4'],{encoding:'utf8'}\\); console.log\\(r.stderr\\);\")",
+      "Bash(node -e ' *)",
+      "Bash(node -e \"const p=require\\('@ffmpeg-installer/ffmpeg'\\).path; const {spawnSync}=require\\('child_process'\\); const r=spawnSync\\(p,['-i','test-out.mp4'],{encoding:'utf8'}\\); console.log\\(r.stderr\\);\")"
+    ]
+  }
+}

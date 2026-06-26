@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(curl -sL -o \"公众号/今日文章包/cover.jpg\" \"https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=900&h=383&fit=crop\")",
+      "Bash(curl -sL -o \"公众号/今日文章包/img1.jpg\" \"https://images.unsplash.com/photo-1497366754270-5d90e3baf9a5?w=900&h=600&fit=crop\")",
+      "Bash(curl -sL -o \"公众号/今日文章包/img2.jpg\" \"https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&h=600&fit=crop\")",
+      "Bash(curl -sL -o \"公众号/今日文章包/img3.jpg\" \"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=900&h=600&fit=crop\")",
+      "Bash(curl -sL -o \"公众号/今日文章包/img4.jpg\" \"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&h=600&fit=crop\")",
+      "Bash(curl -sL -o \"公众号/今日文章包/img5.jpg\" \"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=900&h=600&fit=crop\")",
+      "Bash(file \"公众号/今日文章包/\"*.jpg)",
+      "Bash(curl -sL -o \"公众号/今日文章包/img1.jpg\" \"https://images.unsplash.com/photo-1497215842964-222b430dc094?w=900&h=600&fit=crop\")",
+      "Bash(curl *)",
+      "Bash(python3 *)",
+      "Bash(echo \"Exit: $?\")",
+      "Bash(pip install *)",
+      "Bash(node *)",
+      "Bash(dir 公众号)",
+      "Bash(mv \"C:/Users/31672/AI/project/wechat/今日文章包/\"* \"C:/Users/31672/AI/project/wechat/文章包/20260609/\")",
+      "Bash(rmdir \"C:/Users/31672/AI/project/wechat/今日文章包\")",
+      "Bash(cmd.exe *)",
+      "Bash(powershell.exe *)"
+    ]
+  }
+}

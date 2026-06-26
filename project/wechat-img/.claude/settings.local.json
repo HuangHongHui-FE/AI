@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(node src/index.js --help)",
+      "Bash(node src/index.js)",
+      "Bash(echo \"---exit: $?\")",
+      "Bash(node -e ' *)",
+      "Bash(node src/index.js --image \"input/Screenshot_2026-06-22-22-20-02-31_8c0c3b87a45ec9b3ecdb84e077cda4f7.jpg\" --dry-run)",
+      "Bash(node src/index.js --image \"input/Screenshot_2026-06-22-22-20-02-31_8c0c3b87a45ec9b3ecdb84e077cda4f7.jpg\")",
+      "Bash(curl -s --max-time 15 \"https://api.vvhan.com/api/hotlist/douyinHot\")",
+      "WebFetch(domain:api.vvhan.com)",
+      "WebSearch",
+      "Bash(curl -sS --max-time 15 -w \"HTTP:%{http_code} TIME:%{time_total}s\\\\n\" \"https://api.vvhan.com/api/hotlist/douyinHot\")",
+      "Bash(curl -sS --max-time 15 -w \"HTTP:%{http_code} TIME:%{time_total}s\\\\n\" \"https://api.oick.cn/api/douyinhot\")",
+      "WebFetch(domain:developers.weixin.qq.com)",
+      "Bash(node src/index.js --image \"input/01-雷军吃早饭被小女孩吐槽.jpg\" --out-dir \"output/2026-06-22/01-雷军吃早饭被小女孩吐槽/\")",
+      "Bash(node src/index.js --image \"input/02-万物皆可VibeCoding.jpg\" --out-dir \"output/2026-06-22/02-万物皆可VibeCoding/\")",
+      "Bash(node src/index.js --image \"input/03-国乒一线主力全员回归.jpg\" --out-dir \"output/2026-06-22/03-国乒一线主力全员回归/\")",
+      "Bash(mkdir -p output/2026-06-25/01-柯秉逸说回去必须加练 output/2026-06-25/02-高考成绩被屏蔽是什么体验)",
+      "Bash(node -e \"require\\('sharp'\\)\\('input/01-柯秉逸说回去必须加练.jpg'\\).resize\\(900\\).jpeg\\({quality:75}\\).toFile\\('output/2026-06-25/01-柯秉逸说回去必须加练/preview.jpg'\\).then\\(\\(\\)=>require\\('sharp'\\)\\('input/02-高考成绩被屏蔽是什么体验.jpg'\\).resize\\(900\\).jpeg\\({quality:75}\\).toFile\\('output/2026-06-25/02-高考成绩被屏蔽是什么体验/preview.jpg'\\)\\).then\\(\\(\\)=>console.log\\('done'\\)\\)\")",
+      "Bash(node src/index.js --image \"input/01-柯秉逸说回去必须加练.jpg\" --out-dir \"output/2026-06-25/01-柯秉逸说回去必须加练/\")",
+      "Bash(node src/index.js --image \"input/02-高考成绩被屏蔽是什么体验.jpg\" --out-dir \"output/2026-06-25/02-高考成绩被屏蔽是什么体验/\")",
+      "Skill(update-config)",
+      "Read(//c/Users/31672/.claude/**)",
+      "Bash(env)",
+      "Bash(curl -sS -A \"Mozilla/5.0\" \"https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrsearch=anti-drug%20poster%20china&gsrlimit=10&prop=imageinfo&iiprop=url|size&iiurlwidth=900\")",
+      "WebFetch(domain:www.pexels.com)"
+    ]
+  }
+}

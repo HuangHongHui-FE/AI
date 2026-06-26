@@ -1,0 +1,4 @@
+article-01: photo-3184418, photo-2765000, photo-5690000, photo-1181200
+article-02: photo-3184419, photo-1181244, photo-2765010, photo-5690100
+article-03: photo-3184420, photo-2765020, photo-1181300, photo-4160000
+article-04: photo-3184299, photo-4160100, photo-1181400, photo-3182765

@@ -1,0 +1,23 @@
+{
+  "name": "wechat-img",
+  "version": "0.1.0",
+  "description": "公众号贴图自动发文管线：一张图 + 一个话题 → 草稿箱",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "wechat-img": "src/index.js"
+  },
+  "scripts": {
+    "gen": "node src/index.js",
+    "dry": "node src/index.js --dry-run"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.1",
+    "dotenv": "^16.4.5",
+    "marked": "^12.0.2",
+    "sharp": "^0.32.6"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

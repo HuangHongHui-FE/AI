@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>嘉兴一日游 · 市区经典线</title>
+<style>
+  :root {
+    --bg: #fdfaf5;
+    --card: #fffef9;
+    --text: #2c2416;
+    --muted: #6b5e4a;
+    --accent: #c75b2a;
+    --border: #e8dfd0;
+    --tag-bg: #fef3e4;
+    --tag-text: #b85a1f;
+    --code-bg: #f9f5ec;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06);
+    --radius: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    padding: 24px 16px 80px;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 32px 0 24px;
+  }
+  .hero h1 {
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+  }
+  .hero .meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 6px;
+  }
+  .divider {
+    border: none;
+    border-top: 2px dashed var(--border);
+    margin: 8px 0 28px;
+  }
+
+  section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 22px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow);
+  }
+  h2 {
+    font-size: 1.3rem;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h3 {
+    font-size: 1.05rem;
+    margin: 18px 0 8px;
+  }
+  h4 {
+    font-size: 0.95rem;
+    margin: 14px 0 6px;
+    color: var(--accent);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 16px;
+    font-size: 0.88rem;
+  }
+  th, td {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  th {
+    background: #faf6ed;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  tr:nth-child(even) td {
+    background: #fefcf7;
+  }
+
+  .timeline-entry {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+    align-items: baseline;
+  }
+  .timeline-time {
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 72px;
+    font-size: 0.9rem;
+    text-align: right;
+  }
+  .timeline-desc {
+    flex: 1;
+  }
+
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin: 10px 0 16px;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 8px 14px;
+    margin: 12px 0;
+    background: var(--tag-bg);
+    border-radius: 0 6px 6px 0;
+    color: var(--tag-text);
+    font-size: 0.9rem;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  ul, ol { padding-left: 20px; margin: 6px 0 12px; }
+  li { margin-bottom: 4px; }
+
+  @media (max-width: 600px) {
+    body { padding: 12px 8px 60px; }
+    section { padding: 16px 12px; }
+    table { font-size: 0.78rem; }
+    th, td { padding: 5px 6px; }
+    .timeline-time { min-width: 56px; font-size: 0.8rem; }
+    .hero h1 { font-size: 1.5rem; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    section { box-shadow: none; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <h1>🎋 嘉兴一日游</h1>
+    <p class="meta"><strong>日期</strong>：2026年6月20日（周六·端午假期）&nbsp;｜&nbsp;<strong>出发地</strong>：杭州 &nbsp;｜&nbsp;<strong>交通</strong>：高铁往返</p>
+  </div>
+  <hr class="divider">
+
+  <!-- ═══════════ 方案A ═══════════ -->
+  <section>
+    <h2><span class="tag">方案A</span> 市区经典线 🏯</h2>
+    <p style="color:var(--muted);margin-bottom:14px;"><strong>主题</strong>：南湖红船 + 千年古城 + 月河美食 &nbsp;|&nbsp; <strong>风格</strong>：文化古迹 + 江南水乡 + 吃到撑</p>
+
+    <h3>🚄 交通</h3>
+    <table>
+      <tr><th>项目</th><th>说明</th></tr>
+      <tr><td><strong>去程</strong></td><td>杭州东站 → <strong>嘉兴站</strong>（注意：不是嘉兴南站！）</td></tr>
+      <tr><td><strong>耗时</strong></td><td>约 25 分钟</td></tr>
+      <tr><td><strong>票价</strong></td><td>二等座约 ¥35-40</td></tr>
+      <tr><td><strong>建议班次</strong></td><td>7:30-8:00 出发</td></tr>
+      <tr><td><strong>返程</strong></td><td>嘉兴站 → 杭州东，建议 20:30-21:00 班次</td></tr>
+    </table>
+
+    <blockquote>⚠️ 嘉兴站在市中心，步行到南湖仅10分钟。嘉兴南站在郊区，到市区还需打车30分钟。</blockquote>
+
+    <h3>🗺️ 景点步行关系</h3>
+    <pre>嘉兴站
+  │ 步行8分钟
+  ▼
+子城遗址 ──步行2分钟── 天主教堂
+  │
+  │ 步行10分钟
+  ▼
+南湖景区（湖心岛、烟雨楼、红船）
+  │
+  │ 步行3分钟
+  ▼
+南湖天地（午餐+逛街）
+  │
+  │ 打车10分钟（¥15）
+  ▼
+月河历史古街（下午+晚上）
+  │
+  │ 打车10分钟
+  ▼
+嘉兴站（返程）</pre>
+
+    <h3>📅 详细时间线</h3>
+
+    <h4>🌅 上午：古城漫步</h4>
+    <div class="timeline-entry"><span class="timeline-time">07:30</span><span class="timeline-desc">杭州东站出发</span></div>
+    <div class="timeline-entry"><span class="timeline-time">08:00</span><span class="timeline-desc">抵达嘉兴站，步行到<strong>五芳斋建国路总店</strong>吃早餐</span></div>
+
+    <h4>🍙 早餐：五芳斋总店</h4>
+    <table>
+      <tr><th>必点</th><th>价格</th><th>说明</th></tr>
+      <tr><td>鲜肉粽</td><td>¥8</td><td>百年招牌，肥瘦相间</td></tr>
+      <tr><td>蛋黄肉粽</td><td>¥10</td><td>一颗完整咸蛋黄</td></tr>
+      <tr><td>小馄饨</td><td>¥8</td><td>搭配粽子解腻</td></tr>
+    </table>
+
+    <div class="timeline-entry"><span class="timeline-time">08:40</span><span class="timeline-desc">步行到<strong>子城遗址公园</strong>（免费）</span></div>
+
+    <h4>🏯 子城遗址</h4>
+    <ul>
+      <li>嘉兴千年古城中轴线，始建于三国（近1800年）</li>
+      <li>登城墙俯瞰遗址，古城墙+江南园林融合</li>
+      <li>清晨人少光影好，游玩约 40 分钟</li>
+    </ul>
+
+    <div class="timeline-entry"><span class="timeline-time">09:20</span><span class="timeline-desc">步行2分钟到<strong>天主教堂</strong>（免费）</span></div>
+
+    <h4>⛪ 嘉兴天主教堂</h4>
+    <ul>
+      <li>"远东第三大教堂"，哥特式+罗马式</li>
+      <li><strong>彩绘玻璃</strong>是最大看点，阳光透过超梦幻</li>
+      <li>教堂前大草坪适合坐着发呆拍照，约 30 分钟</li>
+    </ul>
+
+    <div class="timeline-entry"><span class="timeline-time">10:00</span><span class="timeline-desc">步行10分钟到<strong>南湖景区</strong></span></div>
+
+    <h4>🏞️ 上午-中午：南湖</h4>
+    <div class="timeline-entry"><span class="timeline-time">10:10</span><span class="timeline-desc">到达<strong>南湖景区</strong>（5A级，免费入园）</span></div>
+
+    <h4>🚣 南湖游玩路线</h4>
+    <pre>会景园码头 → 乘船上湖心岛 → 烟雨楼 → 红船 → 乘船返回 → 壕股塔</pre>
+
+    <table>
+      <tr><th>项目</th><th>价格</th><th>说明</th></tr>
+      <tr><td>船票</td><td>¥20/人</td><td>往返湖心岛</td></tr>
+      <tr><td>湖心岛</td><td>—</td><td>南湖核心，小巧精致</td></tr>
+      <tr><td>烟雨楼</td><td>—</td><td>乾隆六下江南必登，南湖最佳观景台</td></tr>
+      <tr><td>红船</td><td>—</td><td>中共一大纪念船，打卡</td></tr>
+      <tr><td>壕股塔</td><td>¥10/人</td><td>登塔俯瞰南湖全景</td></tr>
+    </table>
+    <p>全程约 2 小时，节奏舒缓。</p>
+
+    <div class="timeline-entry"><span class="timeline-time">12:10</span><span class="timeline-desc">步行3分钟到<strong>南湖天地</strong>午饭</span></div>
+
+    <h4>🛍️ 南湖天地午餐</h4>
+    <table>
+      <tr><th>餐厅</th><th>类型</th><th>人均</th></tr>
+      <tr><td>南湖船菜</td><td>本地菜（南湖菱、酱鸭）</td><td>¥100-150</td></tr>
+      <tr><td>新白鹿</td><td>杭帮菜，性价比高</td><td>¥60-80</td></tr>
+      <tr><td>网红餐厅</td><td>融合菜/轻食</td><td>¥80-200</td></tr>
+    </table>
+
+    <blockquote>💡 6月南湖菱正当季，一定要点！</blockquote>
+
+    <h4>🏮 下午-晚上：月河古街</h4>
+    <div class="timeline-entry"><span class="timeline-time">14:00</span><span class="timeline-desc">打车到<strong>月河历史街区</strong>（10分钟，¥15）</span></div>
+
+    <h4>🍘 第一站：粽子文化博物馆</h4>
+    <ul>
+      <li>免费，了解嘉兴粽子千年历史</li>
+      <li><strong>真真老老</strong>体验店在馆内，现场看古法包粽子</li>
+      <li>现包现煮 → 买<strong>传人腐乳肉粽</strong>、<strong>高汤鲜肉粽</strong></li>
+    </ul>
+
+    <h4>🏮 第二站：古街漫步</h4>
+    <table>
+      <tr><th>值得逛</th><th>说明</th></tr>
+      <tr><td>沿河长廊</td><td>小桥流水，端午可能有龙舟装饰</td></tr>
+      <tr><td>花鸟市场</td><td>古街内花鸟鱼虫市场，热闹有趣</td></tr>
+      <tr><td>古居斋</td><td>传统糕点茶食，橘红糕、桂花糕</td></tr>
+      <tr><td>河边茶馆</td><td>喝茶听评弹（¥30-50/位）</td></tr>
+    </table>
+
+    <div class="timeline-entry"><span class="timeline-time">15:30</span><span class="timeline-desc">河边茶馆<strong>下午茶</strong>，歇脚1小时</span></div>
+
+    <blockquote>☕ 坐在河边喝茶听曲，看船来船往——这是整趟行程最"轻松"的环节。</blockquote>
+
+    <div class="timeline-entry"><span class="timeline-time">17:30</span><span class="timeline-desc"><strong>邹大鲜</strong>（月河街店）晚餐</span></div>
+
+    <h4>🥢 邹大鲜推荐菜</h4>
+    <table>
+      <tr><th>菜名</th><th>说明</th></tr>
+      <tr><td>文虎酱鸭</td><td>嘉兴头牌，酱香浓郁</td></tr>
+      <tr><td>响油鳝丝</td><td>上桌浇热油，鳝鱼嫩滑</td></tr>
+      <tr><td>南湖菱炒肉片</td><td>6月当季，清甜脆嫩</td></tr>
+      <tr><td>清蒸白水鱼</td><td>江南水系鲜鱼</td></tr>
+      <tr><td>笋干老鸭煲</td><td>浙江经典汤品</td></tr>
+    </table>
+    <p>人均 ¥80-120。端午可能排队，到了月河先取号再逛。</p>
+
+    <div class="timeline-entry"><span class="timeline-time">19:00</span><span class="timeline-desc">饭后<strong>夜游月河</strong>——灯笼亮起，倒映河中</span></div>
+    <div class="timeline-entry"><span class="timeline-time">20:00</span><span class="timeline-desc">打车到嘉兴站</span></div>
+    <div class="timeline-entry"><span class="timeline-time">20:30-21:00</span><span class="timeline-desc">高铁返杭 🚄</span></div>
+  </section>
+
+</div>
+</body>
+</html>
