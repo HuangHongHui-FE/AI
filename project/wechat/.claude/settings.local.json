@@ -74,7 +74,13 @@
       "WebFetch(domain:pixabay.com)",
       "WebFetch(domain:weibo.com)",
       "WebFetch(domain:www.zhihu.com)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(grep -E \"^\\(9000100|9000101|9000102|9000103|9000200|9000201|9000202|9000203|9000300|9000301|9000302|9000303|9000400|9000401|9000402|9000403\\)$\" \"C:/Users/31672/AI/project/wechat/文章包/image_blacklist.txt\")",
+      "Read(//c/Users/31672/AI/project/wechat/文章包/*/**)",
+      "Read(//c/Users/31672/AI/project/wechat-img/skills/**)",
+      "Read(//c/Users/31672/AI/project/wechat-img/logs/**)",
+      "Read(//c/Users/31672/AI/project/wechat-img/input/**)",
+      "Read(//c/Users/31672/AI/project/wechat-img/output/2026-06-28/**)"
     ]
   }
 }

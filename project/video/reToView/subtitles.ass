@@ -1,0 +1,23 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+ScaledBorderAndShadow: yes
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Main,Microsoft YaHei,72,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,2,0,1,6,2,5,80,80,0,1
+Style: Emphasis,Microsoft YaHei,80,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,2,0,1,7,2,5,80,80,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:03.20,Emphasis,,0,0,0,,{\an5\pos(540,960)\fad(220,220)\t(0,400,)\fscx92\fscy92\t(0,360,\fscx100\fscy100)}法国人的空调，真香了
+Dialogue: 0,0:00:03.20,0:00:07.86,Main,,0,0,0,,{\an5\pos(540,960)\fad(220,220)\t(0,400,)\fscx92\fscy92\t(0,360,\fscx100\fscy100)}8成法国人\N曾觉得空调不环保
+Dialogue: 0,0:00:07.86,0:00:13.62,Main,,0,0,0,,{\an5\pos(540,960)\fad(220,220)\t(0,400,)\fscx92\fscy92\t(0,360,\fscx100\fscy100)}40度高温烤下来\N巴黎一日超50人热死
+Dialogue: 0,0:00:13.62,0:00:18.50,Main,,0,0,0,,{\an5\pos(540,960)\fad(220,220)\t(0,400,)\fscx92\fscy92\t(0,360,\fscx100\fscy100)}空调一机难求\N老外驱车百里疯抢
+Dialogue: 0,0:00:18.50,0:00:23.16,Emphasis,,0,0,0,,{\an5\pos(540,960)\fad(220,220)\t(0,400,)\fscx92\fscy92\t(0,360,\fscx100\fscy100)}曾经嘴硬\N"只有猪才吹空调"
+Dialogue: 0,0:00:23.16,0:00:26.94,Emphasis,,0,0,0,,{\an5\pos(540,960)\fad(220,220)\t(0,400,)\fscx92\fscy92\t(0,360,\fscx100\fscy100)}如今求着\N中国货救命
+Dialogue: 0,0:00:26.94,0:00:32.26,Emphasis,,0,0,0,,{\an5\pos(540,960)\fad(220,220)\t(0,400,)\fscx92\fscy92\t(0,360,\fscx100\fscy100)}中国空调被搬空\N法国人的傲慢\N破防了
+Dialogue: 0,0:00:32.26,0:00:36.26,Emphasis,,0,0,0,,{\an5\pos(540,960)\fad(220,220)\t(0,400,)\fscx92\fscy92\t(0,360,\fscx100\fscy100)}气候面前\N没有谁能嘴硬
+Dialogue: 0,0:00:36.26,0:00:39.60,Emphasis,,0,0,0,,{\an5\pos(540,960)\fad(220,220)\t(0,400,)\fscx92\fscy92\t(0,360,\fscx100\fscy100)}这波国货\N赢麻了

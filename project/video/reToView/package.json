@@ -1,0 +1,13 @@
+{
+  "name": "retoview",
+  "version": "1.0.0",
+  "description": "从热点生成抖音/视频号竖屏视频",
+  "type": "module",
+  "scripts": {
+    "hot": "node fetch-hot.js",
+    "build": "node build-video.js"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0"
+  }
+}

@@ -1,17 +1,21 @@
-# 微信公众号每日 3 篇贴图发文 Skill
+# 微信公众号每日 N 篇贴图发文 Skill
 
 > 项目根目录：`C:\Users\31672\AI\project\wechat-img`
-> 调用方式：用户在 `input/` 放图（文件名就是话题），Claude 在会话里生成文章 JSON，跑脚本推到草稿箱
+> 调用方式：用户在会话里给 1~N 个主题（纯文本，不放图），Claude 自己搜图、下载到 `input/`、生成文章 JSON、跑脚本推到草稿箱
 
 ---
 
 ## 触发条件
 
-用户说「帮我生成对应文章」「发 3 篇」「今天 3 篇」之类，并在 `input/` 目录下放了图。
+用户说「帮我生成对应文章」「发几篇」「今天发」之类，并直接在会话里给了若干个主题文字（1 个、2 个、3 个都行，不再要求预先放图，也不强制 3 个）。
 
-文件命名约定：`NN-话题.jpg`（如 `01-雷军吃早饭被小女孩吐槽.jpg`）。**话题直接从文件名读，不让用户重复说一遍。**
+示例：
+- 用户发「给你一个主题：吴艳妮女子100米栏夺冠」→ 生成 1 篇
+- 用户发「给你三个主题：1、吴艳妮夺冠。2、F1奥地利一练。3、陈妤颉百米夺冠」→ 生成 3 篇
 
-**执行原则（重要）**：用户提供图 + 文件名之后，**不要再问任何澄清问题**，直接按本 skill 完整流程跑完——看图、生成 article.json、推草稿、写日志。中途遇到模糊判断（标题怎么起、CTA 选哪类、时段怎么排）自己定，不要回头问用户。除非遇到真正的阻塞错误（API 调不通、文件不存在等），才停下来报告。
+文件命名约定：`NN-话题.jpg`（如 `01-吴艳妮女子100米栏夺冠.jpg`），按用户给的顺序从 `01` 开始编号。**话题直接从用户消息里取，不让用户重复说一遍。** 篇数 = 用户给的主题数。
+
+**执行原则（重要）**：用户提供主题之后，**不要再问任何澄清问题**，直接按本 skill 完整流程跑完——搜图、下载、看图、生成 article.json、推草稿、写日志。中途遇到模糊判断（标题怎么起、CTA 选哪类、时段怎么排、哪张图更贴主题）自己定，不要回头问用户。除非遇到真正的阻塞错误（API 调不通、所有候选图都下不下来等），才停下来报告。
 
 ---
 
@@ -180,21 +184,116 @@ wechat-img/
 
 ---
 
-## 执行流程（每日 3 篇）
+## 找图流程（用户只给主题，Claude 自己找图）
+
+用户在会话里给若干个主题后，Claude 按以下步骤为每个主题找一张相关图、下载到 `input/NN-话题.jpg`：
+
+### 1. 搜图（主策略：pic.sogou.com + curl）
+
+**实跑验证过的工作路径**（WebSearch 工具在本环境实际不可用，会返回「I don't have access」；WebFetch 对 zh.wikipedia.org 被网络策略拦死）。直接用 Bash 跑 curl 抓搜狗图片搜索的 HTML：
+
+```bash
+cd C:/Users/31672/AI/project/wechat-img
+curl -sL --max-time 30 \
+  -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+  -H "Accept-Language: zh-CN,zh;q=0.9" \
+  -H "Referer: https://pic.sogou.com/" \
+  "https://pic.sogou.com/pics?query=<URL编码后的主题>" -o cache/<slug>_sogou.html
+```
+
+URL 编码：主题里的中文要 `%E5%90%B4%E8%89%B3%E5%A6%AE` 这样编码（UTF-8 字节逐个 `%XX`）。Bash 里可以用 `python -c "import urllib.parse;print(urllib.parse.quote('吴艳妮 100米栏 夺冠'))"` 现编现用。
+
+查询词建议：主题 + 「`夺冠`」「`图片`」「`高清`」之一，命中新闻图的概率高。例如：
+- 主题「吴艳妮女子100米栏夺冠」→ 搜 `吴艳妮 100米栏 夺冠`
+- 主题「F1奥地利大奖赛一练简报」→ 搜 `F1 奥地利大奖赛 一练`
+- 主题「陈妤颉全国冠军赛百米夺冠」→ 搜 `陈妤颉 100米 夺冠`
+
+### 2. 从搜狗 HTML 提图片 URL
+
+搜狗图片搜索的 HTML 里图片 URL 在 `picUrl":"...` 字段中，且 `/` 转义代替 `/`。提取并解码：
+
+```bash
+grep -oE 'picUrl":"[^"]+' cache/<slug>_sogou.html | head -10 | sed 's/\\u002F/\//g'
+```
+
+输出形如：
+```
+picUrl":"https://k.sinaimg.cn/n/news/.../xxx.jpg
+picUrl":"http://n.sinaimg.cn/.../yyy.jpg
+picUrl":"https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F...jpg&thumbnail=660x2147483647&quality=80&type=jpg
+picUrl":"http://sports.news.cn/.../zzz.jpg
+```
+
+**URL 偏好顺序**（按可下载性 + 清晰度）：
+1. `sports.news.cn` / `n.sinaimg.cn` / `k.sinaimg.cn` — 新闻原图，质量好（部分有防盗链，需 Referer）
+2. `dingyue.ws.126.net` 原图 — 网易原图，质量好（**注意剥掉外层 `nimg.ws.126.net/?url=` 代理**，直接下 `dingyue.ws.126.net/...jpg` 那个内部 URL，否则只给 thumbnail）
+3. `pic-bucket.ws.126.net` — 网易图床，无防盗链
+4. `inews.gtimg.com` — 腾讯图床，一般能下
+5. 跳过 `bpic.588ku.com` / `699pic.com` / `huaban.com` / `588ku.com` —— 这些是素材站的样图（带水印），不要
+
+### 3. 下载到 input/
+
+```bash
+curl -sL --max-time 30 \
+  -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+  -H "Referer: https://pic.sogou.com/" \
+  "<候选URL>" -o "input/NN-话题.jpg" -w "HTTP:%{http_code} size:%{size_download}\n"
+```
+
+**验收标准**：
+- HTTP 200
+- 文件大小 > 30KB（小于这个一般是错误页或缩略图）
+- 如果 curl 报 403/404 或文件过小，**立刻换下一个候选 URL 重试**，不要回头问用户
+
+**防盗链处理**：新浪图床（`n.sinaimg.cn` / `k.sinaimg.cn`）有 Referer 校验，下不下来时把 Referer 换成 `https://www.sina.com.cn/` 或 `https://www.baidu.com/` 再试。网易 `dingyue.ws.126.net` 通常无防盗链。
+
+### 4. 看图确认相关性
+
+下载完后用 `sharp.resize(900)` 生成预览版（原图可能太大 Read 不进来），再 Read 看一眼：
+- 图里出现的人/物/场景确实跟主题相关 → 通过，进入文章生成
+- 图是 logo / 广告 / 完全无关的图 → 换下一个候选 URL 重下
+
+**不要跳过这一步**——封面图是文章的门面，下错图等于车祸现场。
+
+### 5. 找不到图怎么办
+
+如果一个主题所有候选 URL 都下不下来（极少见），**不要停下来问用户**，按以下顺序兜底：
+1. 改用 Bing 图片搜索（`https://cn.bing.com/images/search?q=<URL编码>`）——本环境 curl 能通，但要注意 Bing 有时会跑偏主题（曾把「吴艳妮」搜成 sparrow 鸟），需用 WebFetch 验证页面相关性
+2. 改用 360 图片（`https://image.so.com/i?q=<URL编码>`）
+3. 用 Unsplash 搜主题相关场景图（如田径 → `running track`、F1 → `formula 1 car`）作替代
+4. 实在连替代图都找不到 → 这一篇跳过，在日志里标「未发（无图）」，另外两篇照常发
+
+### 6. 并行优化
+
+N 个主题可以**并行搜图 + 并行下载**——在一条消息里发 N 个 curl Bash 调用同时跑。看图必须串行（一次 Read 一张）。
+
+---
+
+## 执行流程（每日 N 篇）
 
 ### 0. 预检查
 
 ```bash
-ls input/    # 看有几张图、文件名是什么
+ls input/    # 看当前目录状态（用户不再预先放图，这里通常是空的或残留旧图）
 ```
 
-确认图的张数和文件名。文件夹名直接用文件名（去 `.jpg`）。
+如果 `input/` 里有跟本次主题无关的旧图（如 `01-国际禁毒日.jpg`），**先清掉**再下新图，避免文件名冲突和误用：
 
-### 1. 看图理解内容
+```bash
+rm -f input/*.jpg
+```
 
-对每张图用 `sharp.resize(900)` 生成预览版（原图可能太大 Read 不进来），再用 Read 工具看。
+### 1. 找图 + 下载（新）
 
-### 2. 生成文章 JSON
+按上面「找图流程」为 N 个主题分别搜索、下载到 `input/01-话题.jpg` ... `NN-话题.jpg`，并 Read 预览确认相关性。
+
+**并行优化**：N 个主题可以**并行搜图**——在一条消息里发 N 个 WebSearch 调用，同时拿到候选 URL。下载也尽量并行（N 个 curl 同时跑）。看图必须串行（一次 Read 一张）。
+
+### 2. 看图理解内容
+
+对每张图用 `sharp.resize(900)` 生成预览版（原图可能太大 Read 不进来），再用 Read 工具看一遍，确认图的内容跟主题对得上。找图阶段已经看过一次，这里是写文章前的最后核对。
+
+### 3. 生成文章 JSON
 
 对每篇文章，按本 skill 要求生成 JSON，写到：
 ```
@@ -203,9 +302,9 @@ output/YYYY-MM-DD/NN-话题/article.json
 
 **复用规则**：如果 `output/YYYY-MM-DD/NN-话题/article.json` 已存在且内容合理（用户没要求重写），直接复用，不重新生成。这在调试时频繁发生。
 
-### 3. 并行推到草稿箱
+### 4. 并行推到草稿箱
 
-**关键技巧**：3 篇可以**并行推送**——在一条消息里发 3 个 Bash 调用，会同时跑，节省等待时间。
+**关键技巧**：N 篇可以**并行推送**——在一条消息里发 N 个 Bash 调用，会同时跑，节省等待时间。
 
 ```bash
 cd C:/Users/31672/AI/project/wechat-img
@@ -216,9 +315,9 @@ node src/index.js --image "input/03-话题3.jpg" --out-dir "output/YYYY-MM-DD/03
 
 每篇终端打印 `草稿 media_id` 后，该篇就在草稿箱。**记下 media_id 写日志要用。**
 
-### 4. 写日志
+### 5. 写日志
 
-更新 `logs/YYYY-MM-DD.md`，记录 3 篇的标题、话题、media_id、发布时段建议。
+更新 `logs/YYYY-MM-DD.md`，记录 N 篇的标题、话题、media_id、发布时段建议。
 
 ---
 
@@ -301,15 +400,16 @@ node src/index.js --image input/x.jpg --out-dir output/2026-06-22/01-xxx/ --auth
 |---|---|---|
 | 代码（`src/index.js` + `html.js` + `cover.js` + `wechat.js` + `config.js`） | 已写好，跑管线 | ❌ 不动 |
 | 配置（`.env`、`skills/wechat-daily.md`、`logs/`） | 已写好 | ❌ 不动 |
-| 输入（`input/NN-话题.jpg`） | 用户放 | ✅ 每天换 |
+| 输入（`input/NN-话题.jpg`） | Claude 搜图 + 下载 | ✅ 每天换 |
 | 文章 JSON（`output/YYYY-MM-DD/NN-话题/article.json`） | Claude 在会话里生成 | ✅ 每天换 |
 | 日志（`logs/YYYY-MM-DD.md`） | Claude 在会话里更新 | ✅ 每天加一行 |
 
 **每天实际发生的事**（全部在会话里，不碰代码）：
 
-1. 看图 → 用 Write 工具写 3 个 `article.json`
-2. 用 Bash 工具跑 3 次 `node src/index.js --image ... --out-dir ...`（并行）
-3. 用 Write 工具更新 `logs/YYYY-MM-DD.md`
+1. WebSearch 搜 N 个主题的图 → curl 下载到 `input/` → Read 预览确认相关性
+2. 看图 → 用 Write 工具写 N 个 `article.json`
+3. 用 Bash 工具跑 N 次 `node src/index.js --image ... --out-dir ...`（并行）
+4. 用 Write 工具更新 `logs/YYYY-MM-DD.md`
 
 **只有这些情况才动 `src/`**（半年都不会动一次）：
 
