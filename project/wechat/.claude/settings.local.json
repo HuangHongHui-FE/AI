@@ -80,7 +80,10 @@
       "Read(//c/Users/31672/AI/project/wechat-img/skills/**)",
       "Read(//c/Users/31672/AI/project/wechat-img/logs/**)",
       "Read(//c/Users/31672/AI/project/wechat-img/input/**)",
-      "Read(//c/Users/31672/AI/project/wechat-img/output/2026-06-28/**)"
+      "Read(//c/Users/31672/AI/project/wechat-img/output/2026-06-28/**)",
+      "Read(//Users/zcy1/code_self/AI/project/wechat-img/**)",
+      "Bash(ls -la input/)",
+      "Bash(ls -la output/2026-06-29/)"
     ]
   }
 }

@@ -58,11 +58,11 @@ export function ctaBlock({ question, follow }) {
   if (question) {
     parts.push(`<span style="display:inline-block;font-size:12px;color:${COLOR};letter-spacing:3px;margin-bottom:10px;font-weight:700;padding:3px 10px;background:#fff;border-radius:10px;">留 言 互 动</span>`);
     parts.push(`<p style="font-size:16px;color:${COLOR_TEXT_DARK};font-weight:600;margin:0 0 8px;line-height:1.6;">${escapeHtml(question)}</p>`);
-    parts.push(`<p style="font-size:14px;color:${COLOR_TEXT_MUTED};margin:0 0 14px;line-height:1.7;">评论区聊聊，是哪句话戳穿了你？<br/>点赞 + 在看，让更多中年人看见。</p>`);
+    parts.push(`<p style="font-size:14px;color:${COLOR_TEXT_MUTED};margin:0 0 14px;line-height:1.7;">评论区聊聊，是哪句话戳穿了你？<br/>点赞 + 在看，让更多人看见。</p>`);
   }
 
   parts.push(`<div style="height:1px;background:${COLOR_BORDER};margin:14px auto;width:60%;"></div>`);
-  parts.push(`<p style="font-size:13px;color:${COLOR_TEXT_GREY};margin:0 0 10px;letter-spacing:1px;">👇 长按关注，每天一篇中年人的心里话</p>`);
+  parts.push(`<p style="font-size:13px;color:${COLOR_TEXT_GREY};margin:0 0 10px;letter-spacing:1px;">👇 长按关注，每天一篇心里话</p>`);
   parts.push(`<span style="display:inline-block;padding:9px 24px;background:linear-gradient(135deg,${COLOR} 0%,#FF9A6B 100%);color:#fff;font-weight:600;font-size:14px;border-radius:20px;letter-spacing:2px;box-shadow:0 3px 8px rgba(255,107,53,0.3);">${escapeHtml(follow || '点 个 关 注 不 迷 路')}</span>`);
   parts.push(`<div style="margin-top:12px;font-size:13px;color:${COLOR_TEXT_GREY};letter-spacing:4px;">❤ 点赞 · 在看 · 转发</div>`);
   parts.push(`</div>`);
