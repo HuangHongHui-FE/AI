@@ -1,0 +1,57 @@
+{
+  "date": "20260716",
+  "ts": "19:51:21",
+  "a_share": [],
+  "a_share_note": "东财限频,A股预约披露日未取到",
+  "us": [
+    {
+      "name": "Tesla",
+      "window": "7月下旬",
+      "report": "Q2 2026",
+      "impact": "新能源车/智驾/机器人"
+    },
+    {
+      "name": "Alphabet",
+      "window": "7月下旬",
+      "report": "Q2 2026",
+      "impact": "AI应用/互联网/广告"
+    },
+    {
+      "name": "Meta",
+      "window": "7月下旬",
+      "report": "Q2 2026",
+      "impact": "AI应用/互联网/算力需求"
+    },
+    {
+      "name": "Amazon",
+      "window": "8月初",
+      "report": "Q2 2026",
+      "impact": "云计算/电商/跨境物流"
+    },
+    {
+      "name": "AMD",
+      "window": "8月初",
+      "report": "Q2 2026",
+      "impact": "半导体/算力芯片"
+    },
+    {
+      "name": "Apple",
+      "window": "8月初",
+      "report": "财年Q3",
+      "impact": "消费电子/果链"
+    },
+    {
+      "name": "Nvidia",
+      "window": "8月中下旬",
+      "report": "财年Q1(5-7月)",
+      "impact": "算力/CPO/半导体(最强传导)"
+    },
+    {
+      "name": "Microsoft",
+      "window": "7月下旬",
+      "report": "财年Q4",
+      "impact": "云计算/AI应用/办公软件"
+    }
+  ],
+  "us_note": "美股窗口为惯例估计,确切日以公司公告为准(提前1-2周)"
+}

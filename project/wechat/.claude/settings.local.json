@@ -83,7 +83,9 @@
       "Read(//c/Users/31672/AI/project/wechat-img/output/2026-06-28/**)",
       "Read(//Users/zcy1/code_self/AI/project/wechat-img/**)",
       "Bash(ls -la input/)",
-      "Bash(ls -la output/2026-06-29/)"
+      "Bash(ls -la output/2026-06-29/)",
+      "Bash(sips -Z 1280 -s formatOptions 70 02-吵完架我和老公必须一起吃顿火锅/cover.jpg --out 02-吵完架我和老公必须一起吃顿火锅/cover.jpg)",
+      "Skill(update-config)"
     ]
   }
 }

@@ -19,7 +19,8 @@
       "Bash(mv \"C:/Users/31672/AI/project/wechat/今日文章包/\"* \"C:/Users/31672/AI/project/wechat/文章包/20260609/\")",
       "Bash(rmdir \"C:/Users/31672/AI/project/wechat/今日文章包\")",
       "Bash(cmd.exe *)",
-      "Bash(powershell.exe *)"
+      "Bash(powershell.exe *)",
+      "Read(//Users/zcy1/.claude/**)"
     ]
   }
 }
