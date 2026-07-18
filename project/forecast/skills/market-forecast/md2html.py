@@ -9,18 +9,23 @@ dst = src[:-3] + ".html" if src.endswith(".md") else src + ".html"
 lines = open(src, encoding="utf-8").read().splitlines()
 
 CSS = """
-body{font-family:-apple-system,"PingFang SC",sans-serif;max-width:1200px;margin:20px auto;padding:0 16px;color:#222;line-height:1.6}
-h1{font-size:1.4em;border-bottom:2px solid #c00;padding-bottom:6px}
-h2{font-size:1.15em;margin-top:28px;border-left:4px solid #c00;padding-left:8px}
-h3{font-size:1.05em;margin-top:18px;color:#333}
-blockquote{color:#666;border-left:3px solid #ddd;padding-left:12px;margin:8px 0;font-size:.9em}
-table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.85em}
-th,td{border:1px solid #e0e0e0;padding:5px 8px;text-align:left;white-space:nowrap}
-th{background:#f5f5f5}
-tr:nth-child(even){background:#fafafa}
-.up{color:#c00;font-weight:bold}  /* 涨红 */
-.down{color:#0a0;font-weight:bold} /* 跌绿 */
-code{background:#f4f4f4;padding:1px 4px;border-radius:3px;font-size:.9em}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:1380px;margin:24px auto;padding:0 28px;color:#1f2329;line-height:1.75;background:#fff}
+h1{font-size:1.45em;border-bottom:3px solid #c0392b;padding-bottom:10px;margin-bottom:6px}
+h2{font-size:1.18em;margin:34px 0 14px;border-left:5px solid #c0392b;padding:6px 0 6px 12px;background:linear-gradient(90deg,#faf0f0,#fff);border-radius:0 4px 4px 0}
+h3{font-size:1.06em;margin:24px 0 10px;color:#2c3e50;padding-bottom:4px;border-bottom:1px dashed #e0e0e0}
+blockquote{color:#7a7a7a;border-left:3px solid #ddd;padding:8px 14px;margin:12px 0;font-size:.92em;background:#fafafa;border-radius:0 6px 6px 0}
+p{margin:8px 0}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid #e8e8e8;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+table{border-collapse:collapse;width:100%;font-size:.9em}
+th,td{border-bottom:1px solid #eee;padding:9px 12px;text-align:left;vertical-align:top}
+td{white-space:normal;min-width:54px;word-break:break-word}
+th{background:#f0f3f7;color:#34495e;font-weight:600;white-space:nowrap}
+tr:nth-child(even){background:#fafbfc}
+tr:hover{background:#fff7e6}
+.up{color:#c0392b;font-weight:600}
+.down{color:#27ae60;font-weight:600}
+strong{color:#c0392b}
+code{background:#f4f4f4;padding:1px 5px;border-radius:4px;font-size:.88em;color:#c7254e}
 """
 
 def colorize(s):
@@ -59,11 +64,11 @@ while i < len(lines):
                 rows.append([c.strip() for c in lines[i].strip("|").split("|")])
             i += 1
         if rows:
-            out.append("<table>")
+            out.append('<div class="table-wrap"><table>')
             out.append("<tr>" + "".join(f"<th>{inline(h)}</th>" for h in rows[0]) + "</tr>")
             for r in rows[1:]:
                 out.append("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>")
-            out.append("</table>")
+            out.append("</table></div>")
         continue
     elif ln.strip() == "":
         out.append("")

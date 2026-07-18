@@ -56,7 +56,10 @@
 - 外盘：纳指{{NDX}}%/费半{{SOX}}%/A50期指{{A50}}%/恒指期货{{HSI}}% — overseas.json
 - 市场情绪：赚钱效应{{SENT_RATIO}}%/情绪温度{{SENT_TEMP}}(涨停{{SENT_ZT}}/跌停{{SENT_DT}}) — sentiment.json
 - 财报事件：{{EARNINGS_STATUS}} — earnings.json
+- 板块龙头业绩预告：{{LEADERS_FORECAST}} — earnings.json/a_leaders
 - 资金面：{{FLOW_STATUS}} — flow.json
+- 盘中分时资金：{{FLOW_INTRADAY_STATUS}} — flow_intraday.json
+- 是否放量：{{VOLUME_STATUS}} — quotes.json(成交额+涨跌幅)
 - 新闻：{{NEWS_STATUS}} — news.txt
 
 ## 一句话总结

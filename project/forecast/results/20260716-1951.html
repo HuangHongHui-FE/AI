@@ -1,16 +1,21 @@
 <html><head><meta charset='utf-8'><style>
-body{font-family:-apple-system,"PingFang SC",sans-serif;max-width:1200px;margin:20px auto;padding:0 16px;color:#222;line-height:1.6}
-h1{font-size:1.4em;border-bottom:2px solid #c00;padding-bottom:6px}
-h2{font-size:1.15em;margin-top:28px;border-left:4px solid #c00;padding-left:8px}
-h3{font-size:1.05em;margin-top:18px;color:#333}
-blockquote{color:#666;border-left:3px solid #ddd;padding-left:12px;margin:8px 0;font-size:.9em}
-table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.85em}
-th,td{border:1px solid #e0e0e0;padding:5px 8px;text-align:left;white-space:nowrap}
-th{background:#f5f5f5}
-tr:nth-child(even){background:#fafafa}
-.up{color:#c00;font-weight:bold}  /* 涨红 */
-.down{color:#0a0;font-weight:bold} /* 跌绿 */
-code{background:#f4f4f4;padding:1px 4px;border-radius:3px;font-size:.9em}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:1380px;margin:24px auto;padding:0 28px;color:#1f2329;line-height:1.75;background:#fff}
+h1{font-size:1.45em;border-bottom:3px solid #c0392b;padding-bottom:10px;margin-bottom:6px}
+h2{font-size:1.18em;margin:34px 0 14px;border-left:5px solid #c0392b;padding:6px 0 6px 12px;background:linear-gradient(90deg,#faf0f0,#fff);border-radius:0 4px 4px 0}
+h3{font-size:1.06em;margin:24px 0 10px;color:#2c3e50;padding-bottom:4px;border-bottom:1px dashed #e0e0e0}
+blockquote{color:#7a7a7a;border-left:3px solid #ddd;padding:8px 14px;margin:12px 0;font-size:.92em;background:#fafafa;border-radius:0 6px 6px 0}
+p{margin:8px 0}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid #e8e8e8;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+table{border-collapse:collapse;width:100%;font-size:.9em}
+th,td{border-bottom:1px solid #eee;padding:9px 12px;text-align:left;vertical-align:top}
+td{white-space:normal;min-width:54px;word-break:break-word}
+th{background:#f0f3f7;color:#34495e;font-weight:600;white-space:nowrap}
+tr:nth-child(even){background:#fafbfc}
+tr:hover{background:#fff7e6}
+.up{color:#c0392b;font-weight:600}
+.down{color:#27ae60;font-weight:600}
+strong{color:#c0392b}
+code{background:#f4f4f4;padding:1px 5px;border-radius:4px;font-size:.88em;color:#c7254e}
 </style></head><body>
 
 <h1>2026<span class="down">-07</span><span class="down">-16</span> 19:51 收盘后预测 → 次日板块研判</h1>
@@ -33,7 +38,7 @@ code{background:#f4f4f4;padding:1px 4px;border-radius:3px;font-size:.9em}
 
 <h3>今日实盘解读（归因）</h3>
 
-<table>
+<div class="table-wrap"><table>
 <tr><th>板块</th><th>代码</th><th>今日涨跌</th><th>成交额(亿)</th><th>机构/游资/散户</th><th>资金反推</th><th>结构</th><th>原因</th><th>数据源</th></tr>
 <tr><td>半导体</td><td>159995</td><td><span class="down">-5.73%</span></td><td>13.7</td><td>未取到</td><td>天量流出</td><td>派发</td><td>费半<span class="down">-2.08%</span>传导+破位放量杀跌</td><td>overseas/quotes</td></tr>
 <tr><td>CPO</td><td>515880</td><td><span class="down">-3.56%</span></td><td>55.0</td><td>未取到</td><td>天量流出</td><td>派发</td><td>费半传导<span class="up">+55</span>亿天量领跌</td><td>overseas/quotes</td></tr>
@@ -44,7 +49,7 @@ code{background:#f4f4f4;padding:1px 4px;border-radius:3px;font-size:.9em}
 <tr><td>房地产</td><td>512200</td><td><span class="up">+1.26%</span></td><td>1.6</td><td>未取到</td><td>缩量流入</td><td>—</td><td>政策传闻盘面反推，逆势领涨</td><td>quotes</td></tr>
 <tr><td>医药医疗</td><td>512170</td><td><span class="up">+0.30%</span></td><td>11.0</td><td>未取到</td><td>放量流入</td><td>抱团</td><td>防御逆势，资金避险</td><td>quotes</td></tr>
 <tr><td>食品饮料</td><td>515170</td><td><span class="up">+0.65%</span></td><td>1.2</td><td>未取到</td><td>缩量流入</td><td>—</td><td>防御抗跌</td><td>quotes</td></tr>
-</table>
+</table></div>
 
 <blockquote>角色拆分因 flow.json 限频不可用，以成交额+涨跌方向反推资金：放量上涨=流入、放量下跌=流出。</blockquote>
 
@@ -54,7 +59,7 @@ code{background:#f4f4f4;padding:1px 4px;border-radius:3px;font-size:.9em}
 
 <p>#### A股科技成长</p>
 
-<table>
+<div class="table-wrap"><table>
 <tr><th>板块</th><th>代码</th><th>方向</th><th>置信</th><th>综合分</th><th>外盘(0.25)</th><th>资金(0.25)</th><th>技术(0.25)</th><th>情绪(0.15)</th><th>消息(0.10)</th><th>风险</th></tr>
 <tr><td>半导体</td><td>159995</td><td><span class="down">▼</span></td><td>H</td><td><span class="down">-2.15</span></td><td><span class="down">-2</span> 费半<span class="down">-2.08%</span> overseas</td><td><span class="down">-2</span> 天量13.7亿流出 quotes反推</td><td><span class="down">-2</span> 破位放量 quotes</td><td><span class="down">-1</span> 冰点 sentiment/quotes</td><td><span class="down">-1</span> 盘面反推</td><td>连日破位超跌反弹博弈,趋势已坏</td></tr>
 <tr><td>CPO</td><td>515880</td><td><span class="down">▼</span></td><td>H</td><td><span class="down">-2.15</span></td><td><span class="down">-2</span> 费半<span class="down">-2.08%</span> overseas</td><td><span class="down">-2</span> 天量55亿流出 quotes反推</td><td><span class="down">-2</span> 破昨收 quotes</td><td><span class="down">-1</span> 领跌 sentiment/quotes</td><td>0 盘面反推</td><td>天量抛压消化需时,破位下行</td></tr>
@@ -65,11 +70,11 @@ code{background:#f4f4f4;padding:1px 4px;border-radius:3px;font-size:.9em}
 <tr><td>新能源车</td><td>515030</td><td><span class="down">▼</span></td><td>L</td><td><span class="down">-0.53</span></td><td><span class="down">-0.5</span> A50<span class="down">-0.11%</span> overseas</td><td><span class="down">-1</span> 缩量微跌 quotes反推</td><td><span class="down">-1</span> 破昨收 quotes</td><td>0 偏冷 sentiment/quotes</td><td><span class="up">+1</span> Tesla临近 earnings</td><td>Tesla财报预期托底</td></tr>
 <tr><td>光伏</td><td>515790</td><td><span class="down">▼</span></td><td>L</td><td><span class="down">-0.78</span></td><td><span class="down">-0.5</span> A50 overseas</td><td><span class="down">-1</span> 放量流出 quotes反推</td><td><span class="down">-1</span> 未触昨收 quotes</td><td><span class="down">-1</span> 偏冷 sentiment/quotes</td><td>0 无催化 盘面反推</td><td>无利好,延续弱势</td></tr>
 <tr><td>创新药A股</td><td>515120</td><td>△</td><td>L</td><td><span class="down">-0.38</span></td><td><span class="down">-0.5</span> 纳指 overseas</td><td><span class="down">-1</span> 放量17.2亿分歧 quotes反推</td><td>0 冲高回落十字星 quotes</td><td>0 偏冷 sentiment/quotes</td><td>0 无 盘面反推</td><td>放量十字星,方向待选</td></tr>
-</table>
+</table></div>
 
 <p>#### A股宽基 / 防御 / 周期</p>
 
-<table>
+<div class="table-wrap"><table>
 <tr><th>板块</th><th>代码</th><th>方向</th><th>置信</th><th>综合分</th><th>外盘(0.25)</th><th>资金(0.25)</th><th>技术(0.25)</th><th>情绪(0.15)</th><th>消息(0.10)</th><th>风险</th></tr>
 <tr><td>科创50</td><td>588000</td><td><span class="down">▼</span></td><td>H</td><td><span class="down">-2.15</span></td><td><span class="down">-2</span> 费半 overseas</td><td><span class="down">-2</span> 天量90亿流出 quotes反推</td><td><span class="down">-2</span> 破位 quotes</td><td><span class="down">-1</span> 偏冷 sentiment/quotes</td><td>0 无 earnings</td><td>半导体集中,超跌反抽但破位</td></tr>
 <tr><td>创业板50</td><td>159949</td><td><span class="down">▼</span></td><td>M</td><td><span class="down">-1.15</span></td><td><span class="down">-1</span> 纳指 overseas</td><td><span class="down">-1</span> 放量22.7亿流出 quotes反推</td><td><span class="down">-1</span> 破昨收 quotes</td><td><span class="down">-1</span> 偏冷 sentiment/quotes</td><td>0 无</td><td>跟随科创</td></tr>
@@ -87,18 +92,18 @@ code{background:#f4f4f4;padding:1px 4px;border-radius:3px;font-size:.9em}
 <tr><td>农业种植</td><td>159825</td><td>△</td><td>L</td><td><span class="up">+0.28</span></td><td><span class="down">-0.5</span> A50 overseas</td><td>0 缩量 quotes</td><td><span class="up">+1</span> 逆势收阳 quotes</td><td><span class="up">+1</span> 防御 sentiment/quotes</td><td>0 无</td><td>独立节奏</td></tr>
 <tr><td>稀土永磁</td><td>159711</td><td>△</td><td>L</td><td><span class="up">+0.28</span></td><td><span class="down">-0.5</span> A50 overseas</td><td>0 缩量 quotes</td><td><span class="up">+1</span> 逆势收阳<span class="up">+1.54%</span> quotes</td><td><span class="up">+1</span> 逆势领涨 sentiment/quotes</td><td>0 无</td><td>题材独立</td></tr>
 <tr><td>红利低波</td><td>515080</td><td><span class="down">▼</span></td><td>L</td><td><span class="down">-0.78</span></td><td><span class="down">-0.5</span> A50 overseas</td><td><span class="down">-1</span> 放量收阴 quotes反推</td><td><span class="down">-1</span> 破昨收 quotes</td><td><span class="down">-1</span> 偏冷 sentiment/quotes</td><td>0 无</td><td>防御或限跌幅</td></tr>
-</table>
+</table></div>
 
 <p>#### 港股（恒指期货<span class="down">-0.25%</span>今夜偏空）</p>
 
-<table>
+<div class="table-wrap"><table>
 <tr><th>板块</th><th>代码</th><th>方向</th><th>置信</th><th>综合分</th><th>外盘(0.25)</th><th>资金(0.25)</th><th>技术(0.25)</th><th>情绪(0.15)</th><th>消息(0.10)</th><th>风险</th></tr>
 <tr><td>港股创新药</td><td>513120</td><td><span class="down">▼</span></td><td>M</td><td><span class="down">-1.15</span></td><td><span class="down">-1</span> 恒指期货<span class="down">-0.25%</span> overseas</td><td><span class="down">-2</span> 巨量122.5亿流出 quotes反推</td><td><span class="down">-1</span> 冲高回落 quotes</td><td><span class="down">-1</span> 巨量分歧 sentiment/quotes</td><td>0 无</td><td>巨量分歧或酝酿反弹,短期承压</td></tr>
 <tr><td>恒生科技</td><td>513130</td><td>△</td><td>L</td><td><span class="up">+0.15</span></td><td><span class="down">-1</span> 恒指期货 overseas</td><td>0 放量42亿流入 quotes反推</td><td><span class="up">+1</span> 逆势收阳<span class="up">+1.68%</span> quotes</td><td><span class="up">+1</span> 逆势抗跌 sentiment/quotes</td><td>0 无</td><td>今日已涨,恒指偏空警惕回吐</td></tr>
 <tr><td>港股互联网</td><td>513330</td><td><span class="up">▲</span></td><td>M</td><td><span class="up">+0.75</span></td><td><span class="down">-1</span> 恒指期货 overseas</td><td><span class="up">+1</span> 放量33.9亿流入 quotes反推</td><td><span class="up">+2</span> 逆势领涨<span class="up">+2.84%</span> quotes</td><td><span class="up">+1</span> 最强抱团 sentiment/quotes</td><td><span class="up">+1</span> Meta/Alphabet/Amazon临近 earnings</td><td>今日大涨+恒指偏空,涨幅收敛</td></tr>
 <tr><td>恒生红利</td><td>513080</td><td>△</td><td>L</td><td>0.0</td><td><span class="down">-1</span> 恒指期货 overseas</td><td>0 缩量 quotes</td><td><span class="up">+1</span> 微涨<span class="up">+0.52%</span> quotes</td><td>0 防御 sentiment/quotes</td><td>0 无</td><td>流动性小</td></tr>
 <tr><td>港股金融</td><td>513190</td><td>△</td><td>L</td><td><span class="down">-0.25</span></td><td><span class="down">-1</span> 恒指期货 overseas</td><td>0 冲高回落 quotes反推</td><td>0 冲高1.765回落收微跌 quotes</td><td>0 中性 sentiment/quotes</td><td>0 无</td><td>中性</td></tr>
-</table>
+</table></div>
 
 <h3>原始依据摘要（可追溯）</h3>
 <blockquote>原始数据快照见 cache/20260716/。关键值摘录：</blockquote>

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "sharp": "^0.35.3",
+    "tesseract.js": "^7.0.0"
+  }
+}
