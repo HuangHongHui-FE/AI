@@ -87,13 +87,38 @@ JSON 结构：
   await generateCover({ imagePath, slogan: article.cover_slogan || '', outPath: coverPath });
 
   console.log(`[3/4] 转 HTML + 写本地预览...`);
-  const bodyHtml = markdownToHtml(article.body_markdown);
+  const theme = article.theme || null;
+
+  // 内文插图：扫描 body_markdown 里的本地图片路径，上传为微信正文图 URL 替换
+  let bodyMd = article.body_markdown;
+  const imgRe = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  let mm;
+  const inlineImgs = [];
+  while ((mm = imgRe.exec(bodyMd))) {
+    if (/^https?:\/\//.test(mm[2])) continue; // 网络 URL 不处理
+    const abs = resolve(mm[2]);
+    if (existsSync(abs)) inlineImgs.push({ orig: mm[0], path: abs, alt: mm[1] });
+  }
+  if (!dryRun && inlineImgs.length) {
+    console.log(`      内文图 ${inlineImgs.length} 张待上传`);
+    for (const u of inlineImgs) {
+      try {
+        const url = await uploadArticleImage(u.path);
+        bodyMd = bodyMd.replace(u.orig, `![${u.alt}](${url})`);
+        console.log(`      ✓ 内文图已上传: ${u.path.split('/').pop()}`);
+      } catch (e) {
+        console.warn(`      内文图上传失败 ${u.path.split('/').pop()}: ${e.message}`);
+      }
+    }
+  }
+
+  const bodyHtml = markdownToHtml(bodyMd, theme);
   const ctaHtml = ctaBlock({
     question: article.cta_question || article.cta || '',
     follow: article.cta_follow || '点 个 关 注 不 迷 路',
-  });
+  }, theme);
 
-  const previewHtml = fullPageHtml(article.title, bodyHtml, ctaHtml);
+  const previewHtml = fullPageHtml(article.title, bodyHtml, ctaHtml, theme);
   await writeFile(join(outDir, 'article.html'), previewHtml);
 
   // 推到微信的内容 = 正文 + CTA（不包含外层 page 包装，微信会自己套壳）
