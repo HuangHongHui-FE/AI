@@ -1,0 +1,44 @@
+{
+  "type": "wechat-image-post",
+  "title": "豆包清理C盘还是太权威了",
+  "summary": "AI清理C盘，豆包成了权威。清这活儿，终于不用求人。",
+  "cover": {
+    "description": "电脑C盘清理界面",
+    "placeholder": "cover-20260718g.jpg"
+  },
+  "images": [
+    {
+      "caption": "清理C盘，是个老大难",
+      "text": "系统盘飘红不是一天两天。清又不敢清，不清又卡，两头难。",
+      "image_description": "电脑C盘飘红界面"
+    },
+    {
+      "caption": "豆包出手，稳妥了",
+      "text": "AI来清，比手抖强。知道哪些能动哪些不能动，这才叫权威。",
+      "image_description": "AI清理C盘操作"
+    },
+    {
+      "caption": "权威，是判得准",
+      "text": "清C盘的权威不是凶，是准。一删一个准，不误伤系统文件。",
+      "image_description": "C盘文件清理列表"
+    },
+    {
+      "caption": "以前清C盘像扫雷",
+      "text": "乱删一个系统文件，电脑当场罢工。现在有AI兜底，稳多了。",
+      "image_description": "电脑磁盘管理界面"
+    },
+    {
+      "caption": "省下求人的功夫",
+      "text": "以前清个盘得找会弄的哥们。现在豆包一句指令，自己来。",
+      "image_description": "AI助手对话界面"
+    },
+    {
+      "caption": "AI的活，越来越多",
+      "text": "从聊天到清盘，AI在往生活深处钻。权威，是这么一点点攒出来的。",
+      "image_description": "AI应用场景"
+    }
+  ],
+  "ending": "清C盘这种苦活都被AI包了。你被AI省过哪些麻烦事？评论区安利一个让你惊呼好用的瞬间。",
+  "style": "科技、共鸣、生活观察",
+  "color_tone": "蓝、亮"
+}

@@ -1,0 +1,16 @@
+{
+  "type": "wechat-image-post",
+  "title": "CRYBABY心动了，谁破防",
+  "summary": "CRYBABY心动了，潮玩圈又炸了。这小泪娃，凭什么让人上头。",
+  "cover": { "description": "CRYBABY潮玩公仔", "placeholder": "cover-20260720d.jpg" },
+  "images": [
+    { "caption": "一眼心动，不讲理", "text": "CRYBABY那滴泪，戳中人最软的地方。心动不讲道理。" },
+    { "caption": "潮玩贵，贵在情绪", "text": "不就一个塑料娃？贵的是它替你哭的那股劲。" },
+    { "caption": "收藏的是投射", "text": "我们买的不是娃，是那个心里也总想哭的自己。" },
+    { "caption": "抢购，是群体仪式", "text": "发售那刻全网抢。抢的不是娃，是同一刻的心动。" },
+    { "caption": "小泪娃，大生意", "text": "一个IP带火一整圈。情绪经济，CRYBABY是教科书。" },
+    { "caption": "心动了，就值了", "text": "千金难买心头好。心动那刻，就不亏。" }
+  ],
+  "ending": "CRYBABY这滴泪，让多少人破防。你为哪个小玩意儿心动过头？评论区晒一个你的心头好。",
+  "style": "潮流、情绪、共鸣", "color_tone": "粉、亮"
+}
