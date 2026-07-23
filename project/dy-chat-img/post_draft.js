@@ -2,7 +2,7 @@ const fs = require('fs');
 const https = require('https');
 const { execSync } = require('child_process');
 
-const ACCESS_TOKEN = '106_mUgtbv0_HdUpHdxil2Y5l1B0puoBk7jV8bs1EUHSa0xeAOCeEIbEfHmVO6SBLKlZMqn9FnU0d84xbF6NdnSCsWePQbIaoS3jU1JuWRMHDB9J9JKnSSE6-49UuakSMTgAEACWD';
+const ACCESS_TOKEN = '106_Q6FXBzf7B_y2g1d0FTXyipvVWFL9qVENLw3tO-mk3-8S8_FbpbsLQC7puHKqDYcNVsEAsgSm-Fh3vwNXeeelE2UuoDZt37mdPwi1ar7fXgRIRVFsRbQR3tXSPMAJCCdAGAYRR';
 
 // 支持 --draft <file> 指定草稿 JSON，默认用示例文件
 const args = process.argv.slice(2);
@@ -56,12 +56,19 @@ async function main() {
     imageList.push({ image_media_id: uploadImage(`img${i}.jpg`) });
   }
 
-  // 拼接贴图纯文本 content
-  const parts = [draft.summary];
-  draft.images.forEach((item, idx) => {
-    parts.push(`${idx + 1}. ${item.caption}\n${item.text}`);
-  });
-  parts.push(draft.ending);
+  // 拼接贴图纯文本 content：优先用 body（整篇一段讲透主题，不逐图），兼容旧逐图草稿
+  let content;
+  if (draft.body) {
+    // 新规范：文本只讲共同主题，不逐图配文
+    content = draft.body;
+  } else {
+    const parts = [draft.summary];
+    draft.images.forEach((item, idx) => {
+      parts.push(`${idx + 1}. ${item.caption}\n${item.text}`);
+    });
+    parts.push(draft.ending);
+    content = parts.join('\n\n');
+  }
 
   const payload = {
     articles: [
@@ -70,7 +77,7 @@ async function main() {
         title: draft.title,
         author: '',
         digest: draft.summary,
-        content: parts.join('\n\n'),
+        content,
         content_source_url: '',
         thumb_media_id: thumbMediaId,
         show_cover_pic: 0,
