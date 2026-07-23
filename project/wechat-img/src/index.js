@@ -1,14 +1,40 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { existsSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { config, ensureDirs } from "./config.js";
 import { generateCover } from "./cover.js";
-import { markdownToHtml, fullPageHtml, ctaBlock } from "./html.js";
+import { markdownToHtml, fullPageHtml, ctaBlock, pickRandomThemeName } from "./html.js";
 import {
   uploadPermanentImage,
   uploadArticleImage,
   createDraft,
 } from "./wechat.js";
+
+// 读 logs 取近 N 篇已用 theme（格式 "theme记录(供下批避撞)：01cool/02minimal/..."），供随机去重
+function readRecentThemes(n = 5) {
+  const dir = "logs";
+  let files = [];
+  try {
+    files = readdirSync(dir).filter((f) => f.endsWith(".md")).sort().reverse();
+  } catch {
+    return [];
+  }
+  const re = /theme记录[^：]*：\s*([0-9]+[a-zA-Z]+(?:\/[0-9]+[a-zA-Z]+)*)/g;
+  const all = [];
+  for (const f of files) {
+    try {
+      const txt = readFileSync(join(dir, f), "utf8");
+      let m;
+      while ((m = re.exec(txt))) {
+        all.push(...m[1].split("/").map((s) => s.replace(/^[0-9]+/, "")));
+      }
+    } catch {
+      // 单文件读失败跳过
+    }
+    if (all.length >= n) break;
+  }
+  return all.slice(-n);
+}
 
 function parseArgs(argv) {
   const args = { _: [] };
@@ -100,7 +126,15 @@ JSON 结构：
   });
 
   console.log(`[3/4] 转 HTML + 写本地预览...`);
-  const theme = article.theme || null;
+  // 主题：显式指定优先；否则随机抽一个避开近 5 篇已用（去同质化）
+  let theme = article.theme || null;
+  if (!theme) {
+    const exclude = readRecentThemes(5);
+    theme = pickRandomThemeName(exclude);
+    console.log(
+      `      随机主题：${theme}${exclude.length ? `（避开近 ${exclude.length} 篇 ${exclude.join("/")}` : ""}）`,
+    );
+  }
 
   // 内文插图：扫描 body_markdown 里的本地图片路径，上传为微信正文图 URL 替换
   let bodyMd = article.body_markdown;
