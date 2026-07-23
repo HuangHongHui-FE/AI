@@ -3,9 +3,10 @@
 import sys, re, html
 
 if len(sys.argv) < 2:
-    print("usage: md2html.py <input.md>"); sys.exit(1)
+    print("usage: md2html.py <input.md> [output.html]"); sys.exit(1)
 src = sys.argv[1]
-dst = src[:-3] + ".html" if src.endswith(".md") else src + ".html"
+# 支持第二参数指定输出路径(用于不生成md文件、直接产出html到results/)
+dst = sys.argv[2] if len(sys.argv) >= 3 else (src[:-3] + ".html" if src.endswith(".md") else src + ".html")
 lines = open(src, encoding="utf-8").read().splitlines()
 
 CSS = """
