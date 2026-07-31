@@ -19,7 +19,7 @@ function readRecentThemes(n = 5) {
   } catch {
     return [];
   }
-  const re = /theme记录[^：]*：\s*([0-9]+[a-zA-Z]+(?:\/[0-9]+[a-zA-Z]+)*)/g;
+  const re = /theme\s*记录[^：]*：\s*([0-9]+[a-zA-Z]+(?:\/[0-9]+[a-zA-Z]+)*)/g;
   const all = [];
   for (const f of files) {
     try {
@@ -107,6 +107,24 @@ JSON 结构：
     }
   }
 
+  // 推草稿前硬门：强制内嵌 preflight，FAIL 拒推（保证自查一定进行，不靠自觉，物理跳不过）
+  const { spawnSync } = await import("node:child_process");
+  const pfPath = resolve("src/preflight.js");
+  if (!existsSync(pfPath)) {
+    console.error(`✗ 找不到 preflight 脚本：${pfPath}`);
+    process.exit(1);
+  }
+  const pfRes = spawnSync(process.execPath, [pfPath, articlePath], {
+    stdio: "inherit",
+  });
+  if (pfRes.status !== 0) {
+    console.error(
+      "\n✗ preflight 硬门未过，拒推草稿——回炉改对应段落再扫，不可跳过。",
+    );
+    process.exit(1);
+  }
+  console.log("      ✓ preflight 硬门已过，进入推送流程");
+
   const author = args.author ? String(args.author) : config.author;
   const dryRun = !!args["dry-run"];
   const embedImage = args["embed-image"] !== false && config.embedOriginalImage;
@@ -135,6 +153,8 @@ JSON 结构：
       `      随机主题：${theme}${exclude.length ? `（避开近 ${exclude.length} 篇 ${exclude.join("/")}` : ""}）`,
     );
   }
+  // 把随机抽到的 theme 写回 article.json，供 Claude 写日志记实际所用 theme（避免 stdout 丢失）
+  await writeFile(articlePath, JSON.stringify({ ...article, theme }, null, 2), "utf8");
 
   // 内文插图：扫描 body_markdown 里的本地图片路径，上传为微信正文图 URL 替换
   let bodyMd = article.body_markdown;

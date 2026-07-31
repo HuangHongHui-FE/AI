@@ -535,6 +535,12 @@ node src/index.js --image input/x.jpg --out-dir output/2026-06-22/01-xxx/ --no-e
 
 # 覆盖署名
 node src/index.js --image input/x.jpg --out-dir output/2026-06-22/01-xxx/ --author "其他名字"
+
+# 生成前读近 5 篇已用维度，拼进生成 prompt 做轮换去重（热点 skill 必跑，见 hotspot-publish）
+node src/recent.js 5
+
+# 推草稿前硬门：FAIL 则 exit 1 拒推（标题情绪尾/字数/六段全套/禁用词/存疑词/AI 金句/ASCII 引号/外链）
+node src/preflight.js "output/YYYY-MM-DD/NN-话题/article.json"
 ```
 
 ---

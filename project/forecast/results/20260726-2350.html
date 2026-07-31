@@ -1,0 +1,199 @@
+<html><head><meta charset='utf-8'><style>
+*{box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:1400px;margin:20px auto;padding:0 28px 60px;color:#1f2329;line-height:1.7;background:#f7f8fa}
+h1{font-size:1.5em;border-bottom:3px solid #c0392b;padding-bottom:10px;margin:8px 0 4px}
+h2{font-size:1.18em;margin:30px 0 12px;padding:8px 0 8px 14px;border-left:5px solid #c0392b;background:#fff;border-radius:0 6px 6px 0;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+h3{font-size:1.04em;margin:22px 0 8px;color:#2c3e50;padding-bottom:4px;border-bottom:1px dashed #d8d8d8}
+blockquote{color:#666;border-left:3px solid #d0d0d0;padding:6px 14px;margin:10px 0;font-size:.92em;background:#fff;border-radius:0 6px 6px 0}
+p{margin:7px 0}
+strong{color:#c0392b}
+code{background:#eef1f4;padding:1px 5px;border-radius:4px;font-size:.86em;color:#c7254e}
+.table-wrap{overflow-x:auto;margin:14px 0;border:1px solid #e6e8eb;border-radius:8px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+table{border-collapse:collapse;width:100%;font-size:.9em}
+th,td{border-bottom:1px solid #eef0f2;padding:8px 11px;text-align:left;vertical-align:top}
+td{min-width:50px;word-break:break-word}
+th{background:#f0f3f7;color:#34495e;font-weight:600;white-space:nowrap;position:sticky;top:0}
+tr:nth-child(even){background:#fafbfc}
+tr:hover{background:#fff7e6}
+.up{color:#c0392b;font-weight:600}
+.down{color:#27ae60;font-weight:600}
+/* 方向徽章 */
+.badge{display:inline-block;padding:2px 9px;border-radius:11px;color:#fff;font-size:.86em;font-weight:600;min-width:30px;text-align:center}
+.b-up{background:#e74c3c}.b-down{background:#27ae60}.b-flat{background:#95a5a6}
+/* 方向速览卡片 */
+.dir-summary{display:flex;gap:10px;margin:14px 0;flex-wrap:wrap}
+.dir-group{flex:1;min-width:300px;background:#fff;border:1px solid #e6e8eb;border-radius:8px;padding:10px 14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.dir-group.up{border-top:4px solid #e74c3c}
+.dir-group.down{border-top:4px solid #27ae60}
+.dir-group.flat{border-top:4px solid #95a5a6}
+.dir-group h4{margin:0 0 8px;font-size:.98em}
+.dir-group ul{list-style:none;padding:0;margin:0}
+.dir-group li{padding:5px 0;border-bottom:1px dashed #f0f0f0;font-size:.92em;display:flex;justify-content:space-between;gap:8px}
+.dir-group li:last-child{border-bottom:none}
+.dir-group .nm{font-weight:600}
+.dir-group .meta{color:#888;font-size:.88em}
+</style></head><body>
+<h1>20260726-2350 深夜修正</h1>
+
+<blockquote>免责：方向性研判，非投资建议。隔夜黑天鹅不可预测。</blockquote>
+<blockquote>生成时间：2026-07-26 23:50  预测目标：2026-07-27 周一（7/25-26 周末休市，目标日即下周一）</blockquote>
+
+<h2>大盘先行</h2>
+<p>- 纳指：-1.15%  费半：-4.25%  标普：+0.05%</p>
+<p>- 富时A50期指：+0.06%  恒指期货：+0.26%</p>
+<p>- 数据源：overseas.json（美股 2026-07-25 05:30 收盘定格值；A50/恒指为周五夜盘定格值，周末无夜盘更新）</p>
+
+<h2>今日实盘解读（7/24 周五收盘归因）</h2>
+
+<blockquote>周日抓数，&quot;今日&quot;=上周五 7/24 收盘。全市场赚钱效应 10.5% 极度冰点（涨 552/跌 4683），涨停 5/跌停 0，情绪温度 +5。普跌格局，仅半导体(+0.63%)、银行(+0.12%) 红盘。</blockquote>
+
+<div class="table-wrap"><table>
+<tr><th>板块</th><th>代码</th><th>今日涨跌</th><th>成交额</th><th>机构(主力)</th><th>游资(中单)</th><th>散户(小单)</th><th>结构</th><th>原因</th><th>数据源</th></tr>
+<tr><td>半导体</td><td>159995</td><td>+0.63%</td><td>9.16亿</td><td>+33.06亿</td><td>-24.24亿</td><td>-8.92亿</td><td>机构独吸</td><td>费半-4.25%利空下逆势独吸红盘，散户游资流出</td><td>overseas/flow_intraday</td></tr>
+<tr><td>CPO</td><td>515880</td><td>-3.73%</td><td>29.54亿</td><td>-69.50亿</td><td>+17.86亿</td><td>+51.85亿</td><td>机构派发散户接盘</td><td>费半大跌+机构巨量派发，散户51.85亿接盘被套</td><td>overseas/flow_intraday</td></tr>
+<tr><td>AI算力</td><td>159819</td><td>-1.81%</td><td>5.40亿</td><td>-14.37亿</td><td>+3.51亿</td><td>+10.28亿</td><td>机构派发</td><td>纳指-1.15%传导+机构派发</td><td>overseas/flow_intraday</td></tr>
+<tr><td>AI应用</td><td>515990</td><td>-2.41%</td><td>0.01亿</td><td>-37.12亿</td><td>+6.37亿</td><td>+30.37亿</td><td>机构派发散户接盘</td><td>成交0.01亿流动性极差，机构37.12亿派发</td><td>flow_intraday</td></tr>
+<tr><td>消费电子</td><td>159732</td><td>-1.71%</td><td>3.67亿</td><td>-16.93亿</td><td>-0.47亿</td><td>+17.25亿</td><td>机构派发</td><td>纳指拖累+机构派发，散户17.25亿接盘</td><td>flow_intraday</td></tr>
+<tr><td>机器人</td><td>159770</td><td>-3.43%</td><td>1.34亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>ETF无行业代理，成交额反推放量下跌</td><td>quotes(降级)</td></tr>
+<tr><td>新能源车</td><td>515030</td><td>-2.86%</td><td>1.15亿</td><td>-11.50亿</td><td>+0.62亿</td><td>+9.93亿</td><td>机构派发</td><td>Tesla财报窗口前机构派发</td><td>flow_intraday</td></tr>
+<tr><td>光伏</td><td>515790</td><td>-3.34%</td><td>2.24亿</td><td>-10.71亿</td><td>+1.99亿</td><td>+8.30亿</td><td>机构派发</td><td>无催化+机构派发</td><td>flow_intraday</td></tr>
+<tr><td>创新药A股</td><td>515120</td><td>-4.27%</td><td>8.27亿</td><td>-26.51亿</td><td>+4.01亿</td><td>+21.98亿</td><td>机构派发散户接盘</td><td>领跌，机构26.51亿派发散户21.98亿接盘</td><td>flow_intraday</td></tr>
+<tr><td>医药医疗</td><td>512170</td><td>-3.08%</td><td>6.51亿</td><td>-64.43亿</td><td>+11.00亿</td><td>+51.85亿</td><td>机构巨量派发</td><td>机构64.43亿巨量派发，散户51.85亿接盘</td><td>flow_intraday</td></tr>
+<tr><td>食品饮料</td><td>515170</td><td>-1.72%</td><td>0.82亿</td><td>-11.95亿</td><td>+1.66亿</td><td>+10.12亿</td><td>机构派发</td><td>机构派发</td><td>flow_intraday</td></tr>
+<tr><td>银行</td><td>512800</td><td>+0.12%</td><td>11.69亿</td><td>-18.69亿</td><td>+6.25亿</td><td>+12.44亿</td><td>拉指出货嫌疑</td><td>红盘但机构-18.69亿派发背离</td><td>flow_intraday</td></tr>
+<tr><td>券商</td><td>512000</td><td>-2.41%</td><td>11.63亿</td><td>-48.06亿</td><td>+17.91亿</td><td>+30.16亿</td><td>机构巨量派发</td><td>机构48.06亿派发尾盘-11.05亿加速出逃</td><td>flow_intraday</td></tr>
+<tr><td>军工</td><td>512660</td><td>-2.18%</td><td>3.21亿</td><td>-6.80亿</td><td>+1.84亿</td><td>+4.98亿</td><td>机构派发</td><td>中东地缘催化vs机构派发</td><td>flow_intraday</td></tr>
+<tr><td>有色金属</td><td>512400</td><td>-4.77%</td><td>11.67亿</td><td>-80.63亿</td><td>+9.08亿</td><td>+71.31亿</td><td>机构巨量派发散户巨量接盘</td><td>全市场最大机构派发，散户71.31亿巨量接盘被套领跌</td><td>flow_intraday</td></tr>
+<tr><td>煤炭</td><td>515220</td><td>-4.36%</td><td>16.93亿</td><td>-6.13亿</td><td>-0.61亿</td><td>+6.74亿</td><td>机构派发</td><td>领跌放量，机构派发</td><td>flow_intraday</td></tr>
+<tr><td>钢铁</td><td>515210</td><td>-2.84%</td><td>1.19亿</td><td>-5.24亿</td><td>+1.85亿</td><td>+3.39亿</td><td>机构派发</td><td>机构派发</td><td>flow_intraday</td></tr>
+<tr><td>房地产</td><td>512200</td><td>-2.94%</td><td>0.78亿</td><td>-3.09亿</td><td>+0.35亿</td><td>+2.74亿</td><td>机构派发</td><td>无催化+机构派发</td><td>flow_intraday</td></tr>
+<tr><td>农业种植</td><td>159825</td><td>-3.05%</td><td>1.03亿</td><td>-5.74亿</td><td>+1.85亿</td><td>+3.53亿</td><td>机构派发</td><td>机构派发</td><td>flow_intraday</td></tr>
+<tr><td>稀土永磁</td><td>159711</td><td>-1.73%</td><td>0.18亿</td><td>-14.32亿</td><td>+0.55亿</td><td>+13.77亿</td><td>机构派发</td><td>成交0.18亿极小，机构派发</td><td>flow_intraday</td></tr>
+<tr><td>红利低波</td><td>515080</td><td>-1.54%</td><td>3.64亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>ETF无行业代理，成交额反推放量下跌</td><td>quotes(降级)</td></tr>
+<tr><td>科创50</td><td>588000</td><td>-0.16%</td><td>89.82亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>89.82亿巨量抗跌，半导体独吸支撑</td><td>quotes(降级)</td></tr>
+<tr><td>创业板50</td><td>159949</td><td>-2.57%</td><td>22.42亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>放量下跌</td><td>quotes(降级)</td></tr>
+<tr><td>中证500</td><td>510500</td><td>-2.48%</td><td>25.94亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>小盘放量下跌</td><td>quotes(降级)</td></tr>
+<tr><td>中证1000</td><td>560010</td><td>-2.75%</td><td>7.34亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>小盘放量下跌</td><td>quotes(降级)</td></tr>
+<tr><td>港股创新药</td><td>513120</td><td>-2.09%</td><td>79.71亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>港股ETF无主力拆分，79.71亿巨量下跌</td><td>quotes(降级)</td></tr>
+<tr><td>恒生科技</td><td>513130</td><td>-1.71%</td><td>23.88亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>港股ETF无主力拆分</td><td>quotes(降级)</td></tr>
+<tr><td>港股互联网</td><td>513330</td><td>-2.86%</td><td>21.85亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>港股ETF无主力拆分</td><td>quotes(降级)</td></tr>
+<tr><td>恒生红利</td><td>513080</td><td>-1.72%</td><td>0.38亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>缩量下跌，红利防御</td><td>quotes(降级)</td></tr>
+<tr><td>港股金融</td><td>513190</td><td>-0.34%</td><td>3.18亿</td><td>未取到</td><td>未取到</td><td>未取到</td><td>资金面缺失</td><td>微跌抗跌，恒指企稳</td><td>quotes(降级)</td></tr>
+</table></div>
+
+<h2>市场情绪（sentiment.json）</h2>
+
+<p>- 全市场：涨552/跌4683/平40  赚钱效应10.5%  情绪温度+5(涨停5/跌停0)</p>
+<p>- 极度冰点，恐慌普跌，散户巨量接盘被套</p>
+
+<h2>vs 前次预测（0724-1747）修正点</h2>
+
+<p>前次 0724-1747 收盘后预测同一目标日 7/27（彼时美股尚未开盘，A50+0.17% 预期）。本次深夜修正关键变量=<strong>美股已收盘确认</strong>：</p>
+<p>- <strong>费半 -4.25% 大跌确认</strong>（前次未预判）→ 半导体链利空兑现，半导体由 <span class="up">▲L</span> 下修为 △L（外盘利空 vs 机构独吸背离）；CPO/AI算力/消费电子等下行压力加重</p>
+<p>- <strong>纳指 -1.15% / 标普 +0.05%</strong> → 成长科技承压，但标普微红说明美股并非系统性崩盘</p>
+<p>- <strong>A50 期指 +0.06% / 恒指期货 +0.26%</strong> → 较前次 A50+0.17% 略降但仍红企稳，A 股开盘情绪中性偏稳；港股受益恒指企稳，恒生红利/港股金融上修为 △</p>
+<p>- 结论：<strong>全面偏空基调不变，半导体由多转震荡、多数板块维持看跌；港股企稳品种略上修</strong></p>
+
+<h2>次日预测：各板块方向（五维打分 -2~+2，综合=加权求和）</h2>
+
+<p>图例：<span class="up">▲看涨</span> <span class="down">▼看跌</span> △震荡 ｜ 置信 H高/M中/L低。每维格 = 分数 + 简短理由(≤15字) + 出处。</p>
+
+<h3>A股科技成长</h3>
+
+<div class="dir-summary"><div class="dir-group down"><h4>▼ 看跌 <span class="meta">(8)</span></h4><ul><li><span class="nm">CPO</span><span class="meta">M -1.65</span></li><li><span class="nm">AI算力</span><span class="meta">M -1.05</span></li><li><span class="nm">AI应用</span><span class="meta">L -0.55</span></li><li><span class="nm">消费电子</span><span class="meta">L -0.55</span></li><li><span class="nm">机器人</span><span class="meta">L -0.80</span></li><li><span class="nm">新能源车</span><span class="meta">L -0.55</span></li><li><span class="nm">光伏</span><span class="meta">L -0.90</span></li><li><span class="nm">创新药A股</span><span class="meta">L -0.55</span></li></ul></div><div class="dir-group flat"><h4>△ 震荡 <span class="meta">(1)</span></h4><ul><li><span class="nm">半导体</span><span class="meta">L +0.15</span></li></ul></div></div>
+<div class="table-wrap"><table>
+<tr><th>板块</th><th>代码</th><th>方向</th><th>置信</th><th>综合分</th><th>外盘(0.25)</th><th>资金(0.25)</th><th>技术(0.25)</th><th>情绪(0.15)</th><th>消息(0.10)</th><th>风险</th></tr>
+<tr><td>半导体</td><td>159995</td><td><span class="badge b-flat">△</span></td><td>L</td><td>+0.15</td><td>-2 费半-4.25%重压 overseas</td><td>+1 机构独吸+33亿尾盘了结-14.9 flow_intraday</td><td>+1 逆势+0.63%收阳放量 quotes</td><td>+1 逆势红盘抱团 quotes</td><td>0 龙头未披露 earnings</td><td>费半利空vs独吸背离待选向</td></tr>
+<tr><td>CPO</td><td>515880</td><td><span class="badge b-down">▼</span></td><td>M</td><td>-1.65</td><td>-2 费半-4.25%直接传导 overseas</td><td>-2 机构-69.5派发尾盘-14.65 flow_intraday</td><td>-2 放量-3.73%破今开 quotes</td><td>-1 领跌冰点 quotes</td><td>0 Nvidia8月中下旬 earnings</td><td>费半+派发双重压制</td></tr>
+<tr><td>AI算力</td><td>159819</td><td><span class="badge b-down">▼</span></td><td>M</td><td>-1.05</td><td>-2 费半-4.25%+纳指-1.15% overseas</td><td>-1 机构-14.37派发 flow_intraday</td><td>-1 -1.81%破今开 quotes</td><td>-1 冰点 sentiment</td><td>+1 Microsoft财报窗口 earnings</td><td>美股财报催化vs费半</td></tr>
+<tr><td>AI应用</td><td>515990</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.55</td><td>0 纳指跌vs Meta财报 overseas</td><td>-1 机构-37.12派发 flow_intraday</td><td>-1 -2.41%成交0.01亿 quotes</td><td>-1 冰点 sentiment</td><td>+1 Meta/Alphabet财报 earnings</td><td>流动性极差+财报预期</td></tr>
+<tr><td>消费电子</td><td>159732</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.55</td><td>0 纳指跌vs Apple财报 overseas</td><td>-1 机构-16.93派发 flow_intraday</td><td>-1 -1.71%破今开 quotes</td><td>-1 冰点 sentiment</td><td>+1 Apple8月初财报 earnings</td><td>Apple财报vs派发</td></tr>
+<tr><td>机器人</td><td>159770</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.80</td><td>0 纳指跌vs Tesla财报 overseas</td><td>-1 资金缺失成交额反推 quotes(降级)</td><td>-2 -3.43%放量破今开 quotes</td><td>-1 冰点 sentiment</td><td>+1 Tesla7月下旬财报 earnings</td><td>Tesla财报vs大跌</td></tr>
+<tr><td>新能源车</td><td>515030</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.55</td><td>0 纳指跌vs Tesla财报 overseas</td><td>-1 机构-11.50派发 flow_intraday</td><td>-1 -2.86%破今开 quotes</td><td>-1 冰点 sentiment</td><td>+1 Tesla7月下旬财报 earnings</td><td>Tesla财报vs派发</td></tr>
+<tr><td>光伏</td><td>515790</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.90</td><td>0 A50企稳 overseas</td><td>-1 机构-10.71派发 flow_intraday</td><td>-2 -3.34%放量破今开 quotes</td><td>-1 冰点 sentiment</td><td>0 龙头未披露 earnings</td><td>无催化+派发</td></tr>
+<tr><td>创新药A股</td><td>515120</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.55</td><td>0 纳指跌vs恒指涨 overseas</td><td>-1 机构-26.51派发 flow_intraday</td><td>-2 -4.27%放量破今开 quotes</td><td>-1 领跌冰点 quotes</td><td>+1 华泰再均衡看好 earnings</td><td>超跌反弹预期</td></tr>
+</table></div>
+
+<h3>A股宽基 / 防御 / 周期</h3>
+
+<div class="dir-summary"><div class="dir-group down"><h4>▼ 看跌 <span class="meta">(13)</span></h4><ul><li><span class="nm">创业板50</span><span class="meta">M -1.15</span></li><li><span class="nm">中证500</span><span class="meta">L -0.90</span></li><li><span class="nm">中证1000</span><span class="meta">L -0.90</span></li><li><span class="nm">医药医疗</span><span class="meta">M -1.15</span></li><li><span class="nm">食品饮料</span><span class="meta">L -0.65</span></li><li><span class="nm">券商</span><span class="meta">M -1.05</span></li><li><span class="nm">军工</span><span class="meta">L -0.55</span></li><li><span class="nm">有色金属</span><span class="meta">M -1.05</span></li><li><span class="nm">煤炭</span><span class="meta">L -0.90</span></li><li><span class="nm">钢铁</span><span class="meta">L -0.90</span></li><li><span class="nm">房地产</span><span class="meta">L -0.90</span></li><li><span class="nm">农业种植</span><span class="meta">L -0.90</span></li><li><span class="nm">稀土永磁</span><span class="meta">L -0.65</span></li></ul></div><div class="dir-group flat"><h4>△ 震荡 <span class="meta">(3)</span></h4><ul><li><span class="nm">科创50</span><span class="meta">L -0.10</span></li><li><span class="nm">红利低波</span><span class="meta">L -0.40</span></li><li><span class="nm">银行</span><span class="meta">L -0.25</span></li></ul></div></div>
+<div class="table-wrap"><table>
+<tr><th>板块</th><th>代码</th><th>方向</th><th>置信</th><th>综合分</th><th>外盘(0.25)</th><th>资金(0.25)</th><th>技术(0.25)</th><th>情绪(0.15)</th><th>消息(0.10)</th><th>风险</th></tr>
+<tr><td>科创50</td><td>588000</td><td><span class="badge b-flat">△</span></td><td>L</td><td>-0.10</td><td>-1 费半跌半导体权重高 overseas</td><td>0 资金缺失89.82亿巨量 quotes(降级)</td><td>+1 -0.16%抗跌下影长 quotes</td><td>0 抗跌逆势 quotes</td><td>-1 半导体权重受费半 earnings</td><td>半导体独吸vs费半利空</td></tr>
+<tr><td>创业板50</td><td>159949</td><td><span class="badge b-down">▼</span></td><td>M</td><td>-1.15</td><td>-1 纳指-1.15% overseas</td><td>-1 资金缺失放量下跌 quotes(降级)</td><td>-2 -2.57%破今开 quotes</td><td>-1 冰点 sentiment</td><td>0 无主线 earnings</td><td>无主线+普跌</td></tr>
+<tr><td>中证500</td><td>510500</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.90</td><td>0 A50企稳 overseas</td><td>-1 资金缺失放量下跌 quotes(降级)</td><td>-2 -2.48%破今开 quotes</td><td>-1 冰点 sentiment</td><td>0 无 earnings</td><td>小盘普跌</td></tr>
+<tr><td>中证1000</td><td>560010</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.90</td><td>0 A50企稳 overseas</td><td>-1 资金缺失放量下跌 quotes(降级)</td><td>-2 -2.75%破今开 quotes</td><td>-1 冰点 sentiment</td><td>0 无 earnings</td><td>小盘普跌</td></tr>
+<tr><td>红利低波</td><td>515080</td><td><span class="badge b-flat">△</span></td><td>L</td><td>-0.40</td><td>0 A50企稳 overseas</td><td>-1 资金缺失放量下跌 quotes(降级)</td><td>-1 -1.54%破今开 quotes</td><td>0 红利防御 sentiment</td><td>+1 华泰红利继续持有 earnings</td><td>华泰红利持有+超跌反弹</td></tr>
+<tr><td>医药医疗</td><td>512170</td><td><span class="badge b-down">▼</span></td><td>M</td><td>-1.15</td><td>0 纳指跌vs恒指涨 overseas</td><td>-2 机构-64.43巨量派发 flow_intraday</td><td>-2 -3.08%放量破今开 quotes</td><td>-1 冰点 sentiment</td><td>0 龙头未披露 earnings</td><td>巨量派发</td></tr>
+<tr><td>食品饮料</td><td>515170</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.65</td><td>0 A50企稳 overseas</td><td>-1 机构-11.95派发 flow_intraday</td><td>-1 -1.72%破今开 quotes</td><td>-1 冰点 sentiment</td><td>0 龙头未披露 earnings</td><td>派发</td></tr>
+<tr><td>银行</td><td>512800</td><td><span class="badge b-flat">△</span></td><td>L</td><td>-0.25</td><td>0 A50企稳 overseas</td><td>-1 机构-18.69派发背离 flow_intraday</td><td>0 +0.12%微涨收阳 quotes</td><td>0 权重暖逆势 quotes</td><td>0 无 earnings</td><td>红盘vs机构派发背离</td></tr>
+<tr><td>券商</td><td>512000</td><td><span class="badge b-down">▼</span></td><td>M</td><td>-1.05</td><td>0 A50企稳 overseas</td><td>-2 机构-48.06派发尾-11.05 flow_intraday</td><td>-2 -2.41%放量破今开 quotes</td><td>-1 冰点 sentiment</td><td>+1 华泰再均衡证券 earnings</td><td>巨量派发</td></tr>
+<tr><td>军工</td><td>512660</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.55</td><td>0 A50企稳 overseas</td><td>-1 机构-6.80派发 flow_intraday</td><td>-1 -2.18%破今开 quotes</td><td>-1 冰点 sentiment</td><td>+1 中东地缘避险催化 news</td><td>地缘催化vs派发</td></tr>
+<tr><td>有色金属</td><td>512400</td><td><span class="badge b-down">▼</span></td><td>M</td><td>-1.05</td><td>0 A50企稳 overseas</td><td>-2 机构-80.63巨量派发 flow_intraday</td><td>-2 -4.77%领跌放量 quotes</td><td>-1 领跌冰点 quotes</td><td>+1 华泰资源品再均衡 earnings</td><td>巨量派发散户套牢抛压</td></tr>
+<tr><td>煤炭</td><td>515220</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.90</td><td>0 A50企稳 overseas</td><td>-1 机构-6.13派发 flow_intraday</td><td>-2 -4.36%放量破今开 quotes</td><td>-1 领跌冰点 quotes</td><td>0 无 earnings</td><td>超跌反弹预期</td></tr>
+<tr><td>钢铁</td><td>515210</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.90</td><td>0 A50企稳 overseas</td><td>-1 机构-5.24派发 flow_intraday</td><td>-2 -2.84%破今开 quotes</td><td>-1 冰点 sentiment</td><td>0 无 earnings</td><td>无催化+派发</td></tr>
+<tr><td>房地产</td><td>512200</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.90</td><td>0 A50企稳 overseas</td><td>-1 机构-3.09派发 flow_intraday</td><td>-2 -2.94%破今开 quotes</td><td>-1 冰点 sentiment</td><td>0 无 earnings</td><td>无催化+派发</td></tr>
+<tr><td>农业种植</td><td>159825</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.90</td><td>0 A50企稳 overseas</td><td>-1 机构-5.74派发 flow_intraday</td><td>-2 -3.05%破今开 quotes</td><td>-1 冰点 sentiment</td><td>0 无 earnings</td><td>无催化+派发</td></tr>
+<tr><td>稀土永磁</td><td>159711</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.65</td><td>0 A50企稳 overseas</td><td>-1 机构-14.32派发 flow_intraday</td><td>-1 -1.73%成交0.18亿 quotes</td><td>-1 冰点 sentiment</td><td>0 龙头未披露 earnings</td><td>流动性差+派发</td></tr>
+</table></div>
+
+<h3>港股</h3>
+
+<div class="dir-summary"><div class="dir-group down"><h4>▼ 看跌 <span class="meta">(3)</span></h4><ul><li><span class="nm">港股创新药</span><span class="meta">L -0.65</span></li><li><span class="nm">恒生科技</span><span class="meta">L -0.55</span></li><li><span class="nm">港股互联网</span><span class="meta">L -0.55</span></li></ul></div><div class="dir-group flat"><h4>△ 震荡 <span class="meta">(2)</span></h4><ul><li><span class="nm">恒生红利</span><span class="meta">L +0.00</span></li><li><span class="nm">港股金融</span><span class="meta">L +0.25</span></li></ul></div></div>
+<div class="table-wrap"><table>
+<tr><th>板块</th><th>代码</th><th>方向</th><th>置信</th><th>综合分</th><th>外盘(0.25)</th><th>资金(0.25)</th><th>技术(0.25)</th><th>情绪(0.15)</th><th>消息(0.10)</th><th>风险</th></tr>
+<tr><td>港股创新药</td><td>513120</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.65</td><td>0 恒指+0.26%vs纳指跌 overseas</td><td>-1 资金缺失79.71亿放量 quotes(降级)</td><td>-1 -2.09%破今开 quotes</td><td>-1 冰点 sentiment</td><td>0 龙头未披露 earnings</td><td>恒指企稳超跌反弹</td></tr>
+<tr><td>恒生科技</td><td>513130</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.55</td><td>0 恒指+0.26%vs纳指跌 overseas</td><td>-1 资金缺失23.88亿放量 quotes(降级)</td><td>-1 -1.71%破今开 quotes</td><td>-1 冰点 sentiment</td><td>+1 Meta/Alphabet财报 earnings</td><td>恒指企稳+财报vs跌</td></tr>
+<tr><td>港股互联网</td><td>513330</td><td><span class="badge b-down">▼</span></td><td>L</td><td>-0.55</td><td>0 恒指+0.26%vs纳指跌 overseas</td><td>-1 资金缺失21.85亿放量 quotes(降级)</td><td>-1 -2.86%破今开 quotes</td><td>-1 冰点 sentiment</td><td>+1 Meta/Alphabet/Amazon earnings</td><td>恒指企稳+财报vs跌</td></tr>
+<tr><td>恒生红利</td><td>513080</td><td><span class="badge b-flat">△</span></td><td>L</td><td>+0.00</td><td>+1 恒指+0.26%企稳 overseas</td><td>0 资金缺失0.38亿缩量 quotes(降级)</td><td>-1 -1.72%破今开 quotes</td><td>0 红利防御 sentiment</td><td>0 无 earnings</td><td>恒指企稳+红利防御</td></tr>
+<tr><td>港股金融</td><td>513190</td><td><span class="badge b-flat">△</span></td><td>L</td><td>+0.25</td><td>+1 恒指+0.26%企稳 overseas</td><td>0 资金缺失3.18亿 quotes(降级)</td><td>0 -0.34%微跌抗跌 quotes</td><td>0 抗跌逆势 quotes</td><td>0 无 earnings</td><td>恒指企稳+抗跌</td></tr>
+</table></div>
+
+<h2>场外操作建议（今日：周日深夜，次日7/27周一开盘前）</h2>
+
+<blockquote>铁律：场外 C 类联接基金，T 日 15:00 前申赎按 <strong>T 日收盘净值</strong> 成交。7/27 周一 15:00 前申赎 = 按 7/27 收盘净值。盘中跌不代表能买在盘中低位（成交的是收盘净值）。禁用&quot;午后回踩买入/盘中逢低加&quot;等场内时点逻辑。</blockquote>
+
+<div class="dir-summary"><div class="dir-group down"><h4>▼ 看跌 <span class="meta">(5)</span></h4><ul><li><span class="nm">CPO/有色/医药/券商</span><span class="meta"> </span></li><li><span class="nm">创新药A股/煤炭</span><span class="meta"> </span></li><li><span class="nm">AI算力/AI应用/消费电子/机器人/新能源车/光伏</span><span class="meta"> </span></li><li><span class="nm">创业板50/中证500/中证1000</span><span class="meta"> </span></li><li><span class="nm">港股创新药/恒生科技/港股互联网</span><span class="meta"> </span></li></ul></div><div class="dir-group flat"><h4>△ 震荡 <span class="meta">(2)</span></h4><ul><li><span class="nm">半导体</span><span class="meta"> </span></li><li><span class="nm">科创50/红利低波/银行/恒生红利/港股金融</span><span class="meta"> </span></li></ul></div></div>
+<div class="table-wrap"><table>
+<tr><th>板块</th><th>方向</th><th>场外当天是否操作</th><th>理由（资金面/趋势/催化，不机械按当日涨跌）</th></tr>
+<tr><td>半导体</td><td><span class="badge b-flat">△震荡</span></td><td>可小仓位持有/逢回调小加</td><td>唯一机构独吸(+33.06亿)逆势红盘，但费半-4.25%利空兑现+尾盘主力-14.88获利了结，方向待选向；若7/27低开回踩且机构独吸延续可小加(买低位净值赌反弹)，但忌追高——费半利空未消化前不加仓摊薄</td></tr>
+<tr><td>CPO/有色/医药/券商</td><td><span class="badge b-down">▼看跌(派发)</span></td><td>不抄底/持有不加仓摊薄</td><td>机构巨量派发(CPO-69.5/有色-80.63/医药-64.43/券商-48.06)+散户巨量接盘被套+尾盘加速出逃，派发中继接飞刀；深套品种不加仓摊薄，除非连续2-3日机构吸筹+放量收阳确认反转</td></tr>
+<tr><td>创新药A股/煤炭</td><td><span class="badge b-down">▼看跌(超跌)</span></td><td>暂观望，超跌反弹再定</td><td>领跌(-4.27%/-4.36%)但属超跌+华泰再均衡看好，等7/27是否超跌反弹+机构回吸信号再小加，忌抄底接飞刀</td></tr>
+<tr><td>AI算力/AI应用/消费电子/机器人/新能源车/光伏</td><td><span class="badge b-down">▼看跌</span></td><td>暂观望</td><td>美股财报窗口(Tesla/Meta/Apple 7月下旬-8月初)有催化预期，但短期费半-4.25%+机构派发压制，等财报兑现+机构回吸再动</td></tr>
+<tr><td>科创50/红利低波/银行/恒生红利/港股金融</td><td><span class="badge b-flat">△震荡</span></td><td>持有不动</td><td>防御/红利/权重品种，A50+0.06%/恒指+0.26%企稳+华泰红利持有，抗跌属性，持有不加不减</td></tr>
+<tr><td>创业板50/中证500/中证1000</td><td><span class="badge b-down">▼看跌</span></td><td>暂观望</td><td>小盘普跌无主线，赚钱效应10.5%冰点，等情绪修复</td></tr>
+<tr><td>港股创新药/恒生科技/港股互联网</td><td><span class="badge b-down">▼看跌</span></td><td>暂观望</td><td>恒指企稳+美股财报催化预期，但美股纳指-1.15%拖累，等7/27恒指确认反弹+财报兑现再小加</td></tr>
+</table></div>
+
+<p><strong>今日整体建议（7/27 周一）：</strong></p>
+<p>- <strong>加仓首选</strong>：暂无明确加仓标的——全面偏空冰点，<strong>建议观望为主</strong>；若7/27半导体低开回踩且机构独吸延续，可小仓位小加半导体（唯一独吸主线，买低位净值赌反弹），忌重仓</p>
+<p>- <strong>卖出/减仓</strong>：CPO/有色/医药/券商等<strong>机构巨量派发+散户套牢</strong>板块，若7/27反弹可分批减（卖反弹净值，不卖低位净值）；深套品种不抄底不摊薄</p>
+<p>- <strong>持有不动</strong>：科创50/红利低波/银行/恒生红利/港股金融（防御红利抗跌）</p>
+<p>- <strong>变量</strong>：7/27 开盘看 A50 期指方向、半导体独吸是否延续、机构派发是否止、美股财报窗口催化兑现、散户套牢抛压释放</p>
+
+<h2>上次预测回检（0724-1747）</h2>
+
+<p>上次 0724-1747 收盘后预测同一目标日 7/27 周一（彼时美股未开盘，A50+0.17% 预期）。<strong>目标日 7/27 尚未开盘（周日），无法回填实盘</strong>，留待 7/27 收盘后回检算命中率。</p>
+
+<p>本次深夜修正相对上次的变化：美股已收盘确认 → 费半 -4.25% 大跌兑现（半导体链利空）、纳指 -1.15% / 标普 +0.05%、A50 +0.06% / 恒指 +0.26% 企稳。</p>
+<p>- 上次偏多的<strong>半导体 <span class="up">▲L</span> → 本次下修 △L</strong>（费半利空兑现，独吸vs外盘背离，方向待选向）</p>
+<p>- 上次 <span class="down">▼</span> 的 <strong>CPO/有色/医药/券商</strong> 维持 <span class="down">▼，部分置信上调（派发加剧）</span></p>
+<p>- 上次 △ 的 <strong>中证500</strong> 下修为 <span class="down">▼（小盘普跌加剧）</span></p>
+<p>- 上次 <span class="down">▼</span> 的 <strong>红利低波</strong> 上修为 △（华泰红利持有+超跌反弹预期）</p>
+<p>- 港股因恒指企稳，<strong>恒生红利/港股金融</strong> 上修为 △</p>
+
+<h2>原始依据摘要（可追溯）</h2>
+<blockquote>原始数据快照见 cache/20260726/。关键值摘录：</blockquote>
+<p>- 当日盘面（7/24 周五收盘）：30 板块仅半导体+0.63%/银行+0.12% 红盘，领跌有色-4.77%/煤炭-4.36%/创新药A股-4.27%/CPO-3.73%/机器人-3.43%/光伏-3.34%/医药-3.08%（涨跌幅中位数约 -2.6%，涨2跌28）</p>
+<p>- 外盘：纳指-1.15%/费半-4.25%/标普+0.05%/A50期指+0.06%/恒指期货+0.26% — overseas.json</p>
+<p>- 市场情绪：赚钱效应10.5%/情绪温度+5(涨停5/跌停0) — sentiment.json</p>
+<p>- 财报事件：A股龙头业绩预告全部&quot;未披露&quot;（8月中下旬才预约）；美股财报窗口 Tesla/Alphabet/Meta/Microsoft 7月下旬、Amazon/AMD/Apple 8月初、Nvidia 8月中下旬 — earnings.json</p>
+<p>- 板块龙头业绩预告：全部未披露 — earnings.json/a_leaders</p>
+<p>- 资金面：flow.json 东财收盘聚合限频 FAIL，降级用 flow_intraday.json(19板块) + quotes 成交额反推 — flow.json/flow_intraday.json</p>
+<p>- 盘中分时资金：19板块机构(main)仅半导体+33.06净流入(独吸)，其余全负(有色-80.63/医药-64.43/CPO-69.50/券商-48.06等派发)；散户(retail)全正接盘；尾30min主力增量全负(尾盘加速出逃) — flow_intraday.json</p>
+<p>- 是否放量：放量下跌=有色(-4.77%/11.67亿)/煤炭(-4.36%/16.93亿)/CPO(-3.73%/29.54亿)/创新药A股(-4.27%/8.27亿)/医药(-3.08%/6.51亿)/券商(-2.41%/11.63亿)/创业板50(-2.57%/22.42亿)/中证500(-2.48%/25.94亿)；缩量抗跌=科创50(-0.16%/89.82亿巨量抗跌)；缩量下跌=恒生红利(-1.72%/0.38亿)/稀土(-1.73%/0.18亿)/AI应用(-2.41%/0.01亿流动性极差) — quotes.json</p>
+<p>- 新闻：东财0+新浪40条；要点=华泰证券研报&quot;超级周&quot;(AI拥挤度高再均衡，关注国产链/半导体设备/PCB/光模块/创新药/资源品/出海/证券，红利继续持有)、中东伊以美地缘紧张(避险)、台风&quot;红霞&quot;登陆广东 — news.txt</p>
+
+<h2>一句话总结</h2>
+<p>7/24 周五极度冰点普跌（赚钱效应 10.5%），机构巨量派发、散户巨量接盘被套、尾盘加速出逃；美股已收盘确认费半 -4.25% 大跌（半导体链利空），但 A50 +0.06%/恒指 +0.26% 企稳。预测 7/27 周一<strong>全面偏空</strong>基调：半导体由多转震荡（独吸vs费半利空背离）、CPO/有色/医药/券商等机构派发板块维持看跌、港股企稳品种略上修；场外建议<strong>观望为主</strong>，半导体独吸延续可小加，派发板块反弹分批减、不抄底接飞刀。</p>
+</body></html>

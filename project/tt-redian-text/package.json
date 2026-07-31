@@ -1,0 +1,19 @@
+{
+  "name": "tt-redian-text",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "今日头条热点知识科普发文 + Playwright 推草稿箱",
+  "scripts": {
+    "hot": "node src/fetch-hot.js",
+    "recent": "node src/recent.js",
+    "preflight": "node src/preflight.js",
+    "publish": "node src/publish.js",
+    "login": "node src/publish.js --login"
+  },
+  "dependencies": {
+    "marked": "^12.0.0",
+    "playwright": "1.48.0",
+    "sharp": "^0.33.0"
+  }
+}

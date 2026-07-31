@@ -1,0 +1,9 @@
+node_modules/
+.auth/
+input/
+output/
+logs/
+cache/
+hot.json
+*.log
+.DS_Store
