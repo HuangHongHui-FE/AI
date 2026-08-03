@@ -10,7 +10,10 @@ import {
   createDraft,
 } from "./wechat.js";
 
-// 读 logs 取近 N 篇已用 theme（格式 "theme记录(供下批避撞)：01cool/02minimal/..."），供随机去重
+// 纯文字封面布局（无底图时用，cover.js #16）
+const PURE_TEXT_COVER = "pure-color-no-image";
+
+// 读 logs 取近 N 篇已用 theme，供随机去重
 function readRecentThemes(n = 5) {
   const dir = "logs";
   let files = [];
@@ -36,7 +39,7 @@ function readRecentThemes(n = 5) {
   return all.slice(-n);
 }
 
-// 读 logs 取近 N 篇已用封面布局（格式 "cover_style记录(供下批避撞)：95 grid-split"），供随机去重
+// 读 logs 取近 N 篇已用封面布局，供随机去重
 function readRecentCoverStyles(n = 5) {
   const dir = "logs";
   let files = [];
@@ -80,14 +83,15 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
 
   if (args.help || args.h) {
-    console.log(`用法：node src/index.js --image <path> [--from-json <path>] [--out-dir <path>] [--dry-run] [--author "<name>"] [--no-embed-image]
+    console.log(`用法：node src/index.js [--image <path>] [--subject "<公司名>"] [--from-json <path>] [--out-dir <path>] [--dry-run] [--author "<name>"] [--no-embed-image]
 
-  --image <path>         原图路径（必填）
-  --from-json <path>     文章 JSON 路径（默认 <out-dir>/article.json，由 Claude 在会话里生成）
-  --out-dir <path>       输出目录（默认 output/）；每日 3 篇建议传 output/YYYY-MM-DD/NN-slug/
-  --dry-run              只生成封面 + HTML 预览，不调微信 API
-  --author "<name>"      覆盖 .env 里的署名
-  --no-embed-image       不在正文头部嵌入原图
+  --subject "<公司名>"  公司名（信息性，正文来自 article.json）
+  --image <path>        封面底图路径（可选；无图时封面走纯文字布局）
+  --from-json <path>    文章 JSON 路径（默认 <out-dir>/article.json，由 Claude 在会话里生成）
+  --out-dir <path>      输出目录（默认 output/）
+  --dry-run             只生成封面 + HTML 预览，不调微信 API
+  --author "<name>"     覆盖 .env 里的署名
+  --no-embed-image      不在正文头部嵌图
 
 JSON 结构：
   {
@@ -101,11 +105,13 @@ JSON 结构：
     process.exit(0);
   }
 
+  // 封面底图可选：无图走纯文字封面
   const imagePath = args.image ? resolve(String(args.image)) : null;
-  if (!imagePath || !existsSync(imagePath)) {
-    console.error("错误：缺少 --image 参数或文件不存在");
+  if (imagePath && !existsSync(imagePath)) {
+    console.error(`错误：--image 文件不存在：${imagePath}`);
     process.exit(1);
   }
+  const hasCoverImage = !!imagePath;
 
   const outDir = args["out-dir"]
     ? resolve(String(args["out-dir"]))
@@ -117,7 +123,7 @@ JSON 结构：
     : join(outDir, "article.json");
   if (!existsSync(articlePath)) {
     console.error(
-      `错误：缺少文章 JSON。请先在会话里让 Claude 生成并写入 ${articlePath}，再跑此脚本。`,
+      `错误：缺少文章 JSON。请先在会话里让 Claude 按 skills/intro-publish.md 生成并写入 ${articlePath}，再跑此脚本。`,
     );
     console.error(`       或用 --from-json <path> 指定其他路径。`);
     process.exit(1);
@@ -131,7 +137,7 @@ JSON 结构：
     }
   }
 
-  // 推草稿前硬门：强制内嵌 preflight，FAIL 拒推（保证自查一定进行，不靠自觉，物理跳不过）
+  // 推草稿前硬门：强制内嵌 preflight，FAIL 拒推
   const { spawnSync } = await import("node:child_process");
   const pfPath = resolve("src/preflight.js");
   if (!existsSync(pfPath)) {
@@ -151,19 +157,23 @@ JSON 结构：
 
   const author = args.author ? String(args.author) : config.author;
   const dryRun = !!args["dry-run"];
-  const embedImage = args["embed-image"] !== false && config.embedOriginalImage;
+  const embedImage = hasCoverImage && args["embed-image"] !== false && config.embedOriginalImage;
 
   await ensureDirs();
 
   console.log(`[1/4] 文章已加载：${article.title}`);
   console.log(`      摘要：${article.digest}`);
   console.log(`      封面标语：${article.cover_slogan || "(无)"}`);
+  console.log(`      封面底图：${hasCoverImage ? imagePath : "(无，走纯文字封面)"}`);
 
   console.log(`[2/4] 合成封面图...`);
   const coverPath = join(outDir, "cover.jpg");
-  // 封面布局：显式指定优先；否则随机抽一个避开近 5 篇已用（去同质化，20 种布局）
+  // 封面布局：无底图强制纯文字；有图则显式指定优先，否则随机抽避开近 5 篇
   let coverStyle = article.cover_style || null;
-  if (!coverStyle) {
+  if (!hasCoverImage) {
+    coverStyle = PURE_TEXT_COVER;
+    console.log(`      纯文字封面布局：${coverStyle}`);
+  } else if (!coverStyle) {
     const exclude = readRecentCoverStyles(5);
     coverStyle = pickRandomCoverStyle(exclude);
     console.log(
@@ -171,23 +181,23 @@ JSON 结构：
     );
   }
   await generateCover({
-    imagePath,
+    imagePath: imagePath || "",
     slogan: article.cover_slogan || "",
     outPath: coverPath,
     style: coverStyle,
   });
 
   console.log(`[3/4] 转 HTML + 写本地预览...`);
-  // 主题：显式指定优先；否则随机抽一个避开近 5 篇已用（去同质化）
+  // 主题：显式指定优先；否则随机抽避开近 5 篇已用（去同质化）
   let theme = article.theme || null;
   if (!theme) {
     const exclude = readRecentThemes(5);
     theme = pickRandomThemeName(exclude);
     console.log(
-      `      随机主题：${theme}${exclude.length ? `（避开近 ${exclude.length} 篇 ${exclude.join("/")}` : ""}）`,
+      `      随机主题：${theme}${exclude.length ? `（避开近 ${exclude.length} 篇 ${exclude.join("/")}` : ""}`,
     );
   }
-  // 把随机抽到的 theme/cover_style 写回 article.json，供 Claude 写日志记实际所用值（避免 stdout 丢失）
+  // 把随机抽到的 theme/cover_style 写回 article.json，供 Claude 写日志记实际所用值
   await writeFile(articlePath, JSON.stringify({ ...article, theme, cover_style: coverStyle }, null, 2), "utf8");
 
   // 内文插图：扫描 body_markdown 里的本地图片路径，上传为微信正文图 URL 替换
@@ -197,7 +207,7 @@ JSON 结构：
   const inlineImgs = [];
   while ((mm = imgRe.exec(bodyMd))) {
     if (/^https?:\/\//.test(mm[2])) continue; // 网络 URL 不处理
-    const abs = resolve(mm[2]);
+    const abs = resolve(outDir, mm[2]);
     if (existsSync(abs))
       inlineImgs.push({ orig: mm[0], path: abs, alt: mm[1] });
   }
@@ -264,16 +274,6 @@ JSON 结构：
   });
   console.log(`\n✓ 草稿已生成。media_id: ${draftMediaId}`);
   console.log(`  登录 mp.weixin.qq.com → 草稿箱 查看并发布。`);
-}
-
-function escapeHtml(s) {
-  return String(s).replace(
-    /[&<>"']/g,
-    (c) =>
-      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
-        c
-      ],
-  );
 }
 
 main().catch((e) => {

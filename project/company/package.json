@@ -1,0 +1,25 @@
+{
+  "name": "company",
+  "version": "0.1.0",
+  "description": "公司介绍公众号自动发文管线：一个公司名 → 抓事实 → 找图 → 生成 → 推草稿箱",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "company": "src/index.js"
+  },
+  "scripts": {
+    "gen": "node src/index.js",
+    "dry": "node src/index.js --dry-run",
+    "recent": "node src/recent.js 5",
+    "preflight": "node src/preflight.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.1",
+    "dotenv": "^16.4.5",
+    "marked": "^12.0.2",
+    "sharp": "^0.32.6"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

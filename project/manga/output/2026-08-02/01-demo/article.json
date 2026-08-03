@@ -1,0 +1,38 @@
+{
+  "title": "画饼老板的十二时辰",
+  "digest": "饼不是不能画，得自己画，画完自己吃",
+  "slug": "demo",
+  "panels": [
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFB677", "label": "01·画饼",
+      "actors": [{ "type": "stickman", "x": 150, "hipY": 430, "color": "#3a2a1a", "pose": "point" }],
+      "props": [{ "type": "pie", "cx": 340, "cy": 300, "r": 90 }],
+      "bubbles": [{ "x": 250, "y": 110, "w": 200, "h": 90, "text": "三年买房五年上市", "px": 320, "py": 200 }]
+    },
+    {
+      "bg1": "#E8F4FF", "bg2": "#A9D5F5", "label": "02·点头",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 430, "color": "#1a3a5a" }],
+      "bubbles": [{ "x": 280, "y": 110, "w": 160, "h": 70, "text": "好的老板", "px": 360, "py": 180 }]
+    },
+    {
+      "bg1": "#F0E8FF", "bg2": "#C5B5E8", "label": "03·述职",
+      "actors": [
+        { "type": "stickman", "x": 120, "hipY": 430, "color": "#3a2a4a" },
+        { "type": "stickman", "x": 360, "hipY": 430, "color": "#2a2a3a", "pose": "shrug" }
+      ],
+      "props": [{ "type": "question", "x": 410, "y": 340, "size": 44 }],
+      "bubbles": [{ "x": 230, "y": 90, "w": 200, "h": 80, "text": "你…你是姓张吧", "px": 330, "py": 170 }]
+    },
+    {
+      "bg1": "#1a1a2e", "bg2": "#0f0f1e", "label": "04·深夜",
+      "props": [{ "type": "moon", "cx": 380, "cy": 110, "r": 36 }, { "type": "desk", "x": 300, "y": 470, "w": 120 }],
+      "actors": [{ "type": "stickman", "x": 200, "hipY": 430, "color": "#d0d0e0" }],
+      "bubbles": [{ "x": 40, "y": 470, "w": 200, "h": 90, "text": "饼画得好可惜不能吃", "px": 140, "py": 460 }]
+    }
+  ],
+  "body_markdown": "我入职那天，老板拍着我肩膀说，好好干，三年买房五年上市。\n\n![第1格](comics/demo/01.jpg)\n\n第一格，老板在白板上画了一个巨大的饼，饼上写着「上市」两个字。我刚点头，他就把饼擦了，画了个更大的，叫「期权池」。\n\n![第2格](comics/demo/02.jpg)\n\n到了年底述职，我把全年数据摆出来，想着哪怕不涨薪，至少夸一句。老板看了三秒，问：你……你是姓张吧？\n\n我愣在那。我姓李，入职半年他没记住我的姓。\n\n![第3格](comics/demo/03.jpg)\n\n那天晚上加班到十一点，办公室只剩我和保洁阿姨。阿姨收垃圾时说，小伙子，这饼画得真好，可惜不能吃。\n\n我笑了。一整天，这是最诚实的一句话。\n\n![第4格](comics/demo/04.jpg)\n\n后来我懂了，工作不是没意义，是意义被别人画走了。饼不是不能画，得自己画，画完自己吃。愿你被画的饼都能兑现，兑现不了，也能自己烤一张。",
+  "line": "B",
+  "cta_question": "你也被画过饼吗？评论区聊聊。",
+  "cta_follow": "点个关注，画完每个打工人的故事",
+  "original_eligible": true
+}
