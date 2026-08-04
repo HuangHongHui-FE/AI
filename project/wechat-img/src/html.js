@@ -550,7 +550,12 @@ export function markdownToHtml(markdown, theme) {
       /<ol>/g,
       `<ol style="margin:12px 0;padding-left:24px;font-family:${BASE_FONT};font-size:16px;line-height:1.85;color:${t.text};">`,
     )
-    .replace(/<li>/g, `<li style="margin:6px 0;">`)
+    .replace(/<li>/g, `<li style="margin:3px 0;">`)
+    // 紧凑化列表：微信正文渲染器不折叠 block 间的空白文本节点，
+    // <ol>\n<li> 间的换行会被渲染成空行（每项上下出现空白项），去掉标签间换行
+    .replace(/(<(?:ol|ul)\b[^>]*>)\s*/g, "$1")
+    .replace(/\s*(<\/(?:ol|ul)>)/g, "$1")
+    .replace(/(<\/li>)\s*(<li)/g, "$1$2")
     // 行内代码 / 删除线内联样式（marked 默认无样式）
     .replace(
       /<code>/g,
