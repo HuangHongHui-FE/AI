@@ -1,0 +1,45 @@
+{
+  "title": "凌晨三点的我，和白天判若两人",
+  "digest": "白天笑得多大声，夜里就有多安静。",
+  "slug": "emo",
+  "line": "A",
+  "cta_question": "你深夜emo的时候，都在想什么？",
+  "cta_follow": "留 个 言 再 走",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#FFF8D6", "bg2": "#FFD93D", "label": "01·白天",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#3a2a1a", "pose": "up" }],
+      "props": [{ "type": "heart", "cx": 240, "cy": 290, "r": 20, "color": "#e85a71" }],
+      "bubbles": [{ "x": 280, "y": 70, "w": 160, "h": 60, "text": "哈哈哈", "px": 300, "py": 130 }]
+    },
+    {
+      "bg1": "#FFB677", "bg2": "#6A4A8A", "label": "02·下班",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#4a3a3a", "pose": "down" }]
+    },
+    {
+      "bg1": "#1a1a2e", "bg2": "#16213e", "label": "03·到家",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#6a6a8a", "pose": "down" }],
+      "props": [{ "type": "moon", "cx": 380, "cy": 100, "r": 30 }],
+      "bubbles": [{ "x": 310, "y": 80, "w": 80, "h": 60, "text": "……", "px": 290, "py": 140 }]
+    },
+    {
+      "bg1": "#4A3A6A", "bg2": "#2A1A4A", "label": "04·想不通",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#8a7aaa", "pose": "shrug" }],
+      "props": [{ "type": "question", "x": 360, "y": 180, "size": 60, "color": "#d0a0d0" }],
+      "bubbles": [{ "x": 280, "y": 80, "w": 140, "h": 60, "text": "为什么", "px": 300, "py": 140 }]
+    },
+    {
+      "bg1": "#2a2440", "bg2": "#1a1a2e", "label": "05·忍住",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#6a6a8a", "pose": "down" }],
+      "props": [{ "type": "heart", "cx": 240, "cy": 270, "r": 18, "color": "#6a6a8a" }]
+    },
+    {
+      "bg1": "#A8C0D8", "bg2": "#FFD699", "label": "06·明早",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#3a2a1a", "pose": "up" }],
+      "props": [{ "type": "star", "cx": 380, "cy": 90, "r": 8, "color": "#f5e6a8" }],
+      "bubbles": [{ "x": 250, "y": 70, "w": 200, "h": 60, "text": "又是新一天", "px": 280, "py": 130 }]
+    }
+  ],
+  "body_markdown": "白天笑得最响的人，夜里最安静。\n\n![第1格](comics/emo/01.jpg)\n\n哈哈。\n\n![第2格](comics/emo/02.jpg)\n\n下班。\n\n![第3格](comics/emo/03.jpg)\n\n灯没开。\n\n![第4格](comics/emo/04.jpg)\n\n想不通。\n\n![第5格](comics/emo/05.jpg)\n\n忍住了。\n\n![第6格](comics/emo/06.jpg)\n\n明天还得笑。"
+}

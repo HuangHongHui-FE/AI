@@ -1,0 +1,54 @@
+{
+  "title": "拿到房产证那天，我没笑出来",
+  "digest": "最重的房贷不在银行，在心里。它扣的不是钱，是那十几年的勇气。",
+  "slug": "mortgage",
+  "line": "B",
+  "cta_question": "房贷压着你的是钱，还是别的什么？",
+  "cta_follow": "转 给 同 路 人",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFD699", "label": "01·拿证",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#3a2a1a", "pose": "up" }],
+      "props": [{ "type": "heart", "cx": 240, "cy": 290, "r": 24, "color": "#e85a71" }],
+      "bubbles": [{ "x": 270, "y": 70, "w": 180, "h": 70, "text": "我有房了", "px": 300, "py": 140 }]
+    },
+    {
+      "bg1": "#E0D0C0", "bg2": "#A89888", "label": "02·月供",
+      "actors": [{ "type": "stickman", "x": 300, "hipY": 440, "color": "#3a2a1a", "pose": "down" }],
+      "props": [{ "type": "desk", "x": 170, "y": 400, "w": 120 }],
+      "bubbles": [{ "x": 270, "y": 70, "w": 160, "h": 70, "text": "月供八千", "px": 290, "py": 140 }]
+    },
+    {
+      "bg1": "#C8C8D0", "bg2": "#8A8A9A", "label": "03·不敢辞",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#3a3a3a", "pose": "shrug" }],
+      "props": [{ "type": "question", "x": 360, "y": 170, "size": 60, "color": "#5a3a6a" }],
+      "bubbles": [{ "x": 270, "y": 70, "w": 140, "h": 60, "text": "不敢辞", "px": 290, "py": 130 }]
+    },
+    {
+      "bg1": "#A8B8C8", "bg2": "#6A7A8A", "label": "04·不敢病",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#4a4a5a", "pose": "down" }],
+      "props": [{ "type": "heart", "cx": 240, "cy": 300, "r": 16, "color": "#8a8a9a" }],
+      "bubbles": [{ "x": 290, "y": 80, "w": 100, "h": 60, "text": "扛着", "px": 300, "py": 140 }]
+    },
+    {
+      "bg1": "#5A5070", "bg2": "#2A2440", "label": "05·父母老",
+      "actors": [
+        { "type": "stickman", "x": 160, "hipY": 450, "color": "#3a2a1a", "pose": "down" },
+        { "type": "stickman", "x": 320, "hipY": 460, "color": "#5a5a5a", "pose": "down" }
+      ],
+      "props": [{ "type": "moon", "cx": 380, "cy": 90, "r": 28 }],
+      "bubbles": [{ "x": 200, "y": 70, "w": 180, "h": 70, "text": "妈又病了", "px": 230, "py": 140 }]
+    },
+    {
+      "bg1": "#FFD699", "bg2": "#FFE9D6", "label": "06·还完",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#3a3a3a", "pose": "up" }],
+      "props": [
+        { "type": "star", "cx": 360, "cy": 90, "r": 7, "color": "#e6a92c" },
+        { "type": "star", "cx": 100, "cy": 160, "r": 6, "color": "#e6a92c" }
+      ],
+      "bubbles": [{ "x": 280, "y": 70, "w": 140, "h": 60, "text": "还完了", "px": 300, "py": 130 }]
+    }
+  ],
+  "body_markdown": "拿到房产证那天，我二十九岁。在售楼处门口拍照发朋友圈，配文「终于有个家了」，点赞刷屏。\n\n![第1格](comics/mortgage/01.jpg)\n\n真正的家，是从第二个月开始的。月供八千，扣完到手刚好够活。我开始算每一笔账：外卖改堂食，堂食改泡面，泡面最后改成了挂面。\n\n![第2格](comics/mortgage/02.jpg)\n\n那年之后我换过三次工作，没敢裸辞过一次。HR问期望薪资，我心里第一个数不是「值多少」，是「够不够月供」。\n\n![第3格](comics/mortgage/03.jpg)\n\n更怕的是生病。小病扛着，大病先查医保报销比例。有次发烧到三十九度，我先想的是请半天假会不会扣全勤，而不是人能不能撑住。\n\n![第4格](comics/mortgage/04.jpg)\n\n第三年，我妈住院。我在病房外算完医药费，又算完下个月月供，忽然发现两笔账用的是同一个计算器。\n\n![第5格](comics/mortgage/05.jpg)\n\n今年房贷还清了。我站在阳台上发了很久的呆，没有想象里的狂喜，只觉得肩膀被人卸下了一袋米，可人也跟着矮了三公分。\n\n![第6格](comics/mortgage/06.jpg)\n\n最重的房贷不在银行，在心里。它扣的不是钱，是那十几年里所有「我想」「我要」「我喜欢」的勇气。感同身受的话，转给那个和你一样的人看看。"
+}

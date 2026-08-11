@@ -17,7 +17,7 @@
 ## 依赖与首次配置
 
 - **推草稿脚本**：本项目 `node src/publish.js`（已写好）。`src/wechat.js`+`src/config.js` 从 wechat-img 零改拷贝，token 缓存隔离到 `manga/cache/token.json`，**不串 wechat-img 的号**。`src/publish.js` 复用 `../wechat-img/src/html.js`（markdown→HTML + 主题池，无状态，跨项目 import）。
-- **画图脚本**：本项目 `node src/draw.js`（已写好，**程序化 SVG 条漫，零 AI 零 key 零成本，原创绘制可勾漫画原创**）。用 sharp 把 SVG 渲染成 jpg，构件库（火柴人/对话气泡/月亮/饼/桌/问号/心/灯泡/雨/星）。Claude 写「舞台调度」到 `article.json` 的 `panels` 字段，draw.js 解释渲染，**不碰 SVG**。
+- **画图脚本（默认·线条角色）**：本项目 `node src/draw.js`（**程序化 SVG 线条漫画，零 AI 零 key，原创绘制可勾漫画原创**）。用 sharp 把 SVG 渲染成 jpg。角色是**有辨识度的线条小人**（圆脸五官 + 固定发型/配饰/服饰，见「线条角色构件表」），表情 `emo` + 动作 `pose` 控制，靠角色固定特征跨格/跨篇辨人。Claude 写「舞台调度」到 `panels`，draw.js 解释渲染，**不碰 SVG**。（已废弃 AI 生图线 `src/gen.js`：出图不可控/爱出风景/文字乱码，不用于生产。）
 - **漫画图**：由 `draw.js` 按 `article.json` 的 `panels` 字段生成到 `comics/<slug>/01.jpg..NN.jpg`（按 panels 顺序）。Claude 不用手画、不用找图。
 - **首次配置 `.env`**（本项目根目录，漫画号独立 appid/secret，别和 wechat-img/mingchangmian 混用）：
   ```
@@ -53,6 +53,41 @@ grep -hE '^\| 0[0-9]' logs/*.md | awk -F'|' '{gsub(/^ +| +$/,"",$4); print $4}' 
 ### 3. 篇数
 
 默认 **1 篇**（用户喊「来一波」「来几篇」才多写）。每篇独立选点、独立配文、独立推。
+
+---
+
+## 连续剧模式（老周家，默认固定）
+
+用户漫画**围绕「家庭生活」单一题材，固定主角团「老周家」，连续剧式连载**（每篇是一集，人物/世界观贯穿）。这是默认创作模式，不再随机选题材。
+
+### 主角团与角色卡（`characters.json`）
+
+项目根 `characters.json` 定义主角团固定身份/性格（**与 `draw.js` 角色构件一一对应**）：
+
+| 角色 | 身份 | 构件 type | 线条特征（画稿固定） |
+|---|---|---|---|
+| **周建国** | 爸爸·程序员 40岁 | `zhoujianguo` | 发际线略后移黑发、黑框眼镜、浅蓝格子衫 |
+| **林晓** | 妈妈·小学老师 35岁 | `linxiao` | 短发、细框眼镜、粉色针织衫 |
+| **周小满** | 女儿·小学三年级 9岁 | `zhouxiaoman` | 两个小辫子、红裙子 |
+| **周爷爷** | 爷爷·退休工人 68岁 | `zhouyeye` | 白发、老花镜、白背心 |
+| **王阿姨** | 对门邻居 50岁 | `wangayi` | 烫卷发、碎花上衣 |
+
+- **`draw.js` 每个角色一个构件函数**：`panel.actors` 里写 `type:"zhouyeye"` 即画周爷爷（圆脸五官 + 固定发型/配饰/服饰），特征跨格固定 → 辨识度高、不用每格重复描述。
+- **换角色/改外貌**：改 `src/draw.js` 对应角色构件的 `hair/shirt/extra`，全项目生效。加新角色在 `src/draw.js` 加构件函数 + `ACTORS` 注册 + `characters.json` 加项。
+
+### 世界观（固定）
+
+> 一座普通二线城市的老小区三居室，老周一家四口和爷爷同住，楼下有菜市场，小区门口有小学，对门住着爱串门的王阿姨。
+
+所有集都发生在这个世界，场景/人物关系稳定。
+
+### 连续剧写法
+
+- **标题带集数**：`老周家·第N集：<本集主题>`（如「老周家·第1集：期末考前一晚」）。标题骨架池的文案可用作副标题。
+- **每篇仍独立成篇**：单集也有起承转合（B 线 300-1500 字/ A 线少字都适用），新读者单看一集也能看懂，不硬性依赖前情。
+- **logs 记剧情进度**：写日志时备注栏记「剧情：本集<发生的事>，埋<伏笔>」，下集避开情节矛盾、可接续伏笔。
+- **取材方向**（家庭生活，非穷尽）：鸡娃（辅导作业/兴趣班/升学）、养老（爷爷智能手机/保健品/看病）、代际（婆媳/隔代亲/观念冲突）、夫妻（中年压力/互相体谅）、日常治愈（周末/年夜饭/搬家）。每集换一个切口，避开历史日志。
+- **角色出场不必每集全员**：按本集情节需要带 2-4 个角色即可，不硬塞全体。
 
 ---
 
@@ -104,37 +139,39 @@ B 线要求（仿 wx2）：
 
 ## 配图与排版
 
-### 漫画图（draw.js 程序化出图）
+### 漫画图（draw.js 线条角色，程序化渲染）
 
-Claude 在 `article.json` 写 `panels` 字段（声明式分镜，**只写舞台调度不写 SVG**），`draw.js` 渲染成 `comics/<slug>/01.jpg..NN.jpg`：
+Claude 在 `article.json` 写 `panels` 字段（声明式分镜，**只写舞台调度，不写 SVG**），`draw.js` 解释渲染成 `comics/<slug>/01.jpg..NN.jpg`：
 
 ```jsonc
 "panels": [
   {
     "bg1": "#FFE9D6", "bg2": "#FFB677", "label": "01·画饼",  // 渐变底色 + 角标
-    "actors": [{ "type": "stickman", "x": 150, "hipY": 430, "color": "#3a2a1a", "pose": "point" }],
+    "actors": [{ "type": "zhoujianguo", "x": 150, "hipY": 430, "emo": "sad", "pose": "point" }],
     "props":  [{ "type": "pie", "cx": 340, "cy": 300, "r": 90 }],
     "bubbles":[{ "x": 250, "y": 110, "w": 200, "h": 90, "text": "三年买房", "px": 320, "py": 200 }]
   }
 ]
 ```
 
-**构件库**（`type` 值，参数见 `src/draw.js`）：
+**线条角色构件表**（`type` 值，`draw.js` 每个角色一个构件，特征固定）：
 
-| 类 | type | 关键参数 |
-|---|---|---|
-| 角色 | `stickman` | x, hipY, color, pose(`down`/`up`/`point`/`shrug`) |
-| 道具 | `pie` | cx, cy, r, fill, stroke（带「饼」字） |
-| | `moon` | cx, cy, r（蛾眉月） |
-| | `desk` | x, y, w（办公桌） |
-| | `question` | x, y, size, color（问号） |
-| | `heart`/`bulb`/`rain`/`star` | cx, cy, r/color/n |
-| 气泡 | bubble | x, y, w, h, text, px, py（尖角指向说话人） |
+| 角色 | type | 线条特征 | emo 表情 | pose 动作 |
+|---|---|---|---|---|
+| 周建国 | `zhoujianguo` | 发际线后移黑发+黑框眼镜+浅蓝格子衫 | happy/sad/angry/surprised/calm | down/up/point/shrug/hug/phone |
+| 林晓 | `linxiao` | 短发+细框眼镜+粉针织衫 | 同上 | 同上 |
+| 周小满 | `zhouxiaoman` | 双辫+红裙 | 同上 | 同上 |
+| 周爷爷 | `zhouyeye` | 白发+老花镜+白背心 | 同上 | 同上 |
+| 王阿姨 | `wangayi` | 烫卷发+碎花上衣 | 同上 | 同上 |
 
+**道具构件**（`type` 值）：`pie`/`moon`/`desk`/`question`/`heart`/`bulb`/`rain`/`star`（参数见 `src/draw.js`）。
+
+- **`emo` 表情**：happy 笑 / sad 愁 / angry 怒 / surprised 惊 / calm 平静（默认 calm）。靠表情+动作讲故事，**纯漫画可全格不写气泡**，靠画面让读者看懂剧情。
+- **`pose` 动作**：down 垂手 / up 举手 / point 指 / shrug 耸肩 / hug 抱 / phone 举手机。
 - 画布固定 480×640 竖图（手机条漫）。`x` 横坐标 0-480，`hipY` 角色「腰」（身体底）纵坐标，常 380-460。
 - **分镜顺序 = panels 数组顺序 = body_markdown 里 `![]()` 顺序**，三者对齐：panels 写几格，draw 出几张，body_markdown 引用 `comics/<slug>/01.jpg..NN.jpg`。
 - **图数 ≥3 才算漫画**（preflight WARN：<3 提示像单图插画）。建议 4-12 格。
-- 构件不够用时：在 `src/draw.js` 的 `PROPS`/`ACTORS` 加新构件函数，Claude 即可在 panels 引用。
+- 构件不够用：在 `src/draw.js` 的 `PROPS`/`ACTORS` 加新构件函数，Claude 即可在 panels 引用。
 
 ### 封面
 
@@ -163,7 +200,7 @@ Claude 在 `article.json` 写 `panels` 字段（声明式分镜，**只写舞台
 
 ### 可申漫画原创的硬条件
 
-- ✅ **图为作者原创**：本人手绘/板绘，**或本项目 `draw.js` 程序化原创绘制**（用工具原创生成都算，非搬运、非他人作品、非真人照片拼贴）。
+- ✅ **图为作者原创**：本人手绘/板绘，**或本项目 `draw.js` 程序化线条漫画原创绘制**（用工具原创生成都算，非搬运、非他人作品、非真人照片拼贴）。`draw.js` 是程序化 SVG 原创，**可勾漫画原创**。
 - ✅ **连续画面构成有情节/有叙事的漫画**：非单张插画、非纯表情包、非无意义图堆砌。
 - ✅ **文章主体是漫画图**：图为主、文为辅（B 线长文也不能图沦为插图，须图为叙事骨架）。
 - ✅ **分镜/台词/场景有创作性投入**：非机械套同一模板批量造（避免低价值 AIGC 判定，对照 [[wechat-low-creation-spec]]）。
@@ -205,7 +242,7 @@ Claude 在 `article.json` 写 `panels` 字段（声明式分镜，**只写舞台
 ## 推草稿命令（串流程）
 
 ```bash
-# 1. 画图：draw.js 读 panels 渲染 comics/<slug>/01..NN.jpg
+# 1. 画图：draw.js 读 panels 渲染 comics/<slug>/01..NN.jpg（线条角色）
 node src/draw.js --from-json output/$(date +%F)/01-<slug>/article.json --slug <slug>
 
 # 2. dry-run：只产预览 HTML，不调微信 API（先看效果）
@@ -237,11 +274,12 @@ node src/publish.js --slug <slug> --from-json output/$(date +%F)/01-<slug>/artic
 
 ## 已知坑
 
-1. **原创勾选只能人手点**：`publish.js` 推草稿后不会自动勾原创，必须登录 mp.weixin.qq.com 草稿箱发布时勾。API 不支持。
+1. **原创勾选只能人手点**：`publish.js` 推草稿后不会自动勾原创，必须登录 mp.weixin.qq.com 草稿箱发布时勾。API 不支持。`draw.js` 程序化线条原创**可勾漫画原创**（发布时人手勾「原创声明→漫画」类目）。
 2. **多图顺序上传**：`publish.js` 按 `body_markdown` 里 `![]()` 出现顺序逐张上传，顺序由你在 article.json 里排。某张失败会 WARN 跳过（微信正文留空图），推前看 dry-run 预览确认。
 3. **封面首图选哪张**：默认第一格当封面。若第一格不适合当封面（如纯过场），指定一张专门的封面图给 `--image`。
 4. **token 缓存隔离**：`manga/cache/token.json` 独立，别删 wechat-img 的 cache 误伤。
 5. **A 线字数下限 10**：太短（<10）会被判信息量不足，至少一句引子。
+6. **角色构件调整**：想改某个角色的长相/配饰，在 `src/draw.js` 对应构件函数的 `hair/shirt/extra` 改，全项目生效。
 
 ---
 
@@ -353,13 +391,13 @@ node src/publish.js --slug <slug> --from-json output/$(date +%F)/01-<slug>/artic
 
 ```
 用户「写漫画」
- → 选点（指定/蹭热点/自选池去重）
- → 设计分镜：想几格、每格谁说什么、什么场景道具 → 定 A/B 线（分镜强→A少字，有弧→B长文）
- → 写 article.json：title/digest/panels(舞台调度)/body_markdown(含 comics/<slug>/NN.jpg 多图)/line/cta_question/cta_follow/original_eligible
+ → 选点（连续剧默认老周家，看上集剧情避开同切口）
+ → 设计分镜：想几格、每格谁在做什么/什么表情动作/什么场景道具 → 定 A/B 线（分镜强→A少字，有弧→B长文）
+ → 写 article.json：title/digest/panels(每格 actors:角色type+emo表情+pose动作 + props/bubbles)/body_markdown(含 comics/<slug>/NN.jpg 多图)/line/cta_question/cta_follow/original_eligible(draw.js→true)
  → 标题/收口/CTA/结构配方 从池随机抽，记日志避撞
  → 画图：node src/draw.js --from-json ... --slug <slug>  → comics/<slug>/01..NN.jpg
  → dry-run 看预览：node src/publish.js --slug <slug> --from-json ... --image comics/<slug>/01.jpg --dry-run
-   （图不对？改 panels 重跑 draw；文不对？改 body_markdown 重跑 publish）
+   （图不对？改 actors/props 重跑 draw；文不对？改 body_markdown 重跑 publish）
  → 真推：去掉 --dry-run
  → 写 logs/YYYY-MM-DD.md 一行
  → 提醒用户：登录 mp.weixin.qq.com 草稿箱发布，原创可勾则勾「漫画」类目

@@ -1,0 +1,50 @@
+{
+  "title": "十岁孩子的周末，画给你看",
+  "digest": "孩子的周末，比上班还忙。",
+  "slug": "kids",
+  "line": "A",
+  "cta_question": "你的周末，是从几岁开始忙的？",
+  "cta_follow": "留 个 言 再 走",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFB677", "label": "01·钢琴",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#3a2a1a", "pose": "down" }],
+      "props": [{ "type": "question", "x": 360, "y": 170, "size": 50, "color": "#5a3a6a" }],
+      "bubbles": [{ "x": 300, "y": 80, "w": 60, "h": 60, "text": "弹", "px": 280, "py": 140 }]
+    },
+    {
+      "bg1": "#F0F0F5", "bg2": "#C0C0D0", "label": "02·奥数",
+      "actors": [{ "type": "stickman", "x": 200, "hipY": 440, "color": "#3a2a1a", "pose": "down" }],
+      "props": [
+        { "type": "desk", "x": 290, "y": 400, "w": 120 },
+        { "type": "question", "x": 360, "y": 170, "size": 56, "color": "#b03030" }
+      ],
+      "bubbles": [{ "x": 300, "y": 80, "w": 60, "h": 60, "text": "难", "px": 280, "py": 140 }]
+    },
+    {
+      "bg1": "#D6E4FF", "bg2": "#8FB3FF", "label": "03·英语",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#3a2a1a", "pose": "point" }],
+      "bubbles": [{ "x": 290, "y": 80, "w": 80, "h": 60, "text": "ABC", "px": 300, "py": 140 }]
+    },
+    {
+      "bg1": "#E0E0E8", "bg2": "#A0A0B0", "label": "04·作业",
+      "actors": [{ "type": "stickman", "x": 200, "hipY": 440, "color": "#3a2a1a", "pose": "down" }],
+      "props": [{ "type": "desk", "x": 290, "y": 400, "w": 120 }],
+      "bubbles": [{ "x": 310, "y": 80, "w": 60, "h": 60, "text": "……", "px": 290, "py": 140 }]
+    },
+    {
+      "bg1": "#2a2440", "bg2": "#1a1a2e", "label": "05·困",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#6a6a8a", "pose": "down" }],
+      "props": [{ "type": "moon", "cx": 380, "cy": 100, "r": 28 }],
+      "bubbles": [{ "x": 300, "y": 80, "w": 60, "h": 60, "text": "困", "px": 280, "py": 140 }]
+    },
+    {
+      "bg1": "#A8C0D8", "bg2": "#FFD699", "label": "06·明早",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#3a2a1a", "pose": "up" }],
+      "props": [{ "type": "star", "cx": 380, "cy": 90, "r": 7, "color": "#e6a92c" }],
+      "bubbles": [{ "x": 290, "y": 80, "w": 80, "h": 60, "text": "加油", "px": 300, "py": 140 }]
+    }
+  ],
+  "body_markdown": "孩子的周末，比上班忙。\n\n![第1格](comics/kids/01.jpg)\n\n钢琴。\n\n![第2格](comics/kids/02.jpg)\n\n奥数。\n\n![第3格](comics/kids/03.jpg)\n\n英语。\n\n![第4格](comics/kids/04.jpg)\n\n作业。\n\n![第5格](comics/kids/05.jpg)\n\n困。\n\n![第6格](comics/kids/06.jpg)\n\n明天还得上。"
+}

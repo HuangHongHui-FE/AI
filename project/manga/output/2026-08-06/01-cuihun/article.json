@@ -1,0 +1,72 @@
+{
+  "title": "又被催去相亲，这次画成了漫画",
+  "digest": "被妈催去相亲，发现对方也是被逼来的，俩人默契开溜，相亲没成，倒多了个懂被催的朋友。",
+  "slug": "cuihun",
+  "line": "B",
+  "cta_question": "你也是被逼去相亲的吗？",
+  "cta_follow": "感同身受的话，转给那个和你一样的人看看。",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFB677", "label": "01·催",
+      "actors": [
+        { "type": "stickman", "x": 110, "hipY": 430, "color": "#8a3a3a", "pose": "point" },
+        { "type": "stickman", "x": 350, "hipY": 440, "color": "#3a2a1a", "pose": "shrug" }
+      ],
+      "props": [{ "type": "heart", "cx": 220, "cy": 150, "r": 14 }],
+      "bubbles": [{ "x": 130, "y": 50, "w": 220, "h": 80, "text": "周末去见一个，人家姑娘挺好", "px": 150, "py": 130 }]
+    },
+    {
+      "bg1": "#E8F4FF", "bg2": "#A9D5F5", "label": "02·尴尬",
+      "actors": [
+        { "type": "stickman", "x": 140, "hipY": 400, "color": "#3a2a1a", "pose": "down" },
+        { "type": "stickman", "x": 340, "hipY": 400, "color": "#2a3a5a", "pose": "down" }
+      ],
+      "props": [
+        { "type": "desk", "x": 180, "y": 400, "w": 120 },
+        { "type": "question", "x": 240, "y": 320, "size": 44 }
+      ]
+    },
+    {
+      "bg1": "#F0E8FF", "bg2": "#C5B5E8", "label": "03·捅破",
+      "actors": [
+        { "type": "stickman", "x": 150, "hipY": 430, "color": "#3a2a1a", "pose": "point" },
+        { "type": "stickman", "x": 350, "hipY": 430, "color": "#2a3a5a", "pose": "shrug" }
+      ],
+      "bubbles": [{ "x": 190, "y": 50, "w": 240, "h": 80, "text": "你也是被逼来的吧", "px": 200, "py": 160 }]
+    },
+    {
+      "bg1": "#E8F4FF", "bg2": "#C5B5E8", "label": "04·同病",
+      "actors": [
+        { "type": "stickman", "x": 160, "hipY": 430, "color": "#2a3a5a", "pose": "shrug" },
+        { "type": "stickman", "x": 350, "hipY": 430, "color": "#3a2a1a", "pose": "down" }
+      ],
+      "props": [{ "type": "heart", "cx": 300, "cy": 150, "r": 14 }],
+      "bubbles": [{ "x": 170, "y": 50, "w": 260, "h": 90, "text": "我妈说再不来就断绝关系", "px": 200, "py": 160 }]
+    },
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFB677", "label": "05·开溜",
+      "actors": [
+        { "type": "stickman", "x": 120, "hipY": 440, "color": "#3a2a1a", "pose": "up" },
+        { "type": "stickman", "x": 360, "hipY": 440, "color": "#2a3a5a", "pose": "up" }
+      ],
+      "props": [{ "type": "bulb", "cx": 240, "cy": 150, "r": 18 }],
+      "bubbles": [{ "x": 160, "y": 50, "w": 220, "h": 80, "text": "走，去吃点真的", "px": 240, "py": 160 }]
+    },
+    {
+      "bg1": "#1a1a2e", "bg2": "#16213e", "label": "06·成了",
+      "actors": [
+        { "type": "stickman", "x": 150, "hipY": 440, "color": "#9a9ab0", "pose": "down" },
+        { "type": "stickman", "x": 360, "hipY": 440, "color": "#7a7aa0", "pose": "down" }
+      ],
+      "props": [
+        { "type": "moon", "cx": 240, "cy": 80, "r": 30 },
+        { "type": "star", "cx": 60, "cy": 90, "r": 6 },
+        { "type": "star", "cx": 420, "cy": 130, "r": 5 },
+        { "type": "star", "cx": 100, "cy": 220, "r": 5 }
+      ],
+      "bubbles": [{ "x": 150, "y": 50, "w": 240, "h": 80, "text": "相亲没成，多个朋友", "px": 240, "py": 140 }]
+    }
+  ],
+  "body_markdown": "我妈前天开始收拾客厅，我就知道坏事了。她一收拾，准是要给我张罗对象。\n\n![第1格](comics/cuihun/01.jpg)\n\n周末，她递给我一张纸条，上面写着地址和时间。「人家姑娘挺好，你去见见，别让人家等。」她说话时眼睛里有种奇怪的郑重，像在托付什么。\n\n咖啡店里，我俩隔着一张桌子坐下，谁也没说话。\n\n![第2格](comics/cuihun/02.jpg)\n\n空气是尴尬的，那种被各自妈妈按头送来的尴尬。她低头搅咖啡，我盯着窗外，谁都不想先开口——一开口就得承认，我们是来相亲的。\n\n我忽然想，这样耗着不如捅破，把杯子往前一推：\n\n![第3格](comics/cuihun/03.jpg)\n\n「你也是被逼来的吧？」\n\n她抬头看我，愣了两秒，笑了。那笑容里有种松了口气的意思。\n\n![第4格](comics/cuihun/04.jpg)\n\n「我妈说，再不来，就断绝母女关系。」\n\n我一听乐了。原来天下的妈催人套路都一样：先讲道理，讲不通上威胁，威胁不行就断绝关系。我们这代人，不是不想找，是怕被找——被按着头的那种找，连心动都得排在「合适」后面。\n\n桌上的尴尬忽然就散了，我俩像两个逃兵，在战壕里认出了彼此。\n\n![第5格](comics/cuihun/05.jpg)\n\n「走，」她说，「去吃点真的。」\n\n我们溜了，留下一桌没动的咖啡。那顿饭吃了俩小时，聊工作、聊房租、聊各自妈的催婚话术，唯独没聊相亲该聊的那些。\n\n![第6格](comics/cuihun/06.jpg)\n\n后来我们没成。但回家的路上，我比去之前轻快。相亲没成，却多了个朋友——一个和我一样、被生活按着头、却还想着自己抬头看看的人。\n\n人这一辈子，能遇见一个懂你尴尬的人，比遇见一个合适的人难得。我们都在等生活给答案，生活却在等我们先开口。那天我们开口了，开口的不是相亲，是自己。"
+}

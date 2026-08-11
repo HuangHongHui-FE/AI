@@ -1,0 +1,44 @@
+{
+  "title": "外卖说「放门口了」，我白跑一趟",
+  "digest": "跑下去才发现，外卖早放门口了。",
+  "slug": "takeaway",
+  "line": "A",
+  "cta_question": "你被外卖放过几次鸽子？",
+  "cta_follow": "点 个 在 看",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFB677", "label": "01·饿",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#3a2a1a", "pose": "down" }],
+      "bubbles": [{ "x": 280, "y": 70, "w": 160, "h": 60, "text": "饿死了", "px": 300, "py": 130 }]
+    },
+    {
+      "bg1": "#FFF8D6", "bg2": "#FFE066", "label": "02·查",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#3a2a1a", "pose": "point" }],
+      "props": [{ "type": "question", "x": 360, "y": 170, "size": 60, "color": "#b03030" }],
+      "bubbles": [{ "x": 280, "y": 70, "w": 140, "h": 60, "text": "到哪了", "px": 300, "py": 130 }]
+    },
+    {
+      "bg1": "#D6E4FF", "bg2": "#8FB3FF", "label": "03·下楼",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#2b2b2b", "pose": "down" }],
+      "bubbles": [{ "x": 280, "y": 70, "w": 140, "h": 60, "text": "马上到", "px": 300, "py": 130 }]
+    },
+    {
+      "bg1": "#E0E0E8", "bg2": "#A0A0B0", "label": "04·空",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#3a3a3a", "pose": "shrug" }],
+      "bubbles": [{ "x": 310, "y": 80, "w": 60, "h": 60, "text": "？", "px": 290, "py": 140 }]
+    },
+    {
+      "bg1": "#F0F0F5", "bg2": "#C0C0D0", "label": "05·看手机",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#3a3a3a", "pose": "down" }],
+      "bubbles": [{ "x": 250, "y": 70, "w": 180, "h": 60, "text": "放门口了", "px": 290, "py": 130 }]
+    },
+    {
+      "bg1": "#1a1a2e", "bg2": "#16213e", "label": "06·白跑",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#6a6a8a", "pose": "down" }],
+      "props": [{ "type": "heart", "cx": 240, "cy": 280, "r": 16, "color": "#6a6a8a" }],
+      "bubbles": [{ "x": 310, "y": 80, "w": 60, "h": 60, "text": "……", "px": 290, "py": 140 }]
+    }
+  ],
+  "body_markdown": "外卖到了吗。\n\n![第1格](comics/takeaway/01.jpg)\n\n饿。\n\n![第2格](comics/takeaway/02.jpg)\n\n到哪了。\n\n![第3格](comics/takeaway/03.jpg)\n\n马上到，下楼。\n\n![第4格](comics/takeaway/04.jpg)\n\n门口没人。\n\n![第5格](comics/takeaway/05.jpg)\n\n放门口了。\n\n![第6格](comics/takeaway/06.jpg)\n\n白跑。"
+}

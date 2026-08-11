@@ -1,0 +1,55 @@
+{
+  "title": "她搬走那天，我没挽留",
+  "digest": "留不住的人，就当风吹过。风停了，日子还得自己过。",
+  "slug": "breakup",
+  "line": "B",
+  "cta_question": "你送走一个人时，挽留过吗？",
+  "cta_follow": "转 发 给 懂 的 人",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFB677", "label": "01·我们",
+      "actors": [
+        { "type": "stickman", "x": 170, "hipY": 440, "color": "#3a2a1a", "pose": "up" },
+        { "type": "stickman", "x": 320, "hipY": 440, "color": "#3a2a1a", "pose": "up" }
+      ],
+      "props": [{ "type": "heart", "cx": 245, "cy": 280, "r": 20, "color": "#e85a71" }],
+      "bubbles": [{ "x": 280, "y": 70, "w": 100, "h": 60, "text": "我们", "px": 300, "py": 130 }]
+    },
+    {
+      "bg1": "#C8C8D0", "bg2": "#8A8A9A", "label": "02·吵",
+      "actors": [
+        { "type": "stickman", "x": 170, "hipY": 440, "color": "#3a2a1a", "pose": "shrug" },
+        { "type": "stickman", "x": 320, "hipY": 440, "color": "#1a1a2e", "pose": "down" }
+      ],
+      "props": [{ "type": "question", "x": 245, "y": 150, "size": 50, "color": "#b03030" }]
+    },
+    {
+      "bg1": "#A8B8C8", "bg2": "#6A7A8A", "label": "03·收东西",
+      "actors": [{ "type": "stickman", "x": 330, "hipY": 440, "color": "#1a1a2e", "pose": "down" }],
+      "props": [{ "type": "desk", "x": 270, "y": 400, "w": 100 }],
+      "bubbles": [{ "x": 130, "y": 70, "w": 120, "h": 60, "text": "搬走", "px": 200, "py": 130 }]
+    },
+    {
+      "bg1": "#3A2A4A", "bg2": "#1A1A2E", "label": "04·门关",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#6a6a8a", "pose": "down" }],
+      "bubbles": [{ "x": 300, "y": 80, "w": 60, "h": 60, "text": "砰", "px": 280, "py": 140 }]
+    },
+    {
+      "bg1": "#1a1a2e", "bg2": "#16213e", "label": "05·空",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#6a6a8a", "pose": "down" }],
+      "props": [
+        { "type": "moon", "cx": 380, "cy": 100, "r": 30 },
+        { "type": "heart", "cx": 240, "cy": 280, "r": 16, "color": "#6a6a8a" }
+      ],
+      "bubbles": [{ "x": 310, "y": 80, "w": 60, "h": 60, "text": "……", "px": 290, "py": 140 }]
+    },
+    {
+      "bg1": "#A8B0C0", "bg2": "#D8D0C8", "label": "06·会好",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#3a3a3a", "pose": "up" }],
+      "props": [{ "type": "star", "cx": 380, "cy": 90, "r": 7, "color": "#e6a92c" }],
+      "bubbles": [{ "x": 280, "y": 70, "w": 120, "h": 60, "text": "会好", "px": 300, "py": 130 }]
+    }
+  ],
+  "body_markdown": "我们认识第三年，开始为一双袜子吵架。她嫌我乱扔，我嫌她管太多。其实都不是袜子的错，是两个人都累了。\n\n![第1格](comics/breakup/01.jpg)\n\n吵到后面声音越来越小，小到只剩关门那一下。砰。那一下比任何争吵都重。\n\n![第2格](comics/breakup/02.jpg)\n\n她搬走那天我没挽留。挽留，显得我赢了一场吵架却输了人；不挽留，又像默认了这一切本来就该散。怎么选都是错。\n\n![第3格](comics/breakup/03.jpg)\n\n门关上的那一刻，屋里忽然静得能听见冰箱的嗡嗡声。我才发现，一个人住的安静，和两个人住到无话可说的安静，是两种完全不同的安静。\n\n![第4格](comics/breakup/04.jpg)\n\n后来的日子，我会偶尔在某个动作里愣住——拿起第二个杯子、多盛了一勺饭、习惯性地往右边挪半步。她的位置早空了，我的身体还没记住。\n\n![第5格](comics/breakup/05.jpg)\n\n现在我学会一件事：有些人离开是悄无声息的，没有摔门，没有告别，只是某天她搬走了，你才意识到自己早就习惯了她的存在。\n\n![第6格](comics/breakup/06.jpg)\n\n留不住的人，就当风吹过。风停了，日子还得自己过。觉得戳心，就转发给懂的人。"
+}

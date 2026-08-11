@@ -7,18 +7,35 @@
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
+const sharp = require('sharp');
 
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0) AppleWebKit/605.1.4 Mobile/15E148 Safari/604.1';
 
 // 解析参数：--news 可选
 let newsMode = false;
+let wideMode = false;
 let args = process.argv.slice(2);
 if (args[0] === '--news') {
   newsMode = true;
   args = args.slice(1);
 }
+if (args[0] === '--wide') {
+  wideMode = true; // 封面头图用：跳过比例 <1.6 的窄图，保主体完整（封面固定裁 900x383/2.35:1）
+  args = args.slice(1);
+}
 const query = encodeURIComponent(args[0]);
 const outPath = args[1];
+
+// 宽图门：封面用图须宽/高>=1.6，否则 2.35:1 硬裁会切掉上下 40%+ 主体
+const WIDE_MIN = 1.6;
+async function isWideEnough(path) {
+  try {
+    const { width, height } = await sharp(path).metadata();
+    return width / height >= WIDE_MIN;
+  } catch {
+    return false;
+  }
+}
 
 function fetch(url, referer) {
   return new Promise((res, rej) => {
@@ -73,7 +90,10 @@ async function trySogouNews(enc, path) {
   });
   for (const u of urls) {
     const ok = await download(u, path, 'https://pic.sogou.com/');
-    if (ok) { console.log(`OK(新闻) ${u.slice(0, 70)} -> ${path}`); return true; }
+    if (ok) {
+      if (wideMode && !(await isWideEnough(path))) { fs.unlinkSync(path); console.log(`skip窄图 ${u.slice(0, 70)}`); continue; }
+      console.log(`OK(新闻) ${u.slice(0, 70)} -> ${path}`); return true;
+    }
     else console.log(`fail ${u.slice(0, 70)}`);
   }
   return false;
@@ -91,7 +111,10 @@ async function tryBing(enc, path) {
   }
   for (const u of urls) {
     const ok = await download(u, path);
-    if (ok) { console.log(`OK ${u.slice(0, 70)} -> ${path}`); return true; }
+    if (ok) {
+      if (wideMode && !(await isWideEnough(path))) { fs.unlinkSync(path); console.log(`skip窄图 ${u.slice(0, 70)}`); continue; }
+      console.log(`OK ${u.slice(0, 70)} -> ${path}`); return true;
+    }
     else console.log(`fail ${u.slice(0, 70)}`);
   }
   return false;

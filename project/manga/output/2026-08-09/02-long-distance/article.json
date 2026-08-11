@@ -1,0 +1,51 @@
+{
+  "title": "你也曾这样等过一个人的消息",
+  "digest": "城市隔着城市，时差隔着时差，连一句在吗都要先算对方的天色。",
+  "slug": "long-distance",
+  "line": "B",
+  "cta_question": "你等过最久的一条消息，等了多久？",
+  "cta_follow": "点 个 在 看",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#1a1a2e", "bg2": "#16213e", "label": "01·两点",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 460, "color": "#6a6a8a", "pose": "down" }],
+      "props": [{ "type": "moon", "cx": 380, "cy": 100, "r": 30 }],
+      "bubbles": [{ "x": 300, "y": 80, "w": 100, "h": 60, "text": "在吗", "px": 280, "py": 140 }]
+    },
+    {
+      "bg1": "#241a3a", "bg2": "#16213e", "label": "02·没回",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#6a6a8a", "pose": "down" }],
+      "props": [{ "type": "question", "x": 100, "y": 160, "size": 56, "color": "#7a5a8a" }],
+      "bubbles": [{ "x": 310, "y": 80, "w": 80, "h": 60, "text": "……", "px": 290, "py": 140 }]
+    },
+    {
+      "bg1": "#3a2a4a", "bg2": "#241a3a", "label": "03·悬着",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#9a8aaa", "pose": "shrug" }],
+      "props": [{ "type": "heart", "cx": 320, "cy": 290, "r": 16, "color": "#8a6a7a" }],
+      "bubbles": [{ "x": 280, "y": 70, "w": 160, "h": 60, "text": "没回", "px": 300, "py": 130 }]
+    },
+    {
+      "bg1": "#4a3a5a", "bg2": "#2a1a3a", "label": "04·想发",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#9a8aaa", "pose": "point" }],
+      "bubbles": [{ "x": 260, "y": 60, "w": 200, "h": 70, "text": "我想你了", "px": 290, "py": 130 }]
+    },
+    {
+      "bg1": "#2a2440", "bg2": "#1a1a2e", "label": "05·已读",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#6a6a8a", "pose": "down" }],
+      "bubbles": [{ "x": 250, "y": 70, "w": 220, "h": 70, "text": "对方无回应", "px": 290, "py": 140 }]
+    },
+    {
+      "bg1": "#1a1a2e", "bg2": "#0f0f1e", "label": "06·春天",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#9aa0c0", "pose": "up" }],
+      "props": [
+        { "type": "moon", "cx": 360, "cy": 90, "r": 28 },
+        { "type": "star", "cx": 80, "cy": 90, "r": 6, "color": "#f5e6a8" },
+        { "type": "star", "cx": 150, "cy": 160, "r": 5, "color": "#f5e6a8" },
+        { "type": "star", "cx": 320, "cy": 200, "r": 5, "color": "#f5e6a8" }
+      ],
+      "bubbles": [{ "x": 260, "y": 60, "w": 200, "h": 60, "text": "刚忙完", "px": 290, "py": 120 }]
+    }
+  ],
+  "body_markdown": "凌晨两点，我又看了一次手机。屏幕亮一下，又暗下去。\n\n![第1格](comics/long-distance/01.jpg)\n\n她说晚安的时候，我这边是早上。城市隔着城市，时差隔着时差，连一句「在吗」都要先算算对方那边的天色。\n\n![第2格](comics/long-distance/02.jpg)\n\n发出去五分钟没回，我开始复盘上一句是不是说错了。其实什么都没说错，只是她大概在忙，或者睡了，或者——在别人的对话里忙着。\n\n![第3格](comics/long-distance/03.jpg)\n\n异地最磨人的不是距离，是你永远不知道此刻的沉默，是忙着、是忘了，还是不想回了。心就悬在半空，落不下来。\n\n![第4格](comics/long-distance/04.jpg)\n\n我打了三个字又删掉：我想你了。删掉的理由很怂——怕显得矫情，怕她只回一个「嗯」，怕这句想念比时差还难跨越。\n\n![第5格](comics/long-distance/05.jpg)\n\n后来我想通了。等的本质不是要一个答案，是想确认自己还被惦记。可真正惦记你的人，不会让你等到天亮还在猜。\n\n![第6格](comics/long-distance/06.jpg)\n\n我们都在等生活给答案，生活却在等我们先开口。可有些开口，隔着几千公里，比沉默还重。她终于回了「刚忙完」三个字，我盯着看了很久，像看一场迟到的春天。\n\n点赞是认可，转发是共鸣，关注是约定。"
+}

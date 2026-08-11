@@ -1,0 +1,51 @@
+{
+  "title": "一个人吃饭的样子，我都画下来了",
+  "digest": "一个人的饭桌，也该热气腾腾。",
+  "slug": "solo",
+  "line": "A",
+  "cta_question": "一个人的晚饭，你最常吃什么？",
+  "cta_follow": "点 个 赞 再 走",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#FFB677", "bg2": "#6A4A8A", "label": "01·下班",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#3a2a1a", "pose": "down" }],
+      "bubbles": [{ "x": 300, "y": 80, "w": 80, "h": 60, "text": "吃啥", "px": 280, "py": 140 }]
+    },
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFD699", "label": "02·买一份",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#3a2a1a", "pose": "point" }],
+      "bubbles": [{ "x": 280, "y": 70, "w": 140, "h": 60, "text": "就这个", "px": 300, "py": 130 }]
+    },
+    {
+      "bg1": "#F5E6D3", "bg2": "#D9B384", "label": "03·到家",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 450, "color": "#3a2a1a", "pose": "down" }],
+      "props": [{ "type": "bulb", "cx": 110, "cy": 360, "r": 24 }],
+      "bubbles": [{ "x": 280, "y": 70, "w": 120, "h": 60, "text": "灯亮了", "px": 300, "py": 130 }]
+    },
+    {
+      "bg1": "#FFF8D6", "bg2": "#FFE066", "label": "04·热一下",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#3a2a1a", "pose": "up" }],
+      "props": [{ "type": "bulb", "cx": 240, "cy": 200, "r": 26 }],
+      "bubbles": [{ "x": 300, "y": 80, "w": 60, "h": 60, "text": "叮", "px": 280, "py": 140 }]
+    },
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFB677", "label": "05·开吃",
+      "actors": [{ "type": "stickman", "x": 200, "hipY": 450, "color": "#3a2a1a", "pose": "down" }],
+      "props": [
+        { "type": "desk", "x": 290, "y": 400, "w": 120 },
+        { "type": "heart", "cx": 360, "cy": 280, "r": 14, "color": "#e85a71" }
+      ]
+    },
+    {
+      "bg1": "#3A2A4A", "bg2": "#1A1A2E", "label": "06·也挺好",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#9aa0c0", "pose": "up" }],
+      "props": [
+        { "type": "moon", "cx": 380, "cy": 100, "r": 28 },
+        { "type": "star", "cx": 90, "cy": 100, "r": 5, "color": "#f5e6a8" }
+      ],
+      "bubbles": [{ "x": 270, "y": 70, "w": 140, "h": 60, "text": "明天见", "px": 290, "py": 130 }]
+    }
+  ],
+  "body_markdown": "一个人的饭桌，也该有热气。\n\n![第1格](comics/solo/01.jpg)\n\n下班。\n\n![第2格](comics/solo/02.jpg)\n\n买一份。\n\n![第3格](comics/solo/03.jpg)\n\n到家，开灯。\n\n![第4格](comics/solo/04.jpg)\n\n热一下。\n\n![第5格](comics/solo/05.jpg)\n\n慢慢吃。\n\n![第6格](comics/solo/06.jpg)\n\n也挺好。"
+}

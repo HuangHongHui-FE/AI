@@ -1,0 +1,58 @@
+{
+  "title": "又是一个想辞职的周一，画给你看",
+  "digest": "周一想辞职，周三想发财，周五想退休——工资到账那天，又觉得自己行了。",
+  "slug": "monday-quit",
+  "line": "B",
+  "cta_question": "你哪一刻最想辞职？",
+  "cta_follow": "点 个 赞 再 走",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFB677", "label": "01·赖床",
+      "actors": [{ "type": "stickman", "x": 250, "hipY": 470, "color": "#3a2a1a", "pose": "down" }],
+      "props": [{ "type": "bulb", "cx": 110, "cy": 360, "r": 24 }],
+      "bubbles": [{ "x": 270, "y": 70, "w": 190, "h": 80, "text": "再睡五分钟……", "px": 300, "py": 150 }]
+    },
+    {
+      "bg1": "#FFF8D6", "bg2": "#FFD93D", "label": "02·惊醒",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 430, "color": "#3a2a1a", "pose": "up" }],
+      "props": [{ "type": "question", "x": 360, "y": 200, "size": 64, "color": "#b03030" }],
+      "bubbles": [{ "x": 280, "y": 70, "w": 170, "h": 70, "text": "几点了？！", "px": 300, "py": 140 }]
+    },
+    {
+      "bg1": "#D6E4FF", "bg2": "#8FB3FF", "label": "03·狂奔",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#2b2b2b", "pose": "point" }],
+      "bubbles": [{ "x": 270, "y": 70, "w": 190, "h": 80, "text": "电梯等等我", "px": 300, "py": 150 }]
+    },
+    {
+      "bg1": "#E8E0D0", "bg2": "#B8A890", "label": "04·又迟到",
+      "actors": [
+        { "type": "stickman", "x": 150, "hipY": 440, "color": "#3a2a1a", "pose": "down" },
+        { "type": "stickman", "x": 370, "hipY": 440, "color": "#1a1a2e", "pose": "shrug" }
+      ],
+      "props": [{ "type": "desk", "x": 300, "y": 400, "w": 140 }],
+      "bubbles": [{ "x": 250, "y": 60, "w": 200, "h": 70, "text": "这个月第三次了", "px": 360, "py": 130 }]
+    },
+    {
+      "bg1": "#FFE6F0", "bg2": "#FFB8D6", "label": "05·工资到账",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#3a2a1a", "pose": "up" }],
+      "props": [
+        { "type": "bulb", "cx": 240, "cy": 200, "r": 30 },
+        { "type": "heart", "cx": 240, "cy": 290, "r": 34 }
+      ],
+      "bubbles": [{ "x": 280, "y": 60, "w": 170, "h": 70, "text": "叮~真香", "px": 300, "py": 130 }]
+    },
+    {
+      "bg1": "#1a1a2e", "bg2": "#16213e", "label": "06·明天见",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#9aa0c0", "pose": "up" }],
+      "props": [
+        { "type": "moon", "cx": 380, "cy": 100, "r": 32 },
+        { "type": "star", "cx": 80, "cy": 90, "r": 6, "color": "#f5e6a8" },
+        { "type": "star", "cx": 140, "cy": 160, "r": 5, "color": "#f5e6a8" },
+        { "type": "star", "cx": 320, "cy": 220, "r": 5, "color": "#f5e6a8" }
+      ],
+      "bubbles": [{ "x": 250, "y": 70, "w": 200, "h": 70, "text": "明天见，打工人", "px": 280, "py": 140 }]
+    }
+  ],
+  "body_markdown": "每周一早上七点，我都会和闹钟进行一场你死我活的拉锯——通常输的是我。\n\n![第1格](comics/monday-quit/01.jpg)\n\n那一刻全世界最远的距离，是床头到床尾。我按下闹钟，告诉自己再睡五分钟，世界不会塌。世界当然不会塌，塌的只有我赶九点打卡的命。\n\n![第2格](comics/monday-quit/02.jpg)\n\n下一个睁眼，阳光已经斜到枕头。我弹起来看表，屏幕冷冰冰地写着八点四十七。那一刻我脑子里只剩一个念头：辞职。就今天，立刻，马上。\n\n![第3格](comics/monday-quit/03.jpg)\n\n我以百米冲刺的速度奔向电梯，包在身后甩得像面旗。电梯停在十八层不动，我一边等一边在心里写辞职信：尊敬的领导，因本人周一持续赖床，特申请离职，望批准。\n\n![第4格](comics/monday-quit/04.jpg)\n\n九点零三分，我踏进办公室。老板抬头看我，眼神里没有责备，只有一种「又来了」的疲惫。他说这个月第三次了。我没敢接话——这种话接多了，怕他哪天真顺手批了。\n\n![第5格](comics/monday-quit/05.jpg)\n\n下午三点，手机叮地一响。工资到账。我盯着那条短信看了三秒，辞职信在脑子里默默撕碎。真香。我说的是工资，不是我。\n\n![第6格](comics/monday-quit/06.jpg)\n\n下班路上我忽然想明白一件事：所谓打工人，就是周一想辞职、周三想发财、周五想退休，又被工资周期准时捞回来的那群人。嘴上喊了一千次不干了，第二天闹钟一响，还是乖乖坐起来。\n\n不是不想要自由，是怕自由的代价，比闹钟更刺耳。\n\n我们都在用不喜欢的方式，养活喜欢的自己。明天见，打工人。\n\n你的每个赞，都是我画下一格的动力。"
+}

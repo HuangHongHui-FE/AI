@@ -1,0 +1,53 @@
+{
+  "title": "30岁跳槽三次，我悟了",
+  "digest": "跳槽不是上岸，是换个池子继续扑腾。",
+  "slug": "job-hopping",
+  "line": "B",
+  "cta_question": "你跳槽最大的教训是什么？",
+  "cta_follow": "评 论 区 聊 聊",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#F0F0F5", "bg2": "#C0C0D0", "label": "01·坐定",
+      "actors": [
+        { "type": "stickman", "x": 140, "hipY": 440, "color": "#1a1a2e", "pose": "shrug" },
+        { "type": "stickman", "x": 320, "hipY": 440, "color": "#3a2a1a", "pose": "down" }
+      ],
+      "props": [{ "type": "desk", "x": 80, "y": 400, "w": 100 }],
+      "bubbles": [{ "x": 170, "y": 70, "w": 210, "h": 70, "text": "说说你为什么离职", "px": 200, "py": 140 }]
+    },
+    {
+      "bg1": "#E8E0D0", "bg2": "#C8B8A0", "label": "02·卡壳",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#3a2a1a", "pose": "shrug" }],
+      "props": [{ "type": "question", "x": 360, "y": 170, "size": 60, "color": "#b03030" }],
+      "bubbles": [{ "x": 300, "y": 80, "w": 80, "h": 60, "text": "……", "px": 280, "py": 140 }]
+    },
+    {
+      "bg1": "#FFE9D6", "bg2": "#FFD699", "label": "03·编理由",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 440, "color": "#3a2a1a", "pose": "point" }],
+      "bubbles": [{ "x": 250, "y": 60, "w": 220, "h": 70, "text": "想寻找新挑战", "px": 290, "py": 130 }]
+    },
+    {
+      "bg1": "#C8C8D0", "bg2": "#8A8A9A", "label": "04·被拆穿",
+      "actors": [
+        { "type": "stickman", "x": 140, "hipY": 440, "color": "#1a1a2e", "pose": "shrug" },
+        { "type": "stickman", "x": 320, "hipY": 440, "color": "#3a2a1a", "pose": "down" }
+      ],
+      "props": [{ "type": "desk", "x": 80, "y": 400, "w": 100 }],
+      "bubbles": [{ "x": 170, "y": 70, "w": 220, "h": 70, "text": "上家也这么说？", "px": 200, "py": 140 }]
+    },
+    {
+      "bg1": "#1a1a2e", "bg2": "#16213e", "label": "05·真相",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#6a6a8a", "pose": "down" }],
+      "props": [{ "type": "heart", "cx": 240, "cy": 300, "r": 16, "color": "#6a6a8a" }],
+      "bubbles": [{ "x": 290, "y": 80, "w": 120, "h": 60, "text": "钱太少", "px": 300, "py": 140 }]
+    },
+    {
+      "bg1": "#A8C0D8", "bg2": "#FFD699", "label": "06·下一家",
+      "actors": [{ "type": "stickman", "x": 240, "hipY": 470, "color": "#3a2a1a", "pose": "up" }],
+      "props": [{ "type": "star", "cx": 380, "cy": 90, "r": 7, "color": "#e6a92c" }],
+      "bubbles": [{ "x": 290, "y": 80, "w": 100, "h": 60, "text": "下一家", "px": 300, "py": 140 }]
+    }
+  ],
+  "body_markdown": "面试官是个四十多岁的男人，手指敲着桌面，头也不抬：「说说你为什么从上家离职。」\n\n![第1格](comics/job-hopping/01.jpg)\n\n这种问题我听过三次了，每次都在「想寻找新挑战」和「钱给少了」之间犹豫。前两次我都选了前者，HR点头微笑，然后没了下文。\n\n![第2格](comics/job-hopping/02.jpg)\n\n这一次我还是背了同样的台词：想寻找新挑战。说的时候我自己都有点脸热，像把用过两次的借口又熨了一遍。\n\n![第3格](comics/job-hopping/03.jpg)\n\n他抬头看我一眼：「你上家也这么说的吧。」不是问句，是肯定句。我愣住，忽然意识到简历上的三段经历，他大概早看穿了。\n\n![第4格](comics/job-hopping/04.jpg)\n\n夜里回家我躺在沙发上算账。三次跳槽，薪水涨了三成，头发少了一成，朋友散了一半。每家公司的「新挑战」最后都长一个样——更长的加班、更空的承诺、更准时到账的工资。\n\n![第5格](comics/job-hopping/05.jpg)\n\n后来我懂了，跳槽从来不是上岸，是换个池子继续扑腾。真正的岸不在下一份offer里，是你终于想清楚自己到底图什么，再决定要不要扑、往哪扑。\n\n![第6格](comics/job-hopping/06.jpg)\n\n嘴上喊「下一家会更好」喊了三回的人，第四回该学聪明了。评论区聊聊，你跳槽最大的教训是什么？"
+}

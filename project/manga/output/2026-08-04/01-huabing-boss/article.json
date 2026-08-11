@@ -1,0 +1,89 @@
+{
+  "title": "【漫画】画饼老板的十二时辰",
+  "digest": "打工人的日常：老板画饼、深夜加班、然后我顿悟了。生活挖的坑，就当是种花的花盆。",
+  "slug": "huabing-boss",
+  "line": "B",
+  "theme": "warm",
+  "cta_question": "你遇到过最离谱的老板画饼是什么？",
+  "cta_follow": "点 个 关 注 不 迷 路",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#FFF5E6", "bg2": "#FFD699", "label": "01·画饼",
+      "actors": [
+        { "type": "stickman", "x": 140, "hipY": 420, "color": "#2b2b2b", "pose": "point" },
+        { "type": "stickman", "x": 340, "hipY": 420, "color": "#3a2a1a", "pose": "down" }
+      ],
+      "props": [{ "type": "pie", "cx": 240, "cy": 300, "r": 80, "fill": "#FFD86B", "stroke": "#E6A92C" }],
+      "bubbles": [
+        { "x": 30, "y": 50, "w": 210, "h": 90, "text": "好好干，年底给你升主管", "px": 140, "py": 140 }
+      ]
+    },
+    {
+      "bg1": "#1a1a2e", "bg2": "#16213e", "label": "02·加班",
+      "actors": [
+        { "type": "stickman", "x": 240, "hipY": 420, "color": "#6a6a8a", "pose": "down" }
+      ],
+      "props": [
+        { "type": "desk", "x": 170, "y": 380, "w": 140 },
+        { "type": "rain", "x": 40, "y": 40, "n": 8, "color": "#4a6a8a" },
+        { "type": "moon", "cx": 380, "cy": 80, "r": 30 }
+      ],
+      "bubbles": [
+        { "x": 280, "y": 160, "w": 170, "h": 70, "text": "同事都走了……", "px": 280, "py": 230 }
+      ]
+    },
+    {
+      "bg1": "#FFF5E6", "bg2": "#FFD699", "label": "03·再画饼",
+      "actors": [
+        { "type": "stickman", "x": 140, "hipY": 420, "color": "#2b2b2b", "pose": "shrug" },
+        { "type": "stickman", "x": 340, "hipY": 420, "color": "#3a2a1a", "pose": "down" }
+      ],
+      "props": [{ "type": "pie", "cx": 240, "cy": 300, "r": 100, "fill": "#FFD86B", "stroke": "#E6A92C" }],
+      "bubbles": [
+        { "x": 30, "y": 40, "w": 210, "h": 90, "text": "明年一定给你涨薪", "px": 140, "py": 130 }
+      ]
+    },
+    {
+      "bg1": "#e8e0d0", "bg2": "#c8b8a0", "label": "04·望饼",
+      "actors": [
+        { "type": "stickman", "x": 240, "hipY": 420, "color": "#3a2a1a", "pose": "shrug" }
+      ],
+      "props": [
+        { "type": "pie", "cx": 240, "cy": 240, "r": 120, "fill": "#FFD86B", "stroke": "#E6A92C" },
+        { "type": "question", "x": 360, "y": 100, "size": 50, "color": "#5a3a6a" }
+      ],
+      "bubbles": [
+        { "x": 60, "y": 400, "w": 200, "h": 70, "text": "这饼……越来越大了", "px": 160, "py": 398 }
+      ]
+    },
+    {
+      "bg1": "#f0e6ff", "bg2": "#d4c4f0", "label": "05·顿悟",
+      "actors": [
+        { "type": "stickman", "x": 240, "hipY": 420, "color": "#3a2a1a", "pose": "up" }
+      ],
+      "props": [
+        { "type": "bulb", "cx": 240, "cy": 160, "r": 30 }
+      ],
+      "bubbles": [
+        { "x": 80, "y": 220, "w": 200, "h": 80, "text": "等等，我为什么要等施舍？", "px": 180, "py": 300 }
+      ]
+    },
+    {
+      "bg1": "#ffe6b3", "bg2": "#ffcc66", "label": "06·走出去",
+      "actors": [
+        { "type": "stickman", "x": 340, "hipY": 420, "color": "#3a2a1a", "pose": "point" }
+      ],
+      "props": [
+        { "type": "star", "cx": 100, "cy": 80, "r": 12, "color": "#ffaa00" },
+        { "type": "star", "cx": 180, "cy": 50, "r": 8, "color": "#ffaa00" },
+        { "type": "star", "cx": 60, "cy": 140, "r": 10, "color": "#ffaa00" },
+        { "type": "heart", "cx": 60, "cy": 300, "r": 22, "color": "#e85a71" }
+      ],
+      "bubbles": [
+        { "x": 240, "y": 200, "w": 200, "h": 80, "text": "我自己画一个更大的", "px": 340, "py": 280 }
+      ]
+    }
+  ],
+  "body_markdown": "你有没有遇到过这样的老板？\n\n每次开会都指着PPT上的饼说——\n\n![第1格](comics/huabing-boss/01.jpg)\n\n「好好干，年底给你升主管。」\n\n你信了。从此加班到凌晨，同事都走了，窗外下着雨。\n\n![第2格](comics/huabing-boss/02.jpg)\n\n但你想，年底就好了。\n\n年底到了。老板又把你叫进办公室：\n\n![第3格](comics/huabing-boss/03.jpg)\n\n「明年一定给你涨薪，今年行情不好，你理解一下。」\n\n你点了点头。饼越来越大，却永远够不着。\n\n![第4格](comics/huabing-boss/04.jpg)\n\n你跑它也跑，你停它也停。你开始怀疑——这饼，真的存在吗？\n\n![第5格](comics/huabing-boss/05.jpg)\n\n然后有一天，你突然想通了。你在等别人施舍，但别人根本没打算分饼。那个饼，是用来让你原地转圈的胡萝卜。\n\n![第6格](comics/huabing-boss/06.jpg)\n\n与其等别人画饼，不如自己画一个更大的——亲手做出来。\n\n生活挖的坑，就当是种花的花盆。\n\n关注我，陪你画完每一个普通人的故事。"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "novel-fanqie",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "番茄小说发文管线：扫码登录 + 自动发草稿/定时发布",
+  "scripts": {
+    "login": "node src/login.js",
+    "publish": "node src/publish.js"
+  },
+  "dependencies": {
+    "playwright": "1.48.0"
+  }
+}
