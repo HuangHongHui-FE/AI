@@ -105,6 +105,9 @@ def main():
 
     got, n = 0, 1
     titles = {}
+    # 编号接续目录已有最大号（重跑/补搜不覆盖旧图），manifest 追加不覆盖
+    existing = [int(m.group(1)) for f in os.listdir(outdir) if (m := re.match(r"(\d+)\.(?:jpg|png|jpeg)$", f))]
+    start = max(existing) + 1 if existing else 1
     for it in order:
         if got >= need:
             break
@@ -118,16 +121,16 @@ def main():
         if ext == "bin":
             os.remove(tmp)
             continue
-        path = f"{outdir}/{got+1:03d}.{ext}"
+        path = f"{outdir}/{start+got:03d}.{ext}"
         os.rename(tmp, path)
         titles[os.path.basename(path)] = it["title"]
         print(f"[{os.path.basename(path)}] {os.path.getsize(path)//1024}KB {w}x{h}", flush=True)
         got += 1
         n += 1
 
-    # 生成 manifest 供用户核验来源
-    with open(f"{outdir}/manifest.md", "w", encoding="utf-8") as f:
-        f.write(f"# {subject} 热点图片（{len(titles)} 张）\n\n")
+    # 生成 manifest 供用户核验来源（追加模式，保留历史批次）
+    with open(f"{outdir}/manifest.md", "a", encoding="utf-8") as f:
+        f.write(f"# {subject} 热点图片（本批 {got} 张）\n\n")
         for fn in sorted(titles):
             f.write(f"- `{fn}` — {titles[fn] or '（无标题候选，已按强相关排序）'}\n")
     print(f"\n完成：{got} 张存入 {outdir}/，清单见 manifest.md")

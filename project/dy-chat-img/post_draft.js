@@ -3,7 +3,7 @@ const https = require('https');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const ACCESS_TOKEN = '106_SfBLnh2-IM3jz1QIj1OlWeaBP587OINUYVOCj_vvarhgE4xcch5RYQ6GQLIffALexflaysvEKcjN_7d3Qwk21wFCqILdam7EgN6vOMd8hiW5NFZhw3c9qWSMndEOGJcACATLO';
+const ACCESS_TOKEN = '107_Gz6hQGi7PHm0QmI4IgTt-usV9rCRVpCXwUdCRzqbKU7nonLaq1iLrO61xT5HFExGhOT9jvJCdwPkafaVICc-6G6WYgsULvSMvSMOuDhpQGjBn__qtSn5rGQ4An4UXLaAFAHKY';
 
 // 支持 --draft <file> 指定草稿 JSON，--dir <dir> 指定正文图目录（默认项目根目录）
 const args = process.argv.slice(2);
