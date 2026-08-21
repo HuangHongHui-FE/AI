@@ -1,16 +1,27 @@
 const fs = require('fs');
 const https = require('https');
+const path = require('path');
 const { execSync } = require('child_process');
 
 const ACCESS_TOKEN = '106_SfBLnh2-IM3jz1QIj1OlWeaBP587OINUYVOCj_vvarhgE4xcch5RYQ6GQLIffALexflaysvEKcjN_7d3Qwk21wFCqILdam7EgN6vOMd8hiW5NFZhw3c9qWSMndEOGJcACATLO';
 
-// 支持 --draft <file> 指定草稿 JSON，默认用示例文件
+// 支持 --draft <file> 指定草稿 JSON，--dir <dir> 指定正文图目录（默认项目根目录）
 const args = process.argv.slice(2);
 const draftIdx = args.indexOf('--draft');
 const DRAFT_JSON = draftIdx !== -1 && args[draftIdx + 1] ? args[draftIdx + 1] : '贴图草稿-20250708.json';
+const dirIdx = args.indexOf('--dir');
+const IMG_DIR = dirIdx !== -1 && args[dirIdx + 1] ? args[dirIdx + 1] : '.';
 
 // 读取贴图草稿配置
 const draft = JSON.parse(fs.readFileSync(DRAFT_JSON, 'utf8'));
+
+// 列目录内图片文件（排除 manifest/隐藏文件），按文件名自然排序
+function listImages(dir) {
+  return fs
+    .readdirSync(dir)
+    .filter((f) => /\.(jpe?g|png)$/i.test(f) && !f.startsWith('.'))
+    .sort((a, b) => a.localeCompare(b, 'zh', { numeric: true }));
+}
 
 // 上传本地图片到微信永久素材库，返回 media_id
 function uploadImage(filePath) {
@@ -49,11 +60,20 @@ function postJson(path, payload) {
 }
 
 async function main() {
-  // 上传封面和正文图片为永久素材
-  const thumbMediaId = uploadImage(draft.cover.placeholder);
+  // 上传封面为永久素材（cover.placeholder 可为完整路径或相对 --dir 的文件名）
+  const coverPath = draft.cover.placeholder.includes('/')
+    ? draft.cover.placeholder
+    : path.join(IMG_DIR, draft.cover.placeholder);
+  const thumbMediaId = uploadImage(coverPath);
+
+  // 正文图：从 --dir 目录按文件名排序取前 images.length 张（用户删图后剩下的）
+  const imgFiles = listImages(IMG_DIR);
+  if (imgFiles.length < draft.images.length) {
+    throw new Error(`正文图不足: 需要 ${draft.images.length} 张，目录只有 ${imgFiles.length} 张`);
+  }
   const imageList = [];
-  for (let i = 1; i <= draft.images.length; i++) {
-    imageList.push({ image_media_id: uploadImage(`img${i}.jpg`) });
+  for (let i = 0; i < draft.images.length; i++) {
+    imageList.push({ image_media_id: uploadImage(path.join(IMG_DIR, imgFiles[i])) });
   }
 
   // 拼接贴图纯文本 content：优先用 body（整篇一段讲透主题，不逐图），兼容旧逐图草稿
