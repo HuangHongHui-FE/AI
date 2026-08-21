@@ -2,7 +2,7 @@ const fs = require('fs');
 const https = require('https');
 const { execSync } = require('child_process');
 
-const ACCESS_TOKEN = '106_b5r2wLoySmjyvTB8fDeFfXr8iGhatUAGBdh8DU-XHaGasVasZRhy7qicgRdnjiOQEfUOI1drbfB6pqF2_LabGQotiKMui-8Qf4IR3EAHMdC2BC-2F-_LU0iAw6MDFYgAFANPI';
+const ACCESS_TOKEN = '106_SfBLnh2-IM3jz1QIj1OlWeaBP587OINUYVOCj_vvarhgE4xcch5RYQ6GQLIffALexflaysvEKcjN_7d3Qwk21wFCqILdam7EgN6vOMd8hiW5NFZhw3c9qWSMndEOGJcACATLO';
 
 // 支持 --draft <file> 指定草稿 JSON，默认用示例文件
 const args = process.argv.slice(2);

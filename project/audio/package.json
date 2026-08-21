@@ -1,0 +1,23 @@
+{
+  "name": "wechat-podcast",
+  "version": "0.1.0",
+  "description": "公众号单口商业/财经播客：生成音频 + 推送草稿",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "publish": "node src/publish.js",
+    "publish:dry": "node src/publish.js --dry-run",
+    "audio": "node src/audio.js",
+    "preflight": "node src/preflight-podcast.js",
+    "init-assets": "node scripts/init-assets.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "node-edge-tts": "^1.2.10",
+    "fluent-ffmpeg": "^2.1.3",
+    "sharp": "^0.33.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

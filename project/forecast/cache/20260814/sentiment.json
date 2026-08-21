@@ -1,0 +1,14 @@
+{
+  "date": "20260814",
+  "ts": "16:56:33",
+  "host": "push2delay.eastmoney.com",
+  "up": 2350,
+  "down": 2753,
+  "flat": 180,
+  "total": 5283,
+  "limit_up": 5,
+  "limit_down": 0,
+  "profit_ratio": 44.5,
+  "sentiment_temp": 5,
+  "note": "f104涨/f105跌/f106平/f107涨停/f108跌停,取上证指数市场级统计"
+}

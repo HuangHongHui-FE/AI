@@ -15,9 +15,24 @@ def sina_code(code):
     return ("sh" if code[0] in "56" else "sz") + code
 
 
+def fetch_em_block(bk, retry=2):
+    # 东财板块行情(有 concept_bk 的无ETF概念板块,如固态电池 BK0968);fltt=2 已是格式化值
+    url = (f"http://push2.eastmoney.com/api/qt/stock/get?secid=90.{bk}&fltt=2"
+           f"&fields=f43,f44,f45,f46,f48,f57,f58,f60,f170")
+    for _ in range(retry + 1):
+        r = subprocess.run(["curl", "-s", "--max-time", "12", url,
+                            "-H", "Referer: https://data.eastmoney.com/",
+                            "-H", "User-Agent: Mozilla/5.0"], capture_output=True, text=True)
+        try:
+            return json.loads(r.stdout).get("data") or {}
+        except Exception:
+            time.sleep(0.8)
+    return {}
+
+
 def fetch_all(retry=2):
-    # 一次批量抓全部标的行情
-    codes = ",".join(sina_code(s["code"]) for s in SECTORS["sectors"])
+    # 一次批量抓全部标的行情(跳过无 code 的 concept_bk 概念板块)
+    codes = ",".join(sina_code(s["code"]) for s in SECTORS["sectors"] if s.get("code"))
     url = f"https://hq.sinajs.cn/list={codes}"
     for _ in range(retry + 1):
         r = subprocess.run(["curl", "-s", "--max-time", "15", url,
@@ -48,6 +63,21 @@ for line in text.splitlines():
 
 result = []
 for s in SECTORS["sectors"]:
+    if s.get("concept_bk"):
+        # 无ETF概念板块: 用东财板块行情(点位/涨跌幅/成交额), secid=90.BKxxxx
+        d = fetch_em_block(s["concept_bk"])
+        if not d.get("f43"):
+            result.append({"name": s["name"], "market": s["market"], "label": s["label"],
+                           "concept_bk": s["concept_bk"], "error": "em block fetch fail"})
+            continue
+        result.append({
+            "name": s["name"], "market": s["market"], "label": s["label"],
+            "concept_bk": s["concept_bk"], "price": d.get("f43"), "prevclose": d.get("f60"),
+            "open": d.get("f46"), "high": d.get("f44"), "low": d.get("f45"),
+            "pct": d.get("f170"), "volume": 0, "amount": d.get("f48"),
+            "qdate": DATE, "qtime": time.strftime("%H:%M:%S"),
+        })
+        continue
     sc = sina_code(s["code"])
     p = parsed.get(sc)
     if not p or p["price"] == 0:

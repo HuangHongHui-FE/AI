@@ -17,12 +17,14 @@ HEADERS = ["-H", "User-Agent: Mozilla/5.0", "-H", "Referer: https://data.eastmon
 # forecast板块名 → 东财行业板块名(相近映射);无对应的(机器人/红利低波/宽基/港股)跳过
 MAP = {
     "半导体": "半导体", "CPO": "通信设备", "AI算力": "计算机设备", "AI应用": "软件开发",
-    "消费电子": "消费电子", "新能源车": "电池", "光伏": "光伏设备",
+    "消费电子": "消费电子", "新能源车": "电池", "电池": "电池", "光伏": "光伏设备",
     "创新药A股": "化学制药", "医药医疗": "医药生物", "食品饮料": "食品饮料",
     "银行": "银行Ⅱ", "券商": "证券Ⅱ", "军工": "国防军工", "有色金属": "有色金属",
     "煤炭": "煤炭", "钢铁": "钢铁", "房地产": "房地产开发", "农业种植": "农林牧渔",
     "稀土永磁": "小金属",
 }
+# 无纯ETF的概念板块 → 东财概念板块BK代码(概念为 t:3,不在上面行业 t:2 列表里,单独指定)
+CONCEPT_BK = {"固态电池": "BK0968"}
 
 
 def curl(url, retry=2):
@@ -45,11 +47,13 @@ if j:
     for d in (j.get("data") or {}).get("diff", []) or []:
         indu[d.get("f14", "")] = d.get("f12", "")  # 东财名 → BK代码
 
-# Step2: 对映射板块抓逐分钟资金流
+# Step2: 对映射板块抓逐分钟资金流(含概念板块CONCEPT_BK)
 result = {}
 miss = []
-for sname, ename in MAP.items():
-    bk = indu.get(ename)
+for sname in list(MAP.keys()) + list(CONCEPT_BK.keys()):
+    # 概念板块(固态电池)用直接指定BK,普通板块查行业列表
+    ename = MAP.get(sname, "") or sname
+    bk = CONCEPT_BK.get(sname) or indu.get(MAP.get(sname, ""))
     if not bk:
         miss.append(f"{sname}→{ename}(东财无此板块)")
         continue

@@ -61,53 +61,81 @@ function face(x, cy, emo = "calm", blush = true) {
 // 手臂动作 + 手：down/up/point/shrug/hug/phone/think
 function arms(pose, x, armY) {
   const skin = '#f7d9b8';
-  const sw = 'stroke="#1a1a2e" stroke-width="10" stroke-linecap="round" fill="none"';
-  const hand = (hx, hy, r = 8) => `<circle cx="${hx}" cy="${hy}" r="${r}" fill="${skin}" stroke="#1a1a2e" stroke-width="3.4"/>`;
+  const sw = 'stroke="#1a1a2e" stroke-width="13" stroke-linecap="round" fill="none"';
+  // Q版手掌（椭圆带指缝）
+  const hand = (hx, hy, side = 1) =>
+    `<ellipse cx="${hx}" cy="${hy}" rx="15" ry="11" fill="${skin}" stroke="#1a1a2e" stroke-width="3.4" transform="rotate(${side * 10}, ${hx}, ${hy})"/>` +
+    `<path d="M ${hx - 6} ${hy - 3} L ${hx - 6} ${hy + 3} M ${hx - 2} ${hy - 4} L ${hx - 2} ${hy + 4} M ${hx + 2} ${hy - 4} L ${hx + 2} ${hy + 4} M ${hx + 6} ${hy - 3} L ${hx + 6} ${hy + 3}"` +
+    ` stroke="#c98a5a" stroke-width="1.8" stroke-linecap="round" transform="rotate(${side * 10}, ${hx}, ${hy})"/>`;
   const p = {
-    up: `<line x1="${x}" y1="${armY}" x2="${x - 42}" y2="${armY - 50}" ${sw}/>${hand(x - 42, armY - 50)}<line x1="${x}" y1="${armY}" x2="${x + 42}" y2="${armY - 50}" ${sw}/>${hand(x + 42, armY - 50)}`,
-    point: `<line x1="${x}" y1="${armY}" x2="${x - 48}" y2="${armY + 38}" ${sw}/>${hand(x - 48, armY + 38)}<line x1="${x}" y1="${armY}" x2="${x + 54}" y2="${armY + 10}" ${sw}/><circle cx="${x + 54}" cy="${armY + 10}" r="6" fill="${skin}" stroke="#1a1a2e" stroke-width="3"/>`,
-    shrug: `<line x1="${x}" y1="${armY}" x2="${x - 48}" y2="${armY + 36}" ${sw}/>${hand(x - 48, armY + 36)}<line x1="${x}" y1="${armY}" x2="${x + 48}" y2="${armY + 36}" ${sw}/>${hand(x + 48, armY + 36)}`,
-    hug: `<path d="M ${x - 14} ${armY} Q ${x - 50} ${armY + 12} ${x - 44} ${armY + 46}" ${sw}/>${hand(x - 44, armY + 46)}<path d="M ${x + 14} ${armY} Q ${x + 50} ${armY + 12} ${x + 44} ${armY + 46}" ${sw}/>${hand(x + 44, armY + 46)}`,
+    up: `<line x1="${x}" y1="${armY}" x2="${x - 42}" y2="${armY - 50}" ${sw}/>${hand(x - 42, armY - 50, -1)}<line x1="${x}" y1="${armY}" x2="${x + 42}" y2="${armY - 50}" ${sw}/>${hand(x + 42, armY - 50, 1)}`,
+    point: `<line x1="${x}" y1="${armY}" x2="${x - 48}" y2="${armY + 38}" ${sw}/>${hand(x - 48, armY + 38, -1)}<line x1="${x}" y1="${armY}" x2="${x + 54}" y2="${armY + 10}" ${sw}/>${hand(x + 54, armY + 10, 1)}`,
+    shrug: `<line x1="${x}" y1="${armY}" x2="${x - 48}" y2="${armY + 36}" ${sw}/>${hand(x - 48, armY + 36, -1)}<line x1="${x}" y1="${armY}" x2="${x + 48}" y2="${armY + 36}" ${sw}/>${hand(x + 48, armY + 36, 1)}`,
+    hug: `<path d="M ${x - 14} ${armY} Q ${x - 50} ${armY + 12} ${x - 44} ${armY + 46}" ${sw}/>${hand(x - 44, armY + 46, -1)}<path d="M ${x + 14} ${armY} Q ${x + 50} ${armY + 12} ${x + 44} ${armY + 46}" ${sw}/>${hand(x + 44, armY + 46, 1)}`,
     phone: `<line x1="${x}" y1="${armY}" x2="${x + 48}" y2="${armY + 28}" ${sw}/><rect x="${x + 44}" y="${armY + 20}" width="18" height="32" rx="4" fill="#fff" stroke="#1a1a2e" stroke-width="4"/><line x1="${x + 46}" y1="${armY + 26}" x2="${x + 60}" y2="${armY + 26}" stroke="#1a1a2e" stroke-width="3"/><line x1="${x + 46}" y1="${armY + 34}" x2="${x + 58}" y2="${armY + 34}" stroke="#1a1a2e" stroke-width="3"/><line x1="${x + 46}" y1="${armY + 42}" x2="${x + 55}" y2="${armY + 42}" stroke="#1a1a2e" stroke-width="3"/><circle cx="${x + 48}" cy="${armY + 52}" r="5" fill="${skin}"/>`,
-    think: `<line x1="${x}" y1="${armY}" x2="${x - 40}" y2="${armY - 34}" ${sw}/>${hand(x - 40, armY - 34)}<line x1="${x}" y1="${armY}" x2="${x + 44}" y2="${armY + 40}" ${sw}/>${hand(x + 44, armY + 40)}`,
-  }[pose] || `<line x1="${x}" y1="${armY}" x2="${x - 48}" y2="${armY + 52}" ${sw}/>${hand(x - 48, armY + 52)}<line x1="${x}" y1="${armY}" x2="${x + 48}" y2="${armY + 52}" ${sw}/>${hand(x + 48, armY + 52)}`;
+    think: `<line x1="${x}" y1="${armY}" x2="${x - 40}" y2="${armY - 34}" ${sw}/>${hand(x - 40, armY - 34, -1)}<line x1="${x}" y1="${armY}" x2="${x + 44}" y2="${armY + 40}" ${sw}/>${hand(x + 44, armY + 40, 1)}`,
+  }[pose] || `<line x1="${x}" y1="${armY}" x2="${x - 48}" y2="${armY + 52}" ${sw}/>${hand(x - 48, armY + 52, -1)}<line x1="${x}" y1="${armY}" x2="${x + 48}" y2="${armY + 52}" ${sw}/>${hand(x + 48, armY + 52, 1)}`;
   return p;
 }
 
 // ===== 角色底座（大头Q版，headR=68，头大身小） =====
-function lineCharacter({ x, hipY = 1160, emo = "calm", pose = "down", hair, shirt, pants, shoe, pattern, extra, blush = true }) {
-  const headR = 68,
-    headY = hipY - 232,
+function lineCharacter({ x, hipY = 1160, emo = "calm", pose = "down", hair, shirt, pants, shoe, pattern, extra, blush = true, dress = false }) {
+  const headR = 78, // 大头Q版
+    headY = hipY - 276,
     cx = x,
     headCy = headY + 4,
-    bodyTop = headY + headR, // = hipY-164
+    neckY = headCy + headR - 8,
+    bodyTop = neckY + 18,
     bodyBot = hipY,
-    armY = bodyTop + 26,
+    torsoW = 76,
+    torsoH = bodyBot - bodyTop,
+    waistY = bodyTop + torsoH * 0.42,
+    hipW = torsoW * 0.92,
+    armY = bodyTop + 22,
     skinC = "#f7d9b8",
     shirtC = shirt || "#6a8fd4",
     pantsC = pants || "#4a4a5a",
     shoeC = shoe || "#3a3a4a";
+  // 裙子：A字裙摆覆盖大腿，只露小腿
+  const skirt = dress
+    ? `<!-- 裙子 -->
+    <path d="M ${cx - torsoW / 2 + 2} ${waistY} L ${cx - hipW / 2 - 6} ${bodyBot + 18} Q ${cx} ${bodyBot + 28} ${cx + hipW / 2 + 6} ${bodyBot + 18} L ${cx + torsoW / 2 - 2} ${waistY} Z" fill="${shirtC}" stroke="#1a1a2e" stroke-width="4.6"/>
+    <path d="M ${cx - torsoW / 2 + 6} ${waistY + 4} L ${cx + torsoW / 2 - 6} ${waistY + 4}" stroke="rgba(0,0,0,0.2)" stroke-width="3"/>`
+    : `<!-- 下身裤子/裙轮廓（A字） -->
+    <path d="M ${cx - torsoW / 2 + 4} ${waistY} L ${cx - hipW / 2} ${bodyBot + 4} Q ${cx - 14} ${bodyBot + 14} ${cx - 8} ${bodyBot + 6} L ${cx - 8} ${waistY + 4} Z" fill="${pantsC}" stroke="#1a1a2e" stroke-width="4.5"/>
+    <path d="M ${cx + torsoW / 2 - 4} ${waistY} L ${cx + hipW / 2} ${bodyBot + 4} Q ${cx + 14} ${bodyBot + 14} ${cx + 8} ${bodyBot + 6} L ${cx + 8} ${waistY + 4} Z" fill="${pantsC}" stroke="#1a1a2e" stroke-width="4.5"/>`;
   return `<g stroke-linecap="round">
-    <!-- 鞋 -->
-    <ellipse cx="${cx - 26}" cy="${bodyBot + 78}" rx="22" ry="13" fill="${shoeC}" stroke="#1a1a2e" stroke-width="4.4"/>
-    <ellipse cx="${cx + 26}" cy="${bodyBot + 78}" rx="22" ry="13" fill="${shoeC}" stroke="#1a1a2e" stroke-width="4.4"/>
-    <!-- 腿（短粗） -->
-    <line x1="${cx - 24}" y1="${bodyBot}" x2="${cx - 25}" y2="${bodyBot + 66}" stroke="${pantsC}" stroke-width="17" stroke-linecap="round"/>
-    <line x1="${cx + 24}" y1="${bodyBot}" x2="${cx + 25}" y2="${bodyBot + 66}" stroke="${pantsC}" stroke-width="17" stroke-linecap="round"/>
-    <!-- 身体（圆润胶囊）+ 衣服纹理 -->
-    <path d="M ${cx - 34} ${bodyTop + 4} Q ${cx - 40} ${(bodyTop + bodyBot) / 2} ${cx - 34} ${bodyBot - 6} L ${cx + 34} ${bodyBot - 6} Q ${cx + 40} ${(bodyTop + bodyBot) / 2} ${cx + 34} ${bodyTop + 4} Z" fill="${shirtC}" stroke="#1a1a2e" stroke-width="5"/>
+    <!-- 地面软阴影 -->
+    <ellipse cx="${cx}" cy="${bodyBot + 88}" rx="50" ry="11" fill="#000" opacity="0.08"/>
+    <!-- 鞋子（圆润大头鞋） -->
+    <path d="M ${cx - 44} ${bodyBot + 72} Q ${cx - 46} ${bodyBot + 56} ${cx - 24} ${bodyBot + 56} L ${cx - 12} ${bodyBot + 56} Q ${cx - 2} ${bodyBot + 56} ${cx - 2} ${bodyBot + 70} Q ${cx - 2} ${bodyBot + 86} ${cx - 24} ${bodyBot + 86} Q ${cx - 46} ${bodyBot + 86} ${cx - 44} ${bodyBot + 72} Z" fill="${shoeC}" stroke="#1a1a2e" stroke-width="4.6"/>
+    <path d="M ${cx + 2} ${bodyBot + 72} Q ${cx} ${bodyBot + 56} ${cx + 24} ${bodyBot + 56} L ${cx + 36} ${bodyBot + 56} Q ${cx + 46} ${bodyBot + 56} ${cx + 44} ${bodyBot + 70} Q ${cx + 42} ${bodyBot + 86} ${cx + 24} ${bodyBot + 86} Q ${cx + 2} ${bodyBot + 86} ${cx + 2} ${bodyBot + 72} Z" fill="${shoeC}" stroke="#1a1a2e" stroke-width="4.6"/>
+    <!-- 腿（粗短圆柱） -->
+    <path d="M ${cx - 26} ${waistY + 6} L ${cx - 26} ${bodyBot + 60} Q ${cx - 26} ${bodyBot + 74} ${cx - 16} ${bodyBot + 70} L ${cx - 10} ${bodyBot + 64} L ${cx - 10} ${waistY + 10} Z" fill="${pantsC}" stroke="#1a1a2e" stroke-width="5"/>
+    <path d="M ${cx + 26} ${waistY + 6} L ${cx + 26} ${bodyBot + 60} Q ${cx + 26} ${bodyBot + 74} ${cx + 16} ${bodyBot + 70} L ${cx + 10} ${bodyBot + 64} L ${cx + 10} ${waistY + 10} Z" fill="${pantsC}" stroke="#1a1a2e" stroke-width="5"/>
+    ${skirt}
+    <!-- 上身（圆润肩 + 收腰） -->
+    <path d="M ${cx - torsoW / 2 - 2} ${bodyTop + 8} C ${cx - torsoW / 2 - 8} ${bodyTop + torsoH * 0.22} ${cx - torsoW / 2 - 2} ${waistY - 6} ${cx - torsoW / 2 + 6} ${waistY} L ${cx + torsoW / 2 - 6} ${waistY} C ${cx + torsoW / 2 + 2} ${waistY - 6} ${cx + torsoW / 2 + 8} ${bodyTop + torsoH * 0.22} ${cx + torsoW / 2 + 2} ${bodyTop + 8} C ${cx + torsoW / 2 + 2} ${bodyTop - 2} ${cx} ${bodyTop - 10} ${cx} ${bodyTop - 10} C ${cx} ${bodyTop - 10} ${cx - torsoW / 2 - 2} ${bodyTop - 2} ${cx - torsoW / 2 - 2} ${bodyTop + 8} Z" fill="${shirtC}" stroke="#1a1a2e" stroke-width="5"/>
     ${pattern || ""}
-    <!-- 领口 V + 领带/领结 -->
-    <path d="M ${cx - 16} ${bodyTop + 2} L ${cx} ${bodyTop + 20} L ${cx + 16} ${bodyTop + 2}" stroke="#1a1a2e" stroke-width="4" fill="none"/>
+    <!-- 领口 + 衣服细节 -->
+    <path d="M ${cx - 18} ${bodyTop + 10} L ${cx} ${bodyTop + 38} L ${cx + 18} ${bodyTop + 10}" stroke="#1a1a2e" stroke-width="4" fill="none"/>
+    <path d="M ${cx - torsoW / 2 + 6} ${waistY - 2} L ${cx + torsoW / 2 - 6} ${waistY - 2}" stroke="rgba(0,0,0,0.2)" stroke-width="3"/>
+    <path d="M ${cx - torsoW / 2 + 8} ${bodyTop + 16} L ${cx - torsoW / 2 + 8} ${waistY - 10}" stroke="rgba(0,0,0,0.12)" stroke-width="3"/>
     <!-- 纽扣 -->
-    <circle cx="${cx}" cy="${bodyBot - 32}" r="4" fill="#1a1a2e" opacity="0.65"/>
-    <circle cx="${cx}" cy="${bodyBot - 16}" r="4" fill="#1a1a2e" opacity="0.65"/>
+    <circle cx="${cx}" cy="${bodyTop + torsoH * 0.18}" r="4.4" fill="#1a1a2e" opacity="0.55"/>
+    <circle cx="${cx}" cy="${bodyTop + torsoH * 0.3}" r="4.4" fill="#1a1a2e" opacity="0.55"/>
+    <circle cx="${cx}" cy="${bodyTop + torsoH * 0.42}" r="4.4" fill="#1a1a2e" opacity="0.55"/>
     <!-- 手臂 -->
     ${arms(pose, cx, armY)}
     <!-- 脖子 -->
-    <rect x="${cx - 10}" y="${headCy + headR - 16}" width="20" height="18" fill="${skinC}" stroke="#1a1a2e" stroke-width="3.6"/>
-    <!-- 头（大） -->
+    <rect x="${cx - 14}" y="${neckY}" width="28" height="24" rx="6" fill="${skinC}" stroke="#1a1a2e" stroke-width="3.6"/>
+    <!-- 头 -->
     <circle cx="${cx}" cy="${headCy}" r="${headR}" fill="${skinC}" stroke="#1a1a2e" stroke-width="5.5"/>
+    <!-- 耳朵 -->
+    <circle cx="${cx - headR - 2}" cy="${headCy + 8}" r="10" fill="${skinC}" stroke="#1a1a2e" stroke-width="4"/>
+    <circle cx="${cx + headR + 2}" cy="${headCy + 8}" r="10" fill="${skinC}" stroke="#1a1a2e" stroke-width="4"/>
+    <!-- 头部柔光 -->
+    <ellipse cx="${cx - 24}" cy="${headCy - 28}" rx="16" ry="9" fill="#fff" opacity="0.28"/>
     ${face(cx, headCy, emo, blush)}
     ${hair}
     ${extra || ""}
@@ -116,7 +144,7 @@ function lineCharacter({ x, hipY = 1160, emo = "calm", pose = "down", hair, shir
 
 // ===== 角色构件（特征固定 + 细节足） =====
 function zhoujianguo(a) {
-  const c = a.x, h = a.hipY - 232;
+  const c = a.x, h = a.hipY - 280;
   const hair = `<path d="M ${c - 48} ${h - 10} Q ${c - 50} ${h - 60} ${c} ${h - 64} Q ${c + 50} ${h - 60} ${c + 48} ${h - 10} Z" fill="#2a2a3a" stroke="#1a1a2e" stroke-width="4"/><path d="M ${c - 22} ${h - 46} L ${c - 22} ${h - 22} M ${c - 4} ${h - 56} L ${c - 4} ${h - 22} M ${c + 16} ${h - 50} L ${c + 16} ${h - 22} M ${c + 32} ${h - 40} L ${c + 32} ${h - 20}" stroke="#1a1a2e" stroke-width="3.4" opacity="0.45"/>`;
   const extra = `<circle cx="${c - 26}" cy="${h + 8}" r="13" fill="none" stroke="#1a1a2e" stroke-width="4.4"/><circle cx="${c + 26}" cy="${h + 8}" r="13" fill="none" stroke="#1a1a2e" stroke-width="4.4"/><line x1="${c - 13}" y1="${h + 8}" x2="${c + 13}" y2="${h + 8}" stroke="#1a1a2e" stroke-width="4.4"/>`;
   const pattern = Array.from({ length: 4 }, (_, i) =>
@@ -128,7 +156,7 @@ function zhoujianguo(a) {
 }
 
 function linxiao(a) {
-  const c = a.x, h = a.hipY - 232;
+  const c = a.x, h = a.hipY - 280;
   const hair = `<path d="M ${c - 48} ${h - 10} Q ${c - 50} ${h - 60} ${c} ${h - 64} Q ${c + 50} ${h - 60} ${c + 48} ${h - 10} L ${c + 48} ${h + 16} Q ${c + 24} ${h + 6} ${c} ${h + 12} Q ${c - 24} ${h + 6} ${c - 48} ${h + 16} Z" fill="#4a3a2a" stroke="#1a1a2e" stroke-width="4"/><path d="M ${c - 20} ${h - 52} L ${c - 20} ${h - 14} M ${c - 2} ${h - 58} L ${c - 2} ${h - 14} M ${c + 18} ${h - 50} L ${c + 18} ${h - 14}" stroke="#1a1a2e" stroke-width="3.4" opacity="0.6"/>`;
   const extra = `<circle cx="${c - 26}" cy="${h + 8}" r="11" fill="none" stroke="#1a1a2e" stroke-width="3.4"/><circle cx="${c + 26}" cy="${h + 8}" r="11" fill="none" stroke="#1a1a2e" stroke-width="3.4"/><line x1="${c - 15}" y1="${h + 8}" x2="${c + 15}" y2="${h + 8}" stroke="#1a1a2e" stroke-width="3.4"/>`;
   const pattern = Array.from({ length: 3 }, (_, i) =>
@@ -138,13 +166,13 @@ function linxiao(a) {
 }
 
 function zhouxiaoman(a) {
-  const c = a.x, h = a.hipY - 232;
+  const c = a.x, h = a.hipY - 280;
   const hair = `<path d="M ${c - 48} ${h - 10} Q ${c - 50} ${h - 60} ${c} ${h - 64} Q ${c + 50} ${h - 60} ${c + 48} ${h - 10} Z" fill="#5a3a2a" stroke="#1a1a2e" stroke-width="4"/><path d="M ${c - 44} ${h - 6} Q ${c - 76} ${h + 8} ${c - 64} ${h + 62}" stroke="#5a3a2a" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M ${c + 44} ${h - 6} Q ${c + 76} ${h + 8} ${c + 64} ${h + 62}" stroke="#5a3a2a" stroke-width="11" fill="none" stroke-linecap="round"/><circle cx="${c - 64}" cy="${h + 66}" r="8" fill="#e85a71" stroke="#1a1a2e" stroke-width="3"/><circle cx="${c + 64}" cy="${h + 66}" r="8" fill="#e85a71" stroke="#1a1a2e" stroke-width="3"/><path d="M ${c - 34} ${h - 10} L ${c - 30} ${h - 26} L ${c - 22} ${h - 12} Z" fill="#e85a71" opacity="0.9"/>`;
-  return lineCharacter({ ...a, hair, shirt: "#e85a71", pants: "#e85a71", shoe: "#d84a5a", blush: true });
+  return lineCharacter({ ...a, hair, shirt: "#e85a71", pants: "#e85a71", shoe: "#d84a5a", blush: true, dress: true });
 }
 
 function zhouyeye(a) {
-  const c = a.x, h = a.hipY - 232;
+  const c = a.x, h = a.hipY - 280;
   const hair = `<path d="M ${c - 48} ${h - 10} Q ${c - 50} ${h - 62} ${c} ${h - 66} Q ${c + 50} ${h - 62} ${c + 48} ${h - 10} Z" fill="#ececec" stroke="#1a1a2e" stroke-width="4"/><path d="M ${c - 30} ${h - 56} L ${c - 30} ${h - 16} M ${c - 10} ${h - 62} L ${c - 10} ${h - 16} M ${c + 12} ${h - 58} L ${c + 12} ${h - 16}" stroke="#b0b0b0" stroke-width="3.4" opacity="0.7"/>`;
   const extra = `<circle cx="${c - 26}" cy="${h + 8}" r="13" fill="none" stroke="#1a1a2e" stroke-width="4"/><circle cx="${c + 26}" cy="${h + 8}" r="13" fill="none" stroke="#1a1a2e" stroke-width="4"/><line x1="${c - 13}" y1="${h + 8}" x2="${c + 13}" y2="${h + 8}" stroke="#1a1a2e" stroke-width="4"/>`;
   const wrinkle = `<path d="M ${c - 40} ${h + 34} Q ${c - 34} ${h + 38} ${c - 28} ${h + 34}" stroke="#c98a5a" stroke-width="2.6" fill="none" opacity="0.7"/><path d="M ${c + 28} ${h + 34} Q ${c + 34} ${h + 38} ${c + 40} ${h + 34}" stroke="#c98a5a" stroke-width="2.6" fill="none" opacity="0.7"/>`;
@@ -152,7 +180,7 @@ function zhouyeye(a) {
 }
 
 function wangayi(a) {
-  const c = a.x, h = a.hipY - 232;
+  const c = a.x, h = a.hipY - 280;
   const curls = [-44, -26, -8, 10, 28, 46].map((ox) =>
     `<circle cx="${c + ox}" cy="${h - 24}" r="11" fill="#3a2a2a" stroke="#1a1a2e" stroke-width="3.4"/>`
   ).join("");

@@ -1,0 +1,162 @@
+{
+  "title": "老周家·第1集：期末考前一晚（新画风）",
+  "digest": "一张卷子，全家出动。这就是中国式家庭的日常。",
+  "slug": "laozhoujia-e1",
+  "line": "B",
+  "cta_question": "你家期末考前一晚，也是这样的吗？",
+  "cta_follow": "转 发 给 同 款 家 庭",
+  "original_eligible": true,
+  "panels": [
+    {
+      "bg1": "#FFF3E0",
+      "bg2": "#FFE0B2",
+      "label": "01·全家",
+      "actors": [
+        {
+          "type": "zhouxiaoman",
+          "x": 190,
+          "hipY": 1040,
+          "emo": "surprised",
+          "pose": "point"
+        },
+        {
+          "type": "zhoujianguo",
+          "x": 360,
+          "hipY": 1000,
+          "emo": "calm",
+          "pose": "phone"
+        },
+        {
+          "type": "linxiao",
+          "x": 530,
+          "hipY": 1000,
+          "emo": "sad",
+          "pose": "point"
+        }
+      ],
+      "props": [
+        {
+          "type": "desk",
+          "x": 80,
+          "y": 1000,
+          "w": 120
+        }
+      ]
+    },
+    {
+      "bg1": "#FFE0B2",
+      "bg2": "#FFCC80",
+      "label": "02·辅导",
+      "actors": [
+        {
+          "type": "linxiao",
+          "x": 240,
+          "hipY": 1000,
+          "emo": "angry",
+          "pose": "point"
+        },
+        {
+          "type": "zhouxiaoman",
+          "x": 490,
+          "hipY": 1040,
+          "emo": "sad",
+          "pose": "down"
+        }
+      ],
+      "props": [
+        {
+          "type": "desk",
+          "x": 340,
+          "y": 1000,
+          "w": 110
+        }
+      ]
+    },
+    {
+      "bg1": "#FFF8E1",
+      "bg2": "#FFECB3",
+      "label": "03·爷爷",
+      "actors": [
+        {
+          "type": "zhouxiaoman",
+          "x": 190,
+          "hipY": 1040,
+          "emo": "surprised",
+          "pose": "up"
+        },
+        {
+          "type": "zhouyeye",
+          "x": 360,
+          "hipY": 1000,
+          "emo": "happy",
+          "pose": "shrug"
+        },
+        {
+          "type": "linxiao",
+          "x": 530,
+          "hipY": 1000,
+          "emo": "calm",
+          "pose": "down"
+        }
+      ]
+    },
+    {
+      "bg1": "#E3F2FD",
+      "bg2": "#BBDEFB",
+      "label": "04·睡着",
+      "actors": [
+        {
+          "type": "linxiao",
+          "x": 240,
+          "hipY": 1000,
+          "emo": "happy",
+          "pose": "hug"
+        },
+        {
+          "type": "zhouxiaoman",
+          "x": 490,
+          "hipY": 1040,
+          "emo": "calm",
+          "pose": "down"
+        }
+      ],
+      "props": [
+        {
+          "type": "moon",
+          "cx": 380,
+          "cy": 90,
+          "r": 30
+        }
+      ]
+    },
+    {
+      "bg1": "#E8F5E9",
+      "bg2": "#C8E6C9",
+      "label": "05·上学",
+      "actors": [
+        {
+          "type": "zhouxiaoman",
+          "x": 190,
+          "hipY": 1040,
+          "emo": "happy",
+          "pose": "up"
+        },
+        {
+          "type": "zhoujianguo",
+          "x": 360,
+          "hipY": 1000,
+          "emo": "happy",
+          "pose": "up"
+        },
+        {
+          "type": "zhouyeye",
+          "x": 530,
+          "hipY": 1000,
+          "emo": "happy",
+          "pose": "down"
+        }
+      ]
+    }
+  ],
+  "body_markdown": "期末考前一晚，老周家九点就乱了套。\n\n![第1格](comics/laozhoujia-e1/01.jpg)\n\n周小满数学卷子有一半不会，林晓看完脸色就变了。周建国在旁边刷手机装没看见——他当年数学就没及格过，一开口准露馅。\n\n![第2格](comics/laozhoujia-e1/02.jpg)\n\n只有周爷爷不怕。他老花镜往鼻梁一推，把卷子举得远远的，看了半天忽然笑了：「这题我会！五只鸡和四只鸭，一共几条腿，那肯定是……」全家都等他下文，他顿了顿：「……得数鸡。」\n\n![第3格](comics/laozhoujia-e1/03.jpg)\n\n后来周小满还是睡着了。趴在卷子上，手里攥着铅笔，嘴边的口算题解得乱七八糟。林晓把毯子给她披上，周建国默默把散了一桌的课本收进书包。\n\n![第4格](comics/laozhoujia-e1/04.jpg)\n\n第二天她背着小书包蹦出门，早把前一晚的鸡飞狗跳忘干净了。林晓和周建国在门口站了半天，才想起来：原来我们当年，也是这么被全家人护着长大的。\n\n![第5格](comics/laozhoujia-e1/05.jpg)\n\n一张卷子，全家出动。考得好不好，先不论。有人替你收课本、给你披毯子，这本身就是家。你家期末考前一晚，也是这样的吗？转发给同款家庭看看。"
+}
