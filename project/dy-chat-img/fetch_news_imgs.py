@@ -26,6 +26,9 @@ def main():
         return "https://www.baidu.com/"
 
     got, seen = 0, set()
+    # 编号接续目录已有最大号，避免补抓覆盖旧图
+    existing = [int(m.group(1)) for f in os.listdir(outdir) if (m := re.match(r"(\d+)\.(?:jpg|png)$", f))]
+    start = max(existing) + 1 if existing else 1
     for url in urls:
         fn = f"/tmp/np_{re.sub(r'[^0-9a-zA-Z]','',url)[-12:]}.html"
         try:
@@ -53,7 +56,7 @@ def main():
             if u in seen:
                 continue
             # 新浪图用原始 URL（改尺寸参数会触发反爬返回 XML）
-            out = f"{outdir}/{got+1:03d}.jpg"
+            out = f"{outdir}/{start+got:03d}.jpg"
             ext = u.rsplit(".", 1)[-1].lower()
             subprocess.run(["curl", "-s", "-m", "15", "-A", UA_PC,
                             "-H", f"Referer: {pick_ref(url)}",
@@ -69,9 +72,9 @@ def main():
                 os.remove(out)
                 continue
             if ext not in ("jpg", "png") or ext == "webp":
-                os.rename(out, f"{outdir}/{got+1:03d}.{ext if ext in ('jpg','png') else 'png'}")
+                os.rename(out, f"{outdir}/{start+got:03d}.{ext if ext in ('jpg','png') else 'png'}")
             seen.add(u)
-            print(f"  [{got+1:03d}] {sz//1024}KB {u[:80]}")
+            print(f"  [{start+got:03d}] {sz//1024}KB {u[:80]}")
             got += 1
         time.sleep(0.5)
     print(f"\n完成：抓取 {got} 张报道正文图到 {outdir}/")
