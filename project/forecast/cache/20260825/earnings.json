@@ -1,0 +1,615 @@
+{
+  "date": "20260825",
+  "ts": "19:54:40",
+  "a_leaders": [
+    {
+      "sector": "半导体",
+      "leaders": [
+        {
+          "code": "688981",
+          "name": "中芯国际",
+          "forecast": "未披露"
+        },
+        {
+          "code": "002371",
+          "name": "北方华创",
+          "forecast": "未披露"
+        },
+        {
+          "code": "688012",
+          "name": "中微公司",
+          "notice_date": "2026-08-04",
+          "kind": "预增",
+          "increase_low": 282.48,
+          "increase_high": 310.81,
+          "content": "预计2026年1-6月归属于上市公司股东的净利润盈利:270,000万元至290"
+        }
+      ]
+    },
+    {
+      "sector": "CPO",
+      "leaders": [
+        {
+          "code": "300308",
+          "name": "中际旭创",
+          "forecast": "未披露"
+        },
+        {
+          "code": "300502",
+          "name": "新易盛",
+          "notice_date": "2026-07-20",
+          "kind": "预增",
+          "increase_low": 77.56,
+          "increase_high": 102.93,
+          "content": "预计2026年1-6月归属于上市公司股东的净利润盈利:700,000万元至800"
+        },
+        {
+          "code": "300394",
+          "name": "天孚通信",
+          "notice_date": "2026-07-18",
+          "kind": "略增",
+          "increase_low": 25,
+          "increase_high": 45,
+          "content": "预计2026年1-6月归属于上市公司股东的净利润盈利:112,405.16万元至"
+        }
+      ]
+    },
+    {
+      "sector": "AI算力",
+      "leaders": [
+        {
+          "code": "000977",
+          "name": "浪潮信息",
+          "forecast": "未披露"
+        },
+        {
+          "code": "601138",
+          "name": "工业富联",
+          "forecast": "未披露"
+        },
+        {
+          "code": "603019",
+          "name": "中科曙光",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "AI应用",
+      "leaders": [
+        {
+          "code": "688111",
+          "name": "金山办公",
+          "notice_date": "2026-07-29",
+          "kind": "预增",
+          "increase_low": 209.98,
+          "increase_high": 263.89,
+          "content": "预计2026年1-6月归属于上市公司股东的净利润盈利:231,619万元至271"
+        },
+        {
+          "code": "002230",
+          "name": "科大讯飞",
+          "forecast": "未披露"
+        },
+        {
+          "code": "600588",
+          "name": "用友网络",
+          "notice_date": "2026-07-15",
+          "kind": "略增",
+          "increase_low": 1.54,
+          "increase_high": 15.3,
+          "content": "预计2026年1-6月归属于上市公司股东的净利润亏损:80,000万元至93,0"
+        }
+      ]
+    },
+    {
+      "sector": "消费电子",
+      "leaders": [
+        {
+          "code": "002475",
+          "name": "立讯精密",
+          "forecast": "未披露"
+        },
+        {
+          "code": "002241",
+          "name": "歌尔股份",
+          "forecast": "未披露"
+        },
+        {
+          "code": "300433",
+          "name": "蓝思科技",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "机器人",
+      "leaders": [
+        {
+          "code": "300124",
+          "name": "汇川技术",
+          "forecast": "未披露"
+        },
+        {
+          "code": "002747",
+          "name": "埃斯顿",
+          "forecast": "未披露"
+        },
+        {
+          "code": "688017",
+          "name": "绿的谐波",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "新能源车",
+      "leaders": [
+        {
+          "code": "002594",
+          "name": "比亚迪",
+          "forecast": "未披露"
+        },
+        {
+          "code": "000625",
+          "name": "长安汽车",
+          "notice_date": "2026-07-15",
+          "kind": "预减",
+          "increase_low": -67.7,
+          "increase_high": -57.66,
+          "content": "预计2026年1-6月归属于上市公司股东的净利润盈利:74,000万元至97,0"
+        },
+        {
+          "code": "601127",
+          "name": "赛力斯",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "电池",
+      "leaders": [
+        {
+          "code": "300750",
+          "name": "宁德时代",
+          "forecast": "未披露"
+        },
+        {
+          "code": "300014",
+          "name": "亿纬锂能",
+          "forecast": "未披露"
+        },
+        {
+          "code": "002074",
+          "name": "国轩高科",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "固态电池",
+      "leaders": [
+        {
+          "code": "300750",
+          "name": "宁德时代",
+          "forecast": "未披露"
+        },
+        {
+          "code": "300073",
+          "name": "当升科技",
+          "notice_date": "2026-07-18",
+          "kind": "预增",
+          "increase_low": 54.26,
+          "increase_high": 70.33,
+          "content": "预计2026年1-6月归属于上市公司股东的净利润盈利:48,000万元至53,0"
+        },
+        {
+          "code": "603663",
+          "name": "三祥新材",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "光伏",
+      "leaders": [
+        {
+          "code": "601012",
+          "name": "隆基绿能",
+          "forecast": "未披露"
+        },
+        {
+          "code": "600438",
+          "name": "通威股份",
+          "forecast": "未披露"
+        },
+        {
+          "code": "300274",
+          "name": "阳光电源",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "创新药A股",
+      "leaders": [
+        {
+          "code": "600276",
+          "name": "恒瑞医药",
+          "forecast": "未披露"
+        },
+        {
+          "code": "688235",
+          "name": "百济神州",
+          "forecast": "未披露"
+        },
+        {
+          "code": "600196",
+          "name": "复星医药",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "医药医疗",
+      "leaders": [
+        {
+          "code": "300760",
+          "name": "迈瑞医疗",
+          "forecast": "未披露"
+        },
+        {
+          "code": "603259",
+          "name": "药明康德",
+          "forecast": "未披露"
+        },
+        {
+          "code": "300015",
+          "name": "爱尔眼科",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "食品饮料",
+      "leaders": [
+        {
+          "code": "600519",
+          "name": "贵州茅台",
+          "forecast": "未披露"
+        },
+        {
+          "code": "000858",
+          "name": "五粮液",
+          "forecast": "未披露"
+        },
+        {
+          "code": "000568",
+          "name": "泸州老窖",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "银行",
+      "leaders": [
+        {
+          "code": "600036",
+          "name": "招商银行",
+          "forecast": "未披露"
+        },
+        {
+          "code": "601398",
+          "name": "工商银行",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "券商",
+      "leaders": [
+        {
+          "code": "600030",
+          "name": "中信证券",
+          "forecast": "未披露"
+        },
+        {
+          "code": "300059",
+          "name": "东方财富",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "军工",
+      "leaders": [
+        {
+          "code": "600760",
+          "name": "中航沈飞",
+          "notice_date": "2026-07-15",
+          "kind": "预减",
+          "increase_low": -58.23,
+          "increase_high": -58.23,
+          "content": "预计2026年1-6月归属于上市公司股东的净利润盈利约:47,465.59万元,"
+        },
+        {
+          "code": "002179",
+          "name": "中航光电",
+          "forecast": "未披露"
+        },
+        {
+          "code": "600893",
+          "name": "航发动力",
+          "notice_date": "2026-07-15",
+          "kind": "预增",
+          "increase_low": 52.54,
+          "increase_high": 68.89,
+          "content": "预计2026年1-6月归属于上市公司股东的净利润盈利:14,000万元至15,5"
+        }
+      ]
+    },
+    {
+      "sector": "有色金属",
+      "leaders": [
+        {
+          "code": "601899",
+          "name": "紫金矿业",
+          "forecast": "未披露"
+        },
+        {
+          "code": "601111",
+          "name": "北方稀土",
+          "forecast": "未披露"
+        },
+        {
+          "code": "603993",
+          "name": "洛阳钼业",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "煤炭",
+      "leaders": [
+        {
+          "code": "601088",
+          "name": "中国神华",
+          "forecast": "未披露"
+        },
+        {
+          "code": "601225",
+          "name": "陕西煤业",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "钢铁",
+      "leaders": [
+        {
+          "code": "600019",
+          "name": "宝钢股份",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "房地产",
+      "leaders": [
+        {
+          "code": "600048",
+          "name": "保利发展",
+          "forecast": "未披露"
+        },
+        {
+          "code": "001979",
+          "name": "招商蛇口",
+          "forecast": "未披露"
+        },
+        {
+          "code": "000002",
+          "name": "万科A",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "农业种植",
+      "leaders": [
+        {
+          "code": "000998",
+          "name": "隆平高科",
+          "forecast": "未披露"
+        },
+        {
+          "code": "600598",
+          "name": "北大荒",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "稀土永磁",
+      "leaders": [
+        {
+          "code": "600111",
+          "name": "北方稀土",
+          "notice_date": "2026-07-15",
+          "kind": "预增",
+          "increase_low": 112.74,
+          "increase_high": 121.33,
+          "content": "预计2026年1-6月归属于上市公司股东的净利润盈利:198,000万元至206"
+        },
+        {
+          "code": "300748",
+          "name": "金力永磁",
+          "forecast": "未披露"
+        },
+        {
+          "code": "000970",
+          "name": "中科三环",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "红利低波",
+      "leaders": [
+        {
+          "code": "600900",
+          "name": "长江电力",
+          "forecast": "未披露"
+        },
+        {
+          "code": "601088",
+          "name": "中国神华",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "港股创新药",
+      "leaders": [
+        {
+          "code": "06160",
+          "name": "百济神州",
+          "forecast": "未披露"
+        },
+        {
+          "code": "01801",
+          "name": "信达生物",
+          "forecast": "未披露"
+        },
+        {
+          "code": "02269",
+          "name": "药明生物",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "恒生科技",
+      "leaders": [
+        {
+          "code": "00700",
+          "name": "腾讯",
+          "forecast": "未披露"
+        },
+        {
+          "code": "03690",
+          "name": "美团",
+          "forecast": "未披露"
+        },
+        {
+          "code": "01810",
+          "name": "小米",
+          "forecast": "未披露"
+        },
+        {
+          "code": "01024",
+          "name": "快手",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "港股互联网",
+      "leaders": [
+        {
+          "code": "09988",
+          "name": "阿里巴巴",
+          "forecast": "未披露"
+        },
+        {
+          "code": "00700",
+          "name": "腾讯",
+          "forecast": "未披露"
+        },
+        {
+          "code": "03690",
+          "name": "美团",
+          "forecast": "未披露"
+        },
+        {
+          "code": "09618",
+          "name": "京东",
+          "forecast": "未披露"
+        }
+      ]
+    },
+    {
+      "sector": "港股金融",
+      "leaders": [
+        {
+          "code": "02318",
+          "name": "中国平安",
+          "forecast": "未披露"
+        },
+        {
+          "code": "01299",
+          "name": "友邦保险",
+          "forecast": "未披露"
+        },
+        {
+          "code": "01398",
+          "name": "工商银行",
+          "forecast": "未披露"
+        }
+      ]
+    }
+  ],
+  "a_leaders_note": "各板块龙头业绩预告(2026中报),按INCREASEL判预增/预减;港股龙头预告不在此A股接口",
+  "a_share": [],
+  "a_share_note": "A股未来45天已预约中报披露0家(权重股多8月中下旬才预约)",
+  "us": [
+    {
+      "name": "Tesla",
+      "window": "7月下旬",
+      "report": "Q2 2026",
+      "impact": "新能源车/智驾/机器人"
+    },
+    {
+      "name": "Alphabet",
+      "window": "7月下旬",
+      "report": "Q2 2026",
+      "impact": "AI应用/互联网/广告"
+    },
+    {
+      "name": "Meta",
+      "window": "7月下旬",
+      "report": "Q2 2026",
+      "impact": "AI应用/互联网/算力需求"
+    },
+    {
+      "name": "Microsoft",
+      "window": "7月下旬",
+      "report": "财年Q4",
+      "impact": "云计算/AI应用/办公软件"
+    },
+    {
+      "name": "Amazon",
+      "window": "8月初",
+      "report": "Q2 2026",
+      "impact": "云计算/电商/跨境物流"
+    },
+    {
+      "name": "AMD",
+      "window": "8月初",
+      "report": "Q2 2026",
+      "impact": "半导体/算力芯片"
+    },
+    {
+      "name": "Apple",
+      "window": "8月初",
+      "report": "财年Q3",
+      "impact": "消费电子/果链"
+    },
+    {
+      "name": "Nvidia",
+      "window": "8月中下旬",
+      "report": "财年Q1(5-7月)",
+      "impact": "算力/CPO/半导体(最强传导)"
+    }
+  ],
+  "us_note": "美股窗口为惯例估计,确切日以公司公告为准"
+}

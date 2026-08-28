@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { config, ensureDirs } from "./config.js";
-import { generateCover, pickRandomCoverStyle } from "./cover.js";
+import { generateCover } from "./cover.js";
 import { markdownToHtml, fullPageHtml, ctaBlock, pickRandomThemeName } from "./html.js";
 import {
   uploadPermanentImage,
@@ -28,30 +28,6 @@ function readRecentThemes(n = 5) {
       while ((m = re.exec(txt))) {
         all.push(...m[1].split("/").map((s) => s.replace(/^[0-9]+/, "")));
       }
-    } catch {
-      // 单文件读失败跳过
-    }
-    if (all.length >= n) break;
-  }
-  return all.slice(-n);
-}
-
-// 读 logs 取近 N 篇已用封面布局（格式 "cover_style记录(供下批避撞)：95 grid-split"），供随机去重
-function readRecentCoverStyles(n = 5) {
-  const dir = "logs";
-  let files = [];
-  try {
-    files = readdirSync(dir).filter((f) => f.endsWith(".md")).sort().reverse();
-  } catch {
-    return [];
-  }
-  const re = /cover_style\s*记录\(供下批避撞\)：\s*\d+\s+(\S+)/g;
-  const all = [];
-  for (const f of files) {
-    try {
-      const txt = readFileSync(join(dir, f), "utf8");
-      let m;
-      while ((m = re.exec(txt))) all.push(m[1].replace(/[。].*$/, ""));
     } catch {
       // 单文件读失败跳过
     }
@@ -161,21 +137,37 @@ JSON 结构：
 
   console.log(`[2/4] 合成封面图...`);
   const coverPath = join(outDir, "cover.jpg");
-  // 封面布局：显式指定优先；否则随机抽一个避开近 5 篇已用（去同质化，20 种布局）
-  let coverStyle = article.cover_style || null;
-  if (!coverStyle) {
-    const exclude = readRecentCoverStyles(5);
-    coverStyle = pickRandomCoverStyle(exclude);
-    console.log(
-      `      随机封面布局：${coverStyle}${exclude.length ? `（避开近 ${exclude.length} 篇 ${exclude.join("/")}）` : ""}`,
-    );
-  }
+  // 封面直接用主图，不叠任何样式（2026-08-26 起固定 plain，不再随机布局）
+  const coverStyle = "plain";
   await generateCover({
     imagePath,
     slogan: article.cover_slogan || "",
     outPath: coverPath,
     style: coverStyle,
   });
+
+  // 硬拦截：正文不得引用封面文件（封面已由 --image 自动用作封面，正文再引=开局首图跟封面撞脸）
+  // 2026-08-27 加：撞了就报错退出，不生成草稿，避免推两次
+  {
+    const coverAbs = resolve(String(imagePath));
+    const coverBase = coverAbs.split("/").pop();
+    const bodyRefs = [];
+    const refRe = /!\[([^\]]*)\]\(([^)]+)\)/g;
+    let rm;
+    while ((rm = refRe.exec(article.body_markdown || ""))) {
+      if (/^https?:\/\//.test(rm[2])) continue; // 网络 URL 不处理
+      const refAbs = resolve(rm[2]);
+      const refBase = refAbs.split("/").pop();
+      if (refAbs === coverAbs || refBase === coverBase)
+        bodyRefs.push({ base: refBase, orig: rm[0] });
+    }
+    if (bodyRefs.length) {
+      console.error(
+        `✗ 硬拦截：正文引用了封面文件（${bodyRefs.map((r) => r.base).join("、")}）——封面已由 --image 自动用作封面，正文再引=开局首图撞脸。请删掉正文里的对应图片引用后重推。`,
+      );
+      process.exit(1);
+    }
+  }
 
   console.log(`[3/4] 转 HTML + 写本地预览...`);
   // 主题：显式指定优先；否则随机抽一个避开近 5 篇已用（去同质化）

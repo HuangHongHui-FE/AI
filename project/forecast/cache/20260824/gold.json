@@ -1,0 +1,20 @@
+{
+  "date": "20260824", "ts": "19:52",
+  "spot": {"name":"伦敦金现货","price":4651.26,"prevclose":4604.53,"pct":1.02,"high":4669.89,"low":4594.88,"news_high_4670_pct":1.47},
+  "comex_gold": {"name":"COMEX黄金期货","price":4710.93,"prevclose":4680.60,"pct":0.65,"high":4728.30,"low":4651.80},
+  "comex_silver": {"name":"COMEX白银","price":69.958,"prevclose":70.349,"pct":-0.56,"high":70.475,"low":69.210},
+  "usd_index": {"name":"美元指数","price":98.99,"prevclose":98.82,"pct":0.17},
+  "us10y_yield": {"name":"美10年国债收益率","value":4.70,"change_bp":-4,"src":"news"},
+  "wti_oil": {"name":"WTI原油","price":85.286,"prevclose":87.060,"pct":-2.04},
+  "us_futures_pre": {"sp500":-0.10,"nasdaq":-0.40,"src":"news 19:44"},
+  "a50": {"price":14651.32,"pct":0.0},
+  "hsi_fut": {"price":25445.06,"pct":0.22},
+  "cn_gold_etf_518880": {"name":"华安黄金ETF","price":9.564,"prevclose":9.388,"pct":1.87,"amount_yi":87.18},
+  "cn_nonferrous_512400": {"name":"有色金属ETF","pct":0.15,"amount_yi":16.32},
+  "catalyst_news": [
+    "19:35-37 美财长贝森特拟动用近1万亿美元TGA一般账户资金为债券回购提供资金,长债回购规模翻倍20→40亿美元,压低长端收益率",
+    "19:41 美10年期国债收益率下跌4bp至4.70%",
+    "19:37-38 现货金站上4670(+1.47%)、纽约期金破4720(+0.85%)",
+    "伊朗发布霍尔木兹海峡通行新规(地缘避险)"
+  ]
+}

@@ -131,6 +131,11 @@ const LAYOUTS = {
     bg: `<rect x="0" y="0" width="300" height="${COVER_H}" fill="${DARK}"/><rect x="600" y="0" width="300" height="${COVER_H}" fill="${DARK}"/><rect x="300" y="0" width="300" height="${COVER_H}" fill="#000" opacity="0.35"/>`,
     text: { x: 450, y: 200, anchor: 'middle', fill: '#fff', maxW: 260 },
   },
+  // 21 纯主图无装饰：直接用原图裁到封面比例，不叠任何 SVG（2026-08-26 起默认）
+  plain: {
+    withText: false,
+    bg: '',
+  },
 };
 
 // 20 个布局名，供随机抽
@@ -167,13 +172,15 @@ export async function generateCover({ imagePath, slogan, outPath, style = 'botto
     base = await sharp(base).blur(8).jpeg({ quality: 90 }).toBuffer();
   }
 
-  // 2. 叠 SVG 布局
+  // 2. 叠 SVG 布局（plain 无装饰底，跳过叠加直接用裁剪图）
   let withOverlay = base;
-  try {
-    const overlay = Buffer.from(wrapSvg(buildInner(layout, slogan)), 'utf8');
-    withOverlay = await sharp(base).composite([{ input: overlay, top: 0, left: 0 }]).jpeg({ quality: 90 }).toBuffer();
-  } catch (e) {
-    console.warn(`[cover] SVG 叠加失败（中文字体可能未正确渲染），回退到无文字封面：${e.message}`);
+  if (layout.bg) {
+    try {
+      const overlay = Buffer.from(wrapSvg(buildInner(layout, slogan)), 'utf8');
+      withOverlay = await sharp(base).composite([{ input: overlay, top: 0, left: 0 }]).jpeg({ quality: 90 }).toBuffer();
+    } catch (e) {
+      console.warn(`[cover] SVG 叠加失败（中文字体可能未正确渲染），回退到无文字封面：${e.message}`);
+    }
   }
 
   await mkdir(dirname(outPath), { recursive: true });
@@ -181,13 +188,9 @@ export async function generateCover({ imagePath, slogan, outPath, style = 'botto
   return outPath;
 }
 
-// 拼布局 bg + 文字为 SVG inner
+// 拼布局 bg 为 SVG inner。封面不自动叠加文字，仅保留渐变/色块/暗角等装饰底（slogan 参数保留兼容调用方，不再使用）
 function buildInner(layout, slogan) {
-  let inner = layout.bg || '';
-  if (layout.withText && slogan) {
-    inner += buildText(slogan, layout.text);
-  }
-  return inner;
+  return layout.bg || '';
 }
 
 // 标语文字 SVG

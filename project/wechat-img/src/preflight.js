@@ -30,7 +30,8 @@ const warn = (m) => warns.push(m);
 if (/(看(懵|久)了|愣了下|又笑了|笑了|慌了|乐了|有点小激动|看愣了)$/.test(title))
   fail(`标题"我X了"情绪尾收尾（被判低创的四篇全此格式）：${title}`);
 if (charCount(title) > 22) fail(`标题 ${charCount(title)} 字 >22：${title}`);
-if (/(震惊|速看|刚刚|突发|曝光)/.test(title)) fail(`标题党词：${title}`);
+// 曝光是正当新闻动词（如「央视曝光」是蹭度硬杠杆），不算纯煽动标题党词，故不拦
+if (/(震惊|速看|刚刚|突发)/.test(title)) fail(`标题党词：${title}`);
 
 // === 摘要 ===
 if (charCount(digest) > 54) fail(`digest ${charCount(digest)} 字 >54`);
