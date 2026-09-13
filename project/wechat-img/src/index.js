@@ -1,8 +1,9 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { config, ensureDirs } from "./config.js";
 import { generateCover } from "./cover.js";
+import { readRecentThemes as readRecentThemesShared } from "./logdims.js";
 import { markdownToHtml, fullPageHtml, ctaBlock, pickRandomThemeName } from "./html.js";
 import {
   uploadPermanentImage,
@@ -10,30 +11,10 @@ import {
   createDraft,
 } from "./wechat.js";
 
-// 读 logs 取近 N 篇已用 theme（格式 "theme记录(供下批避撞)：01cool/02minimal/..."），供随机去重
+// 读 logs 取近 N 篇已用 theme，供随机去重
+// 解析统一走 logdims.js（原先自带正则只认旧格式 "theme记录(供下批避撞)：01cool"，2026-08 格式变更后失效）
 function readRecentThemes(n = 5) {
-  const dir = "logs";
-  let files = [];
-  try {
-    files = readdirSync(dir).filter((f) => f.endsWith(".md")).sort().reverse();
-  } catch {
-    return [];
-  }
-  const re = /theme\s*记录[^：]*：\s*([0-9]+[a-zA-Z]+(?:\/[0-9]+[a-zA-Z]+)*)/g;
-  const all = [];
-  for (const f of files) {
-    try {
-      const txt = readFileSync(join(dir, f), "utf8");
-      let m;
-      while ((m = re.exec(txt))) {
-        all.push(...m[1].split("/").map((s) => s.replace(/^[0-9]+/, "")));
-      }
-    } catch {
-      // 单文件读失败跳过
-    }
-    if (all.length >= n) break;
-  }
-  return all.slice(-n);
+  return readRecentThemesShared(n);
 }
 
 function parseArgs(argv) {
@@ -62,6 +43,7 @@ async function main() {
   --from-json <path>     文章 JSON 路径（默认 <out-dir>/article.json，由 Claude 在会话里生成）
   --out-dir <path>       输出目录（默认 output/）；每日 3 篇建议传 output/YYYY-MM-DD/NN-slug/
   --dry-run              只生成封面 + HTML 预览，不调微信 API
+  --allow-missing-img    跳过「正文引用了不存在的图」硬拦（仅调试用，正常别加）
   --author "<name>"      覆盖 .env 里的署名
   --no-embed-image       不在正文头部嵌入原图
 
@@ -127,6 +109,7 @@ JSON 结构：
 
   const author = args.author ? String(args.author) : config.author;
   const dryRun = !!args["dry-run"];
+  const allowMissingImg = !!args["allow-missing-img"]; // 跳过「正文图不存在」硬拦（仅调试用）
   const embedImage = args["embed-image"] !== false && config.embedOriginalImage;
 
   await ensureDirs();
@@ -187,11 +170,20 @@ JSON 结构：
   const imgRe = /!\[([^\]]*)\]\(([^)]+)\)/g;
   let mm;
   const inlineImgs = [];
+  const missingImgs = []; // 引用了但文件不存在——静默跳过会推出没有内文的文章，必须拦
   while ((mm = imgRe.exec(bodyMd))) {
     if (/^https?:\/\//.test(mm[2])) continue; // 网络 URL 不处理
     const abs = resolve(mm[2]);
-    if (existsSync(abs))
-      inlineImgs.push({ orig: mm[0], path: abs, alt: mm[1] });
+    if (existsSync(abs)) inlineImgs.push({ orig: mm[0], path: abs, alt: mm[1] });
+    else missingImgs.push(mm[2]);
+  }
+  // 用户删图后 Claude 未重新对齐 article.json 时命中此处（2026-09-14 AL 篇实踩）
+  if (missingImgs.length) {
+    console.error(`\n✗ 硬拦截：正文引用了 ${missingImgs.length} 张不存在的图：`);
+    for (const p of missingImgs) console.error(`    - ${p}`);
+    console.error(`  多半是用户删图后 article.json 没重新对齐。`);
+    console.error(`  请改成现存图（ls 该目录确认）后重跑，或用 --allow-missing-img 跳过检查。\n`);
+    if (!allowMissingImg) process.exit(1);
   }
   if (!dryRun && inlineImgs.length) {
     console.log(`      内文图 ${inlineImgs.length} 张待上传`);

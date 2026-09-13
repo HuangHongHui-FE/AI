@@ -27,8 +27,11 @@ const fail = (m) => fails.push(m);
 const warn = (m) => warns.push(m);
 
 // === 标题 ===
-if (/(看(懵|久)了|愣了下|又笑了|笑了|慌了|乐了|有点小激动|看愣了)$/.test(title))
-  fail(`标题"我X了"情绪尾收尾（被判低创的四篇全此格式）：${title}`);
+// 情绪尾正则：2026-09-14 由 darwinian_evolver 在 656 篇历史稿上进化得出
+// （旧正则只认 8 个词，漏检 129 篇判罚期坏稿里的「愣住了/想了想/眼眶热了/扎心了」等变体）
+const TAIL_RE = /[，,][^，,。！？!?；;]{0,12}(?:愣|想|笑|哭|懵|慌|呆|傻|怔|酸|疼|暖|热|冷|服|乐|气|怂|麻|破防|无语|沉默|感动|激动|头疼|心累|脸红|眼红|眼眶|鼻子|心里|热血|扎心|破房|上头|下头|emo)[^，,。！？!?；;]{0,6}(?:了|着|半天)$/;
+if (TAIL_RE.test(title))
+  fail(`标题"我X了"情绪尾收尾（被判低创的批次全此格式）：${title}`);
 if (charCount(title) > 22) fail(`标题 ${charCount(title)} 字 >22：${title}`);
 // 曝光是正当新闻动词（如「央视曝光」是蹭度硬杠杆），不算纯煽动标题党词，故不拦
 if (/(震惊|速看|刚刚|突发)/.test(title)) fail(`标题党词：${title}`);
@@ -44,17 +47,33 @@ if (/\[[^\]]+\]\(https?:\/\//.test(body)) fail("body 含正文超链接，微信
 if (/据传|疑似|据说|有消息称|没法证实|有说法称|有人传/.test(body))
   fail('body 含存疑词（据传/疑似/据说等）——官方"引用存疑数据"低信息量铁证，须删或改可查证事实');
 
-// 六段全套：## 一~六 全在 + 引言 ≥3 + 加粗 ≥6 → 三件套同框
-const sixH = [/## 一/, /## 二/, /## 三/, /## 四/, /## 五/, /## 六/].every((r) => r.test(body));
 const quoteN = (body.match(/^> /gm) || []).length;
 const boldN = (body.match(/\*\*[^*]+\*\*/g) || []).length;
-if (sixH && quoteN >= 3 && boldN >= 6)
-  fail(`六段全套（##一~六+引言${quoteN}+加粗${boldN}）——三件套同框=同质化铁证`);
+const sixH = [/## 一/, /## 二/, /## 三/, /## 四/, /## 五/, /## 六/].every((r) => r.test(body));
+
+// AI 金句句式计数（进化门与下方 FAIL 共用）
+const aiHitsRaw = (s) =>
+  [...s.matchAll(/的尽头[是是]/g), ...s.matchAll(/不是[^，。\n]{1,10}是[^，。\n]{1,10}/g), ...s.matchAll(/更(真|重|深)/g)].length;
 
 // 字数
 const bc = charCount(body);
-if (bc < 800) fail(`正文字数 ${bc} <800，须扩写`);
-if (bc > 1200) fail(`正文字数 ${bc} >1200，须精简`);
+
+// 风格启发式加权门：2026-09-14 由 darwinian_evolver 从 656 篇历史稿进化得出
+// 旧「六段全套」用 引言≥3 触发，实测 434 篇坏稿里引言数最多只有 1 → 该检测从未触发过（死代码）
+// 现改为加权累加，单条信号不再独立毙稿（进化发现「字数短」单独不该拦）
+const STYLE = [
+  ["情绪尾标题", TAIL_RE.test(title), 1.6],
+  ["六段全套", sixH && quoteN >= 1 && boldN >= 1, 1.4],
+  ["正文偏短", bc < 800, 0.8],
+  ["正文偏长", bc > 1200, 0.9],
+  ["AI金句堆砌", aiHitsRaw(body) >= 3, 1.0],
+];
+const styleHits = STYLE.filter(([, hit]) => hit);
+const styleScore = styleHits.reduce((s, [, , w]) => s + w, 0);
+if (styleScore >= 1.1)
+  fail(
+    `风格分 ${styleScore.toFixed(1)} ≥1.1（${styleHits.map(([n, , w]) => `${n}${w}`).join("+")}）——低创作度/同质化风险`,
+  );
 
 // 禁用词
 const BAN = [
@@ -77,13 +96,7 @@ const BAN = [
 ];
 for (const w of BAN) if (body.includes(w)) fail(`禁用词命中：${w}`);
 
-// AI 金句句式 ≥3（保守匹配，命中即统计）
-const aiHits = [
-  ...body.matchAll(/的尽头[是是]/g),
-  ...body.matchAll(/不是[^，。\n]{1,10}是[^，。\n]{1,10}/g),
-  ...body.matchAll(/更(真|重|深)/g),
-].length;
-if (aiHits >= 3) fail(`AI 金句句式 ${aiHits} 处 ≥3——低价值 AIGC`);
+// AI 金句句式 ≥3 已并入上方风格加权门（权重 1.0），此处不再重复独立 FAIL
 
 // === WARN（不阻断）===
 if (boldN > 6) warn(`加粗 ${boldN} 处过多，全篇加粗等于没加粗`);

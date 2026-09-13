@@ -174,7 +174,8 @@ JSON 结构：
     coverStyle = PURE_TEXT_COVER;
     console.log(`      纯文字封面布局：${coverStyle}`);
   } else if (!coverStyle) {
-    const exclude = readRecentCoverStyles(5);
+    // 有底图时排除纯色布局（pureColor 不读原图，封面会退化成空白块）
+    const exclude = [...readRecentCoverStyles(5), PURE_TEXT_COVER];
     coverStyle = pickRandomCoverStyle(exclude);
     console.log(
       `      随机封面布局：${coverStyle}${exclude.length ? `（避开近 ${exclude.length} 篇 ${exclude.join("/")}）` : ""}`,
