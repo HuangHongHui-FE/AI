@@ -6,6 +6,8 @@
 ## 大盘先行
 - 纳指：{{NDX}}%  费半：{{SOX}}%  标普：{{SPX}}%
 - 富时A50期指：{{A50}}%  恒指期货：{{HSI}}%
+- **美债10Y：{{US10Y}}({{US10Y_CHG}}bp)  美债30Y：{{US30Y}}({{US30Y_CHG}}bp)  美债2Y：{{US2Y}}({{US2Y_CHG}}bp)**
+- **美元指数：{{DXY}}({{DXY_CHG}})  中国10Y国债：{{CN10Y}}%  中美利差：{{SPREAD}}%**
 - 数据源：overseas.json
 
 ## 今日实盘解读（今日各板块涨跌归因）
@@ -54,6 +56,7 @@
 > 原始数据快照见 cache/{{DATE}}/。关键值摘录：
 - 当日盘面：{{SUMMARY_PCT}}（涨跌幅中位数 {{MEDIAN}}%，{{UP}}涨{{DOWN}}跌）
 - 外盘：纳指{{NDX}}%/费半{{SOX}}%/A50期指{{A50}}%/恒指期货{{HSI}}% — overseas.json
+- 全球利率：美债10Y {{US10Y}}%({{US10Y_CHG}}bp)/30Y {{US30Y}}%/2Y {{US2Y}}%；美元指数{{DXY}}；中国10Y {{CN10Y}}%；中美利差{{SPREAD}}% — overseas.json
 - 市场情绪：赚钱效应{{SENT_RATIO}}%/情绪温度{{SENT_TEMP}}(涨停{{SENT_ZT}}/跌停{{SENT_DT}}) — sentiment.json
 - 财报事件：{{EARNINGS_STATUS}} — earnings.json
 - 板块龙头业绩预告：{{LEADERS_FORECAST}} — earnings.json/a_leaders

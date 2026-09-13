@@ -1,0 +1,12 @@
+{
+  "timeline": [
+    { "time": "0-3s", "action": "截取鬼畜点片段重复 N 次，每次加速 1.1x", "effect": "放大/震动", "audio": "原声变调叠加" },
+    { "time": "3-6s", "action": "倒放再正放循环", "effect": "旋转/镜像", "audio": "倒放声+音效" }
+  ],
+  "subtitles": [
+    { "time": "0.5s", "text": "字幕文字", "style": "抖音大字标题，黄色描边", "position": "居中" }
+  ],
+  "bgm": "BGM 名称或风格",
+  "output": "15秒 MP4，1080x1920 竖屏，30fps",
+  "ffmpeg_command": "ffmpeg -i input.mp4 -filter_complex '[0:v]...' out.mp4"
+}
