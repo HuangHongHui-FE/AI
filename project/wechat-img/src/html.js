@@ -18,7 +18,6 @@ const THEMES = {
     h2Bar: false,
     strongBg: false,
     quoteBg: false,
-    ctaLayers: "simple",
   },
   warm: {
     accent: "#3a6b5a",
@@ -33,7 +32,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "full",
   },
   cool: {
     accent: "#2C4A6B",
@@ -48,7 +46,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "mid",
   },
   ink: {
     // 墨蓝
@@ -64,7 +61,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "mid",
   },
   moss: {
     // 苔藓绿
@@ -80,7 +76,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "full",
   },
   slate: {
     // 板岩青灰
@@ -96,7 +91,6 @@ const THEMES = {
     h2Bar: false,
     strongBg: false,
     quoteBg: false,
-    ctaLayers: "simple",
   },
   plum: {
     // 紫梅
@@ -112,7 +106,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "mid",
   },
   sand: {
     // 沙褐
@@ -128,7 +121,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "full",
   },
   pine: {
     // 松绿
@@ -144,7 +136,6 @@ const THEMES = {
     h2Bar: false,
     strongBg: false,
     quoteBg: false,
-    ctaLayers: "simple",
   },
   rust: {
     // 铁锈暗红褐（非橙）
@@ -160,7 +151,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "full",
   },
   ocean: {
     // 海蓝
@@ -176,7 +166,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "mid",
   },
   olive: {
     // 橄榄
@@ -192,7 +181,6 @@ const THEMES = {
     h2Bar: false,
     strongBg: false,
     quoteBg: false,
-    ctaLayers: "simple",
   },
   cocoa: {
     // 可可棕
@@ -208,7 +196,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "mid",
   },
   lavender: {
     // 薰衣草紫
@@ -224,7 +211,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "full",
   },
   sage: {
     // 鼠尾草绿
@@ -240,7 +226,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "mid",
   },
   cobalt: {
     // 钴蓝
@@ -255,7 +240,6 @@ const THEMES = {
     h2Bar: false,
     strongBg: false,
     quoteBg: false,
-    ctaLayers: "simple",
   },
   amber: {
     // 琥珀暗黄褐（非橙）
@@ -271,7 +255,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "full",
   },
   forest: {
     // 林深绿
@@ -287,7 +270,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "mid",
   },
   graphite: {
     // 石墨蓝灰
@@ -303,7 +285,6 @@ const THEMES = {
     h2Bar: false,
     strongBg: false,
     quoteBg: false,
-    ctaLayers: "simple",
   },
   wine: {
     // 酒红
@@ -319,7 +300,6 @@ const THEMES = {
     h2Bar: true,
     strongBg: true,
     quoteBg: true,
-    ctaLayers: "full",
   },
 };
 
@@ -341,81 +321,7 @@ export function pickRandomThemeName(exclude = []) {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-// CTA 固定文案做池轮换，破「每篇结尾一字不差」的同质化铁证；按标题 hash 确定性选，同篇可重现
-// 2026-07-23 三池各扩到 20（原 4/3/3），分布更散，判官扫近 10 篇难见同款结尾
-const CTA_TAGS = [
-  "留 言 互 动",
-  "说 句 心 里 话",
-  "评 论 区 见",
-  "唠 唠 两 句",
-  "评 论 区 等 你",
-  "说 说 你 的 看 法",
-  "你 怎 么 看",
-  "留 个 言 吧",
-  "评 论 区 坐 坐",
-  "说 句 实 在 的",
-  "唠 两 句 嗑",
-  "评 论 区 聊",
-  "留 言 唠 唠",
-  "你 也 说 说",
-  "留 言 等 你",
-  "评 论 见",
-  "说 说 看 法",
-  "唠 唠 嗑 儿",
-  "留 言 区 见",
-  "你 也 聊 两 句",
-];
-const CTA_MIDS = [
-  "评论区聊聊，是哪句话戳穿了你？<br/>点赞 + 在看，让更多人看见。",
-  "哪句戳到你了？评论区说一句。<br/>点赞 + 在看，让更多人看见。",
-  "你怎么看这事？评论区聊两句。<br/>点赞 + 在看，让更多人看见。",
-  "换你你会怎么说？评论区等你。<br/>点赞 + 在看，让更多人看见。",
-  "这事你站哪边？评论区说一句。<br/>点赞 + 在看，让更多人看见。",
-  "哪个细节戳中你了？留言聊聊。<br/>点赞 + 在看，让更多人看见。",
-  "你身边有过这样的事吗？评论区唠唠。<br/>点赞 + 在看，让更多人看见。",
-  "这账你怎么算？评论区聊聊。<br/>点赞 + 在看，让更多人看见。",
-  "哪句话说到你心坎了？留个言。<br/>点赞 + 在看，让更多人看见。",
-  "换作是你怎么办？评论区见。<br/>点赞 + 在看，让更多人看见。",
-  "这事你咋想？评论区说两句。<br/>点赞 + 在看，让更多人看见。",
-  "哪句让你愣了一下？留言唠唠。<br/>点赞 + 在看，让更多人看见。",
-  "你的看法是？评论区聊聊。<br/>点赞 + 在看，让更多人看见。",
-  "这事搁你身上呢？评论区见。<br/>点赞 + 在看，让更多人看见。",
-  "哪个点你最认同？留个言。<br/>点赞 + 在看，让更多人看见。",
-  "你会怎么选？评论区聊聊。<br/>点赞 + 在看，让更多人看见。",
-  "这话你信吗？评论区说说。<br/>点赞 + 在看，让更多人看见。",
-  "哪段戳到你了？留言区见。<br/>点赞 + 在看，让更多人看见。",
-  "你的判断是啥？评论区唠唠。<br/>点赞 + 在看，让更多人看见。",
-  "这事你怎么看？留个言吧。<br/>点赞 + 在看，让更多人看见。",
-];
-const CTA_ICONS = [
-  "❤ 点赞 · 在看 · 转发",
-  "👍 点赞 · 在看 · 转发",
-  "❤ 点赞 · 在看 · 分享",
-  "👍 点赞 · 在看 · 分享",
-  "❤ 点赞 · 在看 · 收藏",
-  "🌟 点赞 · 在看 · 转发",
-  "❤ 在看 · 转发 · 关注",
-  "👍 在看 · 分享 · 收藏",
-  "❤ 点赞 · 转发 · 收藏",
-  "👍 点赞 · 在看 · 留言",
-  "❤ 在看 · 分享 · 转发",
-  "🌟 点赞 · 收藏 · 转发",
-  "❤ 点赞 · 在看 · 关注",
-  "👍 在看 · 转发 · 留言",
-  "❤ 点赞 · 分享 · 收藏",
-  "👍 点赞 · 在看 · 关注",
-  "❤ 在看 · 收藏 · 转发",
-  "🌟 点赞 · 转发 · 关注",
-  "❤ 点赞 · 留言 · 在看",
-  "👍 在看 · 收藏 · 分享",
-];
-
 // 按 seed 确定性取池中一项，同篇同 seed 永远取同一项（可重现）
-function poolPick(arr, seed) {
-  let h = 0;
-  for (const c of seed || "") h = (h * 31 + c.charCodeAt(0)) >>> 0;
-  return arr[h % arr.length];
-}
 
 const renderer = new marked.Renderer();
 
@@ -571,35 +477,6 @@ export function markdownToHtml(markdown, theme) {
 export function fullPageHtml(title, bodyHtml, ctaHtml, theme) {
   const t = pickTheme(theme, title);
   return `<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(title)}</title></head><body style="background:#f5f5f5;margin:0;padding:24px 0;"><div style="background:${t.bg};max-width:640px;margin:0 auto;padding:24px 20px 32px;border-radius:4px;">${bodyHtml}${ctaHtml || ""}</div></body></html>`;
-}
-
-export function ctaBlock({ question, follow, title }, theme) {
-  const t = pickTheme(theme, title || "");
-  const seed = title || follow || "";
-  const parts = [
-    `<div style="margin:36px 0 0;padding:22px 20px;background:${t.bg};border-radius:10px;border:1px solid ${t.border};text-align:center;font-family:${BASE_FONT};`,
-  ];
-  const questionHtml = question
-    ? `<p style="font-size:16px;color:${t.accent};font-weight:600;margin:0 0 8px;line-height:1.6;">${escapeHtml(question)}</p>`
-    : "";
-  const btn = `<span style="display:inline-block;padding:9px 24px;background:${t.btnBg};color:${t.btnText};font-weight:600;font-size:14px;border-radius:20px;letter-spacing:2px;box-shadow:0 3px 8px rgba(0,0,0,0.12);">${escapeHtml(follow || "点 个 关 注 不 迷 路")}</span>`;
-  const divider = `<div style="height:1px;background:${t.border};margin:14px auto;width:60%;"></div>`;
-  const icons = `<div style="margin-top:12px;font-size:13px;color:${t.grey};letter-spacing:4px;">${poolPick(CTA_ICONS, seed)}</div>`;
-  const tag = `<span style="display:inline-block;font-size:12px;color:${t.accent};letter-spacing:3px;margin-bottom:10px;font-weight:700;padding:3px 10px;background:#fff;border-radius:10px;">${escapeHtml(poolPick(CTA_TAGS, seed))}</span>`;
-  const guideMid = `<p style="font-size:14px;color:${t.muted};margin:0 0 14px;line-height:1.7;">${poolPick(CTA_MIDS, seed)}</p>`;
-
-  if (t.ctaLayers === "simple") {
-    // minimal：2 层（提问 + 按钮），极简
-    parts.push(questionHtml, btn);
-  } else if (t.ctaLayers === "mid") {
-    // cool：3 层（标签 + 提问 + 按钮），中间
-    parts.push(tag, questionHtml, btn);
-  } else {
-    // warm：4 层（提问 + 引导 + 分隔 + 按钮 + 图标），全留降饱和
-    parts.push(questionHtml, guideMid, divider, btn, icons);
-  }
-  parts.push(`</div>`);
-  return parts.join("");
 }
 
 function escapeHtml(s) {

@@ -97,7 +97,7 @@ wechat-img/
 
 **只有这些情况才动 `src/`**（半年都不会动一次）：
 
-- 换主色 / 字号 / CTA 卡片结构 → 改 `src/html.js`
+- 换主色 / 字号 → 改 `src/html.js`
 - 换封面尺寸 / 标语字号 → 改 `src/cover.js`
 - 换账号 / 加新公众号 → 改 `.env`
 - 微信 API 变更 → 改 `src/wechat.js`

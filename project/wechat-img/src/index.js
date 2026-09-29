@@ -4,7 +4,7 @@ import { join, resolve } from "node:path";
 import { config, ensureDirs } from "./config.js";
 import { generateCover } from "./cover.js";
 import { readRecentThemes as readRecentThemesShared } from "./logdims.js";
-import { markdownToHtml, fullPageHtml, ctaBlock, pickRandomThemeName } from "./html.js";
+import { markdownToHtml, fullPageHtml, pickRandomThemeName } from "./html.js";
 import {
   uploadPermanentImage,
   uploadArticleImage,
@@ -52,9 +52,7 @@ JSON 结构：
     "title": "...",
     "digest": "...",
     "cover_slogan": "...",
-    "body_markdown": "...",
-    "cta_question": "...",
-    "cta_follow": "..."
+    "body_markdown": "..."
   }`);
     process.exit(0);
   }
@@ -201,19 +199,14 @@ JSON 结构：
   }
 
   const bodyHtml = markdownToHtml(bodyMd, theme);
-  const ctaHtml = ctaBlock(
-    {
-      question: article.cta_question || article.cta || "",
-      follow: article.cta_follow || "点 个 关 注 不 迷 路",
-      title: article.title || "",
-    },
-    theme,
-  );
+  // 2026-09-14 用户决定：彻底移除结尾 CTA 卡片——文章正文结束即结束，
+  // 不引导关注/点赞/在看/评论等任何操作。ctaBlock 已停用（函数保留在 html.js 备恢复）。
+  const ctaHtml = "";
 
   const previewHtml = fullPageHtml(article.title, bodyHtml, ctaHtml, theme);
   await writeFile(join(outDir, "article.html"), previewHtml);
 
-  // 推到微信的内容 = 正文 + CTA（不包含外层 page 包装，微信会自己套壳）
+  // 推到微信的内容 = 正文（不包含外层 page 包装，微信会自己套壳）
   const contentHtml = bodyHtml + ctaHtml;
 
   if (dryRun) {
