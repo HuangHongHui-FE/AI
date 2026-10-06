@@ -1,0 +1,45 @@
+{
+  "slug": "example-event",
+  "name": "示例事件名称",
+  "summary": "一句话说清这件事是什么、起于何时、到何时为止。须写明具体起止日期，不许用模糊时间指代。",
+  "started": "2026-01",
+  "ended": "",
+  "parts": [
+    { "title": "第一篇的专属标题，写在转折处", "until": "2026-03-15" },
+    { "title": "第二篇的专属标题", "until": "2026-06-30" }
+  ],
+  "theme": "cool",
+  "nodes": [
+    {
+      "date": "2026-01",
+      "title": "只查到月份的节点，就写 YYYY-MM",
+      "level": "major",
+      "detail": "这一段的完整叙述。注意不要补 -01 假装精确到日——编造的精度和「时间必须准确」冲突。",
+      "facts": [
+        "具体细节一：带数字、带人名、带地点",
+        "具体细节二：这是细节密度所在，每篇建议 2-4 条"
+      ],
+      "images": [
+        { "src": "input/20260101-example/001.jpg", "alt": "图中确定能看到的内容，不编造" }
+      ],
+      "data": [{ "value": "1.2亿元", "label": "涉及金额" }],
+      "quote": { "text": "当事人的原话或官方通报原文", "speaker": "说话人及身份" },
+      "confidence": "high",
+      "sources": [
+        { "publisher": "媒体名", "title": "报道标题", "url": "https://...", "date": "2026-01-15" },
+        { "publisher": "另一家媒体", "title": "交叉印证标题", "url": "https://...", "date": "2026-01-16" }
+      ]
+    },
+    {
+      "date": "2026-03-15T14:30",
+      "title": "转折点：出现关键变化",
+      "level": "turning",
+      "detail": "写到分钟级的节点用 T 分隔，格式 YYYY-MM-DDTHH:mm。",
+      "confidence": "low",
+      "note": "关于这一点，A 媒体说是 X，B 媒体说是 Y，此处取官方通报口径，待后续确认。",
+      "sources": [
+        { "publisher": "官方通报", "title": "通报标题", "url": "https://...", "date": "2026-03-15" }
+      ]
+    }
+  ]
+}

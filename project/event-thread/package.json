@@ -1,0 +1,21 @@
+{
+  "name": "event-thread",
+  "version": "0.1.0",
+  "description": "事件脉络梳理：把一件事从起因到现状的全过程整理成时间线文章 → 公众号草稿箱",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "push": "node src/index.js",
+    "dry": "node src/index.js --dry-run",
+    "check": "node src/preflight.js",
+    "timeline": "node src/preflight.js --list"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "marked": "^12.0.2",
+    "sharp": "^0.32.6"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
