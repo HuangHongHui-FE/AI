@@ -57,7 +57,8 @@ def main():
     env = os.environ.copy()
     env["PATH"] = bin_dir + os.pathsep + env.get("PATH", "")  # 让 yt-dlp 能找到 ffmpeg
 
-    out_dir = os.path.join(os.path.dirname(__file__), "clips")
+    # 脚本在 skill/ 下，GIF 统一落到仓库根目录的 input/clips/
+    out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, "input", "clips")
     os.makedirs(out_dir, exist_ok=True)
     tmp = tempfile.mkdtemp()
     raw = os.path.join(tmp, "raw.mp4")        # 下载的片段

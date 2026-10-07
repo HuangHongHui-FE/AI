@@ -1,0 +1,9 @@
+# 微信凭据，只留本地
+.env
+
+# gif_clip.py 自动生成的 ffmpeg 软链（指向本机 site-packages，不入库）
+skill/.bin/
+
+# Python 缓存
+__pycache__/
+*.pyc
