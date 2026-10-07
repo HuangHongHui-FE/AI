@@ -13,9 +13,12 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "marked": "^12.0.2",
-    "sharp": "^0.32.6"
+    "sharp": "^0.33.5"
   },
   "engines": {
     "node": ">=18"
+  },
+  "allowScripts": {
+    "sharp@0.33.5": true
   }
 }

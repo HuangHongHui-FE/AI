@@ -242,7 +242,8 @@ async function main() {
 
   if (dryRun) {
     console.log(`\n[dry-run] 跳过微信 API。本地产物：`);
-    console.log(`  - 封面：${coverPath}`);
+    for (let i = 0; i < chunks.length; i++)
+      console.log(`  - 封面：${join(outDir, `cover-${i + 1}.jpg`)}`);
     for (const r of results) console.log(`  - 预览：${join(outDir, `article-${r.idx + 1}.html`)}`);
     console.log(`  登录前可用浏览器打开预览核对时间线与排版。`);
     return;
