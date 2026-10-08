@@ -75,7 +75,7 @@
 ## 依赖与首次配置
 
 - **切图脚本**：`skill/gif_clip.py`（流程 A 用，依赖 `yt-dlp` + `imageio-ffmpeg`；流程 B 的 `B2` 也复用它，那时输入是本地文件、不走 yt-dlp）
-- **剪辑脚本**：`名场面/剪辑模板.py`（流程 B 用）。**必须在 `名场面/` 目录下执行** —— 它默认输出到相对路径 `成品/`，素材也按相对路径给。依赖 `imageio-ffmpeg` 提供的 ffmpeg
+- **剪辑脚本**：`skill/B1-剪成片/剪辑模板.py` + `批量剪.py`（流程 B 用）。在**仓库根目录**跑即可 —— 素材/成品的相对路径由脚本里的 `MEDIA_ROOT` 统一按 `名场面/` 解析。依赖 `imageio-ffmpeg` 提供的 ffmpeg
 - **推草稿脚本**：复用同级的 wechat-img 项目：`node ../wechat-img/src/index.js`，**不重复造**（两条流程共用）
 - **首次配置 `.env`**（本项目根目录，名场面号独立 appid/secret）：
   ```
@@ -90,8 +90,8 @@
   input/     输入素材：input/clips/ 放切好的首图 GIF（脚本自动建）
   output/    成品产出：output/YYYY-MM-DD/NN-名场面/（article.json 等）
   logs/      每篇发文日志
-  名场面/    流程B 的视频素材与成品（2.1GB，已 gitignore）：
-             素材/ 成品/ 剪辑模板.py 剪辑流程.md 账号运营.md
+  名场面/    流程B 的媒体库（2.1GB，已 gitignore）：素材/ 成品/ resource/ 图片/
+             以及 剪辑流程.md、账号运营.md —— **脚本不在这里**，在 skill/B1-剪成片/
   ```
 
 ---
@@ -103,7 +103,7 @@
 | **流程A** 选点（蹭热点 / 自选 / 去重） | Claude 自动 | ✅ 每次换 |
 | **流程A** 定视频源（BV号 + 时间码）+ 切 GIF | Claude（调 `gif_clip.py`） | ✅ 每次换 |
 | **流程B** 收素材 + 读钩子段（从文件名） | 用户给素材，Claude 解析，**不猜** | ✅ 每次换 |
-| **流程B** 剪成品（`名场面/剪辑模板.py`） | Claude 调，**cwd 必须是 `名场面/`** | ✅ 每次换 |
+| **流程B** 剪成品（`skill/B1-剪成片/剪辑模板.py`） | Claude 调，仓库根目录跑即可 | ✅ 每次换 |
 | **流程B** 切首图（复用 `gif_clip.py`） | Claude | ✅ 每次换 |
 | 生成 article.json + 自查 | Claude | ✅ 每次换 |
 | 推草稿（`wechat-img/src/index.js`） | 脚本，Claude 调 | ❌ 不动代码 |
