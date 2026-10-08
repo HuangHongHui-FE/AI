@@ -7,6 +7,7 @@ DATE=$(date +%Y%m%d)
 
 echo "=== 抓取数据 $(date '+%Y-%m-%d %H:%M') ==="
 python3 "$SK/fetch_quote.py"
+python3 "$SK/fetch_history.py" || echo "[history] 降级跳过"
 python3 "$SK/fetch_overseas.py"
 python3 "$SK/fetch_flow.py" || echo "[flow] 降级跳过"
 python3 "$SK/fetch_flow_intraday.py" || echo "[flow_intraday] 降级跳过"
