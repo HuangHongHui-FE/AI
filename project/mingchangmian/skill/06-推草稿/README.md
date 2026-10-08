@@ -34,9 +34,15 @@ const pfPath = resolve("src/preflight.js");   // ← 相对 cwd，不是相对�
 
 ### 那 `.env` 怎么办
 
-`config.js` 用 `import 'dotenv/config'`，也是按 **cwd** 读 `.env`。所以 cwd 换到 wechat-img 后，dotenv 读的是 wechat-img 的 `.env`——**好在 wechat-img 根本没有 `.env`**，所以靠 `set -a && . mingchangmian/.env` 把凭据导出成真实环境变量即可（dotenv 不覆盖已存在的环境变量，名场面号凭据不会被串）。
+`config.js` 用 `import 'dotenv/config'`，也是按 **cwd** 读 `.env`。所以 cwd 换到 wechat-img 后，dotenv 读的是 wechat-img 的 `.env`，**不是本项目那个**。
 
-> 如果你哪天给 wechat-img 也建了 `.env`，这条就会串味——届时改用 `--author` 显式传，或给 index.js 打补丁把 preflight 改成按脚本自身路径解析（`new URL('./preflight.js', import.meta.url)`），那才是根治。
+⚠️ **2026-10-07 起 wechat-img 也有自己的 `.env` 了**（另一个会话建的，给热点号用）。所以「wechat-img 没有 .env，导出变量就稳」这个老兜底思路**已经不再成立** —— 现在是两个 `.env` 并存：
+
+- `set -a && . mingchangmian/.env && set +a` 导出的变量**优先级高于任何 `.env` 文件**（dotenv 不覆盖已存在的环境变量），只要这步执行了，名场面号凭据就是对的
+- 但**别漏掉这一步**：漏了会静默用上 wechat-img 的 appid，把稿子推进另一个号的草稿箱
+- 推完核对一下：用下面那条 `draft/batchget` 自查命令，看草稿箱里的内容是不是这个号的
+
+> 更彻底的做法是给 `index.js` 打补丁：preflight 改成按脚本自身路径解析（`new URL('./preflight.js', import.meta.url)`），token 缓存按 appid 分文件。那样就不依赖 cwd 了。**改动在 wechat-img 项目，尚未做。**
 
 ## 先看效果再推
 
@@ -60,8 +66,12 @@ node src/index.js --image "..." --out-dir "..." --dry-run
 
 | appId | 署名 | 谁在用 | 草稿箱里是什么 |
 |---|---|---|---|
-| `wx23ba7fe304c76711` | 方盖 | event-thread、manga、**2026-10-07 起 mingchangmian** | 缅北电诈系列、公司拆解系列（华为/美团/小米/阿里/B站）|
-| `wx33b77d76d688f256` | 名场面档案 | mingchangmian 原配置 | 历史名场面稿（2026-07-11 Cheems「我滴圣剑」）|
+| `wx33b77d76d688f256` | 名场面档案 | **mingchangmian（本项目，2026-10-08 换回）** | 历史名场面稿 |
+| `wx23ba7fe304c76711` | 方盖 | event-thread、manga | 缅北电诈系列、公司拆解系列、热点稿 |
+
+> mingchangmian 曾在 2026-10-07 临时切到 `wx23ba7fe304c76711`（方盖）试过，**2026-10-08 已换回名场面档案**。两个版本的凭据都有备份（`/tmp/mingchangmian.env.bak`、`/tmp/mingchangmian.env.fangai.bak`）。
+>
+> ⚠️ 名场面档案号的 **IP 白名单目前没放行本机**（`40164`），所以 API 通道暂时用不了 —— 此时改用 [`../B3-浏览器发草稿/README.md`](../B3-浏览器发草稿/README.md)（不需要白名单）。
 
 **怎么自己确认某个 appid 对应哪个号**（比看 `.env` 可靠）：
 
