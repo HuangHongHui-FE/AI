@@ -7,7 +7,7 @@
 #
 # 首次跑（或浏览器 profile 失效）会让你扫码登录。登录态存在持久化 profile 里，
 # 之后不用反复扫 —— 直到公众号会话过期。
-import argparse, json, os, re, sys, time
+import argparse, base64, json, os, re, sys, time
 from playwright.sync_api import sync_playwright
 
 PROFILE = os.path.expanduser("~/Library/Caches/mingchangmian-mp-profile")  # 比 /tmp 长寿
@@ -42,6 +42,18 @@ def md_to_plain(md):
     return re.sub(r"^> ", "", re.sub(r"\*\*(.+?)\*\*", r"\1", md), flags=re.M)
 
 
+def head_img_tag(path):
+    """把图片变成内联 data: URI 的 <p><img></p>，用于拼进待粘贴的 HTML。
+
+    ⚠️ 不要试图去点编辑器工具栏的「图片」按钮上传 —— 实测 5 种点法（文本选择器 /
+    精确类选择器 / force 点击 / JS click / 鼠标坐标）全部无效，会静默失败或点到正文上。
+    正确做法是**本地把整篇 HTML 组装好、一次性粘贴**：微信的粘贴处理器认得 data: URI，
+    会自己把它转成正文图片。这是唯一跑通的路径（2026-10-09 验证）。
+    """
+    b64 = base64.b64encode(open(path, "rb").read()).decode()
+    return '<p><img src="data:image/gif;base64,%s"></p>' % b64
+
+
 # ---------- 登录 ----------
 def ensure_login(ctx, page):
     """返回 token；未登录则提示扫码并等待"""
@@ -69,6 +81,8 @@ def main():
     ap = argparse.ArgumentParser(description="浏览器发公众号草稿")
     ap.add_argument("article", help="article.json 路径")
     ap.add_argument("--author", default=None, help="作者署名（默认取 .env 的 AUTHOR_NAME）")
+    ap.add_argument("--head-image", default=None,
+                    help="正文开头插入的图片（建议 640 宽的 GIF，360 宽会在正文里糊）")
     ap.add_argument("--no-save", action="store_true", help="只填不保存（挑错用）")
     ap.add_argument("--shot-dir", default="/tmp", help="截图输出目录")
     args = ap.parse_args()
@@ -136,11 +150,19 @@ def main():
         ed = page.locator("div.ProseMirror").nth(1)
         ed.click(); time.sleep(0.6)
         html, plain = md_to_html(art["body_markdown"]), md_to_plain(art["body_markdown"])
+        if args.head_image and os.path.exists(args.head_image):
+            print("   拼入头图: %s" % os.path.basename(args.head_image), flush=True)
+            html = head_img_tag(args.head_image) + html
+        # 编辑器里可能已有旧草稿内容 —— 先全选再粘，是「替换」不是「追加」。
+        # ⚠️ ProseMirror 里单按一次 Cmd+A 只选当前块，**必须按两次**才是全选；
+        #    只按一次会导致正文被追加一份（实测正文字数从 901 变 1739）。
+        page.keyboard.press("Meta+a"); time.sleep(0.6)
+        page.keyboard.press("Meta+a"); time.sleep(0.6)
         try:
             page.evaluate("""([h,t])=>navigator.clipboard.write([new ClipboardItem({
                 'text/html': new Blob([h],{type:'text/html'}),
                 'text/plain': new Blob([t],{type:'text/plain'})})])""", [html, plain])
-            time.sleep(1); page.keyboard.press("Meta+v"); time.sleep(3)
+            time.sleep(1); page.keyboard.press("Meta+v"); time.sleep(5)
         except Exception as e:
             print("   剪贴板粘贴失败，回退 execCommand:", str(e)[:80], flush=True)
         got = ed.inner_text()
