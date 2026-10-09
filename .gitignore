@@ -2,3 +2,5 @@ node_modules/
 **/node_modules/
 
 **/dist/
+# PDF 原书 112MB, 超 GitHub 100MB 上限, 不入库
+docs/*.pdf

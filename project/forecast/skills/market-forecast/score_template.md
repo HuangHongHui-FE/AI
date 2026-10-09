@@ -62,7 +62,8 @@
 - 板块龙头业绩预告：{{LEADERS_FORECAST}} — earnings.json/a_leaders
 - 资金面：{{FLOW_STATUS}} — flow.json
 - 盘中分时资金：{{FLOW_INTRADAY_STATUS}} — flow_intraday.json
-- 是否放量：{{VOLUME_STATUS}} — quotes.json(成交额+涨跌幅)
+- 是否放量：{{VOLUME_STATUS}} — **history.json(vol_ratio=今额/前5日均额,≥1.2放量/≤0.8缩量)**
+- 均线趋势：{{TREND_STATUS}} — history.json(ma5/10/20/60 排列 + above_ma20 + pos20 + streak)
 - 新闻：{{NEWS_STATUS}} — news.txt
 
 ## 一句话总结
