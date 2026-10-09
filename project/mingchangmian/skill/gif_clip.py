@@ -51,6 +51,7 @@ def main():
     ap.add_argument("--cookies-from-browser", default=None,
                     help="读浏览器登录态，如 chrome/safari/firefox（B站高清源需要）")
     ap.add_argument("--cookies", default=None, help="Netscape cookies.txt 路径")
+    ap.add_argument("--fps", type=int, default=10, help="帧率（默认 10；体积超标时降到 7-8）")
     ap.add_argument("--width", type=int, default=360,
                     help="输出宽度（默认 360，B2 首图用）；公众号正文头图建议 640（正文显示宽约 677px，360 会糊）")
     args = ap.parse_args()
@@ -92,7 +93,7 @@ def main():
         run(yd, env=env)
 
     # 2) 两遍法转 GIF：先采样生成调色板，再用调色板量化，避免直接转出来糊成马赛克
-    vf = f"fps=10,scale={args.width}:-1:flags=lanczos"  # 默认宽360，体积可控；正文头图用 --width 640
+    vf = f"fps={args.fps},scale={args.width}:-1:flags=lanczos"  # 默认宽360，体积可控；正文头图用 --width 640
     run([ffmpeg, "-y", "-i", raw, "-vf", f"{vf},palettegen", palette], env=env)
     run([ffmpeg, "-y", "-i", raw, "-i", palette, "-lavfi", f"{vf} [x]; [x][1:v] paletteuse", gif], env=env)
 

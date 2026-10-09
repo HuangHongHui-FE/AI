@@ -38,6 +38,65 @@ def md_to_html(md):
     return "".join(out)
 
 
+def _pick(root, sel, timeout=10):
+    """同一选择器常有多个副本（浮层里的隐藏副本），只有一个是可见的 —— 遍历着点"""
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        loc = root.locator(sel)
+        for i in range(loc.count()):
+            try:
+                if loc.nth(i).is_visible():
+                    return loc.nth(i)
+            except Exception:
+                pass
+        time.sleep(0.5)
+    return None
+
+
+def set_cover_from_body(page):
+    """把正文里第一张图设为封面。
+
+    微信的封面**必须来自正文已有图片或图片库**，没有「直接上传本地文件」的入口
+    （对话框只有：从正文选择 / 从图片库选择 / 微信扫码上传）。
+    所以顺序是：先把头图粘进正文 → 再回来「从正文选择」。
+
+    失败不影响文章本身，返回 False 让调用方继续。
+    """
+    try:
+        b = _pick(page, "[class*='js_cover_btn_area']", 8)
+        if not b:
+            print("   ! 找不到封面区", flush=True)
+            return False
+        b.hover(); time.sleep(1)
+        b.click(); time.sleep(3)
+        c = _pick(page, ".js_selectCoverFromContent", 8)   # 『从正文选择』
+        if not c:
+            print("   ! 找不到『从正文选择』", flush=True)
+            return False
+        c.click(); time.sleep(4)
+        # 对话框里选那张图
+        img = _pick(page, ".weui-desktop-dialog img", 6) or _pick(page, "[class*=dialog] img", 5)
+        if not img:
+            print("   ! 对话框里没看到图", flush=True)
+            return False
+        img.click(); time.sleep(1.5)
+        for sel in ["button:has-text('确定')", "button:has-text('确认')",
+                    ".weui-desktop-btn_primary", "button:has-text('下一步')"]:
+            try:
+                btn = _pick(page, sel, 3)
+                if btn:
+                    btn.click(timeout=4000); time.sleep(4)
+                    print("   ✓ 封面已设为正文首图", flush=True)
+                    return True
+            except Exception:
+                pass
+        print("   ! 选了图但没找到确认按钮", flush=True)
+        return False
+    except Exception as e:
+        print("   ! 设封面失败:", str(e)[:90], flush=True)
+        return False
+
+
 def md_to_plain(md):
     return re.sub(r"^> ", "", re.sub(r"\*\*(.+?)\*\*", r"\1", md), flags=re.M)
 
@@ -51,7 +110,11 @@ def head_img_tag(path):
     会自己把它转成正文图片。这是唯一跑通的路径（2026-10-09 验证）。
     """
     b64 = base64.b64encode(open(path, "rb").read()).decode()
-    return '<p><img src="data:image/gif;base64,%s"></p>' % b64
+    # display:block 是必须的 —— 图片当行内元素时，宿主段落的 line-height 会小于图片高度，
+    # 微信会弹「内容结构检测：行高小于字体大小，可能导致文字重叠」拦你一道（点「继续插入」也能过，
+    # 但每次都被拦很烦）。设成块级就没有行高问题了。
+    return ('<p><img style="display:block;max-width:100%%;margin:0 auto" '
+            'src="data:image/gif;base64,%s"></p>' % b64)
 
 
 # ---------- 登录 ----------
@@ -153,11 +216,22 @@ def main():
         if args.head_image and os.path.exists(args.head_image):
             print("   拼入头图: %s" % os.path.basename(args.head_image), flush=True)
             html = head_img_tag(args.head_image) + html
-        # 编辑器里可能已有旧草稿内容 —— 先全选再粘，是「替换」不是「追加」。
-        # ⚠️ ProseMirror 里单按一次 Cmd+A 只选当前块，**必须按两次**才是全选；
-        #    只按一次会导致正文被追加一份（实测正文字数从 901 变 1739）。
-        page.keyboard.press("Meta+a"); time.sleep(0.6)
-        page.keyboard.press("Meta+a"); time.sleep(0.6)
+        # ⚠️ 必须**先真的删干净**再粘，不能指望「全选后粘贴覆盖」：
+        #    ProseMirror 里 Cmd+A 的选中范围不稳定，粘贴会变成「追加」——
+        #    实测连跑 3 次就贴了 3 份，正文 797 字变 1589 字、头图出现 3 张（2026-10-09 踩到）。
+        #    所以：全选 + 退格删掉，回读确认为空，再粘。
+        ed.click(); time.sleep(0.5)
+        for _ in range(3):
+            page.keyboard.press("Meta+a"); time.sleep(0.4)
+        page.keyboard.press("Backspace"); time.sleep(1.2)
+        left = ed.inner_text().strip()
+        if left:
+            print("   清空后仍有 %d 字，再删一次" % len(left), flush=True)
+            page.keyboard.press("Meta+a"); time.sleep(0.4)
+            page.keyboard.press("Backspace"); time.sleep(1.2)
+            left = ed.inner_text().strip()
+        print("   清空后正文 %d 字" % len(left), flush=True)
+
         try:
             page.evaluate("""([h,t])=>navigator.clipboard.write([new ClipboardItem({
                 'text/html': new Blob([h],{type:'text/html'}),
@@ -187,7 +261,29 @@ def main():
             print("[*] --no-save：填完了但不保存，浏览器留 90 秒", flush=True)
             time.sleep(90); ctx.close(); return
 
-        print("[7] 保存为草稿...", flush=True)
+        # 封面：只能取自正文已有的图，所以要在头图粘进正文之后做
+        if args.head_image:
+            print("[7] 设封面（从正文首图）...", flush=True)
+            set_cover_from_body(page)
+            page.screenshot(path=os.path.join(args.shot_dir, "mp_cover.png"), full_page=True)
+
+        # 粘完头图后，微信可能弹「内容结构检测」挡在保存按钮前面（行高/嵌套之类）。
+        # 它是警告不是硬拦，点「继续插入」就能过 —— 但不点的话，「保存为草稿」根本点不到。
+        for _ in range(3):
+            hit = False
+            for sel in ["button:has-text('继续插入')", "text=继续插入"]:
+                try:
+                    b = page.locator(sel).first
+                    if b.count() and b.is_visible(timeout=1200):
+                        b.click(timeout=4000)
+                        print("   已关掉『内容结构检测』弹窗", flush=True)
+                        hit = True; time.sleep(1.5); break
+                except Exception:
+                    pass
+            if not hit:
+                break
+
+        print("[8] 保存为草稿...", flush=True)
         ok = False
         for sel in [SAVE_BTN, "button:has-text('保存为草稿')"]:
             try:
