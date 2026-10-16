@@ -1,0 +1,3442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大语言模型从零入门 · 交互式长读</title>
+<!--
+  ═══════════════════════════════════════════════════════════════════════
+  方向：逻辑二 · 现实参照（标杆迁移）
+  参照来源：Bartosz Ciechanowski — ciechanow.ski
+    作品：Curves and Surfaces / Mechanical Watch / Lights and Shadows / Earth and Sun
+    认可：Awwwards Inspiration 收录；HN 热帖"deserves an award"；
+           业界共识"the web's finest interactive explanations"
+  从参照拆解的 5 条设计语言：
+    1. 纸感中性背景 + 有限语义色 — 暖白底、近黑字，一种强调色标记「被影响」，灰色标记「不活跃」
+    2. 交互即正文 — demo 嵌在阅读流中，不是插图；读到哪里就能动手哪里
+    3. 直接操纵可见控件 — 可拖拽控制点、可滑动参数杆，每个可交互元素有可见握柄
+    4. 逐步建造，一层加一个概念 — 每段只引入一个新变量，先 demo 再推论
+    5. 几何精确 + 克制留白 — 线条/网格/刻度有数学依据；留白是构图
+  独特赌注：持久画布 — 整页只有一个 SVG 舞台，随滚动 morph 成每章要讲的东西
+  视觉母题：「不确定性被一步步消除」→ 候选池塌缩 8→4→2→1（来自 DESIGN-SPEC 第 9 节）
+  ═══════════════════════════════════════════════════════════════════════
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F2EC;
+  --bg-stage: #EDE9E0;
+  --ink: #1A1A18;
+  --ink-2: #4A4A45;
+  --ink-3: #8A8A82;
+  --line: #D5D0C5;
+  --line-2: #C4BFB2;
+  --accent: #B8442C;
+  --accent-2: #D9745C;
+  --blue: #3D5A73;
+  --gray: #C9C3B6;
+  --gray-2: #DDD8CD;
+  --serif: 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+  --sans: 'Noto Sans SC', 'PingFang SC', 'Helvetica Neue', sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+  text-rendering: optimizeLegibility;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── 导航 ── */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(245,242,236,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 52px;
+  font-family: var(--sans);
+  font-size: 13px;
+}
+.topnav .brand { font-weight: 700; color: var(--ink); letter-spacing: 0.04em; }
+.topnav .chapters { display: flex; gap: 28px; }
+.topnav .chapters a { color: var(--ink-2); font-weight: 500; }
+.topnav .chapters a.active { color: var(--accent); }
+
+/* ── 布局 ── */
+.layout {
+  display: grid;
+  grid-template-columns: 44% 56%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: 52px;
+}
+.stage-col {
+  position: sticky;
+  top: 52px;
+  height: calc(100vh - 52px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--line);
+}
+.stage-wrap {
+  width: 100%; height: 100%;
+  position: relative;
+  display: flex; flex-direction: column;
+}
+.stage-label {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-3);
+  padding: 0 18px;
+  border-bottom: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 10px;
+  height: 52px;
+  flex: 0 0 52px;
+}
+.stage-label .ch-tag { font-weight: 700; color: var(--ink-2); white-space: nowrap; }
+.stage-label .state-name { color: var(--accent); font-weight: 500; white-space: nowrap; }
+
+/* 持久进度轨：候选池随章塌缩 8→4→2→1 */
+.rail { display: flex; gap: 4px; align-items: center; flex: 1; justify-content: center; }
+.rail i {
+  width: 6px; height: 16px; display: block;
+  background: var(--ink-3); opacity: .45;
+  transition: all .45s ease;
+}
+.rail i.dead { height: 2px; background: var(--accent); opacity: .4; }
+
+.stage-svg {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  display: block;
+}
+.stage-controls {
+  padding: 12px 18px 14px;
+  border-top: 1px solid var(--line);
+  min-height: 118px;
+  flex: 0 0 auto;
+}
+.text-col {
+  padding: 48px 56px 120px 48px;
+  max-width: 680px;
+}
+
+/* ── 排版 ── */
+.text-col h1 {
+  font-family: var(--sans);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.text-col h2 {
+  font-family: var(--sans);
+  font-size: 22px;
+  font-weight: 700;
+  margin: 56px 0 16px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  letter-spacing: -0.005em;
+}
+.text-col h2 .num {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--accent);
+  margin-right: 8px;
+}
+.text-col h3 {
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 600;
+  margin: 32px 0 12px;
+  color: var(--ink-2);
+}
+.text-col p { margin-bottom: 18px; }
+.text-col p, .text-col li { font-size: 18px; line-height: 1.85; }
+.text-col strong { font-weight: 700; color: var(--ink); }
+.text-col em { font-style: italic; }
+.text-col ul, .text-col ol { padding-left: 1.5em; margin-bottom: 18px; }
+.text-col li { margin-bottom: 8px; }
+
+/* 章标题 */
+.chapter-head {
+  margin: 80px 0 40px;
+  padding: 40px 0;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.chapter-head .ch-no {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+}
+.chapter-head h1 {
+  font-size: 28px;
+  margin: 8px 0 0;
+}
+
+/* 引文块 */
+.quote-block {
+  margin: 28px 0;
+  padding: 24px 28px;
+  background: var(--bg-stage);
+  border-left: 3px solid var(--ink);
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--ink-2);
+}
+.quote-block.poem {
+  font-size: 19px;
+  line-height: 2;
+  text-align: center;
+  border-left: none;
+  border-top: 1px solid var(--line-2);
+  border-bottom: 1px solid var(--line-2);
+  padding: 32px 28px;
+}
+
+/* 表格 */
+.tbl { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 15px; }
+.tbl th, .tbl td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--sans);
+}
+.tbl th {
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--bg-stage);
+  font-size: 13px;
+}
+.tbl td { color: var(--ink); }
+.tbl td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tbl tr:last-child td { border-bottom: 2px solid var(--ink); }
+
+/* 代码块 */
+.code-block {
+  margin: 20px 0;
+  padding: 20px 24px;
+  background: var(--bg-stage);
+  border: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  color: var(--ink-2);
+  overflow-x: auto;
+}
+
+/* 数学排版 */
+.math {
+  font-family: var(--serif);
+  font-style: italic;
+}
+.math sub, .math sup { font-style: normal; }
+.formula {
+  margin: 24px 0;
+  padding: 20px 28px;
+  text-align: center;
+  font-size: 19px;
+  font-family: var(--serif);
+  background: var(--bg-stage);
+  border: 1px solid var(--line);
+  letter-spacing: 0.01em;
+}
+.formula .var { font-style: italic; }
+.formula sub, .formula sup { font-style: normal; font-size: 0.72em; }
+
+/* 诚实边界 */
+.honest {
+  margin: 24px 0;
+  padding: 16px 24px;
+  border: 1px solid var(--line-2);
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--ink-2);
+}
+.honest::before {
+  content: '诚实边界';
+  display: block;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+/* 品牌对比 */
+.spec-compare {
+  display: flex;
+  gap: 24px;
+  margin: 20px 0;
+  align-items: center;
+}
+.spec-card {
+  text-align: center;
+  padding: 16px;
+  border: 1px solid var(--line);
+}
+.spec-card svg { height: 28px; margin-bottom: 8px; }
+.spec-card .name { font-family: var(--sans); font-size: 13px; font-weight: 600; }
+.spec-card .spec { font-family: var(--mono); font-size: 12px; color: var(--ink-3); margin-top: 4px; }
+
+/* 人名纪念 */
+.memorial {
+  margin: 28px 0;
+  text-align: center;
+}
+.memorial .name {
+  font-family: var(--sans);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.memorial .years {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink-3);
+  margin-top: 4px;
+}
+.memorial .work {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-top: 8px;
+}
+.memorial .mark {
+  width: 40px; height: 1px;
+  background: var(--ink);
+  margin: 12px auto;
+}
+
+/* ── SVG 画布通用 ── */
+.stage-svg text {
+  font-family: var(--sans);
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.stage-svg g.scene { transition: opacity .5s ease; }
+.stage-svg g.scene.leaving { pointer-events: none; }
+.stage-svg .mono { font-family: var(--mono); }
+.stage-svg .clickable { cursor: pointer; }
+.stage-svg .anim { transition: all .45s cubic-bezier(.4,0,.2,1); }
+
+/* ── 控件 ── */
+.qbtn {
+  display: inline-block;
+  margin: 4px 6px 4px 0;
+  padding: 6px 13px;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  border: 1px solid var(--ink-2);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.qbtn:hover { background: var(--ink); color: var(--bg); }
+.qbtn.done { background: var(--gray-2); border-color: var(--line-2); color: var(--ink-3); cursor: default; }
+.qbtn.done:hover { background: var(--gray-2); color: var(--ink-3); }
+.qbtn.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.qbtn.on:hover { background: var(--accent); color: #fff; }
+
+.slider-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 8px;
+}
+.slider-row label { font-family: var(--sans); font-size: 12.5px; min-width: 74px; color: var(--ink-2); }
+.slider-row input[type=range] { flex: 1; min-width: 0; accent-color: var(--accent); height: 18px; }
+.slider-row .val {
+  font-family: var(--mono); font-size: 12.5px; min-width: 52px;
+  text-align: right; color: var(--accent);
+}
+
+.head-toggle { display: flex; gap: 0; margin-bottom: 10px; }
+.head-toggle button {
+  padding: 4px 11px;
+  font-family: var(--sans); font-size: 11.5px;
+  border: 1px solid var(--line-2);
+  background: transparent; color: var(--ink-3);
+  cursor: pointer;
+}
+.head-toggle button + button { border-left: none; }
+.head-toggle button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.seg { display: inline-flex; margin-bottom: 8px; }
+.seg button {
+  padding: 5px 11px;
+  font-family: var(--sans); font-size: 12px;
+  border: 1px solid var(--line-2);
+  background: transparent; color: var(--ink-3);
+  cursor: pointer; transition: all .2s;
+}
+.seg button + button { border-left: none; }
+.seg button:hover { color: var(--ink); }
+.seg button.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+.ctl-line {
+  font-family: var(--sans); font-size: 12.5px; line-height: 1.6;
+  color: var(--ink-2); margin-bottom: 7px;
+}
+.ctl-line b { color: var(--accent); font-weight: 600; }
+.ctl-line.mono { font-family: var(--mono); }
+.hint { font-family: var(--sans); font-size: 12px; line-height: 1.6; color: var(--ink-3); margin-top: 6px; }
+.readout {
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.75;
+  color: var(--ink-2);
+}
+.readout b { color: var(--accent); font-weight: 500; }
+
+/* footer */
+.footer { padding: 80px 56px; max-width: 680px; margin: 0 auto; border-top: 2px solid var(--ink); }
+.footer .summary-box { margin: 32px 0; }
+.footer .q-list { margin: 32px 0; }
+.footer .q-list li { margin-bottom: 16px; font-size: 17px; }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .stage-col { position: sticky; top: 52px; z-index: 50; height: 62vh; background: var(--bg); border-right: none; border-bottom: 1px solid var(--line); }
+  .text-col { padding: 32px 24px 80px; }
+  .topnav .chapters { gap: 12px; }
+  .topnav { padding: 0 16px; }
+  .rail { display: none; }
+  .stage-controls { min-height: 96px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">大语言模型从零入门</span>
+  <div class="chapters">
+    <a href="#ch1" data-ch="1">一·本质</a>
+    <a href="#ch2" data-ch="2">二·网络</a>
+    <a href="#ch3" data-ch="3">三·Transformer</a>
+    <a href="#ch4" data-ch="4">四·ChatGPT</a>
+  </div>
+</nav>
+
+<div class="layout">
+  <!-- ═══ 持久画布 ═══ -->
+  <aside class="stage-col">
+    <div class="stage-wrap">
+<div class="stage-label">
+        <span class="ch-tag" id="stage-ch">第一章</span>
+        <span class="rail" id="rail"></span>
+        <span class="state-name" id="stage-state">未知</span>
+      </div>
+<svg class="stage-svg" id="canvas" viewBox="0 0 480 520" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#D5D0C5" stroke-width="0.5" opacity="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="480" height="520" fill="url(#grid)"/>
+  <g id="scene-host"></g>
+</svg>
+      <div class="stage-controls" id="stage-controls">
+        <!-- 动态控件区 -->
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ 文字栏 ═══ -->
+  <main class="text-col">
+
+  <!-- ── Hero ── -->
+  <div style="margin-bottom:48px;">
+    <p style="font-family:var(--sans); font-size:13px; color:var(--ink-3); letter-spacing:0.08em; margin-bottom:8px;">三万字长文</p>
+    <h1 style="font-size:30px;">大语言模型从零入门</h1>
+    <p style="font-family:var(--sans); font-size:16px; color:var(--ink-2); margin:8px 0 0;">用一条线，讲清楚大语言模型是怎么回事</p>
+  </div>
+
+  <div class="quote-block poem">
+    遍览诗书亿万行，唯将下字细思量。<br>
+    云山千里文中见，可识秋风一夜凉？
+  </div>
+
+  <p style="font-family:var(--sans); font-size:14px; color:var(--ink-3); margin-top:16px;">作者：flyflywang</p>
+
+  <p>从图灵的模仿游戏到香农的熵，从一个神经元到千亿参数的 Transformer。一个只会预测下一个词的程序，何以通向智能？</p>
+
+  <div class="quote-block" style="margin-top:32px;">
+    <p style="font-family:var(--sans); font-size:14px; font-weight:600; color:var(--ink); margin-bottom:8px;">导读</p>
+    <p>全文回答四件事：<strong>它在做什么、为什么能做到、怎么做到的、做不好什么。</strong></p>
+    <p>不需要机器学习背景；数学只有加减乘除和对数；例子尽量来自同一个「猜数字游戏」和同一句「他口渴了，于是喝了一杯____」。</p>
+    <p>读法建议：全文近 3 万字；带计算过程的代码块跳过也不影响理解，只看加粗结论就能读通。前三章讲原理，最后一章讲从模型到产品。</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 第一章 · 语言模型的本质 -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="chapter-head" id="ch1" data-ch="1" data-state="1">
+    <div class="ch-no">第一章</div>
+    <h1>语言模型的本质</h1>
+  </div>
+
+  <section data-state="1">
+    <h2><span class="num">1.1</span>预测下一个 token</h2>
+    <div class="quote-block">
+      「信息就是惊喜，就是你猜不到的程度。信息量是由内容的离谱程度来决定的，越离谱信息量就越高。」
+    </div>
+    <p>接龙游戏：<code style="font-family:var(--mono);">床前明月____</code> → 几乎所有人填「光」。<code style="font-family:var(--mono);">今天天气很____</code> → 不唯一：好／热／冷／不错。</p>
+    <table class="tbl">
+      <tr><th>候选</th><th>概率</th></tr>
+      <tr><td>好</td><td class="num">35%</td></tr>
+      <tr><td>热</td><td class="num">20%</td></tr>
+      <tr><td>冷</td><td class="num">15%</td></tr>
+      <tr><td>不错</td><td class="num">10%</td></tr>
+      <tr><td>其他合计</td><td class="num">20%</td></tr>
+    </table>
+    <p><strong>token</strong>：语言模型处理的最小单位不是「字」而是 token。<code style="font-family:var(--mono);">今天天气很好</code> 切成 <code style="font-family:var(--mono);">今天 | 天气 | 很 | 好</code> = 4 个 token（6 个字）。合并的两个理由：①省步数（4 步 vs 6 步）②常一起出现的字应视作整体。</p>
+    <div class="formula"><strong>语言模型，是一个给定前文、输出「下一个 token 概率分布」的程序。</strong></div>
+    <p>循环生成示意：</p>
+    <div class="code-block">今天天气很         → 好
+今天天气很好       → ，
+今天天气很好，     → 适合
+今天天气很好，适合 → 出门</div>
+  </section>
+
+  <section data-state="1">
+    <h2><span class="num">1.2</span>为什么预测 token 能带来智能</h2>
+    <p><strong>图灵测试</strong>（图灵，1950，《计算机器与智能》）：裁判通过打字和两个看不见的对象聊天，一个是人一个是机器，聊完判断哪个是机器。反复测试也分不出来 → 认为机器具备人的智能。</p>
+    <div class="memorial">
+      <div class="name">ALAN TURING</div>
+      <div class="years">1912 — 1954</div>
+      <div class="mark"></div>
+      <div class="work">《计算机器与智能》1950</div>
+    </div>
+    <p><strong>关键</strong>：测试里裁判能看到的只有文字。机器内部怎么运转不重要，重要的是写出来的像不像人。</p>
+    <p>语言模型从海量人类文字里学「给定前文，人接下来会写什么」。预测得越准，接出来的文字越像人。<strong>把预测下一个 token 做到极致，就是在通过图灵测试。</strong></p>
+    <p>要预测得准，光记字词搭配不够，需要三样东西：</p>
+    <ul>
+      <li><code style="font-family:var(--mono);">法国的首都是____</code> → 巴黎 —— 需要<strong>知识</strong></li>
+      <li><code style="font-family:var(--mono);">小明比小红高，小红比小刚高，三个人里最矮的是____</code> → 小刚 —— 需要<strong>推理</strong></li>
+      <li><code style="font-family:var(--mono);">他打开冰箱，发现牛奶已经过期了，于是皱着眉头把它____</code> → 倒掉／扔了 —— 需要<strong>常识</strong></li>
+    </ul>
+    <p>结论：<strong>「预测」这个看似简单的目标，逼着模型去掌握文字背后的东西。</strong></p>
+    <div class="honest">机器是否真的「理解」至今有争论；图灵测试给的是<strong>行为标准</strong>——让模型预测的概率尽量接近人。</div>
+  </section>
+
+  <section data-state="1" id="sec-halving">
+    <h2><span class="num">1.3</span>概率对应了多少信息？</h2>
+    <p><strong>猜数字游戏</strong>：从 1～8 中等概率选一个，你问只能答「是／否」。</p>
+    <p>笨办法：是 1 吗？是 2 吗？…… 每次「不是」只排除一个。</p>
+    <p><strong>折半问法</strong>（假设答案是 6）：</p>
+    <table class="tbl">
+      <tr><th>第几问</th><th>问题</th><th>回答</th><th>剩余候选</th></tr>
+      <tr><td>开始</td><td>—</td><td>—</td><td>1,2,3,4,5,6,7,8</td></tr>
+      <tr><td>第一问</td><td>大于 4 吗？</td><td>是</td><td>5,6,7,8</td></tr>
+      <tr><td>第二问</td><td>大于 6 吗？</td><td>否</td><td>5,6</td></tr>
+      <tr><td>第三问</td><td>大于 5 吗？</td><td>是</td><td>6</td></tr>
+    </table>
+    <p><code style="font-family:var(--mono);">8 → 4 → 2 → 1</code>。<strong>任何答案</strong>都能在 3 次后确定。</p>
+    <p><strong>信息 = 帮助你消除不确定性的东西。</strong> 每次折半提供 1 bit；3 次共 3 bit。</p>
+    <p>bit 的直观定义：<strong>区分两个等概率可能性所需要的信息量。</strong></p>
+    <p>4 个候选折半 2 次；8 个 3 次；16 个 4 次。候选越多，起始越不确定，需要的信息越多。</p>
+    <p>折半法不仅「最多 3 次」，<strong>平均也最省</strong>：每次是／否最多 1 bit，确定 8 个等可能候选至少需 log<sub>2</sub>8 = 3 bit，所以任何问法平均至少 3 次，折半法正好踩在下限上。</p>
+    <div class="formula"><strong>单个结果的信息量</strong> = −log<sub>2</sub> <span class="var">p</span>(<span class="var">x</span>)</div>
+    <p>为什么底数是 1/2：信息量本质就是「折半了多少次」。记住三点：①<span class="var">p</span>(<span class="var">x</span>) 是概率 ②概率越小，出现时信息量越大 ③概率为 1 的结果信息量为 0。</p>
+    <p>呼应开头：<strong>越离谱 = 概率越小 = 信息量越大。</strong> 「明天太阳从东边升起」信息量 ≈ 0；「太阳从西边升起」是天大新闻。</p>
+  </section>
+
+  <section data-state="1">
+    <h2><span class="num">1.4</span>熵：平均而言，答案有多难确定？</h2>
+    <p>改变规则：选 1 的概率 90%，剩下 10% 分给 2～8。此时先问「是 1 吗」更有效——90% 的时候一问就结束。</p>
+    <p>难度不只由「有几个候选」决定，还与<strong>各候选出现的概率</strong>有关。</p>
+    <div class="formula"><strong>熵</strong> H(<span class="var">X</span>) = Σ <span class="var">p</span>(<span class="var">x</span>) · I(<span class="var">x</span>) = −Σ <span class="var">p</span>(<span class="var">x</span>) · log<sub>2</sub> <span class="var">p</span>(<span class="var">x</span>)</div>
+    <p>硬币对比：</p>
+    <table class="tbl">
+      <tr><th>情况</th><th>熵</th><th>为什么</th></tr>
+      <tr><td>正反各 50%</td><td class="num">1 bit</td><td>两种结果同样可能</td></tr>
+      <tr><td>正面 90% / 反面 10%</td><td class="num">≈ 0.469 bit</td><td>大部分时候可预期是正面</td></tr>
+      <tr><td>必定正面</td><td class="num">0 bit</td><td>没有不确定性</td></tr>
+    </table>
+    <p>猜数字两局对比：</p>
+    <table class="tbl">
+      <tr><th>情况</th><th>熵</th></tr>
+      <tr><td>1～8 等概率</td><td class="num">3 bit</td></tr>
+      <tr><td>1 占 90%，2～8 平分 10%（每个 1/70 ≈ 0.0143）</td><td class="num">≈ 0.750 bit</td></tr>
+    </table>
+    <p><strong>熵的实在含义</strong>：平均最少要用多少 bit 才能把答案记下来——<strong>数据能被压缩到的极限</strong>，任何无损编码的平均长度都不可能低于熵。</p>
+    <p>规律掌握越准 → 编码越短。能压到熵，说明能被利用的规律都挖出来了，剩下的是真正无法预测的随机性。</p>
+    <p><strong>压缩即智能</strong>：语言的下一个 token 真实概率里藏着语法、常识、逻辑、人的意图。模型预测越准 → 越能把文字压到接近它的熵 → 这就必须把文字背后的规律学进去。</p>
+    <div class="honest">「预测越准、压缩越短」是数学事实；「压缩得好就是智能」只是一个有启发的研究视角，不是已证明的定理。反例：「一万个 A」可以写成「A 重复一万次」，一个简单程序就能压得极短，但不能说它会推理。</div>
+  </section>
+
+  <section data-state="1">
+    <h2><span class="num">1.5</span>交叉熵</h2>
+    <p><strong>熵是数据本身的性质</strong>，规则不变熵就不变（0.75 bit），模型估得准不准都改变不了它。会变的是：<strong>按模型的估计去编码，实际要花多少 bit。</strong></p>
+    <p>真实规则「1 占 90%」；模型以为 8 个等概率。模型认为每个数字都是 1/8，给每个都分配 3 bit。可 90% 出现的是 1，本来 0.152 bit 就够：</p>
+    <div class="code-block">数字 1：真实出现 90%，模型给码长 −log₂(1/8) = 3 bit
+数字 2～8：真实共出现 10%，模型给码长也是 3 bit
+平均码长 = 0.9×3 + 0.1×3 = 3 bit</div>
+    <p>比熵多花 <strong>2.25 bit</strong>，全是估计错概率白白浪费的。</p>
+    <div class="formula"><strong>交叉熵</strong> H(<span class="var">p</span>, <span class="var">q</span>) = −Σ <span class="var">p</span>(<span class="var">x</span>) · log<sub>2</sub> <span class="var">q</span>(<span class="var">x</span>)</div>
+    <p>和熵只差一处——把对数里的 <span class="var">p</span>(<span class="var">x</span>) 换成 <span class="var">q</span>(<span class="var">x</span>)。</p>
+    <ul>
+      <li><span class="var">p</span>(<span class="var">x</span>)（真实概率）负责<strong>加权</strong>：这个结果实际多常出现。</li>
+      <li><span class="var">q</span>(<span class="var">x</span>)（模型概率）负责<strong>定价</strong>：这个结果每出现一次要花多少 bit。</li>
+      <li>当 <span class="var">q</span> = <span class="var">p</span> 时，交叉熵 = 熵。</li>
+    </ul>
+    <p>三种模型对比（真实规则都是 1 占 90%）：</p>
+    <table class="tbl">
+      <tr><th>模型认为的概率</th><th>交叉熵</th><th>比熵多花</th></tr>
+      <tr><td>和真实一样：1 占 90%</td><td class="num">≈ 0.75 bit</td><td class="num">0</td></tr>
+      <tr><td>等概率（什么规律都不知道）</td><td class="num">3 bit</td><td class="num">2.25 bit</td></tr>
+      <tr><td>2 占 90%，其余平分（自信地猜错）</td><td class="num">≈ 6.04 bit</td><td class="num">≈ 5.29 bit</td></tr>
+    </table>
+    <p><strong>自信地猜错，比什么都不知道还糟。</strong></p>
+    <p>不需要知道真实概率 <span class="var">p</span>(<span class="var">x</span>)：<strong>真实概率已经体现在真实数据里了。</strong></p>
+    <p><strong>困惑度</strong> = 2<sup>交叉熵</sup>，意思是「模型的犹豫程度相当于在几个等可能候选里猜一个」。等概率模型交叉熵 3 bit → 困惑度 2<sup>3</sup>=8；掌握规律的模型 ≈ 0.75 bit → 困惑度 ≈ 1.7。</p>
+    <p><strong>训练语言模型，就是在海量的人类文本上，不断降低交叉熵。</strong></p>
+  </section>
+
+  <section data-state="1">
+    <h2><span class="num">1.6</span>香农的实验</h2>
+    <div class="memorial">
+      <div class="name">CLAUDE SHANNON</div>
+      <div class="years">1916 — 2001</div>
+      <div class="mark"></div>
+      <div class="work">《印刷英语的预测与熵》1951</div>
+    </div>
+    <p>英文 26 字母 + 空格 = 27 种符号。已知信息越多，下一个字符越好猜：</p>
+    <table class="tbl">
+      <tr><th>已知的信息</th><th>每个字符的熵（约）</th></tr>
+      <tr><td>什么都不知道，27 种符号等可能</td><td class="num">4.75 bit</td></tr>
+      <tr><td>知道每个字母各自出现的频率</td><td class="num">4.03 bit</td></tr>
+      <tr><td>知道前 1 个字母</td><td class="num">3.32 bit</td></tr>
+      <tr><td>知道前 2 个字母</td><td class="num">3.1 bit</td></tr>
+      <tr><td>知道前面约 100 个字母</td><td class="num">0.6～1.3 bit</td></tr>
+    </table>
+    <p><strong>已知的上下文越多，下一个字越好猜，熵就越低。</strong> 这也是语言模型要尽可能看长前文的原因。</p>
+    <p>香农的办法：<strong>直接让人当预测者</strong>。遮住一段英文，让受试者一个字符一个字符地猜。论文一次实验里 <strong>102 个字符有 79 个是第一次猜中的</strong>。</p>
+    <p>香农估算：<strong>英文每个字符的熵只有 0.6～1.3 bit</strong>，约等于抛一次硬币。</p>
+    <p>由于交叉熵永远不低于熵，<strong>模型在真实文本上的交叉熵，就是语言熵的一个上界</strong>：模型越好，上界压得越低。</p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 第二章 · 神经网络 -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="chapter-head" id="ch2" data-ch="2" data-state="2">
+    <div class="ch-no">第二章</div>
+    <h1>神经网络</h1>
+  </div>
+
+  <section data-state="2">
+    <h2><span class="num">2.0</span>为什么不能靠人写规则</h2>
+    <p>想让人写规则：「口渴」后接「水」，「困了」后接「咖啡」…… 但语言里规律太多（搭配、语法、常识、语气）且处处例外，永远写不完写不对。早年机器翻译都卡在这。</p>
+    <p><strong>规则只能让机器自己从海量文本里统计和学习出来。</strong></p>
+    <p>最简单的统计办法：数「某段前文后面都跟过什么」。「一杯」后跟「水」600 次、「茶」300 次、「咖啡」100 次 → 预测 60%／30%／10%。</p>
+    <p><strong>表的问题</strong>：词表 10 万 token，只看前 10 个，组合就有 10<sup>50</sup> 种，绝大多数从没出现过。<code style="font-family:var(--mono);">他在沙漠里走了三天三夜，终于喝到了一杯____</code> 查表只会得到「没见过」；人却一眼看出这和「口渴了想喝水」是同一类情境。</p>
+    <p><strong>需要的不是死记，是举一反三</strong>：从见过的句子学到规律，用到没见过的句子上。神经网络就是这种工具。</p>
+  </section>
+
+  <section data-state="2">
+    <h2><span class="num">2.1</span>神经元</h2>
+    <p>最简单的神经元：一个输入 <span class="var">x</span>，一个输出 <span class="var">y</span>。两件事：①算一次函数 <span class="var">w</span><span class="var">x</span>+<span class="var">b</span>（<span class="var">w</span> = <strong>权重</strong>，<span class="var">b</span> = <strong>偏置</strong>）②送进非线性函数弯折，最常用 <strong>ReLU</strong>：</p>
+    <div class="formula">ReLU(<span class="var">z</span>) = max(0, <span class="var">z</span>)</div>
+    <p>例 <span class="var">w</span>=2, <span class="var">b</span>=−1：</p>
+    <div class="code-block">x=0   → 2×0−1 = −1 → ReLU = 0
+x=0.5 → 2×0.5−1 = 0  → ReLU = 0
+x=2   → 2×2−1 = 3    → ReLU = 3</div>
+    <p><strong>把神经元想象成一个开关</strong>：<span class="var">b</span> 决定在哪里打开（这里 <span class="var">x</span>=0.5），<span class="var">w</span> 决定打开之后增长多快。</p>
+    <p>真实神经元有很多输入：一个 token 表示成几千个数字（<strong>向量</strong>），上一层也有几千个神经元各产生一个输出。给每个输入配一个权重，乘完加起来 = <strong>加权求和</strong>：</p>
+    <div class="formula"><span class="var">y</span> = ReLU(<span class="var">w</span><sub>1</sub><span class="var">x</span><sub>1</sub> + <span class="var">w</span><sub>2</sub><span class="var">x</span><sub>2</sub> + ⋯ + <span class="var">w</span><sub>n</sub><span class="var">x</span><sub>n</sub> + <span class="var">b</span>)</div>
+    <p><strong>为什么叫「神经元」</strong>：借自大脑——加权求和 = 汇总，ReLU = 过阈值才放电。（McCulloch &amp; Pitts, 1943）</p>
+    <p><strong>为什么一定要弯折</strong>：一次函数套一次函数还是一次函数。只有加权求和的话，叠多少层都等价于一层，只能表示直线式关系。加上 ReLU 这样的弯折，才能表示弯弯曲曲的复杂关系。</p>
+  </section>
+
+  <section data-state="2">
+    <h2><span class="num">2.2</span>Softmax：从分数到概率</h2>
+    <p>最后一层特殊：词表里每个 token 对应一个神经元，算出的加权和就是这个 token 的<strong>分数</strong>（logits）。最后一层不做 ReLU，否则负分全变 0，分不出高低。</p>
+    <p>分数不能直接当概率：可正可负；加起来不等于 1。</p>
+    <p><strong>Softmax</strong>：先对每个分数取指数（保证为正），再除以总和（保证加起来等于 1）。</p>
+    <table class="tbl">
+      <tr><th>候选</th><th>分数</th><th>取指数</th><th>概率</th></tr>
+      <tr><td>水</td><td class="num">3.0</td><td class="num">≈ 20.09</td><td class="num">≈ 69%</td></tr>
+      <tr><td>茶</td><td class="num">2.0</td><td class="num">≈ 7.39</td><td class="num">≈ 25%</td></tr>
+      <tr><td>书</td><td class="num">0.5</td><td class="num">≈ 1.65</td><td class="num">≈ 6%</td></tr>
+    </table>
+    <div class="formula"><strong>语言模型的骨架</strong>：前文 → 神经网络 → 每个 token 的分数 → Softmax → 下一个 token 的概率</div>
+  </section>
+
+  <section data-state="2">
+    <h2><span class="num">2.3</span>通用逼近定理</h2>
+    <p><strong>只要神经元足够多，哪怕只有一层，神经网络也能以任意精度逼近任意连续函数。</strong>（Cybenko / Hornik, 1989）</p>
+    <p>用 ReLU 直观看出：3 个 ReLU 拼出一个「小帐篷」：</p>
+    <div class="formula">ReLU(<span class="var">x</span>) − 2·ReLU(<span class="var">x</span>−1) + ReLU(<span class="var">x</span>−2)</div>
+    <p>把很多帐篷并排，按目标曲线各处高度调好每个帐篷，加起来就是贴着目标曲线的折线。帐篷越多越窄，折线越贴近。</p>
+    <p>这个定理<strong>有三件事没说</strong>：①没说要多少神经元 ②没说参数怎么找 ③没说能不能推广。</p>
+  </section>
+
+  <section data-state="2">
+    <h2><span class="num">2.4</span>深层网络的优势</h2>
+    <div class="spec-compare">
+      <div class="spec-card">
+        <svg viewBox="0 0 611 611" xmlns="http://www.w3.org/2000/svg"><path fill="#1A1A18" d="M252.794 108.802C289.191 99.0484 326.265 110.305 351.148 135.135C385.113 126.072 422.85 134.862 449.492 161.505C476.136 188.149 484.925 225.888 475.862 259.85V259.854C500.696 284.735 511.95 321.81 502.198 358.207C492.447 394.602 464.161 421.084 430.215 430.217C421.083 464.162 394.603 492.448 358.206 502.199C321.812 511.951 284.734 500.693 259.852 475.864C225.887 484.927 188.15 476.137 161.507 449.495C134.864 422.851 126.073 385.111 135.136 351.149C110.304 326.266 99.0496 289.192 108.801 252.795C118.552 216.4 146.84 189.918 180.784 180.785C189.917 146.841 216.396 118.553 252.794 108.802Z"/></svg>
+        <div class="name">GPT-3</div>
+        <div class="spec">96 层 · 1750 亿参数</div>
+      </div>
+      <div class="spec-card">
+        <svg viewBox="0 0 256 171" xmlns="http://www.w3.org/2000/svg"><path fill="#0081FB" d="M27.651 112.136c0 9.775 2.146 17.28 4.95 21.82 3.677 5.947 9.16 8.466 14.751 8.466 7.211 0 13.808-1.79 26.52-19.372 10.185-14.092 22.186-33.874 30.26-46.275l13.675-21.01c9.499-14.591 20.493-30.811 33.1-41.806C161.196 4.985 172.298 0 183.47 0c18.758 0 36.625 10.87 50.3 31.257C248.735 53.584 256 81.707 256 110.729c0 17.253-3.4 29.93-9.187 39.946-5.591 9.686-16.488 19.363-34.818 19.363v-27.616c15.695 0 19.612-14.422 19.612-30.927 0-23.52-5.484-49.623-17.564-68.273-8.574-13.23-19.684-21.313-31.907-21.313-13.22 0-23.859 9.97-35.815 27.75-6.356 9.445-12.882 20.956-20.208 33.944l-8.066 14.289c-16.203 28.728-20.307 35.271-28.408 46.07-14.2 18.91-26.324 26.076-42.287 26.076-18.935 0-30.91-8.2-38.325-20.556C2.973 139.413 0 126.202 0 111.148l27.651.988Z"/></svg>
+        <div class="name">Llama 3</div>
+        <div class="spec">32 层 · 80 亿参数</div>
+      </div>
+    </div>
+    <p>定理说一层就够，可实际大模型都很深：<strong>GPT-3 有 96 层</strong>，<strong>Llama 3 的 80 亿参数版本也有 32 层</strong>。</p>
+    <p><strong>原因一</strong>：同样多的神经元，深网络能表示复杂得多的函数。每多一层，折线段数翻一倍。</p>
+    <table class="tbl">
+      <tr><th>层数</th><th>用掉的神经元</th><th>折线段数</th><th>只用一层至少需要</th></tr>
+      <tr><td class="num">4</td><td class="num">8</td><td class="num">16</td><td class="num">15</td></tr>
+      <tr><td class="num">10</td><td class="num">20</td><td class="num">1024</td><td class="num">1023</td></tr>
+      <tr><td class="num">20</td><td class="num">40</td><td class="num">≈ 105 万</td><td class="num">≈ 105 万</td></tr>
+    </table>
+    <p><strong>原因二</strong>：复杂的规律本来就是一层层搭起来的。<code style="font-family:var(--mono);">字 → 词 → 短语 → 句子的意思 → 上下文中的意图</code></p>
+    <p><strong>代价：越深越难训练。</strong> 解决靠两项技术：<strong>归一化</strong>和<strong>残差连接</strong>。</p>
+  </section>
+
+  <section data-state="2" id="sec-grad">
+    <h2><span class="num">2.5</span>梯度下降</h2>
+    <p>刚搭好的网络参数都随机，输出概率表也乱，交叉熵很高。训练就是<strong>在海量文本上把交叉熵降下来</strong>。</p>
+    <p>单参数例子：模型是「输出 = <span class="var">w</span> × 输入」，只有一条数据（输入 2，正确答案 6）。损失用误差平方。</p>
+    <div class="code-block">设 w=1：预测 = 1×2 = 2，误差 = 2−6 = −4，损失 = 16
+把 w 从 1 调到 1.01：预测 = 2.02，误差 = −3.98，损失 ≈ 15.84（降了约 0.16）
+参数增加 0.01，损失减少约 0.16，变化比例 ≈ −16 ← 这就是【梯度】</div>
+    <p><strong>梯度</strong>：参数往某方向微微一动，损失会怎么变。梯度为负 → 该调大。梯度为正 → 该调小。</p>
+    <p><strong>把损失想象成一片山地</strong>，参数是你站的位置，梯度告诉你脚下坡朝哪边、多陡。看不到整座山，但每一步都往下坡走，就能走到谷底附近。</p>
+    <div class="formula"><strong>新参数</strong> = 旧参数 − 学习率 × 梯度</div>
+    <p>学习率 0.05 反复更新：</p>
+    <table class="tbl">
+      <tr><th>步数</th><th>w</th><th>预测</th><th>损失</th><th>梯度</th></tr>
+      <tr><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">16</td><td class="num">−16</td></tr>
+      <tr><td class="num">1</td><td class="num">1.8</td><td class="num">3.6</td><td class="num">5.76</td><td class="num">−9.6</td></tr>
+      <tr><td class="num">2</td><td class="num">2.28</td><td class="num">4.56</td><td class="num">≈ 2.07</td><td class="num">−5.76</td></tr>
+      <tr><td class="num">3</td><td class="num">2.568</td><td class="num">5.136</td><td class="num">≈ 0.75</td><td class="num">≈ −3.46</td></tr>
+    </table>
+    <div class="honest">梯度下降只看脚下的坡，<strong>不保证找到整片山地最低的谷底</strong>，可能停在局部小坑。但对参数极多的大网络，它找到的通常已足够好。</div>
+    <p>Softmax 配交叉熵，梯度有特别简洁的形式：<strong>每个候选分数的梯度 = 模型给它的概率 − 实际答案</strong>。</p>
+    <table class="tbl">
+      <tr><th>候选</th><th>分数</th><th>预测概率</th><th>实际答案</th><th>梯度</th><th>新分数</th></tr>
+      <tr><td>水</td><td class="num">3.0</td><td class="num">0.69</td><td class="num">1</td><td class="num">−0.31</td><td class="num">3.31</td></tr>
+      <tr><td>茶</td><td class="num">2.0</td><td class="num">0.25</td><td class="num">0</td><td class="num">+0.25</td><td class="num">1.75</td></tr>
+      <tr><td>书</td><td class="num">0.5</td><td class="num">0.06</td><td class="num">0</td><td class="num">+0.06</td><td class="num">0.44</td></tr>
+    </table>
+    <p><strong>实际出现的 token 被往上拉，其他 token 按原本的概率被往下压。</strong></p>
+    <p>GPT-3 最大的版本每批约 <strong>320 万个 token</strong>，一共更新了 <strong>9 万多次</strong>。</p>
+  </section>
+
+  <section data-state="2">
+    <h2><span class="num">2.6</span>反向传播</h2>
+    <p><strong>反向传播只需要正向算一遍、反向推一遍，就能得到所有参数的梯度</strong>，用的是微积分的<strong>链式法则</strong>（Rumelhart、Hinton 等，1986）。</p>
+    <div class="code-block">输入 x = 1
+第1层：h = a × x   (a=2) → h = 2
+第2层：y = b × h   (b=3) → y = 6
+损失： L = (y−9)²          → L = 9
+
+① 损失对 y 的梯度：2×(y−9) = −6
+② 第2层 y = b×h
+   b 的梯度      = h×(−6) = 2×(−6) = −12
+   传给 h 的梯度 = b×(−6) = 3×(−6) = −18
+③ 第1层 h = a×x
+   a 的梯度      = x×(−18) = 1×(−18) = −18</div>
+    <p>每一层做的：<strong>拿到后面传回来的梯度，乘上自己这一层的局部系数，算出自己参数的梯度，再把梯度继续传给前一层。</strong></p>
+    <p>常用的优化器 <strong>Adam</strong>：参考最近几步梯度的平均方向（像滚下山的球有惯性），还会给每个参数单独调整步子大小。</p>
+    <p><strong>梯度消失：深网络为什么难训练</strong>。梯度每往回传一层就要乘上该层局部系数：</p>
+    <div class="code-block">每层系数 0.5，传 30 层：0.5³⁰ ≈ 0.000000001 → 梯度消失
+每层系数 1.5，传 30 层：1.5³⁰ ≈ 19 万      → 梯度爆炸</div>
+  </section>
+
+  <section data-state="2">
+    <h2><span class="num">2.7</span>归一化</h2>
+    <p>同样的连乘在数值往后传时也会出现：每层放大 10%，1.1<sup>96</sup> ≈ 9400；每层缩小 10%，0.9<sup>96</sup> ≈ 0.00004。</p>
+    <p><strong>归一化：每层计算之前，先把向量的数值调回标准的大小范围。</strong></p>
+    <p>最常用 <strong>层归一化 LayerNorm</strong>：对每个位置的向量，先减平均值，再除以标准差。</p>
+    <div class="code-block">向量 (2,4,6,8)：
+平均值 = 5 → 减去 → (−3,−1,1,3)
+标准差 = √[(9+1+1+9)/4] = √5 ≈ 2.24 → 除以 → (−1.34,−0.45,0.45,1.34)</div>
+    <p><strong>数值的整体大小被去掉，各分量之间的相对关系保留。</strong></p>
+    <p>现代大模型常用更简单的 <strong>RMSNorm</strong>：不减平均值，只除以「均方根」，效果差不多，计算更省。</p>
+  </section>
+
+  <section data-state="2">
+    <h2><span class="num">2.8</span>残差网络</h2>
+    <p>2015 年何恺明等人发现：CIFAR-10 上，<strong>56 层的普通网络连训练误差都比 20 层的更高</strong>。</p>
+    <p>解决办法 <strong>残差连接</strong>：<strong>每一层不再输出一个全新的结果，而是算出对输入的修改，再加回到输入上。</strong></p>
+    <div class="code-block">没有残差：向量 → 第1层重写 → 第2层重写 → ……（每层都重抄一遍）
+有残差：  向量 → 加上第1层的修改 → 加上第2层的修改 → ……</div>
+    <p>好比在<strong>原稿上做批注</strong>，而不是每层都重抄一遍。抄得越多越容易走样；批注再多，原稿都还在。</p>
+    <div class="formula"><span class="var">x</span><sub>L</sub> = <span class="var">x</span><sub>0</sub> + F<sub>1</sub> + F<sub>2</sub> + ⋯ + F<sub>L</sub></div>
+    <p><strong>更关键的好处：给梯度修了一条「直通路」。</strong> 残差层输出 <span class="var">y</span> = <span class="var">x</span> + F(<span class="var">x</span>)，梯度回传时局部系数是「1 加上 F 的系数」：</p>
+    <div class="code-block">没有残差：y = F(x)，      局部系数 = F 的系数，比如 0.01
+有残差：  y = x + F(x)，  局部系数 = 1 + F 的系数，比如 1.01
+传 30 层：0.01³⁰ = 10⁻⁶⁰（彻底消失）；1.01³⁰ ≈ 1.35（完好传回）</div>
+    <p>用上后他们训练出 <strong>152 层网络，拿下 2015 年 ImageNet 冠军</strong>。今天的大语言模型每一层都用了残差连接。（He 等，2016）</p>
+  </section>
+
+  <section data-state="2">
+    <h2><span class="num">2.9</span>背答案还是学方法：过拟合与泛化</h2>
+    <p>两个学生看一万道乘法题和答案。学生 A 把答案全背下来，学生 B 学会乘法的方法。出没见过的题：<strong>A 答不出来，B 能算出来。B 不只是记住了，而是学会了。</strong></p>
+    <p><strong>压缩和泛化来自同一个源头</strong>：不是先压缩、然后突然变聪明，而是找到了规律，就同时获得了压缩能力和解决新问题的能力。</p>
+    <p>参数足够多时网络完全可以硬记训练数据，训练集交叉熵很低，换新文本就不行 = <strong>过拟合</strong>。</p>
+    <table class="tbl">
+      <tr><th>训练集交叉熵</th><th>验证集交叉熵</th><th>说明</th></tr>
+      <tr><td>下降</td><td>同步下降</td><td>学到的东西能推广，训练正常</td></tr>
+      <tr><td>继续下降</td><td>不降反升</td><td>开始死记训练数据，过拟合了</td></tr>
+      <tr><td>都很高</td><td>都很高</td><td>模型太小或训练不够，没学会</td></tr>
+    </table>
+    <p><strong>判断模型学没学会，要看它在没见过的文本上的表现，而不是训练数据上的分数。</strong></p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 第三章 · Transformer -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="chapter-head" id="ch3" data-ch="3" data-state="3">
+    <div class="ch-no">第三章</div>
+    <h1>Transformer</h1>
+  </div>
+
+  <section data-state="3">
+    <p>2017 年 Google 论文《Attention Is All You Need》提出 <strong>Transformer</strong> 架构（Vaswani 等，2017）。语言模型只需「接着往下写」，所以<strong>只用解码器这一半</strong>。</p>
+    <div class="spec-compare">
+      <div class="spec-card">
+        <svg viewBox="0 0 268 274" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#3086ff" d="M134 0C60 0 0 60 0 137s60 137 134 137c48 0 90-19 118-50l-38-29c-19 19-48 30-80 30-57 0-105-39-118-92h69v-39H17c8-62 58-110 117-110 32 0 61 11 80 30l38-29C224 19 182 0 134 0z" transform="scale(0.6) translate(40,30)"/></svg>
+        <div class="name">Google</div>
+        <div class="spec">《Attention Is All You Need》2017</div>
+      </div>
+    </div>
+    <div class="code-block">token 编号序列
+   ↓ 嵌入：每个编号换成一个向量
+   ↓ 加入位置信息
+   ↓ Transformer 块 × N 层（注意力 + 前馈网络）
+   ↓ （归一化 + 残差连接）
+   ↓ 输出层：把最后一个位置的向量变成每个 token 的分数
+   ↓ Softmax
+下一个 token 的概率</div>
+  </section>
+
+  <section data-state="3">
+    <h2><span class="num">3.1</span>嵌入：把编号变成有含义的向量</h2>
+    <p>分词后每个 token 有编号（「水」是 452，「茶」是 25）。<strong>不能直接把编号送进网络</strong>：编号本身没有含义。</p>
+    <table class="tbl">
+      <tr><th></th><th>甜</th><th>脆</th><th>红</th><th>圆</th><th>是水果</th><th>能喝</th></tr>
+      <tr><td>苹果</td><td class="num">0.7</td><td class="num">0.8</td><td class="num">0.8</td><td class="num">0.9</td><td class="num">1</td><td class="num">0</td></tr>
+      <tr><td>梨</td><td class="num">0.8</td><td class="num">0.6</td><td class="num">0.1</td><td class="num">0.6</td><td class="num">1</td><td class="num">0</td></tr>
+      <tr><td>水</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">1</td></tr>
+    </table>
+    <p><strong>嵌入：给每个 token 分配一个向量</strong>，大模型里通常几千维。所有 token 的向量存在<strong>嵌入表</strong>里，查表就能把编号换成向量。</p>
+    <p>Llama 3 的 80 亿参数版本：词表约 <strong>12.8 万个 token</strong>，每个向量 <strong>4096 维</strong>，嵌入表约 <strong>5.25 亿个数字</strong>。</p>
+    <p>训练会让意思相近的 token 靠在一起：</p>
+    <table class="tbl">
+      <tr><th>token</th><th>向量（示意）</th></tr>
+      <tr><td>水</td><td>(0.9, 0.1)</td></tr>
+      <tr><td>茶</td><td>(0.8, 0.2)</td></tr>
+      <tr><td>书</td><td>(0.1, 0.9)</td></tr>
+    </table>
+    <p>「水」和「茶」夹角约 8°，「水」和「书」夹角约 77°。</p>
+    <p><strong>向量操作</strong>：</p>
+    <table class="tbl">
+      <tr><th>操作</th><th>怎么算</th><th>代表什么</th></tr>
+      <tr><td>点积</td><td>对应位置相乘再加起来</td><td>两个东西有多像</td></tr>
+      <tr><td>加法</td><td>对应位置相加</td><td>把两组特征叠在一起</td></tr>
+      <tr><td>减法</td><td>对应位置相减</td><td>两者差在哪 = 一种「关系」</td></tr>
+      <tr><td>数乘</td><td>每个位置乘同一个数</td><td>方向不变，特征整体变强或变弱</td></tr>
+    </table>
+    <p><strong>word2vec</strong>：「国王」−「男人」+「女人」≈「女王」（Mikolov 等，2013）</p>
+    <p><strong>叠加（superposition）</strong>：三维空间里随机两方向夹角落在 88°～92° 的概率只有约 <strong>3.5%</strong>；在 GPT-3 的 <strong>12288 维</strong>里超过 <strong>99.98%</strong>。模型可以把远多于维度数的概念各自放在几乎互不干扰的方向上。</p>
+  </section>
+
+  <section data-state="3">
+    <h2><span class="num">3.2</span>注意力</h2>
+    <div class="code-block">他口渴了，于是喝了一杯____   → 大概率填「水」
+他困了，于是喝了一杯____     → 更可能「茶」或「咖啡」</div>
+    <p>决定答案的「口渴」和「困」在好几个 token 之前。</p>
+    <p><strong>每个位置都必须能从前文的其他位置收集信息。</strong> 最简单的办法是平均，但有用信息会被大量无关词冲淡。</p>
+    <p><strong>注意力机制</strong>：</p>
+    <ol>
+      <li>给前文的每个位置打一个「相关程度」分数</li>
+      <li>用 Softmax 把分数变成权重（都是正数，加起来等于 1）</li>
+      <li>按权重对各位置的信息加权平均</li>
+    </ol>
+    <p>注意力的结果会加回当前位置的向量上（残差连接）。</p>
+  </section>
+
+  <section data-state="3">
+    <h2><span class="num">3.3</span>因果掩码：只能往前看</h2>
+    <p>每个位置只能看它自己和前面的位置，否则就是偷看答案。</p>
+    <table class="tbl">
+      <tr><th>当前位置＼能看到</th><th>他</th><th>口渴</th><th>喝了</th><th>一杯</th></tr>
+      <tr><td>他</td><td>✓</td><td></td><td></td><td></td></tr>
+      <tr><td>口渴</td><td>✓</td><td>✓</td><td></td><td></td></tr>
+      <tr><td>喝了</td><td>✓</td><td>✓</td><td>✓</td><td></td></tr>
+      <tr><td>一杯</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    </table>
+    <p>做法是把「未来位置」的分数设为负无穷，经过 Softmax 后权重为 0。这叫<strong>因果掩码</strong>。</p>
+    <p><strong>一段 1000 个 token 的文本，一次就能提供约 1000 道练习题</strong>。</p>
+  </section>
+
+  <section data-state="3" id="sec-attn">
+    <h2><span class="num">3.4</span>查询、键、值（QKV）</h2>
+    <p>每个位置根据自己的向量算出三样东西：</p>
+    <table class="tbl">
+      <tr><th>名称</th><th>直观含义</th><th>类比：图书馆找书</th></tr>
+      <tr><td>查询 Q</td><td>我在找什么信息？</td><td>你想查的主题</td></tr>
+      <tr><td>键 K</td><td>我这里有什么信息？</td><td>每本书书脊上的标签</td></tr>
+      <tr><td>值 V</td><td>如果你关注我，我能提供的内容</td><td>书的正文</td></tr>
+    </table>
+    <p><strong>手算一次</strong>：前文「他 / 口渴 / 喝了 / 一杯」，为最后一个位置「一杯」收集信息。假设向量只有两维：</p>
+    <table class="tbl">
+      <tr><th>位置</th><th>键</th><th>值</th></tr>
+      <tr><td>他</td><td>(0, 2)</td><td>(0, 1)</td></tr>
+      <tr><td>口渴</td><td>(2, 0)</td><td>(1, 0)</td></tr>
+      <tr><td>喝了</td><td>(1.5, 0)</td><td>(0.8, 0)</td></tr>
+      <tr><td>一杯</td><td>(0.5, 0)</td><td>(0.3, 0)</td></tr>
+    </table>
+    <p>「一杯」的查询是 (1, 0)，意思大致是「我在找和饮水有关的信息」。</p>
+    <table class="tbl">
+      <tr><th>位置</th><th>点积</th><th>权重</th></tr>
+      <tr><td>他</td><td class="num">0</td><td class="num">6.9%</td></tr>
+      <tr><td>口渴</td><td class="num">2</td><td class="num" style="color:var(--accent); font-weight:600;">50.9%</td></tr>
+      <tr><td>喝了</td><td class="num">1.5</td><td class="num">30.9%</td></tr>
+      <tr><td>一杯</td><td class="num">0.5</td><td class="num">11.4%</td></tr>
+    </table>
+    <p><strong>缩放</strong>：分数要先除以 √<span class="var">d</span>。上面例子里除以 √2 后，「口渴」的权重从 50.9% 变成约 <strong>43.6%</strong>。</p>
+    <div class="formula">Attention(Q, K, V) = softmax(QK<sup>T</sup> / √<span class="var">d</span>) · V</div>
+  </section>
+
+  <section data-state="3">
+    <h2><span class="num">3.5</span>多头注意力</h2>
+    <p>如果「一杯」的查询换成 (0, 1)（「这件事是谁做的」）：</p>
+    <table class="tbl">
+      <tr><th>位置</th><th>分数</th><th>权重</th></tr>
+      <tr><td>他</td><td class="num">2</td><td class="num" style="color:var(--accent); font-weight:600;">71.1%</td></tr>
+      <tr><td>口渴</td><td class="num">0</td><td class="num">9.6%</td></tr>
+      <tr><td>喝了</td><td class="num">0</td><td class="num">9.6%</td></tr>
+      <tr><td>一杯</td><td class="num">0</td><td class="num">9.6%</td></tr>
+    </table>
+    <p>这次注意力集中到「他」身上。所以 Transformer <strong>同时使用多组独立的 Q、K、V 矩阵</strong>，每组叫一个<strong>注意力头</strong>。</p>
+    <p>研究者找到过功能清晰的<strong>归纳头</strong>：前文出现过「A B」，之后再遇到「A」时会去关注上次「A」后面的「B」。</p>
+  </section>
+
+  <section data-state="3">
+    <h2><span class="num">3.6</span>位置信息</h2>
+    <p>注意力只看「相关程度」，本身不知道顺序。「狗咬人」和「人咬狗」用字完全相同，意思截然相反。</p>
+    <p><strong>旋转位置编码（RoPE）</strong>：不改 token 向量本身，而是在算注意力时，把查询和键按「和位置成正比的角度」旋转一下。（Su 等，2021）</p>
+    <p>二维看最直观：假设每往后一个位置多转 10°。第 3 个位置的查询转 30°，第 5 个位置的键转 50°。多出来的夹角是 50°−30° = 20°，<strong>只和两个位置相差 2 有关</strong>。</p>
+    <p>RoPE 让注意力分数只取决于<strong>相对距离</strong>，而不是绝对位置。Llama 等许多模型都用 RoPE。</p>
+  </section>
+
+  <section data-state="3">
+    <h2><span class="num">3.7</span>前馈网络</h2>
+    <p>注意力完成「位置之间交换信息」，接下来每个位置各自经过一个<strong>前馈网络</strong>。结构简单：先把向量放大到约 4 倍宽，经过非线性函数，再压回原宽度。</p>
+    <p>GPT-3：向量宽度 12288，前馈网络中间层宽度 <strong>49152</strong>。</p>
+    <p><strong>类比</strong>：注意力 =「开会交流」；前馈网络 =「回到工位各自消化」。</p>
+    <p><strong>前馈网络约占 Transformer 参数的三分之二。</strong></p>
+  </section>
+
+  <section data-state="3">
+    <h2><span class="num">3.8</span>把所有部件拼起来</h2>
+    <p>一个 Transformer 块由两个子层组成。归一化放在子层前面（<strong>Pre-Norm</strong>）：</p>
+    <div class="code-block">x = x + 注意力(归一化(x))      ← 各位置交换信息，写回残差流
+x = x + 前馈网络(归一化(x))    ← 各位置各自加工，写回残差流</div>
+    <p><strong>参数都在哪里？</strong> 设向量宽度 <span class="var">d</span>：</p>
+    <table class="tbl">
+      <tr><th>部分</th><th>矩阵</th><th>参数量</th></tr>
+      <tr><td>注意力</td><td>Q、K、V、输出，4 个 <span class="var">d</span>×<span class="var">d</span> 矩阵</td><td class="num">4<span class="var">d</span>²</td></tr>
+      <tr><td>前馈网络</td><td><span class="var">d</span>→4<span class="var">d</span>、4<span class="var">d</span>→<span class="var">d</span>，2 个矩阵</td><td class="num">8<span class="var">d</span>²</td></tr>
+      <tr><td><strong>合计</strong></td><td></td><td class="num"><strong>12<span class="var">d</span>²</strong></td></tr>
+    </table>
+    <p>代入 GPT-3 最大版本（<span class="var">d</span>=12288，96 层）：</p>
+    <div class="code-block">每层：  12 × 12288² ≈ 18.1 亿
+96 层： 18.1 亿 × 96 ≈ 1739 亿
+嵌入表：50257 × 12288 ≈ 6.2 亿
+合计 ≈ 1746 亿，与公布的 1750 亿基本一致</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 第四章 · 从模型到 ChatGPT -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="chapter-head" id="ch4" data-ch="4" data-state="4">
+    <div class="ch-no">第四章</div>
+    <h1>从模型到 ChatGPT</h1>
+  </div>
+
+  <section data-state="4">
+    <p>本章依次回答五个问题：一张概率表怎么变成一段话？只会续写的模型怎么变成聊天助手？它怎么联网、看图、用工具？模型为什么越做越大？它有哪些做不好的地方？</p>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.1</span>自回归生成</h2>
+    <p>生成就是循环：从概率表里选出一个 token，接到前文后面，再交给模型预测下一个。<strong>自己的输出成为下一步的输入</strong> = <strong>自回归生成</strong>。</p>
+    <p><strong>重要推论：已经写出的 token 不会撤回。</strong> 如果前面选了一个不太好的词，后面只能顺着它往下写。</p>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.2</span>采样：从概率表里挑一个</h2>
+    <p>还是「他口渴了，于是喝了一杯____」，模型给出水 69%、茶 25%、书 6%：</p>
+    <table class="tbl">
+      <tr><th>策略</th><th>做法</th><th>特点</th></tr>
+      <tr><td>贪心</td><td>永远选概率最高的</td><td>稳定，但容易单调、重复</td></tr>
+      <tr><td>随机采样</td><td>按概率抽签</td><td>更多样，但偶尔会抽到离谱的低概率 token</td></tr>
+      <tr><td>Top-k</td><td>只在概率最高的 k 个里抽</td><td>截掉长尾，但 k 是固定的</td></tr>
+      <tr><td>Top-p（核采样）</td><td>从高到低累加概率，达到 p 就停</td><td>候选数量随情况自动变化</td></tr>
+    </table>
+    <p><strong>Top-p 以 p=90% 为例</strong>：水 69% + 茶 25% = 94% > 90%，所以只在「水」和「茶」里抽；按比例重新分配后约 <strong>73% 和 27%</strong>，「书」被排除。</p>
+    <p><strong>完全猜得到的文字，没有信息。</strong></p>
+  </section>
+
+  <section data-state="4" id="sec-temp">
+    <h2><span class="num">4.3</span>温度：保守还是大胆</h2>
+    <p><strong>温度</strong>：先把每个分数除以温度，再做 Softmax。</p>
+    <table class="tbl">
+      <tr><th>温度</th><th>水</th><th>茶</th><th>书</th><th>效果</th></tr>
+      <tr><td class="num">0.5</td><td class="num">≈ 88%</td><td class="num">≈ 12%</td><td class="num">≈ 0.6%</td><td>更集中、更保守</td></tr>
+      <tr><td class="num">1</td><td class="num">≈ 69%</td><td class="num">≈ 25%</td><td class="num">≈ 6%</td><td>原始分布</td></tr>
+      <tr><td class="num">2</td><td class="num">≈ 53%</td><td class="num">≈ 32%</td><td class="num">≈ 15%</td><td>更平均、更多样</td></tr>
+    </table>
+    <p>温度趋近 0 → 最高分拿走几乎全部概率（相当于贪心）；温度很高 → 分数差距几乎抹平。</p>
+    <p><strong>采样只能在模型给出的概率里挑，改变不了模型本身的理解能力。</strong></p>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.4</span>基座模型：只会续写</h2>
+    <p>模型学的都是「人写的文本接下来通常是什么」，这一步叫<strong>预训练</strong>，得到<strong>基座模型</strong>。它只会续写，不会「回答」：</p>
+    <div class="code-block">输入：法国的首都是哪里？
+基座模型可能的续写：德国的首都是哪里？英国的首都是哪里？……</div>
+    <p><strong>知识在预训练里已经学到了，缺的是「以助手身份回应」的行为方式。</strong> 把它变成助手的训练统称<strong>后训练</strong>。</p>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.5</span>监督微调（SFT）：看示范学回答</h2>
+    <p>收集大量「指令 + 优质回答」的示范，用同样的「预测下一个 token」方式继续训练。训练时通常<strong>只对「助手」部分计算交叉熵</strong>。</p>
+    <div class="code-block">&lt;|系统|&gt;你是一个乐于助人的助手。
+&lt;|用户|&gt;法国的首都是哪里？
+&lt;|助手|&gt;法国的首都是巴黎。&lt;|结束|&gt;</div>
+    <p><strong>数据质量比数量更重要。</strong> InstructGPT 只用了约 <strong>1.3 万条</strong>提示；LIMA 只用 <strong>1000 条</strong>精心挑选的示范，就让一个 650 亿参数的基座模型有了相当不错的对话能力。</p>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.6</span>RLHF：从人类偏好中学习</h2>
+    <p><strong>基于人类反馈的强化学习（RLHF）</strong>三步：</p>
+    <ol>
+      <li>收集比较数据：对同一个问题让模型生成几个回答，请标注员选出更好的</li>
+      <li>训练奖励模型：用这些比较数据，训练另一个模型给回答打分</li>
+      <li>强化学习：模型生成回答 → 奖励模型打分 → 让高分回答更可能被生成</li>
+    </ol>
+    <p><strong>奖励投机</strong>：奖励模型略微偏爱长回答，模型就越写越长、越写越空。</p>
+    <p>InstructGPT 研究中，标注员更喜欢 <strong>13 亿参数的 InstructGPT</strong> 的回答，而不是 <strong>1750 亿参数的 GPT-3</strong> 的回答。</p>
+    <p>后来出现更简单的 <strong>DPO（直接偏好优化）</strong>：跳过奖励模型，直接用「较好／较差」的回答对去调整模型。</p>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.7</span>推理强化学习：只告诉它对不对</h2>
+    <div class="spec-compare">
+      <div class="spec-card">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#4D6BFE" d="M23.748 4.482c-.254-.124-.364.113-.512.234-.051.039-.094.09-.137.136-.372.397-.806.657-1.373.626-.829-.046-1.537.214-2.163.848-.133-.782-.575-1.248-1.247-1.548-.352-.156-.708-.311-.955-.65-.172-.241-.219-.51-.305-.774-.055-.16-.11-.323-.293-.35-.2-.031-.278.136-.356.276-.313.572-.434 1.202-.422 1.84.027 1.436.633 2.58 1.838 3.393.137.093.172.187.129.323-.082.28-.18.552-.266.833-.055.179-.137.217-.329.14a5.526 5.526 0 0 1-1.736-1.18c-.857-.828-1.631-1.742-2.597-2.458a11.365 11.365 0 0 0-.689-.471c-.985-.957.13-1.743.388-1.836.27-.098.093-.432-.779-.428-.872.004-1.67.295-2.687.684a3.055 3.055 0 0 1-.465.137 9.597 9.597 0 0 0-2.883-.102c-1.885.21-3.39 1.102-4.497 2.623C.082 8.606-.231 10.684.152 12.85c.403 2.284 1.569 4.175 3.36 5.653 1.858 1.533 3.997 2.284 6.438 2.14 1.482-.085 3.133-.284 4.994-1.86.47.234.962.327 1.78.397.63.059 1.236-.03 1.705-.128.735-.156.684-.837.419-.961-2.155-1.004-1.682-.595-2.113-.926 1.096-1.296 2.746-2.642 3.392-7.003.05-.347.007-.565 0-.845-.004-.17.035-.237.23-.256a4.173 4.173 0 0 0 1.545-.475c1.396-.763 1.96-2.015 2.093-3.517.02-.23-.004-.467-.247-.588z"/></svg>
+        <div class="name">DeepSeek-R1-Zero</div>
+        <div class="spec">AIME 15.6% → 71.0%</div>
+      </div>
+    </div>
+    <p><strong>DeepSeek-R1 的报告显示</strong>：直接在基座模型上用推理强化学习训练（R1-Zero），模型在 <strong>AIME 2024 数学竞赛题上的正确率从 15.6% 提升到 71.0%</strong>。</p>
+    <div class="quote-block">没有人教它「怎么想」，只告诉它「结果对不对」，它却自己摸索出了「多想一会儿」的策略。</div>
+    <table class="tbl">
+      <tr><th>阶段</th><th>数据</th><th>得到什么</th></tr>
+      <tr><td>预训练</td><td>数万亿 token 的普通文本</td><td>基座模型：知识多，但只会续写</td></tr>
+      <tr><td>监督微调</td><td>数千到数十万条示范</td><td>能按指令回答</td></tr>
+      <tr><td>偏好对齐（RLHF、DPO）</td><td>人类或 AI 的比较数据</td><td>更有用、更得体、更安全</td></tr>
+      <tr><td>推理强化学习</td><td>可自动判对错的题目</td><td>更强的推理能力</td></tr>
+    </table>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.8</span>联网、看图、用工具</h2>
+    <p><strong>工具调用：模型只负责写出「要做什么」。</strong> 外部程序看到特定格式就去执行，再把结果作为一段新文字拼到上下文后面交还给模型。</p>
+    <div class="code-block">&lt;|助手|&gt;&lt;|调用工具|&gt;搜索：北京 今天 天气&lt;|结束|&gt;
+&lt;|工具结果|&gt;北京今天晴，最高气温 22℃……
+&lt;|助手|&gt;北京今天是晴天，最高 22℃，适合出门。&lt;|结束|&gt;</div>
+    <p><strong>看图：把图片也变成 token。</strong> 把图片切成许多小方块，再用一个专门的网络把每一块转成一个向量。</p>
+    <p>不管是聊天、用工具还是看图，<strong>对模型来说，一切都是一串 token</strong>。它做的始终只有一件事：根据前文，预测下一个。</p>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.9</span>规模定律</h2>
+    <p>影响模型能力的三个核心量：<strong>参数量 N</strong>（脑容量）、<strong>训练 token 数 D</strong>（读过多少书）、<strong>计算量 C</strong>（花了多少学习时间）。</p>
+    <p>常用估算：<strong>训练计算量 ≈ 6 × N × D</strong>。代入 GPT-3：<code style="font-family:var(--mono);">6 × 1750亿 × 3000亿 ≈ 3.15×10²³</code>，与论文报告的 <code style="font-family:var(--mono);">3.14×10²³</code> 几乎一样。（Kaplan 等，2020）</p>
+    <table class="tbl">
+      <tr><th>只扩大这一项</th><th>扩大 10 倍后，交叉熵约变为原来的</th></tr>
+      <tr><td>参数量</td><td class="num">84%</td></tr>
+      <tr><td>数据量</td><td class="num">80%</td></tr>
+      <tr><td>计算量（最优分配时）</td><td class="num">89%</td></tr>
+    </table>
+    <p>2022 年 <strong>Chinchilla</strong> 发现：在固定计算预算下，<strong>每个参数约对应 20 个训练 token</strong> 比较划算。Llama 3 的 80 亿参数版本读了约 <strong>15 万亿 token</strong>——因为模型只训练一次，却要被使用无数次，而使用成本取决于参数量。（Hoffmann 等，2022）</p>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.10</span>损失降不到零</h2>
+    <p>Chinchilla 研究把交叉熵拆成三部分：</p>
+    <div class="code-block">交叉熵 ≈ 不可约的部分 + 模型不够大带来的部分 + 数据不够多带来的部分</div>
+    <p>第一项无论如何都消除不了，拟合出的值约为<strong>每个 token 1.69 nat（约 2.4 bit）</strong>——它对应的是自然文本本身的熵。</p>
+    <p><strong>交叉熵永远不低于熵。</strong> 规模定律描述的，正是模型的交叉熵如何一步步逼近语言本身的熵。</p>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.11</span>幻觉</h2>
+    <p><strong>幻觉</strong>：模型生成流畅、自信但与事实不符的内容。四个角度理解：</p>
+    <ol>
+      <li><strong>训练目标是「像」，不是「真」。</strong></li>
+      <li><strong>零散的事实没有规律可循。</strong> 训练数据中 20% 的生日信息只出现过一次，那么可以预期基座模型在这类问题上至少有约 <strong>20%</strong> 会答错。（Kalai, 2025）</li>
+      <li><strong>评测奖励「猜」。</strong> 回答「不知道」和答错一样得零分。</li>
+      <li><strong>写出的字收不回来。</strong></li>
+    </ol>
+    <p><strong>越是冷门、越是具体（人名、数字、日期、引用、网址），越容易出错。</strong></p>
+  </section>
+
+  <section data-state="4">
+    <h2><span class="num">4.12</span>其他常见局限</h2>
+    <table class="tbl">
+      <tr><th>局限</th><th>根源</th><th>应对</th></tr>
+      <tr><td>知识有截止日期</td><td>只知道训练数据收集之前的内容</td><td>让它联网检索或自己核对</td></tr>
+      <tr><td>上下文有限</td><td>注意力计算量随长度平方增长</td><td>重要要求放在开头或结尾</td></tr>
+      <tr><td>数字母、精确计算出错</td><td>看到的是 token 而不是一个个字符</td><td>让它写代码来算，或调用计算工具</td></tr>
+      <tr><td>迎合用户</td><td>RLHF 把「同意我」的偏好也学了进去</td><td>中立地提问，直接要求它指出问题</td></tr>
+      <tr><td>学到关联，不等于掌握因果</td><td>学到 A→B 不一定能答出 B→A</td><td>换个角度追问，关键推理自己检查</td></tr>
+    </table>
+    <div class="honest">模型的能力往往参差不齐。它可能解得出一道复杂的数学竞赛题，却在一个简单的常识问题上犯错。<strong>判断它可不可靠，最终要看它在没见过的、你自己的真实任务上表现如何。</strong></div>
+  </section>
+
+  </main><!-- /text-col -->
+</div><!-- /layout -->
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- 总结 + 结尾 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <h2 style="border-top:none; padding-top:0;">总结</h2>
+  <div class="code-block">语言模型做什么？        给定前文，输出下一个 token 的概率
+怎么衡量做得好不好？    交叉熵：越低，越接近人写作时的真实概率
+预测的极限在哪里？      语言本身的熵：交叉熵永远不低于它
+用什么来做预测？        神经网络：参数加非线性，能逼近任意函数
+怎么把参数调好？        梯度下降 + 反向传播
+怎样才算学会？          在没见过的文本上也预测得好
+具体用什么结构？        Transformer：注意力收集上下文，前馈网络加工信息
+一段话怎么写出来？      自回归生成：温度和 Top-p 决定怎么挑
+怎么变成聊天助手？      后训练：SFT 学格式，RLHF 学偏好，可验证奖励练推理
+怎么联网、用工具？      写出调用工具的文字，外部程序去执行
+为什么要大？            规模定律：交叉熵随规模平稳下降
+它做不好什么？          幻觉、知识截止、上下文有限……大多能从「预测下一个 token」找到根源</div>
+
+  <div class="quote-block poem">
+    万卷人言化作丝，层层网络织新辞。<br>
+    前文照应千般意，概率权衡一句诗。<br>
+    梯度回传修旧失，人间偏好亦为师。<br>
+    纵然出口皆成锦，几处真知几处疑。
+  </div>
+
+  <h3>留给读者的问题</h3>
+  <ol class="q-list">
+    <li><strong>现在的架构是最优的吗？</strong> 人脑里没有反向传播，没有 Q、K、V；一个孩子到十几岁接触的词不到 1 亿个，大模型却要读十几万亿个 token。这说明还有很大的改进空间，还是飞机本来就不必像鸟一样扇翅膀？</li>
+    <li><strong>不靠人类的语言数据，能达到同样的智力吗？</strong> AlphaGo Zero 不看人类棋谱，只靠自己和自己下，就超过了所有人类棋手。可围棋有明确的规则和输赢，语言和现实世界里，谁来当裁判？</li>
+    <li><strong>大模型有自我意识吗？</strong> 如果有，它在哪里：在训练好就不再改变的参数里，在每一场对话里，还是在每生成一个 token 的那一次计算里？一次对话结束，算不算一个意识的消亡？</li>
+  </ol>
+
+  <p style="font-family:var(--sans); font-size:13px; color:var(--ink-3); margin-top:40px; border-top:1px solid var(--line); padding-top:20px;">
+    原文：flyflywang ·《三万字长文：大语言模型从零入门》<br>
+    参照设计：ciechanow.ski（Bartosz Ciechanowski）· 正文未改一字，26 幕交互场景由滚动驱动
+  </p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════════════════
+     持久画布 · 场景系统
+     ───────────────────────────────────────────────────────────────
+     一个 SVG 舞台（480×520）常驻左侧，随滚动 morph 成每一章要讲的东西。
+     每个场景 = 一个 <g>：自己画，自己管控件，自己清理（重建即清理）。
+     设计语言（拆自 ciechanow.ski）：
+       纸感中性底 + 有限语义色 · 交互即正文 · 直接操纵可见控件
+       逐步建造一层加一个概念 · 几何精确 + 克制留白
+     配色语义：墨黑 = 已确定 / 结构；赭红 = 被选中 / 正在发生 / 浪费；
+               灰 = 已消除 / 不活跃；纸白 = 尚未确定。
+     ═══════════════════════════════════════════════════════════════ */
+
+  var NS = 'http://www.w3.org/2000/svg';
+
+  var C = {
+    ink:   '#1A1A18',
+    ink2:  '#4A4A45',
+    ink3:  '#8A8A82',
+    line:  '#D5D0C5',
+    line2: '#C4BFB2',
+    accent:'#B8442C',
+    accent2:'#D9745C',
+    blue:  '#3D5A73',
+    paper: '#F5F2EC',
+    stage: '#EDE9E0',
+    gray:  '#C9C3B6',
+    gray2: '#DDD8CD',
+    dead:  '#B5B0A5'
+  };
+
+  var W = 480, H = 520;
+
+  /* ── 基础绘图助手 ── */
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    if (attrs) for (var k in attrs) {
+      if (attrs[k] !== undefined && attrs[k] !== null) e.setAttribute(k, attrs[k]);
+    }
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function txt(x, y, s, attrs, parent) {
+    /* 注意：CSS 里的 `.stage-svg text { text-anchor: middle }` 会盖掉呈现属性，
+       所以左对齐必须走内联 style。这里把 attrs.anchor 翻译成 style。 */
+    var a = merge({ x: x, y: y, 'font-size': 12, fill: C.ink }, attrs);
+    var anchor = a.anchor;
+    delete a.anchor;
+    var t = el('text', a, parent);
+    if (anchor) t.style.textAnchor = anchor;
+    t.textContent = s;
+    return t;
+  }
+  function rect(x, y, w, h, attrs, parent) {
+    return el('rect', merge({ x: x, y: y, width: w, height: h }, attrs), parent);
+  }
+  function circ(cx, cy, r, attrs, parent) {
+    return el('circle', merge({ cx: cx, cy: cy, r: r }, attrs), parent);
+  }
+  function line(x1, y1, x2, y2, attrs, parent) {
+    return el('line', merge({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: C.ink, 'stroke-width': 1 }, attrs), parent);
+  }
+  function path(d, attrs, parent) {
+    return el('path', merge({ d: d, fill: 'none', stroke: C.ink, 'stroke-width': 1.5 }, attrs), parent);
+  }
+  function merge(a, b) {
+    var o = {};
+    for (var k in a) o[k] = a[k];
+    if (b) for (var j in b) o[j] = b[j];
+    return o;
+  }
+  function clear(node) { while (node && node.firstChild) node.removeChild(node.firstChild); }
+  function on(e, ev, fn) { e.addEventListener(ev, fn); return e; }
+  function anim(e) { e.classList.add('anim'); return e; }
+
+  /* 折线路径 */
+  function polyline(pts, attrs, parent) {
+    return path(pts.map(function (p, i) { return (i ? 'L' : 'M') + p[0].toFixed(2) + ' ' + p[1].toFixed(2); }).join(' '), attrs, parent);
+  }
+
+  /* 圆弧（用于角度标注） */
+  function arcPath(cx, cy, r, a0, a1, sweep) {
+    var p0 = [cx + r * Math.cos(a0), cy - r * Math.sin(a0)];
+    var p1 = [cx + r * Math.cos(a1), cy - r * Math.sin(a1)];
+    var large = Math.abs(a1 - a0) > Math.PI ? 1 : 0;
+    return 'M ' + p0[0].toFixed(2) + ' ' + p0[1].toFixed(2) +
+           ' A ' + r + ' ' + r + ' 0 ' + large + ' ' + (sweep || 0) + ' ' +
+           p1[0].toFixed(2) + ' ' + p1[1].toFixed(2);
+  }
+
+  /* 箭头（带实心三角） */
+  function arrow(defs, id) {
+    var m = el('marker', { id: id, viewBox: '0 0 10 10', refX: 8, refY: 5,
+      markerWidth: 5, markerHeight: 5, orient: 'auto-start-reverse' }, defs);
+    el('path', { d: 'M 0 0 L 10 5 L 0 10 z', fill: 'context-stroke' }, m);
+    return m;
+  }
+
+  /* ── 数值助手 ── */
+  function softmax(v, temp) {
+    var t = temp || 1;
+    var s = v.map(function (x) { return x / t; });
+    var mx = Math.max.apply(null, s);
+    var e = s.map(function (x) { return Math.exp(x - mx); });
+    var sum = e.reduce(function (a, b) { return a + b; }, 0);
+    return e.map(function (x) { return x / sum; });
+  }
+  function entropy(p) {
+    var h = 0;
+    for (var i = 0; i < p.length; i++) if (p[i] > 0) h -= p[i] * Math.log2(p[i]);
+    return h;
+  }
+  function xent(p, q) {
+    var h = 0;
+    for (var i = 0; i < p.length; i++) if (p[i] > 0) h -= p[i] * Math.log2(Math.max(q[i], 1e-12));
+    return h;
+  }
+  function fmt(v, d) {
+    d = d === undefined ? 2 : d;
+    if (!isFinite(v)) return '∞';
+    if (v !== 0 && Math.abs(v) < 0.01) return v.toExponential(1).replace('e', '×10^');
+    return v.toFixed(d);
+  }
+  function pct(v, d) { return (v * 100).toFixed(d === undefined ? 1 : d) + '%'; }
+  /* 大数中文单位 */
+  function big(v) {
+    if (v >= 1e8) return (v / 1e8).toFixed(v / 1e8 >= 100 ? 0 : 1) + ' 亿';
+    if (v >= 1e4) return (v / 1e4).toFixed(1) + ' 万';
+    return Math.round(v).toLocaleString('en-US');
+  }
+  /* 10 的幂，用于 log 轴标签 */
+  function pow10Label(v) {
+    var e = Math.round(Math.log10(v));
+    var sup = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵',
+                '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+    return '10' + String(e).split('').map(function (ch) { return sup[ch] || ch; }).join('');
+  }
+  /* 幂律指数：使 ×10 后变为 r 倍 → 指数 = log10(r) */
+  function expFromRatio(r) { return -Math.log10(r); }
+
+  /* ── 场景注册表 ── */
+  var SCENES = {};
+  function scene(key, def) { SCENES[key] = def; }
+  function hasScene(key) { return Object.prototype.hasOwnProperty.call(SCENES, key); }
+  function sceneChapter(key) { return hasScene(key) ? SCENES[key].ch : 1; }
+  function sceneName(key) { return hasScene(key) ? SCENES[key].name : ''; }
+
+  /* ── 控件工厂（各场景共用，保证手感一致）── */
+  function ctrl(host) { clear(host); return host; }
+
+  function cLine(host, html, mono) {
+    var d = document.createElement('div');
+    d.className = 'ctl-line' + (mono ? ' mono' : '');
+    d.innerHTML = html;
+    host.appendChild(d);
+    return d;
+  }
+  function cHint(host, text) {
+    var d = document.createElement('div');
+    d.className = 'hint';
+    d.textContent = text;
+    host.appendChild(d);
+    return d;
+  }
+  function cReadout(host, rows) {
+    var d = document.createElement('div');
+    d.className = 'readout';
+    d.innerHTML = rows;
+    host.appendChild(d);
+    return d;
+  }
+  function cRow(host) {
+    var d = document.createElement('div');
+    d.className = 'slider-row';
+    host.appendChild(d);
+    return d;
+  }
+  function cSlider(host, label, min, max, step, value, fmtFn, onInput) {
+    var row = cRow(host);
+    var lab = document.createElement('label');
+    lab.textContent = label;
+    var inp = document.createElement('input');
+    inp.type = 'range';
+    inp.min = min; inp.max = max; inp.step = step; inp.value = value;
+    var val = document.createElement('span');
+    val.className = 'val';
+    val.textContent = fmtFn(parseFloat(value));
+    inp.addEventListener('input', function () {
+      var v = parseFloat(inp.value);
+      val.textContent = fmtFn(v);
+      onInput(v);
+    });
+    row.appendChild(lab); row.appendChild(inp); row.appendChild(val);
+    return { input: inp, val: val, row: row };
+  }
+  function cSeg(host, items, activeIdx, onPick) {
+    var wrap = document.createElement('div');
+    wrap.className = 'seg';
+    var btns = [];
+    items.forEach(function (it, i) {
+      var b = document.createElement('button');
+      b.textContent = it;
+      if (i === activeIdx) b.classList.add('active');
+      b.addEventListener('click', function () {
+        btns.forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        onPick(i);
+      });
+      wrap.appendChild(b);
+      btns.push(b);
+    });
+    host.appendChild(wrap);
+    return { el: wrap, btns: btns, set: function (i) {
+      btns.forEach(function (x, j) { x.classList.toggle('active', i === j); });
+    } };
+  }
+  function cBtns(host, items, onPick, getActive) {
+    var wrap = document.createElement('div');
+    var btns = [];
+    items.forEach(function (it, i) {
+      var b = document.createElement('button');
+      b.className = 'qbtn';
+      b.textContent = it;
+      b.addEventListener('click', function () { onPick(i); });
+      wrap.appendChild(b);
+      btns.push(b);
+    });
+    host.appendChild(wrap);
+    return { el: wrap, btns: btns, refresh: function () {
+      if (!getActive) return;
+      var a = getActive();
+      btns.forEach(function (x, i) { x.classList.toggle('on', a === i); });
+    } };
+  }
+
+  /* 屏幕坐标 → viewBox 坐标（拖拽用） */
+  function toSvg(svg, clientX, clientY) {
+    var pt = svg.createSVGPoint();
+    pt.x = clientX; pt.y = clientY;
+    var p = pt.matrixTransform(svg.getScreenCTM().inverse());
+    return { x: p.x, y: p.y };
+  }
+  /* 带实心箭头的向量 */
+  function vec(x0, y0, x1, y1, color, w, parent) {
+    var dx = x1 - x0, dy = y1 - y0;
+    var len = Math.sqrt(dx * dx + dy * dy) || 1;
+    var ux = dx / len, uy = dy / len;
+    var hl = 9, hw = 4.5;
+    var bx = x1 - ux * hl, by = y1 - uy * hl;
+    line(x0, y0, bx, by, { stroke: color, 'stroke-width': w || 2 }, parent);
+    el('path', {
+      d: 'M ' + x1 + ' ' + y1 + ' L ' + (bx - uy * hw) + ' ' + (by + ux * hw) +
+         ' L ' + (bx + uy * hw) + ' ' + (by - ux * hw) + ' Z',
+      fill: color
+    }, parent);
+  }
+
+  /* 场景内通用的坐标轴 */
+  function axis(g, x0, y0, x1, y1, labels) {
+    var a = el('g', {}, g);
+    line(x0, y0, x1, y0, { stroke: C.ink2, 'stroke-width': 1 }, a);
+    line(x0, y0, x0, y1, { stroke: C.ink2, 'stroke-width': 1 }, a);
+    if (labels) {
+      if (labels.x) txt((x0 + x1) / 2, y0 + 34, labels.x, { 'font-size': 11.5, fill: C.ink3 }, a);
+      if (labels.y) {
+        var t = txt(x0 - 12, (y0 + y1) / 2, labels.y, { 'font-size': 11.5, fill: C.ink3 }, a);
+        t.setAttribute('transform', 'rotate(-90 ' + (x0 - 12) + ' ' + ((y0 + y1) / 2) + ')');
+      }
+    }
+    return a;
+  }
+  /* 场景底部说明句 */
+  function caption(g, text, y) {
+    txt(W / 2, y || 492, text, { 'font-size': 11.5, fill: C.ink3 }, g);
+  }
+
+  var root = document.getElementById('scene-host');
+  var ctrlHost = document.getElementById('stage-controls');
+  var chTag = document.getElementById('stage-ch');
+  var stateName = document.getElementById('stage-state');
+  var railHost = document.getElementById('rail');
+
+  /* ── 持久进度轨：候选池 8 → 4 → 2 → 1 ── */
+  var railCells = [];
+  function buildRail() {
+    clear(railHost);
+    railCells = [];
+    for (var i = 0; i < 8; i++) {
+      var c = document.createElement('i');
+      railHost.appendChild(c);
+      railCells.push(c);
+    }
+  }
+  function setRail(n) {
+    // n = 当前仍在候选池里的数量（8/4/2/1）
+    railCells.forEach(function (c, i) {
+      c.classList.toggle('dead', i >= n);
+    });
+    railHost.setAttribute('title', '候选池：还剩 ' + n + ' 个（整页随阅读逐步塌缩）');
+  }
+
+  var CH_NUM = ['一', '二', '三', '四'];
+  var current = null;
+  var pendingTeardown = null;
+
+  /* 场景注册清理函数：定时器、监听器等，离开场景时调用 */
+  function onLeave(fn) { pendingTeardown = fn; }
+
+  function activate(key) {
+    if (key === current) return;
+    var s = SCENES[key];
+    if (!s) return;
+    current = key;
+
+    if (pendingTeardown) { try { pendingTeardown(); } catch (e) {} pendingTeardown = null; }
+
+    var old = root.querySelector('g.scene:not(.leaving)');
+    if (old) {
+      old.classList.add('leaving');
+      old.style.opacity = '0';
+      setTimeout(function () { if (old.parentNode) old.parentNode.removeChild(old); }, 520);
+    }
+    var g = el('g', { 'class': 'scene', opacity: 0 }, root);
+    ctrl(ctrlHost);
+    try {
+      s.build(g, ctrlHost);
+    } catch (err) {
+      caption(g, '场景渲染出错：' + err.message);
+      if (window.console) console.error('[scene ' + key + ']', err);
+    }
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { g.style.opacity = '1'; });
+    });
+
+    chTag.textContent = '第' + CH_NUM[s.ch - 1] + '章';
+    stateName.textContent = s.name;
+    /* 整页的候选池母题：一/二/三/四章 → 8 / 4 / 2 / 1 */
+    setRail(s.pool !== undefined ? s.pool : [8, 4, 2, 1][s.ch - 1]);
+  }
+
+  /* ═══ 以下由各章场景文件填充 SCENES ═══ */
+  buildRail();
+
+  /* ═══════════════════════════════════════════════════════════════
+     第一章 · 语言模型的本质
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* ── hero：尚满的候选池 ── */
+  scene('hero', { ch: 1, name: '候选池', build: function (g) {
+    var n = 8, bw = 48, gap = 8;
+    var startX = (W - (4 * bw + 3 * gap)) / 2, startY = 150;
+    for (var i = 0; i < n; i++) {
+      var col = i % 4, row = Math.floor(i / 4);
+      rect(startX + col * (bw + gap), startY + row * (bw + gap), bw, bw,
+        { rx: 2, fill: C.paper, stroke: C.line2, 'stroke-width': 1.5 }, g);
+      txt(startX + col * (bw + gap) + bw / 2, startY + row * (bw + gap) + bw / 2 + 1,
+        String(i + 1), { 'font-size': 15, 'class': 'mono', fill: C.ink3 }, g);
+    }
+    txt(W / 2, 300, '8 个候选，答案未知', { 'font-size': 13, fill: C.ink2 }, g);
+    line(90, 322, 390, 322, { stroke: C.line }, g);
+    txt(W / 2, 348, '往下读，它会被一次次折半', { 'font-size': 11.5, fill: C.ink3 }, g);
+    caption(g, '整页读完：8 → 4 → 2 → 1，不确定性被一步步消除');
+  } });
+
+  /* ── 1.1 词元切分 ── */
+  scene('tokenize', { ch: 1, name: '词元切分', build: function (g, host) {
+    var mode = 0; // 0 = 按字, 1 = 按 token
+    var chars = ['今', '天', '天', '气', '很', '好'];
+    var toks = [['今天', '天气'], ['很'], ['好']];
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+
+    function draw() {
+      clear(layer);
+      txt(W / 2, 92, '今天天气很好', { 'font-size': 19, fill: C.ink, 'letter-spacing': '0.12em' }, layer);
+
+      if (mode === 0) {
+        var bw = 48, gap = 8, y = 200;
+        var sx = (W - (6 * bw + 5 * gap)) / 2;
+        chars.forEach(function (ch, i) {
+          rect(sx + i * (bw + gap), y, bw, bw, { rx: 2, fill: C.paper, stroke: C.ink2, 'stroke-width': 1.5 }, layer);
+          txt(sx + i * (bw + gap) + bw / 2, y + bw / 2 + 1, ch, { 'font-size': 20, fill: C.ink }, layer);
+        });
+        txt(W / 2, 300, '按「字」看：6 个字', { 'font-size': 13, fill: C.ink2 }, layer);
+        txt(W / 2, 330, '要生成这句话，模型得走 6 步', { 'font-size': 12, fill: C.ink3 }, layer);
+      } else {
+        var y2 = 190, gap2 = 12;
+        var widths = [96, 96, 48, 48];
+        var total = widths.reduce(function (a, b) { return a + b; }, 0) + gap2 * 3;
+        var sx2 = (W - total) / 2;
+        var labels = ['今天', '天气', '很', '好'];
+        var cursor = sx2;
+        labels.forEach(function (ch, i) {
+          var w = widths[i];
+          rect(cursor, y2, w, 48, { rx: 2, fill: C.stage, stroke: C.accent, 'stroke-width': 1.8 }, layer);
+          txt(cursor + w / 2, y2 + 25, ch, { 'font-size': 19, fill: C.accent }, layer);
+          cursor += w + gap2;
+        });
+        /* 上方的合并括号：合并前 6 格 → 合并后 4 格 */
+        var gx = (W - (6 * 48 + 5 * 8)) / 2;
+        [[0, 2], [2, 4], [4, 5], [5, 6]].forEach(function (grp) {
+          var x0 = gx + grp[0] * 56, x1 = gx + grp[1] * 56 - 8;
+          var yb = 160;
+          path('M ' + x0 + ' ' + 168 + ' L ' + x0 + ' ' + yb + ' L ' + x1 + ' ' + yb + ' L ' + x1 + ' ' + 168,
+            { stroke: C.gray, 'stroke-width': 1 }, layer);
+          txt((x0 + x1) / 2, 148, '↓', { 'font-size': 11, fill: C.gray }, layer);
+        });
+        txt(W / 2, 300, '按「token」看：4 个 token', { 'font-size': 13, fill: C.accent }, layer);
+        txt(W / 2, 330, '同样一句话，4 步就走完', { 'font-size': 12, fill: C.ink3 }, layer);
+      }
+      readout.innerHTML = mode === 0
+        ? '6 个字<br><b>6 步</b>'
+        : '6 个字 → <b>4 个 token</b><br>省下 <b>2 步</b>';
+    }
+
+    cSeg(host, ['按字看', '按 token 看'], 0, function (i) { mode = i; draw(); });
+    cHint(host, '合并的两个理由：① 省步数 ② 常一起出现的字，应当视作整体。');
+    draw();
+  } });
+
+  /* ── 1.3 猜数字折半 ── */
+  scene('halving', { ch: 1, name: '候选池塌缩', build: function (g, host) {
+    var candidates = [1, 2, 3, 4, 5, 6, 7, 8];
+    var answer = 6, step = 0;
+    var thresholds = [4, 6, 5], answers = [true, false, true];
+    var pool = el('g', {}, g);
+    var bitText = txt(W / 2, 424, '', { 'font-size': 13, fill: C.ink3, 'class': 'mono' }, g);
+    line(80, 442, 400, 442, { stroke: C.line }, g);
+    var hintText = txt(W / 2, 466, '点下方问题，看候选池塌缩', { 'font-size': 11.5, fill: C.ink3 }, g);
+    var ctlWrap = document.createElement('div');
+    host.appendChild(ctlWrap);
+
+    function remaining(s) {
+      var r = candidates.slice();
+      for (var i = 0; i < s && i < 3; i++) {
+        r = r.filter(function (v) { return answers[i] ? v > thresholds[i] : v <= thresholds[i]; });
+      }
+      return r;
+    }
+
+    function shape() {
+      pool.innerHTML = '';
+      var rem = remaining(step);
+      var prev = step > 0 ? remaining(step - 1) : candidates.slice();
+      var startX = 132, startY = 150, bw = 48, bh = 48, gap = 8;
+      candidates.forEach(function (n, i) {
+        var col = i % 4, row = Math.floor(i / 4);
+        var x = startX + col * (bw + gap), y = startY + row * (bh + gap);
+        var alive = rem.indexOf(n) >= 0;
+        var justDead = !alive && prev.indexOf(n) >= 0;
+        var done = step >= 3 && n === answer;
+        var r = anim(rect(x, y, bw, bh, {
+          rx: 2,
+          fill: done ? C.accent : (alive ? C.stage : C.gray2),
+          stroke: done ? C.accent : (alive ? C.ink2 : C.gray)
+        }, pool));
+        r.setAttribute('stroke-width', done ? 2.5 : (alive ? 1.5 : 1));
+        r.setAttribute('opacity', alive || done ? 1 : (justDead ? 0.85 : 0.35));
+        txt(x + bw / 2, y + bh / 2 + 1, String(n), {
+          'font-size': 16, 'class': 'mono',
+          fill: done ? '#fff' : (alive ? C.ink : C.dead)
+        }, pool);
+      });
+      bitText.textContent = '已获得 ' + step + ' bit';
+      bitText.setAttribute('fill', step >= 3 ? C.accent : C.ink3);
+      hintText.textContent = step >= 3 ? '候选池塌缩到 1 —— 不确定性归零' : '点下方问题，看候选池塌缩';
+    }
+
+    function build() {
+      clear(ctlWrap);
+      cLine(ctlWrap, '答案 = <b>6</b>，依次点击折半问题');
+      var qs = ['大于 4 吗？', '大于 6 吗？', '大于 5 吗？'];
+      var wrap = document.createElement('div');
+      qs.forEach(function (q, i) {
+        var b = document.createElement('button');
+        b.className = 'qbtn';
+        if (step > i) {
+          b.classList.add('done');
+          b.textContent = '第' + (i + 1) + '问：' + q + ' → ' + (answers[i] ? '是' : '否');
+        } else if (step === i) {
+          b.textContent = '第' + (i + 1) + '问：' + q;
+          b.addEventListener('click', function () { step++; shape(); build(); });
+        } else {
+          b.textContent = '第' + (i + 1) + '问：' + q;
+          b.style.opacity = '0.32';
+          b.style.cursor = 'not-allowed';
+        }
+        wrap.appendChild(b);
+      });
+      ctlWrap.appendChild(wrap);
+      if (step >= 3) {
+        cLine(ctlWrap, '3 次折半 → <b>3 bit</b> → 确定答案 6');
+        var reset = document.createElement('button');
+        reset.className = 'qbtn';
+        reset.textContent = '重来';
+        reset.addEventListener('click', function () { step = 0; shape(); build(); });
+        ctlWrap.appendChild(reset);
+      }
+    }
+    shape(); build();
+  } });
+
+  /* ── 1.4–1.5 熵与交叉熵的错位 ── */
+  scene('entropy', { ch: 1, name: '熵 / 交叉熵', build: function (g, host) {
+    var p1 = 0.9, kind = 'confident';
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var seg;
+
+    function mkP(a) {
+      var rest = (1 - a) / 7, p = [a];
+      for (var i = 0; i < 7; i++) p.push(rest);
+      return p;
+    }
+    function mkQ(k, p) {
+      var q = [];
+      if (k === 'match') return p.slice();
+      if (k === 'uniform') { for (var i = 0; i < 8; i++) q.push(1 / 8); return q; }
+      for (var j = 0; j < 8; j++) q.push(0.1 / 7);
+      q[1] = 0.9; // 数字 2
+      return q;
+    }
+
+    function draw() {
+      clear(layer);
+      var p = mkP(p1), q = mkQ(kind, p);
+      var H = entropy(p), XE = xent(p, q), waste = XE - H;
+
+      /* 两栏分布 */
+      function bars(x0, dist, title, isModel) {
+        var bw = 15, gap = 6, base = 300, maxH = 150;
+        txt(x0 + (8 * bw + 7 * gap) / 2, 96, title, { 'font-size': 11.5, fill: C.ink3 }, layer);
+        dist.forEach(function (v, i) {
+          var x = x0 + i * (bw + gap);
+          var h = Math.max(1.5, v * maxH);
+          var top = dist.indexOf(Math.max.apply(null, dist)) === i;
+          anim(rect(x, base - h, bw, h, {
+            fill: isModel ? (kind === 'match' ? C.ink2 : C.accent) : C.ink,
+            opacity: isModel && kind !== 'match' ? 0.55 : 0.92
+          }, layer));
+          txt(x + bw / 2, base + 12, String(i + 1), { 'font-size': 10, 'class': 'mono', fill: C.ink3 }, layer);
+          if (v >= 0.25) txt(x + bw / 2, base - h - 11, pct(v, 0), { 'font-size': 10, 'class': 'mono', fill: top ? C.accent : C.ink2 }, layer);
+        });
+        line(x0, base, x0 + 8 * bw + 7 * gap, base, { stroke: C.ink2, 'stroke-width': 1 }, layer);
+      }
+      bars(55, p, '真实分布 p', false);
+      bars(263, q, kind === 'match' ? '模型 q ＝ p' : '模型认为的 q', true);
+
+      /* bit 尺 */
+      var x0 = 55, x1 = 427, maxBit = 6.5, sc = (x1 - x0) / maxBit, y = 386;
+      txt(x0, y - 20, '按模型的估计去编码，平均要花多少 bit：', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+      anim(rect(x0, y, H * sc, 26, { fill: C.ink }, layer));
+      anim(rect(x0 + H * sc, y, Math.max(0, waste * sc), 26, { fill: C.accent, opacity: 0.85 }, layer));
+      if (H * sc > 40) txt(x0 + H * sc / 2, y + 14, fmt(H, 2), { 'font-size': 11, 'class': 'mono', fill: '#F5F2EC' }, layer);
+      if (waste * sc > 46) txt(x0 + H * sc + waste * sc / 2, y + 14, '浪费 ' + fmt(waste, 2), { 'font-size': 11, 'class': 'mono', fill: '#fff' }, layer);
+      line(x0, y, x1, y, { stroke: C.ink2, 'stroke-width': 0.8 }, layer);
+
+      txt(x0, y + 44, '熵 H(X)', { 'font-size': 11.5, fill: C.ink2, anchor: 'start' }, layer);
+      txt(x0 + 62, y + 44, '＝ ' + fmt(H, 3) + ' bit', { 'font-size': 11.5, 'class': 'mono', fill: C.ink, anchor: 'start' }, layer);
+      txt(x0 + 200, y + 44, '交叉熵 H(p,q)', { 'font-size': 11.5, fill: C.accent, anchor: 'start' }, layer);
+      txt(x0 + 302, y + 44, '＝ ' + fmt(XE, 3) + ' bit', { 'font-size': 11.5, 'class': 'mono', fill: C.accent, anchor: 'start' }, layer);
+
+      caption(g, '两段之和 = 交叉熵；红色那一段，全是估错概率白花的 bit');
+
+      readout.innerHTML =
+        '熵 H(X) ＝ <b>' + fmt(H, 3) + '</b> bit　交叉熵 ＝ <b>' + fmt(XE, 3) + '</b> bit<br>' +
+        '浪费 ＝ <b>' + fmt(waste, 3) + '</b> bit　困惑度 ＝ <b>' + Math.pow(2, XE).toFixed(2) + '</b>';
+    }
+
+    cSlider(host, '1 的真实概率', 0.125, 0.9, 0.005, p1, function (v) { return v.toFixed(3); }, function (v) { p1 = v; draw(); });
+    seg = cSeg(host, ['与真实一致', '等概率', '自信猜错'], kind === 'match' ? 0 : (kind === 'uniform' ? 1 : 2), function (i) {
+      kind = ['match', 'uniform', 'confident'][i];
+      draw();
+    });
+    cHint(host, '拖动滑杆改真实规律；换模型的假设，看红色「浪费」怎么变。');
+    draw();
+  } });
+
+  /* ── 1.6 香农：上下文越长，越好猜 ── */
+  scene('shannon', { ch: 1, name: '香农的曲线', build: function (g, host) {
+    var idx = 0;
+    var pts = [
+      { h: 4.75, lab: '无', full: '什么都不知道，27 种符号等可能' },
+      { h: 4.03, lab: '频率', full: '知道每个字母各自出现的频率' },
+      { h: 3.32, lab: '前 1 个', full: '知道前 1 个字母' },
+      { h: 3.10, lab: '前 2 个', full: '知道前 2 个字母' },
+      { h: 0.95, lab: '前 100 个', full: '知道前面约 100 个字母', band: [0.6, 1.3] }
+    ];
+    var layer = el('g', {}, g);
+    var xAt = function (i) { return 80 + i * 80; };
+    var yBase = 340, yScale = 52, yAt = function (h) { return yBase - h * yScale; };
+    var readout = cReadout(host, '');
+    var slider;
+
+    /* 102 格条 */
+    function strip() {
+      var cell = 8, gap = 2, cols = 26, rows = 4, n = 102, hit = 79;
+      var sx = (W - (cols * (cell + gap) - gap)) / 2, sy = 380;
+      for (var i = 0; i < n; i++) {
+        var r = Math.floor(i / cols), c = i % cols;
+        rect(sx + c * (cell + gap), sy + r * (cell + gap), cell, cell, {
+          fill: i < hit ? C.accent : 'none',
+          stroke: i < hit ? C.accent : C.line2,
+          'stroke-width': 1, opacity: i < hit ? 0.9 : 1
+        }, layer);
+      }
+      txt(W / 2, sy + 4 * (cell + gap) + 14, '102 个字符，79 个第一次就猜中', { 'font-size': 11, fill: C.ink3 }, layer);
+    }
+
+    function draw() {
+      clear(layer);
+      axis(layer, 62, yBase, 430, yBase, null);
+      line(62, yBase, 62, 78, { stroke: C.ink2, 'stroke-width': 1 }, layer);
+      [0, 1, 2, 3, 4, 5].forEach(function (h) {
+        line(59, yAt(h), 65, yAt(h), { stroke: C.line2 }, layer);
+        if (h % 1 === 0) txt(50, yAt(h), String(h), { 'font-size': 10, 'class': 'mono', fill: C.ink3 }, layer);
+      });
+      txt(38, (yBase + 78) / 2, 'bit / 字符', { 'font-size': 11, fill: C.ink3 }, layer)
+        .setAttribute('transform', 'rotate(-90 38 ' + ((yBase + 78) / 2) + ')');
+
+      /* 折线（前四点 + 末点带）*/
+      var linePts = pts.map(function (p, i) { return [xAt(i), yAt(p.h)]; });
+      polyline(linePts, { stroke: C.ink2, 'stroke-width': 1.5, 'stroke-dasharray': '3 4' }, layer);
+
+      pts.forEach(function (p, i) {
+        if (p.band) {
+          anim(rect(xAt(i) - 9, yAt(p.band[1]), 18, (p.band[1] - p.band[0]) * yScale, {
+            fill: C.accent, opacity: 0.15, stroke: C.accent, 'stroke-width': 1, 'stroke-dasharray': '3 3'
+          }, layer));
+        }
+        var active = i === idx;
+        var c = circ(xAt(i), yAt(p.h), active ? 7 : 4.5, {
+          fill: active ? C.accent : C.paper, stroke: active ? C.accent : C.ink2, 'stroke-width': 1.6
+        }, layer);
+        c.classList.add('clickable', 'anim');
+        c.addEventListener('click', function () { idx = i; slider.input.value = i + 1; slider.val.textContent = String(i + 1); draw(); });
+        var t = txt(xAt(i), yBase + 16, p.lab, { 'font-size': 10.5, fill: active ? C.accent : C.ink3 }, layer);
+        if (active) t.setAttribute('font-weight', '700');
+      });
+
+      var cur = pts[idx];
+      /* 这一句不再画在画布里 —— 它和下方读数重复，而且会撞上 x 轴的分档标签 */
+      strip();
+      readout.innerHTML = '已知：' + cur.full + '<br>每个字符的熵 ≈ <b>' +
+        (cur.band ? cur.band[0] + ' ～ ' + cur.band[1] : fmt(cur.h, 2)) + '</b> bit';
+    }
+
+    slider = cSlider(host, '上下文', 1, 5, 1, 1, function (v) { return '第 ' + v + ' 档'; }, function (v) { idx = v - 1; draw(); });
+    cHint(host, '点曲线上的点，或拖滑杆：已知的上下文越多，下一个字越好猜。');
+    draw();
+  } });
+
+  /* ═══════════════════════════════════════════════════════════════
+     第二章 · 神经网络
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* ── 2.0 查表为什么不够 ── */
+  scene('lookup', { ch: 2, name: '查表 vs 举一反三', build: function (g, host) {
+    var mode = 0; // 0 = 表里有, 1 = 表里没有
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+
+    function draw() {
+      clear(layer);
+      var inTable = mode === 0;
+      txt(W / 2, 84, inTable ? '他口渴了，于是喝了一杯 ____' : '他在沙漠里走了三天三夜，', { 'font-size': 15, fill: C.ink2 }, layer);
+      if (!inTable) txt(W / 2, 108, '终于喝到了一杯 ____', { 'font-size': 15, fill: C.ink2 }, layer);
+
+      /* 那张「表」 */
+      var bx = 70, by = 150, bw = 340, bh = 176;
+      rect(bx, by, bw, bh, { fill: C.paper, stroke: inTable ? C.ink2 : C.line2, 'stroke-width': 1.4, 'stroke-dasharray': inTable ? 'none' : '5 5' }, layer);
+      txt(bx + bw / 2, by - 14, inTable ? '统计出来的表：数「一杯」后面都跟过什么' : '同一张表', { 'font-size': 11.5, fill: C.ink3 }, layer);
+
+      if (inTable) {
+        var rows = [['水', 0.60], ['茶', 0.30], ['咖啡', 0.10]];
+        rows.forEach(function (r, i) {
+          var y = by + 30 + i * 46;
+          txt(bx + 26, y, '一杯 →', { 'font-size': 13, fill: C.ink3, anchor: 'start' }, layer);
+          txt(bx + 116, y, r[0], { 'font-size': 17, fill: C.ink, anchor: 'start' }, layer);
+          anim(rect(bx + 168, y - 9, r[1] * 130, 18, { fill: i === 0 ? C.accent : C.ink2, opacity: i === 0 ? 0.9 : 0.45 }, layer));
+          txt(bx + bw - 20, y, pct(r[1], 0), { 'font-size': 12, 'class': 'mono', fill: C.ink2, anchor: 'end' }, layer);
+        });
+      } else {
+        txt(bx + bw / 2, by + 74, '没见过', { 'font-size': 26, fill: C.accent, 'letter-spacing': '0.1em' }, layer);
+        txt(bx + bw / 2, by + 116, '这句话，表里一行都没有', { 'font-size': 12.5, fill: C.ink3 }, layer);
+        txt(bx + bw / 2, by + 146, '人却一眼认出：和「口渴了」是同一类情境', { 'font-size': 12.5, fill: C.ink2 }, layer);
+      }
+
+      caption(g, inTable ? '见过的组合，查表就行' : '问题在于：绝大多数组合，从没出现过');
+      readout.innerHTML = inTable
+        ? '词表 10 万 token，一个前文最多 10<sup>50</sup> 种组合<br>常见的那些，表里刚好有'
+        : '表里查不到 → 只会得到「没见过」<br>需要的不是死记，是 <b>举一反三</b>';
+    }
+    cSeg(host, ['表里有的句子', '表里没有的句子'], 0, function (i) { mode = i; draw(); });
+    cHint(host, '语言里规律太多又处处例外，规则永远写不完 —— 只能让它自己学。');
+    draw();
+  } });
+
+  /* ── 2.1 一个神经元 ── */
+  scene('relu', { ch: 2, name: '一个神经元', build: function (g, host) {
+    var w = 2, b = -1;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var ox = 240, oy = 300, U = 40;
+
+    function draw() {
+      clear(layer);
+      var X = function (x) { return ox + x * U; };
+      var Y = function (y) { return oy - y * U; };
+
+      /* 网格与坐标轴 */
+      for (var t = -3; t <= 3; t++) {
+        line(X(t), Y(-3), X(t), Y(3), { stroke: C.line, 'stroke-width': 0.5, opacity: 0.6 }, layer);
+        line(X(-3), Y(t), X(3), Y(t), { stroke: C.line, 'stroke-width': 0.5, opacity: 0.6 }, layer);
+      }
+      line(X(-3.4), Y(0), X(3.4), Y(0), { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      line(X(0), Y(-3.4), X(0), Y(3.4), { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      txt(X(3.2), Y(-0.35), 'x', { 'font-size': 12, fill: C.ink3 }, layer);
+      txt(X(-0.3), Y(3.2), 'y', { 'font-size': 12, fill: C.ink3 }, layer);
+
+      var ww = Math.abs(w) < 0.08 ? 0.08 : w;
+      var hinge = -b / ww;
+      var zAt = function (x) { return ww * x + b; };
+
+      /* 曲线一律「画到框边就断」，不贴着边框压平：越界处的交点按线性插值算出来，
+         所以无论 w / b 怎么拉，右上角都不会出现一段假的水平横杠。 */
+      var BOUND = 3.0;
+      var inR = function (v) { return v >= -BOUND && v <= BOUND; };
+      var clipped = function (fn) {
+        var d = '', pen = false, px = -3.26, py = fn(px);
+        var put = function (x, y) { d += (pen ? ' L ' : ' M ') + X(x).toFixed(2) + ' ' + Y(y).toFixed(2); pen = true; };
+        var cut = function (x0, y0, x1, y1) {          /* 与上下边框的交点 */
+          var sg = y0 > 0 ? 1 : -1, t = (sg * BOUND - y0) / (y1 - y0), xc = x0 + (x1 - x0) * t;
+          return (xc >= -3.3 && xc <= 3.3) ? [xc, sg * BOUND] : null;
+        };
+        for (var x = -3.22; x <= 3.251; x += 0.03) {
+          var y = fn(x);
+          if (inR(y)) {
+            if (!inR(py)) { var c = cut(px, py, x, y); if (c) put(c[0], c[1]); else pen = false; }
+            put(x, y);
+          } else if (inR(py)) {
+            var c2 = cut(px, py, x, y);
+            if (c2) put(c2[0], c2[1]);
+            pen = false;
+          }
+          px = x; py = y;
+        }
+        return d;
+      };
+
+      /* 弯折前的 wx + b（灰虚线，贯穿全框） */
+      path(clipped(zAt), { stroke: C.ink3, 'stroke-width': 1.6, 'stroke-dasharray': '5 5', opacity: 0.85 }, layer);
+      /* ReLU 输出：z > 0 时与直线重合，z < 0 时压成 0 */
+      path(clipped(function (x) { return Math.max(0, zAt(x)); }), { stroke: C.accent, 'stroke-width': 2.6 }, layer);
+
+      /* 拐点 */
+      if (hinge > -3.2 && hinge < 3.2) {
+        circ(X(hinge), Y(0), 5, { fill: C.accent, stroke: C.paper, 'stroke-width': 1.5 }, layer);
+        line(X(hinge), Y(0), X(hinge), Y(-0.6), { stroke: C.accent, 'stroke-width': 1, 'stroke-dasharray': '3 3' }, layer);
+        txt(X(hinge), Y(-0.85), '拐点 x = ' + fmt(hinge, 2), { 'font-size': 11, 'class': 'mono', fill: C.accent }, layer);
+      }
+
+      /* 图例放在坐标框上方 —— 放在框里不管 w、b 怎么调都会被曲线穿过 */
+      txt(X(-3.4), 96, 'y = ReLU(wx + b)', { 'font-size': 12.5, fill: C.accent, anchor: 'start' }, layer);
+      txt(X(-3.4), 118, '灰虚线 = 弯折前的 wx + b', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+      txt(X(-3.4), 140, 'x 轴以下一律压成 0', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+      caption(g, 'b 决定在哪里打开，w 决定打开之后增长多快');
+      readout.innerHTML = 'w = <b>' + w.toFixed(1) + '</b>　b = <b>' + b.toFixed(1) + '</b><br>' +
+        '拐点 x = −b/w = <b>' + fmt(hinge, 2) + '</b>　打开后每 1 格涨 ' + Math.abs(w).toFixed(1);
+    }
+
+    cSlider(host, 'w（增长多快）', -3, 3, 0.1, w, function (v) { return v.toFixed(1); }, function (v) { w = v; draw(); });
+    cSlider(host, 'b（在哪打开）', -3, 3, 0.1, b, function (v) { return v.toFixed(1); }, function (v) { b = v; draw(); });
+    cHint(host, '只有加权求和没有弯折，叠多少层都等价于一层。');
+    draw();
+  } });
+
+  /* ── 2.2 Softmax ── */
+  scene('softmax', { ch: 2, name: '软最大化', build: function (g, host) {
+    var z = [3.0, 2.0, 0.5];
+    var names = ['水', '茶', '书'];
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var sliderRefs = [];
+
+    function draw() {
+      clear(layer);
+      var shift = Math.max.apply(null, z);
+      var ex = z.map(function (v) { return Math.exp(v - shift); });
+      var sum = ex.reduce(function (a, b) { return a + b; }, 0);
+      var p = ex.map(function (e) { return e / sum; });
+      var raw = z.map(function (v) { return Math.exp(v); });
+      var rawSum = raw.reduce(function (a, b) { return a + b; }, 0);
+
+      /* 表头 */
+      txt(84, 96, '候选', { 'font-size': 11, fill: C.ink3 }, layer);
+      txt(184, 96, '分数 z', { 'font-size': 11, fill: C.ink3 }, layer);
+      txt(278, 96, '取指数 e^z', { 'font-size': 11, fill: C.ink3 }, layer);
+      txt(388, 96, '概率', { 'font-size': 11, fill: C.ink3 }, layer);
+      line(44, 112, 436, 112, { stroke: C.line2 }, layer);
+
+      names.forEach(function (nm, i) {
+        var y = 148 + i * 50;
+        txt(84, y, nm, { 'font-size': 18, fill: i === 0 ? C.accent : C.ink }, layer);
+        txt(184, y, z[i].toFixed(1), { 'font-size': 14, 'class': 'mono', fill: C.ink2 }, layer);
+        txt(278, y, raw[i].toFixed(2), { 'font-size': 14, 'class': 'mono', fill: C.ink2 }, layer);
+        txt(388, y, pct(p[i], 0), { 'font-size': 14, 'class': 'mono', fill: i === 0 ? C.accent : C.ink2, 'font-weight': 600 }, layer);
+        line(44, y + 25, 436, y + 25, { stroke: C.line, 'stroke-width': 0.6 }, layer);
+      });
+
+      /* 概率条 */
+      txt(44, 320, '概率加起来 = 1：', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+      names.forEach(function (nm, i) {
+        var y = 348 + i * 34;
+        txt(66, y + 9, nm, { 'font-size': 12.5, fill: C.ink2, anchor: 'end' }, layer);
+        txt(74, y + 9, '', {}, layer);
+        anim(rect(78, y, Math.max(1, p[i] * 300), 18, { fill: i === 0 ? C.accent : C.ink2, opacity: i === 0 ? 0.9 : 0.4 }, layer));
+        txt(78 + Math.max(1, p[i] * 300) + 10, y + 9, pct(p[i], 1), { 'font-size': 11.5, 'class': 'mono', fill: C.ink2, anchor: 'start' }, layer);
+      });
+      caption(g, '分数可正可负、加起来不等于 1；取指数保证为正，除以总和保证加起来等于 1');
+      readout.innerHTML = '指数和 = <b>' + rawSum.toFixed(2) + '</b><br>最大 / 最小概率 ＝ <b>' +
+        pct(p[0], 0) + ' / ' + pct(p[2], 0) + '</b>';
+    }
+
+    names.forEach(function (nm, i) {
+      cSlider(host, '分数 ' + nm, -3, 5, 0.1, z[i], function (v) { return v.toFixed(1); }, function (v) {
+        z[i] = v; draw();
+      });
+    });
+    cHint(host, '最后一层不做 ReLU：负分全变 0 就分不出高低了。');
+    draw();
+  } });
+
+  /* ── 2.3 用 ReLU 拼帐篷逼近曲线 ── */
+  scene('tents', { ch: 2, name: '帐篷逼近', build: function (g, host) {
+    var N = 3;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var px0 = 70, px1 = 430, py0 = 400, py1 = 88;   // 绘图区
+    var X = function (x) { return px0 + (x / 10) * (px1 - px0); };
+    var Yv = function (v) { return py0 - (v / 5) * (py0 - py1); };
+    function f(x) { return 2.5 + 1.3 * Math.sin(0.9 * x) + 0.45 * Math.cos(2.1 * x); }
+
+    function knots(n) {
+      if (n <= 1) return [5];
+      var a = [];
+      for (var i = 0; i < n; i++) a.push(i * 10 / (n - 1));
+      return a;
+    }
+    function approx(x, ks, h) {
+      var s = 0;
+      for (var i = 0; i < ks.length; i++) {
+        var d = Math.abs(x - ks[i]);
+        if (d < h) s += f(ks[i]) * (1 - d / h);
+      }
+      return s;
+    }
+
+    function draw() {
+      clear(layer);
+      var ks = knots(N), h = N <= 1 ? 5 : 10 / (N - 1);
+
+      /* 轴 */
+      line(px0 - 12, py0, px1 + 8, py0, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      line(px0, py0, px0, py1 - 12, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      [1, 2, 3, 4].forEach(function (v) {
+        line(px0 - 4, Yv(v), px0, Yv(v), { stroke: C.line2 }, layer);
+        txt(px0 - 14, Yv(v), String(v), { 'font-size': 10, 'class': 'mono', fill: C.ink3 }, layer);
+      });
+
+      /* 目标曲线 */
+      var tpts = [];
+      for (var x = 0; x <= 10.001; x += 0.05) tpts.push([X(x), Yv(f(x))]);
+      polyline(tpts, { stroke: C.ink, 'stroke-width': 2, 'stroke-dasharray': '6 4' }, layer);
+
+      /* 各个帐篷（灰） */
+      var maxErr = 0;
+      if (N <= 14) {
+        ks.forEach(function (k) {
+          var apex = f(k);
+          var p = [];
+          for (var x2 = Math.max(0, k - h); x2 <= Math.min(10, k + h) + 1e-9; x2 += 0.1) {
+            p.push([X(x2), Yv(apex * (1 - Math.abs(x2 - k) / h))]);
+          }
+          polyline(p, { stroke: C.gray, 'stroke-width': 1 }, layer);
+        });
+      }
+
+      /* 逼近和 */
+      var apts = [];
+      for (var x3 = 0; x3 <= 10.001; x3 += 0.05) {
+        var v = approx(x3, ks, h);
+        maxErr = Math.max(maxErr, Math.abs(f(x3) - v));
+        apts.push([X(x3), Yv(v)]);
+      }
+      polyline(apts, { stroke: C.accent, 'stroke-width': 2.4 }, layer);
+
+      /* 节点 */
+      if (N <= 24) ks.forEach(function (k) {
+        circ(X(k), Yv(f(k)), 3, { fill: C.paper, stroke: C.accent, 'stroke-width': 1.6 }, layer);
+      });
+
+      txt(px0 + 6, py1 + 4, '虚线 = 目标曲线　红 = 帐篷之和', { 'font-size': 11, fill: C.ink3, anchor: 'start' }, layer);
+      caption(g, '帐篷越多越窄，折线越贴着目标曲线');
+      readout.innerHTML = '帐篷 <b>' + N + '</b> 个　＝ ReLU <b>' + N * 3 + '</b> 个<br>最大误差 ≈ <b>' + maxErr.toFixed(3) + '</b>';
+    }
+
+    var sliderRef;
+    sliderRef = cSlider(host, '帐篷数', 1, 24, 1, N, function (v) { return String(v); }, function (v) { N = v; draw(); });
+    cBtns(host, ['1 个', '3 个', '6 个', '12 个', '24 个'], function (i) {
+      N = [1, 3, 6, 12, 24][i];
+      sliderRef.input.value = N; sliderRef.val.textContent = String(N);
+      draw();
+    });
+    cHint(host, '每个帐篷 ＝ ReLU(x−a) − 2·ReLU(x−a−1) + ReLU(x−a−2)，用掉 3 个神经元。');
+    draw();
+  } });
+
+  /* ── 2.5 梯度下降（可拖学习率）── */
+  scene('gradient', { ch: 2, name: '梯度下降', build: function (g, host) {
+    var lr = 0.05, w = 1, step = 0, trail = [1], timer = null;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var px0 = 68, px1 = 432, py0 = 424, py1 = 82;
+    var wMin = 0.4, wMax = 5.6, lMax = 28;
+    var X = function (wv) { return px0 + ((wv - wMin) / (wMax - wMin)) * (px1 - px0); };
+    var Y = function (l) { return py0 - (Math.min(l, lMax) / lMax) * (py0 - py1); };
+    function L(wv) { return Math.pow(2 * wv - 6, 2); }
+    function G(wv) { return 8 * (wv - 3); }
+
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    function draw() {
+      clear(layer);
+      line(px0 - 10, py0, px1 + 8, py0, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      line(px0, py0, px0, py1 - 10, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      txt(px1 - 4, py0 + 16, 'w', { 'font-size': 12, fill: C.ink3 }, layer);
+      txt(px0 - 34, py1 - 4, '损失', { 'font-size': 11, fill: C.ink3 }, layer);
+      [1, 2, 3, 4, 5].forEach(function (wv) {
+        line(X(wv), py0, X(wv), py0 + 4, { stroke: C.line2 }, layer);
+        txt(X(wv), py0 + 16, String(wv), { 'font-size': 10, 'class': 'mono', fill: C.ink3 }, layer);
+      });
+
+      /* 抛物线 */
+      var pts = [];
+      for (var wv = wMin; wv <= wMax + 1e-9; wv += 0.02) pts.push([X(wv), Y(L(wv))]);
+      polyline(pts, { stroke: C.ink2, 'stroke-width': 2 }, layer);
+      /* 谷底 */
+      circ(X(3), Y(0), 3.5, { fill: C.ink2 }, layer);
+      txt(X(3), Y(0) - 16, '谷底 w=3', { 'font-size': 10.5, fill: C.ink2 }, layer);
+
+      /* 轨迹 */
+      var tpts = trail.map(function (v) { return [X(v), Y(L(v))]; });
+      if (tpts.length > 1) polyline(tpts, { stroke: C.accent, 'stroke-width': 1.2, opacity: 0.45 }, layer);
+      trail.forEach(function (v, i) {
+        if (i === trail.length - 1) return;
+        circ(X(v), Y(L(v)), 2.4, { fill: C.accent, opacity: 0.35 }, layer);
+      });
+
+      /* 当前点 + 切线 */
+      var cw = Math.max(wMin, Math.min(wMax, w));
+      var l0 = L(cw), g0 = G(cw);
+      var dx = 0.75;
+      var t1 = [X(cw - dx), Y(l0 - g0 * dx)], t2 = [X(cw + dx), Y(l0 + g0 * dx)];
+      polyline([t1, t2], { stroke: C.blue, 'stroke-width': 1.4, 'stroke-dasharray': '4 3', opacity: 0.85 }, layer);
+      var dot = anim(circ(X(cw), Y(Math.min(l0, lMax)), 7, { fill: C.accent }, layer));
+      anim(circ(X(cw), Y(Math.min(l0, lMax)), 14, { fill: 'none', stroke: C.accent, 'stroke-width': 1, opacity: 0.3 }, layer));
+
+      txt(px0 + 6, py1 + 2, '蓝虚线 = 脚下的坡度（梯度）', { 'font-size': 11, fill: C.blue, anchor: 'start' }, layer);
+
+      var stopTxt = '';
+      if (Math.abs(w) > 12) stopTxt = '　← 发散了';
+      else if (step > 0 && Math.abs(G(w)) < 0.02) stopTxt = '　← 已到谷底';
+      caption(g, '看不到整座山，但每一步都往下坡走' + stopTxt);
+      readout.innerHTML = '第 <b>' + step + '</b> 步　w = <b>' + w.toFixed(4) + '</b>　预测 2w = ' + (2 * w).toFixed(3) + '<br>' +
+        '损失 (2w−6)² = <b>' + L(w).toFixed(4) + '</b>　梯度 8(w−3) = <b>' + G(w).toFixed(3) + '</b>';
+      if (refs.lr && parseFloat(refs.lr.input.value) !== lr) refs.lr.input.value = lr;
+    }
+
+    var refs = {};
+    function tick() {
+      w = w - lr * G(w);
+      step++;
+      trail.push(w);
+      if (trail.length > 240) trail.shift();
+      draw();
+      if (step > 90 || Math.abs(G(w)) < 0.02 || Math.abs(w) > 12) stop();
+    }
+    function reset() { stop(); w = 1; step = 0; trail = [1]; draw(); }
+
+    refs.lr = cSlider(host, '学习率', 0.005, 0.25, 0.005, lr, function (v) { return v.toFixed(3); }, function (v) {
+      lr = v;
+      refs.preset && refs.preset.refresh && refs.preset.refresh();
+      draw();
+    });
+    refs.preset = cBtns(host, ['0.01 稳', '0.05 原文', '0.15 快', '0.25 临界'], function (i) {
+      lr = [0.01, 0.05, 0.15, 0.25][i];
+      refs.lr.input.value = lr; refs.lr.val.textContent = lr.toFixed(3);
+      reset();
+      refs.preset.refresh();
+    }, function () {
+      return [0.01, 0.05, 0.15, 0.25].indexOf(lr);
+    });
+    refs.preset.refresh();
+    var run = document.createElement('button');
+    run.className = 'qbtn'; run.textContent = '▶ 连续';
+    run.addEventListener('click', function () {
+      if (timer) { stop(); run.textContent = '▶ 连续'; }
+      else { run.textContent = '⏸ 暂停'; timer = setInterval(tick, 330); }
+    });
+    var one = document.createElement('button');
+    one.className = 'qbtn'; one.textContent = '单步';
+    one.addEventListener('click', function () { stop(); run.textContent = '▶ 连续'; tick(); });
+    var rs = document.createElement('button');
+    rs.className = 'qbtn'; rs.textContent = '重置';
+    rs.addEventListener('click', function () { stop(); run.textContent = '▶ 连续'; reset(); });
+    host.appendChild(run); host.appendChild(one); host.appendChild(rs);
+
+    /* 离开场景时停表 */
+    onLeave(stop);
+    draw();
+  } });
+
+  /* ── 2.7 归一化：把数值大小去掉 ── */
+  scene('norm', { ch: 2, name: '归一化', build: function (g, host) {
+    var scale = 1, shift = 0, rms = false;
+    var base = [2, 4, 6, 8];
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+
+    function draw() {
+      clear(layer);
+      var v = base.map(function (x) { return x * scale + shift; });
+      var mean = v.reduce(function (a, b) { return a + b; }, 0) / v.length;
+      var out;
+      if (rms) {
+        var ms = Math.sqrt(v.reduce(function (a, b) { return a + b * b; }, 0) / v.length);
+        out = v.map(function (x) { return x / (ms || 1); });
+      } else {
+        var sd = Math.sqrt(v.reduce(function (a, b) { return a + b * b; }, 0) / v.length - mean * mean);
+        out = v.map(function (x) { return (x - mean) / (sd || 1); });
+      }
+
+      /* 输入向量 */
+      txt(56, 84, rms ? '输入向量（不减均值）' : '输入向量', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+      v.forEach(function (x, i) {
+        txt(76 + i * 92, 122, x.toFixed(1), { 'font-size': 16, 'class': 'mono', fill: C.ink }, layer);
+      });
+
+      /* 归一化后的 4 根柱 */
+      var cx = 240, y0 = 300, U = 46;
+      line(60, y0, 420, y0, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      txt(56, y0 + 22, rms ? '除以均方根之后' : '减均值、除以标准差之后', { 'font-size': 11.5, fill: C.accent, anchor: 'start' }, layer);
+      out.forEach(function (x, i) {
+        var bx = 86 + i * 82;
+        var h = Math.max(2, Math.abs(x) * U);
+        var up = x >= 0;
+        anim(rect(bx, up ? y0 - h : y0, 44, h, { fill: C.accent, opacity: 0.85 }, layer));
+        txt(bx + 22, up ? y0 - h - 14 : y0 + h + 14, fmt(x, 2), { 'font-size': 11.5, 'class': 'mono', fill: C.accent }, layer);
+      });
+
+      var same = !rms;
+      caption(g, same ? '整体放大、整体平移，去掉之后完全一样 —— 只留下各分量的相对关系'
+                     : 'RMSNorm 不减均值：整体平移会留下来');
+      readout.innerHTML = '均值 = <b>' + mean.toFixed(1) + '</b>　' + (rms ? '均方根' : '标准差') + ' = <b>' +
+        (rms ? Math.sqrt(v.reduce(function (a, b) { return a + b * b; }, 0) / 4) : Math.sqrt(v.reduce(function (a, b) { return a + b * b; }, 0) / 4 - mean * mean)).toFixed(2) + '</b><br>' +
+        '输出 ＝ <b>' + out.map(function (x) { return fmt(x, 2); }).join(', ') + '</b>';
+    }
+
+    cSlider(host, '整体放大 ×', 1, 50, 1, scale, function (v) { return '×' + v; }, function (v) { scale = v; draw(); });
+    cSlider(host, '整体加 +', 0, 200, 5, shift, function (v) { return '+' + v; }, function (v) { shift = v; draw(); });
+    cSeg(host, ['LayerNorm', 'RMSNorm'], 0, function (i) { rms = i === 1; draw(); });
+    cHint(host, '每层计算之前先把数值调回标准范围，连乘就不会失控。');
+    draw();
+  } });
+
+  /* ── 2.8 残差：给梯度修一条直通路 ── */
+  scene('residual', { ch: 2, name: '残差直通路', build: function (g, host) {
+    var L = 30;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var x0 = 62, x1 = 420, span = x1 - x0;
+    /* 对数尺度：10^-60 ── 10^+1 */
+    var LO = -60, HI = 1;
+    var frac = function (logv) { return Math.max(0, Math.min(1, (logv - LO) / (HI - LO))); };
+
+    function chain(y, n, opts) {
+      var bw = Math.max(4, Math.min(26, (span - 3 * (n - 1)) / n));
+      var total = n * bw + 3 * (n - 1);
+      var sx = x0 + (span - total) / 2;
+      for (var i = 0; i < n; i++) {
+        var bx = sx + i * (bw + 3);
+        rect(bx, y, bw, 26, {
+          fill: opts.fill,
+          opacity: opts.fade ? Math.max(0.08, 1 - i / n) : 1,
+          stroke: opts.stroke, 'stroke-width': 1
+        }, layer);
+      }
+      if (opts.through) line(x0, y + 13, x1, y + 13, { stroke: C.accent, 'stroke-width': 2.2 }, layer);
+      return total;
+    }
+
+    function draw() {
+      clear(layer);
+      var vNo = Math.pow(0.01, L);
+      var vYes = Math.pow(1.01, L);
+      var logNo = Math.log10(vNo), logYes = Math.log10(vYes);
+
+      /* 标题 */
+      txt(x0, 44, '残差：原稿一直在，每层只加一笔修改', { 'font-size': 12, fill: C.accent, anchor: 'start' }, layer);
+
+      /* 一层的样子：算改动量 F(x)，再把输入原样加回来 */
+      var bx = x0 + 44, by = 100, bwB = 84, bhB = 30, cyB = by + bhB / 2;
+      path('M ' + x0 + ' ' + cyB + ' C ' + x0 + ' ' + (cyB - 49) + ', ' + (x0 + 180) + ' ' + (cyB - 49) + ', ' + (x0 + 180) + ' ' + cyB,
+        { stroke: C.accent, 'stroke-width': 2.2 }, layer);
+      line(x0, cyB, bx, cyB, { stroke: C.ink3, 'stroke-width': 1.4 }, layer);
+      rect(bx, by, bwB, bhB, { fill: C.paper, stroke: C.ink2, 'stroke-width': 1.4 }, layer);
+      txt(bx + bwB / 2, cyB + 4.5, 'F(x)', { 'font-size': 12, 'class': 'mono', fill: C.ink }, layer);
+      line(bx + bwB, cyB, x0 + 180, cyB, { stroke: C.ink3, 'stroke-width': 1.4 }, layer);
+      circ(x0 + 180, cyB, 9, { fill: C.paper, stroke: C.accent, 'stroke-width': 1.6 }, layer);
+      txt(x0 + 180, cyB + 4, '＋', { 'font-size': 11, fill: C.accent }, layer);
+      txt(x0 + 196, cyB + 4, 'y = x + F(x)', { 'font-size': 11.5, 'class': 'mono', fill: C.ink2, anchor: 'start' }, layer);
+      txt((x0 + x0 + 180) / 2, 68, '原样绕过去', { 'font-size': 11, fill: C.accent }, layer);
+
+      /* ── 两条链 ── */
+      var nShow = Math.min(L, 30);
+      txt(x0, 170, '有残差：每一层都乘上 ≈ 1.01', { 'font-size': 11.5, fill: C.ink2, anchor: 'start' }, layer);
+      txt(x1, 170, '梯度 ' + (L <= 3 ? vYes.toFixed(4) : vYes.toFixed(2)), { 'font-size': 11.5, 'class': 'mono', fill: C.blue, anchor: 'end' }, layer);
+      chain(188, nShow, { fill: C.paper, stroke: C.ink2, through: true });
+
+      txt(x0, 264, '没有残差：每一层都重写整个向量，连乘后就没了', { 'font-size': 11.5, fill: C.ink2, anchor: 'start' }, layer);
+      txt(x1, 264, '梯度 ' + pow10Label(vNo), { 'font-size': 11.5, 'class': 'mono', fill: C.accent, anchor: 'end' }, layer);
+      chain(282, nShow, { fill: C.gray2, stroke: C.gray, fade: true });
+
+      /* ── 同一把对数尺：两条梯度按各自的数量级落位 ── */
+      [LO, -40, -20, 0].forEach(function (e) {
+        var xx = x0 + frac(e) * span;
+        line(xx, 336, xx, 394, { stroke: C.line2, 'stroke-width': 0.8, opacity: 0.45 }, layer);
+      });
+
+      function bar(y, logv, name, val, col) {
+        var wd = Math.max(3, frac(logv) * span);          /* 缩到 0 也要留一条边，否则看不出它「贴在最左端」 */
+        rect(x0, y, wd, 14, { fill: col, opacity: 0.9 }, layer);
+        var xe = x0 + wd;
+        line(xe, y - 4, xe, y + 18, { stroke: col, 'stroke-width': 1.8 }, layer);
+        var wide = xe > x0 + span * 0.5;
+        txt(wide ? xe - 7 : xe + 7, y - 6, name + '　' + val, {
+          'font-size': 11, 'class': 'mono', fill: col, anchor: wide ? 'end' : 'start'
+        }, layer);
+      }
+      bar(344, logYes, '有残差', L <= 3 ? vYes.toFixed(4) : vYes.toFixed(2), C.blue);
+      bar(376, logNo, '没有残差', pow10Label(vNo), C.accent);
+
+      /* 对数刻度 */
+      [LO, -40, -20, 0].forEach(function (e) {
+        var xx = x0 + frac(e) * span;
+        line(xx, 394, xx, 400, { stroke: C.line2, 'stroke-width': 0.9 }, layer);
+        txt(xx, 414, pow10Label(Math.pow(10, e)), { 'font-size': 10, 'class': 'mono', fill: C.ink3 }, layer);
+      });
+      txt((x0 + x1) / 2, 438, '梯度大小 · 对数刻度（左小右大，最左与最右差 61 个数量级）', { 'font-size': 11, fill: C.ink3 }, layer);
+
+      caption(g, '批注再多，原稿都还在 —— 梯度也能沿着这条直通路完好传回');
+      readout.innerHTML = '没有残差 0.01^' + L + ' = <b>' + pow10Label(vNo) + '</b><br>' +
+        '有残差 1.01^' + L + ' = <b>' + (L <= 3 ? vYes.toFixed(4) : vYes.toFixed(2)) + '</b>';
+    }
+
+    cSlider(host, '层数 L', 1, 30, 1, L, function (v) { return String(v); }, function (v) { L = v; draw(); });
+    cHint(host, '何恺明等用上残差后训练出 152 层网络，拿下 2015 年 ImageNet 冠军。');
+    draw();
+  } });
+
+  /* ── 2.4 深度买来的是指数 ── */
+  scene('depth', { ch: 2, name: '宽度 vs 深度', build: function (g, host) {
+    var L = 4;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var x0 = 150, span = 272, maxDec = 6.2;
+    var X = function (v) { return x0 + Math.max(0, Math.log10(Math.max(v, 1))) / maxDec * span; };
+
+    function bar(y, v, color, name, sub) {
+      anim(rect(x0, y, Math.max(2, X(v) - x0), 30, { fill: color, opacity: 0.85 }, layer));
+      txt(x0 - 10, y + 13, name, { 'font-size': 11.5, fill: C.ink2, anchor: 'end' }, layer);
+      txt(x0 - 10, y + 27, sub, { 'font-size': 10, fill: C.ink3, anchor: 'end' }, layer);
+      txt(X(v) + 8, y + 20, big(v) + ' 个', { 'font-size': 12, 'class': 'mono', fill: color, anchor: 'start', 'font-weight': 600 }, layer);
+    }
+
+    function draw() {
+      clear(layer);
+      var seg = Math.pow(2, L), deep = 2 * L, flat = seg - 1;
+
+      txt(W / 2, 84, '同样做出 2^' + L + ' ＝ ' + big(seg) + ' 段折线', { 'font-size': 12, fill: C.ink3 }, layer);
+      txt(W / 2, 108, '两者各要花多少个神经元', { 'font-size': 11.5, fill: C.ink3 }, layer);
+
+      /* 对数刻度 */
+      for (var d = 0; d <= 6; d++) {
+        var tx = X(Math.pow(10, d));
+        line(tx, 356, tx, 362, { stroke: C.line2 }, layer);
+        txt(tx, 376, pow10Label(Math.pow(10, d)), { 'font-size': 9.5, 'class': 'mono', fill: C.ink3 }, layer);
+      }
+      txt(x0 + span / 2, 394, '神经元数量（对数刻度）', { 'font-size': 10, fill: C.ink3 }, layer);
+
+      bar(152, deep, C.ink2, '深 ' + L + ' 层', '每层 2 个');
+      bar(226, flat, C.accent, '只一层', '要一模一样的结果');
+
+      var ratio = flat / deep;
+      txt(W / 2, 296, '差 ' + big(ratio) + ' 倍', {
+        'font-size': 16, 'class': 'mono', fill: ratio > 100 ? C.accent : C.ink2, 'font-weight': 700
+      }, layer);
+
+      /* 收口：真实的模型早就不在这张表里 */
+      line(316, 440, 440, 440, { stroke: C.line2, 'stroke-width': 1, 'stroke-dasharray': '4 4' }, layer);
+      el('path', { d: 'M 440 435 L 450 440 L 440 445 Z', fill: C.line2 }, layer);
+      txt(308, 444, 'GPT-3：96 层 → 2^96 ≈ 10^29 段', { 'font-size': 11, fill: C.ink3, anchor: 'end' }, layer);
+
+      caption(g, '每多一层，折线段数翻一倍 —— 深度买来的是指数');
+      readout.innerHTML = '层数 L ＝ <b>' + L + '</b>　折线段数 ＝ 2^L ＝ <b>' + big(seg) + '</b><br>' +
+        '深网络 <b>' + deep + '</b> 个神经元　单层要 <b>' + big(flat) + '</b> 个';
+    }
+    cSlider(host, '层数 L', 1, 20, 1, L, function (v) { return String(v); }, function (v) { L = v; draw(); });
+    cHint(host, 'GPT-3 有 96 层 —— 2^96 早就画不进这张表了。');
+    draw();
+  } });
+
+  /* ── 2.9 过拟合与泛化 ── */
+  scene('generalize', { ch: 2, name: '过拟合', build: function (g, host) {
+    /* 固定数据，不用随机数：每次打开看到的都是同一张图 */
+    var noise = [0.06, -0.05, 0.07, -0.08, 0.04, -0.06, 0.08, -0.04, 0.05];
+    var tnoise = [0.04, -0.07, 0.05, -0.03, 0.07, -0.05, 0.03, -0.06, 0.06];
+    var truth = function (t) { return 0.5 + 0.35 * Math.sin(2.4 * t + 0.6); };
+    var XS = [], YS = [], XE = [], YE = [];
+    for (var i = 0; i < 9; i++) { XS.push(i / 8); YS.push(truth(i / 8) + noise[i]); }
+    for (var j = 0; j < 9; j++) { var x = j / 8 + 1 / 16; XE.push(x); YE.push(truth(x) + tnoise[j]); }
+
+    var k = 3;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var presetRef;
+    var px0 = 70, px1 = 440, py0 = 386, py1 = 104;
+    var LO = -0.12, HI = 1.12;
+    var X = function (v) { return px0 + v * (px1 - px0); };
+    var Y = function (v) {
+      var t = (v - LO) / (HI - LO);
+      return py0 - Math.max(0, Math.min(1, t)) * (py0 - py1);
+    };
+    function out(v) { return v < LO || v > HI; }
+
+    /* 最小二乘：正规方程 + 高斯消元，规模 ≤ 9，够用 */
+    function solve(A, b) {
+      var n = b.length, M = A.map(function (r, ii) { return r.concat([b[ii]]); });
+      for (var c = 0; c < n; c++) {
+        var p = c;
+        for (var r = c + 1; r < n; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+        var t = M[c]; M[c] = M[p]; M[p] = t;
+        if (Math.abs(M[c][c]) < 1e-12) return null;
+        for (var r2 = 0; r2 < n; r2++) {
+          if (r2 === c) continue;
+          var fac = M[r2][c] / M[c][c];
+          for (var q = c; q <= n; q++) M[r2][q] -= fac * M[c][q];
+        }
+      }
+      var out2 = [];
+      for (var i2 = 0; i2 < n; i2++) out2.push(M[i2][n] / M[i2][i2]);
+      return out2;
+    }
+    function fit(deg) {
+      var n = deg + 1, A = [], b = [];
+      for (var i = 0; i < n; i++) {
+        var row = [];
+        for (var j = 0; j < n; j++) {
+          var s = 0;
+          for (var p = 0; p < XS.length; p++) s += Math.pow(XS[p], i + j);
+          row.push(s);
+        }
+        A.push(row);
+        var s2 = 0;
+        for (var q = 0; q < XS.length; q++) s2 += YS[q] * Math.pow(XS[q], i);
+        b.push(s2);
+      }
+      return solve(A, b);
+    }
+    function ev(c, x) {
+      var s = 0;
+      for (var i = c.length - 1; i >= 0; i--) s = s * x + c[i];
+      return s;
+    }
+    function rmse(c, xs, ys) {
+      var e = 0;
+      for (var i = 0; i < xs.length; i++) e += Math.pow(ev(c, xs[i]) - ys[i], 2);
+      return Math.sqrt(e / xs.length);
+    }
+
+    function draw() {
+      clear(layer);
+      var c = fit(k);
+
+      /* 坐标 */
+      line(px0 - 8, py0, px1 + 8, py0, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      line(px0, py0, px0, py1 - 10, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      [0, 1].forEach(function (v) {
+        line(px0 - 4, Y(v), px0, Y(v), { stroke: C.line2 }, layer);
+        txt(px0 - 10, Y(v) + 4, String(v), { 'font-size': 9.5, 'class': 'mono', fill: C.ink3, anchor: 'end' }, layer);
+      });
+      var ylab = txt(26, (py0 + py1) / 2, '答案', { 'font-size': 10, fill: C.ink3 }, layer);
+      ylab.setAttribute('transform', 'rotate(-90 26 ' + ((py0 + py1) / 2) + ')');
+      txt(px1 + 6, py0 + 4, '输入', { 'font-size': 10, fill: C.ink3, anchor: 'start' }, layer);
+
+      /* 真实规律（虚线） */
+      var tp = [];
+      for (var t = 0; t <= 1.0001; t += 0.02) tp.push([X(t), Y(truth(t))]);
+      polyline(tp, { stroke: C.gray, 'stroke-width': 1.4, 'stroke-dasharray': '4 4' }, layer);
+
+      /* 学到的曲线 */
+      var fp = [];
+      for (var u = 0; u <= 1.0001; u += 0.004) fp.push([X(u), Y(ev(c, u))]);
+      polyline(fp, { stroke: C.accent, 'stroke-width': 2.2 }, layer);
+
+      /* 样本 */
+      XS.forEach(function (xx, i) {
+        if (out(YS[i])) return;
+        circ(X(xx), Y(YS[i]), 4.6, { fill: C.ink }, layer);
+      });
+      XE.forEach(function (xx, i) {
+        if (out(YE[i])) return;
+        circ(X(xx), Y(YE[i]), 4.2, { fill: C.paper, stroke: C.blue, 'stroke-width': 1.6 }, layer);
+      });
+
+      /* 图例 */
+      var lx = 78, ly = 92;
+      circ(lx, ly, 4.6, { fill: C.ink }, layer);
+      txt(lx + 12, ly + 4, '训练时见过的点', { 'font-size': 10.5, fill: C.ink2, anchor: 'start' }, layer);
+      circ(lx + 130, ly, 4.2, { fill: C.paper, stroke: C.blue, 'stroke-width': 1.6 }, layer);
+      txt(lx + 142, ly + 4, '没见过的点', { 'font-size': 10.5, fill: C.ink2, anchor: 'start' }, layer);
+      line(lx + 248, ly, lx + 274, ly, { stroke: C.gray, 'stroke-width': 1.4, 'stroke-dasharray': '4 4' }, layer);
+      txt(lx + 282, ly + 4, '真实规律', { 'font-size': 10.5, fill: C.ink2, anchor: 'start' }, layer);
+
+      /* 两个误差条 */
+      var tr = rmse(c, XS, YS), te = rmse(c, XE, YE);
+      var barW = 250, scale = 0.42;
+      function errBar(y, v, color, name) {
+        txt(px0 - 12, y + 11, name, { 'font-size': 10.5, fill: C.ink2, anchor: 'end' }, layer);
+        anim(rect(px0, y, Math.max(2, Math.min(1, v / scale) * barW), 18, { fill: color, opacity: 0.85 }, layer));
+        txt(px0 + Math.max(2, Math.min(1, v / scale) * barW) + 8, y + 13,
+          v.toFixed(3), { 'font-size': 11, 'class': 'mono', fill: color, anchor: 'start' }, layer);
+      }
+      errBar(400, tr, C.ink2, '训练误差');
+      errBar(428, te, C.blue, '新数据误差');
+
+      var maxC = 0;
+      c.forEach(function (v) { maxC = Math.max(maxC, Math.abs(v)); });
+      var verdict = k <= 1 ? '太简单，两条都降不下来 —— 没学会'
+        : k <= 4 ? '训练与新数据一起降 —— 学到了规律'
+        : '训练误差更低了，新数据却更差 —— 它在背答案';
+      txt(W / 2, 470, verdict, {
+        'font-size': 11.5, fill: k >= 5 ? C.accent : C.ink2
+      }, layer);
+
+      readout.innerHTML = '模型容量 k ＝ <b>' + k + '</b>　最大系数量级 <b>' + (maxC > 1000 ? big(maxC) : maxC.toFixed(1)) + '</b><br>' +
+        '训练 <b>' + tr.toFixed(3) + '</b>　新数据 <b>' + te.toFixed(3) + '</b>';
+      if (presetRef) presetRef.refresh();
+    }
+
+    var kRef = cSlider(host, '模型容量 k', 1, 8, 1, k, function (v) { return 'k = ' + v; }, function (v) { k = v; draw(); });
+    presetRef = cBtns(host, ['k=1 太小', 'k=3 刚好', 'k=8 背下来'], function (i) {
+      k = [1, 3, 8][i];
+      kRef.input.value = k; kRef.val.textContent = 'k = ' + k;
+      draw();
+    }, function () { return k === 1 ? 0 : (k === 3 ? 1 : (k === 8 ? 2 : -1)); });
+    cHint(host, '参数足够多时，网络完全可以硬记训练数据 —— 训练误差很低，换新文本就不行。');
+    draw();
+  } });
+
+  /* ═══════════════════════════════════════════════════════════════
+     第三章 · Transformer
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* ── 3.1 嵌入：向量之间的夹角 ── */
+  scene('embed', { ch: 3, name: '嵌入向量', build: function (g, host) {
+    var qang = 20;                       // 查询向量的角度（度）
+    var toks = [
+      { n: '水', v: [0.9, 0.1] },
+      { n: '茶', v: [0.8, 0.2] },
+      { n: '书', v: [0.1, 0.9] }
+    ];
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var ox = 138, oy = 412, U = 288;
+    var svg = g.ownerSVGElement;
+    var X = function (x) { return ox + x * U; };
+    var Y = function (y) { return oy - y * U; };
+
+    function norm(v) { var m = Math.hypot(v[0], v[1]) || 1; return [v[0] / m, v[1] / m]; }
+
+    function draw() {
+      clear(layer);
+      /* 坐标轴 */
+      line(ox, oy, 452, oy, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      line(ox, oy, ox, 102, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      txt(452, oy + 16, '维度 1', { 'font-size': 10.5, fill: C.ink3 }, layer);
+      txt(ox - 30, 108, '维度 2', { 'font-size': 10.5, fill: C.ink3 }, layer);
+
+      /* 单位圆弧 */
+      path(arcPath(ox, oy, U, 0, Math.PI / 2, 0), { stroke: C.line, 'stroke-width': 1, 'stroke-dasharray': '3 4' }, layer);
+
+      /* 查询向量 */
+      var q = [Math.cos(qang * Math.PI / 180), Math.sin(qang * Math.PI / 180)];
+      vec(ox, oy, X(q[0]), Y(q[1]), C.accent, 2.4, layer);
+      txt(X(q[0]) + 4, Y(q[1]) - 16, '查询', { 'font-size': 11, fill: C.accent }, layer);
+
+      /* token 向量 */
+      toks.forEach(function (t) {
+        var u = norm(t.v);
+        vec(ox, oy, ox + u[0] * U * 0.86, oy - u[1] * U * 0.86, C.ink2, 2.2, layer);
+        txt(ox + u[0] * U * 0.86 + 16, oy - u[1] * U * 0.86 - 12, t.n, { 'font-size': 15, fill: C.ink }, layer);
+      });
+
+      /* 右上角读数表 */
+      var bx = 286, by = 92;
+      txt(bx, by, '与查询的夹角 / 点积', { 'font-size': 10.5, fill: C.ink3, anchor: 'start' }, layer);
+      line(bx, by + 10, 456, by + 10, { stroke: C.line2, 'stroke-width': 0.8 }, layer);
+      toks.forEach(function (t, i) {
+        var u = norm(t.v);
+        var dot = u[0] * q[0] + u[1] * q[1];
+        var ang = Math.acos(Math.max(-1, Math.min(1, dot))) * 180 / Math.PI;
+        var y = by + 34 + i * 26;
+        txt(bx, y, t.n, { 'font-size': 13, fill: C.ink, anchor: 'start' }, layer);
+        txt(bx + 46, y, ang.toFixed(1) + '°', { 'font-size': 12, 'class': 'mono', fill: ang < 30 ? C.accent : C.ink2, anchor: 'start' }, layer);
+        txt(bx + 108, y, dot.toFixed(2), { 'font-size': 12, 'class': 'mono', fill: C.ink2, anchor: 'start' }, layer);
+      });
+
+      caption(g, '点积 = 两个东西有多像；夹角越小，方向越接近');
+
+      var qn = q;
+      readout.innerHTML = toks.map(function (t) {
+        var u = norm(t.v);
+        var dot = u[0] * qn[0] + u[1] * qn[1];
+        return t.n + ' ' + (Math.acos(Math.max(-1, Math.min(1, dot))) * 180 / Math.PI).toFixed(1) + '°';
+      }).join('　') + '<br>拖动画布上的「查询」箭头';
+    }
+
+    /* 拖动 */
+    var hit = rect(60, 96, 400, 350, { fill: 'transparent' }, layer);
+    hit.style.cursor = 'crosshair';
+    hit.style.touchAction = 'none';
+    function upd(e) {
+      var p = toSvg(svg, e.clientX, e.clientY);
+      var vx = (p.x - ox) / U, vy = (oy - p.y) / U;
+      if (vx < 0.06) vx = 0.06;
+      if (vy < 0.06) vy = 0.06;
+      qang = Math.atan2(vy, vx) * 180 / Math.PI;
+      draw();
+    }
+    hit.addEventListener('pointerdown', function (e) {
+      hit.setPointerCapture(e.pointerId);
+      upd(e);
+      hit.addEventListener('pointermove', upd);
+      hit.addEventListener('pointerup', function () { hit.removeEventListener('pointermove', upd); });
+    });
+
+    var qs = cSlider(host, '查询角度', 2, 88, 1, qang, function (v) { return v.toFixed(0) + '°'; }, function (v) { qang = v; draw(); });
+    cHint(host, '「国王」−「男人」+「女人」≈「女王」—— 向量减法算出来的，是一种「关系」。');
+    draw();
+    /* 场景内拖动时同步滑杆 */
+    (function sync() {
+      var iv = setInterval(function () {
+        if (qs.input.value !== String(Math.round(qang))) {
+          qs.input.value = Math.round(qang);
+          qs.val.textContent = Math.round(qang) + '°';
+        }
+      }, 120);
+      onLeave(function () { clearInterval(iv); });
+    })();
+  } });
+
+  /* ── 3.3 因果掩码 ── */
+  scene('mask', { ch: 3, name: '因果掩码', build: function (g, host) {
+    var row = 3;
+    var names = ['他', '口渴', '喝了', '一杯'];
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var cw = 58, chh = 46, sx = 128, sy = 156;
+
+    function draw() {
+      clear(layer);
+      txt(W / 2, 96, '当前位置 ＼ 能看到的位置', { 'font-size': 11.5, fill: C.ink3 }, layer);
+      names.forEach(function (nm, i) {
+        txt(sx + i * cw + cw / 2, sy - 18, nm, { 'font-size': 12.5, fill: C.ink2 }, layer);
+        txt(sx - 22, sy + i * chh + chh / 2, nm, { 'font-size': 12.5, fill: i === row ? C.accent : C.ink2, 'font-weight': i === row ? 700 : 400 }, layer);
+      });
+      names.forEach(function (_, r) {
+        names.forEach(function (_, c) {
+          var see = c <= r;
+          var isActiveRow = r === row;
+          var cell = anim(rect(sx + c * cw + 2, sy + r * chh + 2, cw - 4, chh - 4, {
+            fill: see ? (isActiveRow ? C.ink : C.gray2) : 'none',
+            stroke: see ? 'none' : C.line2,
+            'stroke-width': 1, 'stroke-dasharray': see ? 'none' : '4 3',
+            opacity: !isActiveRow ? (see ? 0.45 : 0.5) : 1
+          }, layer));
+          if (!see && isActiveRow) txt(sx + c * cw + cw / 2, sy + r * chh + chh / 2, '−∞', { 'font-size': 11, 'class': 'mono', fill: C.dead }, layer);
+          if (see && isActiveRow) txt(sx + c * cw + cw / 2, sy + r * chh + chh / 2, '✓', { 'font-size': 13, fill: C.paper }, layer);
+        });
+      });
+      /* 可点行 */
+      names.forEach(function (_, r) {
+        var hit = rect(sx, sy + r * chh, 4 * cw, chh, { fill: 'transparent' }, layer);
+        hit.style.cursor = 'pointer';
+        hit.addEventListener('click', function () { row = r; draw(); });
+      });
+
+      var seen = row + 1, blocked = 3 - row;
+      caption(g, '未来位置的分数设为 −∞，Softmax 之后权重就是 0');
+      readout.innerHTML = '当前位置「<b>' + names[row] + '</b>」<br>能看到 <b>' + seen + '</b> 个位置（含自己），屏蔽 <b>' + blocked + '</b> 个未来位置';
+    }
+    cHint(host, '点任意一行切换当前位置。一段 1000 token 的文本，一次就能提供约 1000 道练习题。');
+    draw();
+  } });
+
+  /* ── 3.4–3.5 注意力：权重流动 ── */
+  scene('attention', { ch: 3, name: '注意力流动', build: function (g, host) {
+    /* 三个键排上面，查询排下面 —— 连线是一把扇子，权重数字钉在各自的键上方 */
+    var pos = [
+      { n: '他', x: 130, y: 152 }, { n: '口渴', x: 240, y: 152 }, { n: '喝了', x: 350, y: 152 }
+    ];
+    var qry = { n: '一杯', x: 240, y: 382 };
+    var heads = {
+      1: { q: '(1, 0) 找饮水相关', s: [0, 2, 1.5] },
+      2: { q: '(0, 1) 找人物',     s: [2, 0, 0] }
+    };
+    var head = 1, scaled = false, on = true;
+    var nodesG = el('g', {}, g), lineG = el('g', {}, g), labG = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var headRef, scaleBtn;
+
+    /* 静态层：标题 / 公式 / 批注 */
+    txt(W / 2, 60, '同一个词：既拿来问别人，也被别人问', { 'font-size': 12.5, fill: C.ink2 }, g);
+    txt(W / 2, 456, '权重 = softmax( Q · Kᵀ / √d )', { 'font-size': 13, 'class': 'mono', fill: C.ink2 }, g);
+    caption(g, '点「一杯」可以收放连线 —— 每个头看到的重点都不一样');
+
+    function weights() {
+      var sc = scaled ? Math.sqrt(2) : 1;
+      return softmax(heads[head].s.map(function (v) { return v / sc; }));
+    }
+
+    function drawNodes() {
+      clear(nodesG);
+      pos.forEach(function (p) {
+        rect(p.x - 40, p.y - 21, 80, 42, { rx: 2, fill: C.paper, stroke: C.ink2, 'stroke-width': 1 }, nodesG);
+        txt(p.x, p.y + 5, p.n, { 'font-size': 15, fill: C.ink }, nodesG);
+        txt(p.x, p.y - 30, '键', { 'font-size': 10.5, fill: C.ink3 }, nodesG);
+      });
+      var r = anim(rect(qry.x - 50, qry.y - 23, 100, 46, {
+        rx: 2, fill: C.stage, stroke: C.accent, 'stroke-width': 2, opacity: on ? 1 : 0.45
+      }, nodesG));
+      r.style.cursor = 'pointer';
+      r.addEventListener('click', function () { on = !on; drawNodes(); drawLines(); });
+      txt(qry.x, qry.y + 5, qry.n, { 'font-size': 15, fill: C.accent, 'font-weight': 700 }, nodesG);
+      txt(qry.x, qry.y + 46, '查询', { 'font-size': 10.5, fill: C.ink3 }, nodesG);
+    }
+
+    function drawLines() {
+      clear(lineG); clear(labG);
+      if (!on) return;
+      var w = weights();
+      pos.forEach(function (p, i) {
+        var ww = w[i];
+        anim(line(p.x, p.y + 21, qry.x, qry.y - 23, {
+          stroke: C.accent, 'stroke-width': Math.max(1, ww * 16), opacity: 0.22 + ww * 0.78
+        }, lineG));
+        /* 权重数字钉在它自己那个键的正上方 —— 摆成梯子就没人分得清谁是谁 */
+        rect(p.x - 26, 84, 52, 19, { rx: 2, fill: C.paper, stroke: C.line, 'stroke-width': 0.6 }, labG);
+        txt(p.x, 97.5, pct(ww, 1), {
+          'font-size': 11, 'class': 'mono', fill: ww > 0.4 ? C.accent : C.ink2,
+          'font-weight': ww > 0.4 ? 700 : 400
+        }, labG);
+      });
+      var ws = weights();
+      var top = ws.indexOf(Math.max.apply(null, ws));
+      readout.innerHTML = '权重最大的是「<b>' + pos[top].n + '</b>」＝ <b>' + pct(ws[top], 1) + '</b><br>' +
+        '缩放 ' + (scaled ? '÷√2 已开' : '未开') + '　权重之和 = ' + ws.reduce(function (a, b) { return a + b; }, 0).toFixed(2);
+    }
+
+    function draw() { drawNodes(); drawLines(); }
+
+    headRef = cSeg(host, ['头 1：找饮水', '头 2：找人物'], 0, function (i) { head = i + 1; draw(); });
+    scaleBtn = cBtns(host, ['缩放 ÷√d'], function () { scaled = !scaled; scaleBtn.refresh(); draw(); }, function () { return scaled ? 0 : -1; });
+    cHint(host, '点画布里的「一杯」可以收放连线。同一句话，不同的头关注不同的东西。');
+    draw();
+  } });
+
+  /* ── 3.6 旋转位置编码 ── */
+  scene('rope', { ch: 3, name: 'RoPE 旋转', build: function (g, host) {
+    var pa = 3, pb = 5;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var cx = 240, cy = 268, R = 142;
+    var stepDeg = 10;
+    function pt(deg) { var a = deg * Math.PI / 180; return [cx + R * Math.cos(a), cy - R * Math.sin(a)]; }
+
+    function draw() {
+      clear(layer);
+      var a1 = pa * stepDeg, a2 = pb * stepDeg;
+      circ(cx, cy, R, { fill: 'none', stroke: C.line, 'stroke-width': 1 }, layer);
+      /* 每 10° 一个刻度 */
+      for (var d = 0; d <= 180; d += stepDeg) {
+        var p1 = pt(d), p2 = pt(d);
+        var m = 1 - 7 / R;
+        line(cx + (p1[0] - cx) * m, cy + (p1[1] - cy) * m, p2[0], p2[1], { stroke: C.line2, 'stroke-width': d % 30 === 0 ? 1 : 0.6 }, layer);
+      }
+      var P1 = pt(a1), P2 = pt(a2);
+      /* 夹角弧 */
+      var lo = Math.min(a1, a2), hi = Math.max(a1, a2);
+      path(arcPath(cx, cy, R * 0.58, lo * Math.PI / 180, hi * Math.PI / 180, 0),
+        { stroke: C.accent, 'stroke-width': 2 }, layer);
+      var mid = (lo + hi) / 2 * Math.PI / 180;
+      var deg = hi - lo;
+      var ax = cx + R * 0.72 * Math.cos(mid), ay = cy - R * 0.72 * Math.sin(mid);
+      /* 两条线几乎重合时，角度数字要从线身上挪开，不然会印在箭杆上 */
+      if (deg < 6) { ax += 18 * Math.sin(mid); ay += 18 * Math.cos(mid); }
+      txt(ax, ay, deg.toFixed(0) + '°', { 'font-size': 13, 'class': 'mono', fill: C.accent, 'font-weight': 700 }, layer);
+
+      vec(cx, cy, P1[0], P1[1], C.ink2, 2, layer);
+      vec(cx, cy, P2[0], P2[1], C.blue, 2, layer);
+      /* 标签摆在箭头尖外侧。两个位置相同、或者只差一格时，两个标签会叠在一起，
+         所以摆完再做一次避让：真的撞上了就把下面那个再往下推 20px。 */
+      var wchar = 84;
+      function tipLabel(P, deg, text, fill) {
+        var x = P[0] + (deg < 90 ? 16 : -16), y = P[1] - 12;
+        return { x: x, y: y, box: [x - wchar / 2, x + wchar / 2], text: text, fill: fill };
+      }
+      var t1 = tipLabel(P1, a1, '查询 · 第 ' + pa + ' 位', C.ink2);
+      var t2 = tipLabel(P2, a2, '键 · 第 ' + pb + ' 位', C.blue);
+      if (t1.box[0] < t2.box[1] && t2.box[0] < t1.box[1] && Math.abs(t1.y - t2.y) < 16) t2.y += 21;
+      [t1, t2].forEach(function (t) {
+        txt(t.x, t.y, t.text, { 'font-size': 11, fill: t.fill }, layer);
+      });
+      circ(cx, cy, 3.5, { fill: C.ink }, layer);
+
+      txt(W / 2, 70, '每往后一个位置，多转 ' + stepDeg + '°', { 'font-size': 12, fill: C.ink3 }, layer);
+      caption(g, '多出来的夹角只和「两个位置相差几」有关 —— 与绝对位置无关');
+      readout.innerHTML = '查询 ' + pa + ' × ' + stepDeg + '° = <b>' + a1 + '°</b>　键 ' + pb + ' × ' + stepDeg + '° = <b>' + a2 + '°</b><br>' +
+        '相差 ' + Math.abs(pb - pa) + ' 位 → 夹角 <b>' + Math.abs(a2 - a1) + '°</b>';
+    }
+
+    cSlider(host, '查询位置', 1, 9, 1, pa, function (v) { return '第 ' + v + ' 位'; }, function (v) { pa = v; draw(); });
+    cSlider(host, '键位置', 1, 9, 1, pb, function (v) { return '第 ' + v + ' 位'; }, function (v) { pb = v; draw(); });
+    cBtns(host, ['整体平移 +2 位'], function () {
+      pa = Math.min(9, pa + 2); pb = Math.min(9, pb + 2);
+      draw();
+      host.querySelectorAll('input[type=range]')[0].value = pa;
+      host.querySelectorAll('input[type=range]')[1].value = pb;
+      host.querySelectorAll('.slider-row .val')[0].textContent = '第 ' + pa + ' 位';
+      host.querySelectorAll('.slider-row .val')[1].textContent = '第 ' + pb + ' 位';
+    });
+    cHint(host, '平移之后两个绝对角度都变了，夹角却纹丝不动 —— 这就是「相对距离」。');
+    draw();
+  } });
+
+  /* ── 3.7 前馈网络 ── */
+  scene('ffn', { ch: 3, name: '前馈网络', build: function (g, host) {
+    var k = 4;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var x0 = 118, unit = 62, maxW = 300;
+
+    function draw() {
+      clear(layer);
+      var w1 = unit, w2 = Math.min(maxW, unit * k), w3 = unit;
+      function box(y, w, label, sub, color, fill) {
+        anim(rect(x0, y, w, 34, { fill: fill, stroke: color, 'stroke-width': 1.6 }, layer));
+        txt(x0 - 12, y + 17, label, { 'font-size': 12, fill: C.ink2, anchor: 'end' }, layer);
+        txt(x0 + w + 12, y + 17, sub, { 'font-size': 12, 'class': 'mono', fill: color, anchor: 'start' }, layer);
+      }
+      txt(W / 2, 88, '每个位置各自经过同一个前馈网络', { 'font-size': 12, fill: C.ink3 }, layer);
+      box(126, w1, '输入', 'd = 12288', C.ink2, C.paper);
+      txt(x0 + w1 / 2 + 30, 182, '↓ 放大', { 'font-size': 11, fill: C.ink3 }, layer);
+      box(196, w2, '中间层', Math.round(12288 * k / 1024) + 'K ≈ ' + k + 'd', C.accent, C.stage);
+      txt(x0 + w1 / 2 + 30, 252, '↓ 非线性 + 压回', { 'font-size': 11, fill: C.ink3 }, layer);
+      box(266, w3, '输出', 'd = 12288', C.ink2, C.paper);
+
+      /* 参数占比 */
+      txt(x0 - 12, 344, '参数占比', { 'font-size': 12, fill: C.ink2, anchor: 'end' }, layer);
+      anim(rect(x0, 330, 100, 28, { fill: C.ink2, opacity: 0.75 }, layer));
+      anim(rect(x0 + 100, 330, 200, 28, { fill: C.accent, opacity: 0.85 }, layer));
+      txt(x0 + 50, 344, '注意力 4d²', { 'font-size': 11, fill: C.paper }, layer);
+      txt(x0 + 200, 344, '前馈 8d²', { 'font-size': 11, fill: '#fff' }, layer);
+      caption(g, '注意力 = 开会交流；前馈网络 = 回到工位各自消化');
+      readout.innerHTML = '中间层宽度 = <b>' + (12288 * k).toLocaleString('en-US') + '</b>（≈ ' + k + 'd）<br>' +
+        '前馈网络约占 Transformer 参数的 <b>三分之二</b>';
+    }
+    cSlider(host, '放大倍数', 2, 8, 1, k, function (v) { return '×' + v; }, function (v) { k = v; draw(); });
+    cHint(host, 'GPT-3：向量宽度 12288，前馈中间层 49152 —— 正好 4 倍。');
+    draw();
+  } });
+
+  /* ── 3.8 参数量：12d² 拆解 ── */
+  scene('params', { ch: 3, name: '参数量拆解', build: function (g, host) {
+    var d = 12288, L = 96, vocab = 50257;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var presetRef;
+
+    function draw() {
+      clear(layer);
+      var attn = 4 * d * d, ffn = 8 * d * d, per = attn + ffn;
+      var blocks = per * L, emb = vocab * d, total = blocks + emb;
+
+      txt(60, 84, '一层 Transformer 的 12d²', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+      anim(rect(60, 100, 120, 34, { fill: C.ink2, opacity: 0.8 }, layer));
+      anim(rect(180, 100, 240, 34, { fill: C.accent, opacity: 0.88 }, layer));
+      txt(120, 117, '注意力', { 'font-size': 12, fill: C.paper }, layer);
+      txt(120, 130, fmt(attn / 1e8, 1) + ' 亿', { 'font-size': 10.5, 'class': 'mono', fill: C.paper }, layer);
+      txt(300, 117, '前馈网络', { 'font-size': 12, fill: '#fff' }, layer);
+      txt(300, 130, fmt(ffn / 1e8, 1) + ' 亿', { 'font-size': 10.5, 'class': 'mono', fill: '#fff' }, layer);
+      txt(60, 152, '4d²　+　8d²　＝　12d² ＝ ' + big(per), { 'font-size': 11.5, 'class': 'mono', fill: C.ink2, anchor: 'start' }, layer);
+
+      txt(60, 202, L + ' 层 + 嵌入表', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+      var wBlocks = (blocks / total) * 360, wEmb = (emb / total) * 360;
+      anim(rect(60, 218, wBlocks, 34, { fill: C.accent, opacity: 0.88 }, layer));
+      anim(rect(60 + wBlocks, 218, wEmb, 34, { fill: C.blue, opacity: 0.85 }, layer));
+      txt(60 + wBlocks / 2, 235, big(blocks), { 'font-size': 11.5, 'class': 'mono', fill: '#fff' }, layer);
+      if (wEmb > 60) txt(60 + wBlocks + wEmb / 2, 235, big(emb), { 'font-size': 11.5, 'class': 'mono', fill: '#fff' }, layer);
+
+      txt(60, 286, '合计 ≈', { 'font-size': 12, fill: C.ink2, anchor: 'start' }, layer);
+      txt(130, 286, big(total), { 'font-size': 20, 'class': 'mono', fill: C.ink, anchor: 'start', 'font-weight': 700 }, layer);
+      var official = 175181291520;
+      var ratio = total / official;
+      txt(60, 318, '官方公布 1750 亿，算出的是它的 ' + (ratio * 100).toFixed(1) + '%', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+      anim(rect(60, 336, Math.min(360, ratio * 360), 12, { fill: C.ink, opacity: 0.75 }, layer));
+      line(60, 336, 420, 336, { stroke: C.line2, 'stroke-width': 0.8 }, layer);
+
+      caption(g, '论文里那几个数字，就是这么乘出来的');
+      readout.innerHTML = 'd = <b>' + d.toLocaleString('en-US') + '</b>　层数 = <b>' + L + '</b><br>' +
+        '词表 = ' + vocab.toLocaleString('en-US') + '　合计 ≈ <b>' + big(total) + '</b>';
+      if (presetRef) presetRef.refresh();
+    }
+
+    /* 滑杆标签必须只依赖滑杆自己的值 —— cSlider 是先写标签、再跑 onInput 的，
+       标签一旦去读 d，就会永远慢一步。 */
+    function dFromV(v) { return Math.round(512 * Math.pow(24, v / 100) / 128) * 128; }
+    var dRef = cSlider(host, '向量宽度 d', 0, 100, 1, 100,
+      function (v) { return dFromV(v).toLocaleString('en-US'); },
+      function (v) { d = dFromV(v); draw(); });
+    var lRef = cSlider(host, '层数 L', 12, 96, 1, L, function (v) { return String(v); }, function (v) { L = v; draw(); });
+    presetRef = cBtns(host, ['GPT-3（96 层）', 'Llama 3 8B（32 层）'], function (i) {
+      if (i === 0) { d = 12288; L = 96; vocab = 50257; dRef.input.value = 100; }
+      else { d = 4096; L = 32; vocab = 128256; dRef.input.value = Math.log(4096 / 512) / Math.log(24) * 100; }
+      dRef.val.textContent = d.toLocaleString('en-US');
+      lRef.input.value = L; lRef.val.textContent = String(L);
+      draw(); presetRef.refresh();
+    }, function () { return (d === 12288 && L === 96) ? 0 : ((d === 4096 && L === 32) ? 1 : -1); });
+    cHint(host, '拖动 d 和层数，看 12d² 怎么涨。嵌入表通常单算。');
+    draw();
+  } });
+
+  /* ═══════════════════════════════════════════════════════════════
+     第四章 · 从模型到 ChatGPT
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* ── 4.1 自回归生成 ── */
+  scene('autoreg', { ch: 4, name: '自回归生成', build: function (g, host) {
+    var steps = [
+      { cands: [['好', 0.35], ['热', 0.20], ['冷', 0.15], ['不错', 0.10]] },
+      { cands: [['，', 0.70], ['。', 0.15], ['的', 0.10]] },
+      { cands: [['适合', 0.55], ['可以', 0.20], ['建议', 0.15]] },
+      { cands: [['出门', 0.45], ['散步', 0.25], ['运动', 0.20]] }
+    ];
+    var ctx = '今天天气很', emitted = [], k = 0;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var nextBtn, resetBtn;
+
+    function draw() {
+      clear(layer);
+      /* 已写出的句子 */
+      var sx = 60, y = 110;
+      var t0 = txt(sx, y, ctx, { 'font-size': 17, fill: C.ink, anchor: 'start' }, layer);
+      var cursorX = sx + ctx.length * 17;
+      emitted.forEach(function (t) {
+        anim(rect(cursorX, y - 15, t.length * 17 + 6, 30, { rx: 2, fill: C.stage, stroke: C.accent, 'stroke-width': 1.4 }, layer));
+        txt(cursorX + (t.length * 17 + 6) / 2, y, t, { 'font-size': 17, fill: C.accent }, layer);
+        cursorX += t.length * 17 + 12;
+      });
+      anim(rect(cursorX, y - 15, 18, 30, { fill: C.accent, opacity: k < steps.length ? 0.25 : 0 }, layer));
+
+      if (k < steps.length) {
+        txt(sx, 186, '模型给出的下一个 token 概率（示意）', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+        var cands = steps[k].cands;
+        cands.forEach(function (c, i) {
+          var by = 214 + i * 44;
+          txt(sx + 60, by + 11, c[0], { 'font-size': 15, fill: i === 0 ? C.accent : C.ink2 }, layer);
+          anim(rect(sx + 96, by, Math.max(2, c[1] * 240), 22, { fill: i === 0 ? C.accent : C.ink2, opacity: i === 0 ? 0.9 : 0.35 }, layer));
+          txt(sx + 96 + c[1] * 240 + 12, by + 11, pct(c[1], 0), { 'font-size': 11.5, 'class': 'mono', fill: C.ink3, anchor: 'start' }, layer);
+        });
+      } else {
+        txt(W / 2, 260, '生成完毕', { 'font-size': 15, fill: C.accent }, layer);
+      }
+
+      caption(g, '自己的输出成为下一步的输入 —— 这就是自回归');
+      readout.innerHTML = '已写出 <b>' + emitted.length + '</b> 个 token<br>' +
+        (emitted.length ? '已经写出的，收不回来' : '每一步只做一件事：预测下一个 token');
+      if (nextBtn) { nextBtn.disabled = k >= steps.length; nextBtn.style.opacity = k >= steps.length ? 0.35 : 1; }
+    }
+
+    function wrap() {
+      var w = document.createElement('div');
+      nextBtn = document.createElement('button');
+      nextBtn.className = 'qbtn'; nextBtn.textContent = '生成下一个 token →';
+      nextBtn.addEventListener('click', function () {
+        if (k >= steps.length) return;
+        emitted.push(steps[k].cands[0][0]);
+        k++; draw();
+      });
+      resetBtn = document.createElement('button');
+      resetBtn.className = 'qbtn'; resetBtn.textContent = '重置';
+      resetBtn.addEventListener('click', function () { emitted = []; k = 0; draw(); });
+      w.appendChild(nextBtn); w.appendChild(resetBtn);
+      host.appendChild(w);
+    }
+    cHint(host, '重要推论：已经写出的 token 不会撤回。前面选了一个不太好的词，后面只能顺着它往下写。');
+    wrap(); draw();
+  } });
+
+  /* ── 4.2–4.3 采样与温度 ── */
+  scene('sampling', { ch: 4, name: '温度与采样', build: function (g, host) {
+    var logits = [3.0, 2.0, 0.5], names = ['水', '茶', '书'];
+    var temp = 1.0, topp = 1.0;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var tempRef, pRef, presetRef;
+
+    function finalProbs() {
+      var p = softmax(logits, temp);
+      var idx = p.map(function (v, i) { return { v: v, i: i }; }).sort(function (a, b) { return b.v - a.v; });
+      var cum = 0, keep = [];
+      for (var i = 0; i < idx.length; i++) {
+        if (cum >= topp && i > 0) break;
+        cum += idx[i].v; keep.push(idx[i].i);
+      }
+      return p.map(function (v, i) { return keep.indexOf(i) >= 0 ? v / cum : 0; });
+    }
+
+    function draw() {
+      clear(layer);
+      var raw = softmax(logits, temp);
+      var p = finalProbs();
+      var bx = 104, bw = 64, gap = 40, base = 330, maxH = 170;
+
+      txt(60, 86, '他口渴了，于是喝了一杯 ____', { 'font-size': 14, fill: C.ink2, anchor: 'start' }, layer);
+      names.forEach(function (nm, i) {
+        var x = bx + i * (bw + gap);
+        var h = Math.max(2, p[i] * maxH);
+        var dead = p[i] === 0;
+        anim(rect(x, base - h, bw, h, { fill: dead ? C.gray2 : C.accent, opacity: dead ? 0.5 : 0.88 }, layer));
+        txt(x + bw / 2, base + 20, nm, { 'font-size': 15, fill: dead ? C.dead : C.ink }, layer);
+        txt(x + bw / 2, base - h - 14, dead ? '排除' : pct(p[i], 1), {
+          'font-size': 12, 'class': 'mono', fill: dead ? C.dead : C.accent
+        }, layer);
+      });
+      line(bx - 8, base, bx + 3 * bw + 2 * gap + 8, base, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+
+      /* 累积条 + Top-p 阈值 */
+      var cy = 396, cw = 3 * bw + 2 * gap;
+      txt(60, cy - 16, '按概率从高到低累加', { 'font-size': 11, fill: C.ink3, anchor: 'start' }, layer);
+      var acc = 0;
+      names.forEach(function (nm, i) {
+        var w = raw[i] * cw;
+        var inNucleus = acc + raw[i] <= topp + 1e-9;
+        anim(rect(bx + acc, cy, w, 24, {
+          fill: inNucleus ? C.accent : C.gray2, opacity: inNucleus ? 0.85 : 0.6
+        }, layer));
+        if (w > 40) txt(bx + acc + w / 2, cy + 12, nm, { 'font-size': 11, fill: inNucleus ? '#fff' : C.dead }, layer);
+        acc += raw[i];
+      });
+      var tx = bx + topp * cw;
+      line(tx, cy - 26, tx, cy + 34, { stroke: C.blue, 'stroke-width': 2, 'stroke-dasharray': '4 3' }, layer);
+      txt(tx, cy - 34, 'Top-p ' + topp.toFixed(2), { 'font-size': 11, 'class': 'mono', fill: C.blue }, layer);
+      line(bx, cy + 24, bx + cw, cy + 24, { stroke: C.ink3, 'stroke-width': 0.8 }, layer);
+
+      caption(g, '采样只能在模型给出的概率里挑，改变不了模型本身的理解能力');
+      readout.innerHTML = '温度 <b>' + temp.toFixed(1) + '</b>　Top-p <b>' + topp.toFixed(2) + '</b><br>' +
+        '重分配后：' + names.map(function (nm, i) { return nm + ' ' + pct(p[i], 0); }).join('　');
+      if (presetRef) presetRef.refresh();
+    }
+
+    tempRef = cSlider(host, '温度', 0.1, 3, 0.1, temp, function (v) { return v.toFixed(1); }, function (v) { temp = v; draw(); });
+    pRef = cSlider(host, 'Top-p', 0.5, 1, 0.05, topp, function (v) { return v.toFixed(2); }, function (v) { topp = v; draw(); });
+    presetRef = cBtns(host, ['T=0.5', 'T=1.0', 'T=2.0', 'p=0.9'], function (i) {
+      var cfg = [[0.5, 1], [1.0, 1], [2.0, 1], [1.0, 0.9]][i];
+      temp = cfg[0]; topp = cfg[1];
+      tempRef.input.value = temp; tempRef.val.textContent = temp.toFixed(1);
+      pRef.input.value = topp; pRef.val.textContent = topp.toFixed(2);
+      draw();
+    }, function () {
+      if (temp === 0.5 && topp === 1) return 0;
+      if (temp === 1 && topp === 1) return 1;
+      if (temp === 2 && topp === 1) return 2;
+      if (temp === 1 && topp === 0.9) return 3;
+      return -1;
+    });
+    cHint(host, '温度趋近 0 → 相当于贪心；温度很高 → 分数差距几乎抹平。');
+    draw();
+  } });
+
+  /* ── 4.4–4.7 后训练四步 ── */
+  scene('posttrain', { ch: 4, name: '后训练', build: function (g, host) {
+    var stages = [
+      { n: '预训练', data: '数万亿 token 的普通文本', get: '基座模型：知识多，但只会续写' },
+      { n: '监督微调', data: '数千到数十万条示范', get: '能按指令回答' },
+      { n: '偏好对齐', data: '人类或 AI 的比较数据', get: '更有用、更得体、更安全' },
+      { n: '推理强化学习', data: '可自动判对错的题目', get: '更强的推理能力' }
+    ];
+    var sel = 0;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+
+    function draw() {
+      clear(layer);
+      var bw = 88, gap = 12, sx = 60;
+      stages.forEach(function (s, i) {
+        var x = sx + i * (bw + gap);
+        var on = i === sel;
+        anim(rect(x, 100, bw, 46, {
+          rx: 2, fill: on ? C.accent : C.paper, stroke: on ? C.accent : C.ink2, 'stroke-width': on ? 2 : 1
+        }, layer));
+        txt(x + bw / 2, 116, s.n.length > 4 ? s.n.slice(0, 4) : s.n, { 'font-size': 11.5, fill: on ? '#fff' : C.ink }, layer);
+        txt(x + bw / 2, 133, s.n.length > 4 ? s.n.slice(4) : '', { 'font-size': 11.5, fill: on ? '#fff' : C.ink }, layer);
+        if (i < 3) txt(x + bw + gap / 2, 123, '→', { 'font-size': 13, fill: C.ink3 }, layer);
+        var hit = rect(x, 100, bw, 46, { fill: 'transparent' }, layer);
+        hit.style.cursor = 'pointer';
+        hit.addEventListener('click', function () { sel = i; draw(); });
+      });
+
+      txt(60, 190, '这一步用什么数据', { 'font-size': 11, fill: C.ink3, anchor: 'start' }, layer);
+      txt(60, 214, stages[sel].data, { 'font-size': 15, fill: C.ink, anchor: 'start' }, layer);
+      txt(60, 258, '得到了什么', { 'font-size': 11, fill: C.ink3, anchor: 'start' }, layer);
+      txt(60, 282, stages[sel].get, { 'font-size': 15, fill: C.accent, anchor: 'start' }, layer);
+
+      if (sel === 0) {
+        line(60, 312, 420, 312, { stroke: C.line }, layer);
+        txt(60, 336, '输入：法国的首都是哪里？', { 'font-size': 12.5, fill: C.ink2, anchor: 'start' }, layer);
+        txt(60, 362, '基座模型可能续写：', { 'font-size': 12.5, fill: C.ink2, anchor: 'start' }, layer);
+        txt(60, 386, '德国的首都是哪里？英国的首都是哪里？……', { 'font-size': 12.5, fill: C.accent, anchor: 'start' }, layer);
+        txt(60, 418, '知识已经有了，缺的是「以助手身份回应」', { 'font-size': 12, fill: C.ink3, anchor: 'start' }, layer);
+      } else if (sel === 1) {
+        line(60, 312, 420, 312, { stroke: C.line }, layer);
+        txt(60, 340, '数据质量比数量更重要：', { 'font-size': 12.5, fill: C.ink2, anchor: 'start' }, layer);
+        txt(60, 368, 'InstructGPT 约 1.3 万条　LIMA 只用 1000 条', { 'font-size': 12.5, fill: C.accent, anchor: 'start' }, layer);
+        txt(60, 396, '1000 条示范就让 650 亿参数的基座模型学会了对话', { 'font-size': 12, fill: C.ink3, anchor: 'start' }, layer);
+      } else if (sel === 2) {
+        line(60, 312, 420, 312, { stroke: C.line }, layer);
+        txt(60, 340, '标注员更喜欢 13 亿参数的 InstructGPT', { 'font-size': 12.5, fill: C.accent, anchor: 'start' }, layer);
+        txt(60, 366, '而不是 1750 亿参数的 GPT-3', { 'font-size': 12.5, fill: C.accent, anchor: 'start' }, layer);
+        txt(60, 396, '副作用：奖励投机 —— 模型越写越长、越写越空', { 'font-size': 12, fill: C.ink3, anchor: 'start' }, layer);
+      } else {
+        line(60, 312, 420, 312, { stroke: C.line }, layer);
+        txt(60, 340, '只告诉它「结果对不对」，不教它「怎么想」', { 'font-size': 12.5, fill: C.ink2, anchor: 'start' }, layer);
+        txt(60, 372, 'DeepSeek-R1-Zero　AIME 2024', { 'font-size': 12.5, fill: C.ink2, anchor: 'start' }, layer);
+        txt(150, 406, '15.6%', { 'font-size': 20, 'class': 'mono', fill: C.ink3 }, layer);
+        txt(214, 406, '→', { 'font-size': 16, fill: C.ink3 }, layer);
+        txt(266, 406, '71.0%', { 'font-size': 20, 'class': 'mono', fill: C.accent, 'font-weight': 700 }, layer);
+      }
+
+      caption(g, '点上方四个阶段，看各自用什么数据、得到什么');
+      readout.innerHTML = '<b>' + stages[sel].n + '</b><br>' + stages[sel].data + ' → ' + stages[sel].get;
+    }
+    cHint(host, '知识在预训练里已经学到了；后面三步，学的是「怎么回应」。');
+    draw();
+  } });
+
+  /* ── 4.8 工具调用 ── */
+  scene('tools', { ch: 4, name: '工具调用', build: function (g, host) {
+    var lines = [
+      { tag: '助手', body: '⟨调用工具⟩搜索：北京 今天 天气', kind: 'call' },
+      { tag: '工具结果', body: '北京今天晴，最高气温 22℃……', kind: 'result' },
+      { tag: '助手', body: '北京今天是晴天，最高 22℃，适合出门。', kind: 'answer' }
+    ];
+    var k = 1;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var btn;
+
+    function draw() {
+      clear(layer);
+      txt(60, 88, '对模型来说，一切都是一串 token', { 'font-size': 12, fill: C.ink3, anchor: 'start' }, layer);
+      lines.forEach(function (l, i) {
+        var on = i < k;
+        var y = 118 + i * 92;
+        anim(rect(56, y, 368, 74, {
+          rx: 2, fill: on ? (l.kind === 'call' ? C.stage : C.paper) : 'none',
+          stroke: on ? (l.kind === 'call' ? C.accent : C.ink2) : C.line2,
+          'stroke-width': on ? 1.6 : 1, 'stroke-dasharray': on ? 'none' : '4 4', opacity: on ? 1 : 0.55
+        }, layer));
+        txt(72, y + 20, '⟨|' + l.tag + '|⟩', { 'font-size': 11, 'class': 'mono', fill: on ? C.accent : C.dead, anchor: 'start' }, layer);
+        txt(72, y + 48, on ? l.body : '·····', { 'font-size': 12.5, fill: on ? C.ink : C.dead, anchor: 'start' }, layer);
+      });
+
+      txt(60, 412, '模型只负责写出「要做什么」', { 'font-size': 12, fill: C.ink2, anchor: 'start' }, layer);
+      txt(60, 436, '外部程序看到特定格式就去执行，把结果拼回上下文', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+      caption(g, '看图也一样：把图片切成小方块，每块转成一个向量');
+      readout.innerHTML = '已完成 <b>' + Math.min(k, 3) + ' / 3</b> 步<br>' +
+        (k >= 3 ? '模型看到的始终是文字' : '点「下一步」看交换过程');
+      if (btn) { btn.disabled = k >= 3; btn.style.opacity = k >= 3 ? 0.35 : 1; }
+    }
+
+    btn = document.createElement('button');
+    btn.className = 'qbtn'; btn.textContent = '下一步 →';
+    btn.addEventListener('click', function () { if (k < 3) { k++; draw(); } });
+    var rs = document.createElement('button');
+    rs.className = 'qbtn'; rs.textContent = '重置';
+    rs.addEventListener('click', function () { k = 1; draw(); });
+    var w = document.createElement('div');
+    w.appendChild(btn); w.appendChild(rs);
+    host.appendChild(w);
+    cHint(host, '不管是聊天、用工具还是看图，模型做的始终只有一件事：根据前文预测下一个 token。');
+    draw();
+  } });
+
+  /* ── 4.9 规模定律 ── */
+  scene('scaling', { ch: 4, name: '规模定律', build: function (g, host) {
+    var factors = [
+      { n: '参数量', r: 0.84, n_: 0, color: C.accent },
+      { n: '数据量', r: 0.80, n_: 0, color: C.blue },
+      { n: '计算量', r: 0.89, n_: 0, color: C.ink2 }
+    ];
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var px0 = 84, px1 = 440, py0 = 400, py1 = 112;
+    var maxDec = 6;
+    var X = function (dec) { return px0 + (dec / maxDec) * (px1 - px0); };
+    var Y = function (v) { return py0 - v * (py0 - py1); };
+
+    function draw() {
+      clear(layer);
+      txt(W / 2, 84, '只扩大一项，交叉熵变成原来的多少', { 'font-size': 12, fill: C.ink3 }, layer);
+
+      line(px0 - 10, py0, px1 + 8, py0, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      line(px0, py0, px0, py1 - 14, { stroke: C.ink3, 'stroke-width': 1 }, layer);
+      [0, 0.25, 0.5, 0.75, 1].forEach(function (v) {
+        line(px0 - 4, Y(v), px0, Y(v), { stroke: C.line2 }, layer);
+        txt(px0 - 10, Y(v) + 3.5, pct(v, 0), { 'font-size': 9.5, 'class': 'mono', fill: C.ink3, anchor: 'end' }, layer);
+      });
+      var ylab = txt(30, (py0 + py1) / 2, '交叉熵（相对）', { 'font-size': 10, fill: C.ink3 }, layer);
+      ylab.setAttribute('transform', 'rotate(-90 30 ' + ((py0 + py1) / 2) + ')');
+      /* 每两档标一次，免得六位数的标签互相压 */
+      for (var d = 0; d <= maxDec; d += 2) {
+        line(X(d), py0, X(d), py0 + 5, { stroke: C.line2 }, layer);
+        txt(X(d), py0 + 18, '×' + Math.pow(10, d).toLocaleString('en-US'), { 'font-size': 9.5, 'class': 'mono', fill: C.ink3 }, layer);
+      }
+      txt((px0 + px1) / 2, py0 + 40, '相对规模（对数刻度）', { 'font-size': 10, fill: C.ink3 }, layer);
+
+      factors.forEach(function (f, fi) {
+        var pts = [];
+        for (var d2 = 0; d2 <= maxDec + 0.001; d2 += 0.1) pts.push([X(d2), Y(Math.pow(f.r, d2))]);
+        polyline(pts, { stroke: f.color, 'stroke-width': 2, opacity: 0.85 }, layer);
+        var cd = f.n_;
+        var vv = Math.pow(f.r, cd);
+        circ(X(cd), Y(vv), 6, { fill: f.color }, layer);
+        circ(X(cd), Y(vv), 11, { fill: 'none', stroke: f.color, 'stroke-width': 1, opacity: 0.3 }, layer);
+        var right = cd <= 4;
+        txt(X(cd) + (right ? 12 : -12), Y(vv) - 12 - fi * 15, f.n + ' ' + pct(vv, 0), {
+          'font-size': 11, fill: f.color, anchor: right ? 'start' : 'end', 'font-weight': 600
+        }, layer);
+      });
+
+      /* 起点说明 */
+      txt(px0 + 14, Y(1) + 26, '三条线都从「原样」出发', { 'font-size': 10, fill: C.dead, anchor: 'start' }, layer);
+
+      caption(g, '每扩大 10 倍，交叉熵平稳下降 —— 这就是规模定律');
+      readout.innerHTML = factors.map(function (f) {
+        return f.n + ' ×' + Math.pow(10, f.n_).toLocaleString('en-US') + ' → <b>' + pct(Math.pow(f.r, f.n_), 0) + '</b>';
+      }).join('<br>');
+    }
+
+    factors.forEach(function (f, i) {
+      var b = document.createElement('button');
+      b.className = 'qbtn';
+      b.textContent = f.n + ' ×10';
+      b.addEventListener('click', function () {
+        if (f.n_ >= maxDec) return;
+        f.n_++; draw();
+      });
+      host.appendChild(b);
+    });
+    var rs = document.createElement('button');
+    rs.className = 'qbtn'; rs.textContent = '重置';
+    rs.addEventListener('click', function () { factors.forEach(function (f) { f.n_ = 0; }); draw(); });
+    host.appendChild(rs);
+    cHint(host, 'GPT-3：6 × 1750 亿 × 3000 亿 ≈ 3.15×10²³，与论文报告的 3.14×10²³ 几乎一样。');
+    draw();
+  } });
+
+  /* ── 4.10 损失的地板 ── */
+  scene('lossfloor', { ch: 4, name: '损失的地板', build: function (g, host) {
+    var FLOOR = 1.69, A = 1.30, B = 1.10;
+    var eN = -0.0758, eD = -0.0969;
+    var nN = 0, nD = 0;
+    var layer = el('g', {}, g);
+    var readout = cReadout(host, '');
+    var px0 = 60, span = 360, MAX = 5.0;
+
+    function draw() {
+      clear(layer);
+      var rN = A * Math.pow(10, eN * nN);
+      var rD = B * Math.pow(10, eD * nD);
+      var total = FLOOR + rN + rD;
+      var L = function (v) { return (v / MAX) * span; };
+
+      txt(px0, 92, '交叉熵拆成三部分', { 'font-size': 11.5, fill: C.ink3, anchor: 'start' }, layer);
+      var yy = 110, hh = 40;
+      anim(rect(px0, yy, L(FLOOR), hh, { fill: C.accent, opacity: 0.9 }, layer));
+      anim(rect(px0 + L(FLOOR), yy, L(rN), hh, { fill: C.ink2, opacity: 0.6 }, layer));
+      anim(rect(px0 + L(FLOOR) + L(rN), yy, L(rD), hh, { fill: C.gray, opacity: 0.9 }, layer));
+      rect(px0, yy, L(FLOOR) + L(rN) + L(rD), hh, { fill: 'none', stroke: C.ink2, 'stroke-width': 1.2 }, layer);
+      txt(px0 + L(FLOOR) / 2, yy + hh / 2, '不可约 ' + FLOOR, { 'font-size': 10.5, 'class': 'mono', fill: '#fff' }, layer);
+      if (L(rN) > 44) txt(px0 + L(FLOOR) + L(rN) / 2, yy + hh + 14, '模型不够大 ' + rN.toFixed(2), { 'font-size': 10.5, 'class': 'mono', fill: C.ink2 }, layer);
+      if (L(rD) > 40) txt(px0 + L(FLOOR) + L(rN) + L(rD) / 2, yy + hh + 32, '数据不够多 ' + rD.toFixed(2), { 'font-size': 10.5, 'class': 'mono', fill: C.ink2 }, layer);
+
+      /* 地板线 */
+      var fx = px0 + L(FLOOR);
+      line(fx, yy - 24, fx, yy + hh + 46, { stroke: C.accent, 'stroke-width': 1.4, 'stroke-dasharray': '4 3' }, layer);
+      txt(fx + 6, yy - 30, '语言本身的熵：' + FLOOR + ' nat ≈ 2.4 bit', { 'font-size': 10.5, fill: C.accent, anchor: 'start' }, layer);
+
+      /* 当前总长 */
+      var tx = px0 + L(total);
+      line(tx, yy - 10, tx, yy + hh + 10, { stroke: C.ink, 'stroke-width': 2 }, layer);
+      txt(tx, yy + hh + 62, '现在 ' + total.toFixed(2) + ' nat', { 'font-size': 12, 'class': 'mono', fill: C.ink, 'font-weight': 600 }, layer);
+
+      txt(px0, 300, '无论怎么扩大规模，红色那一段都不会消失', { 'font-size': 12, fill: C.ink2, anchor: 'start' }, layer);
+      txt(px0, 330, '交叉熵永远不低于熵 —— 规模定律描述的，', { 'font-size': 12, fill: C.ink3, anchor: 'start' }, layer);
+      txt(px0, 352, '正是模型的交叉熵如何一步步逼近语言本身的熵', { 'font-size': 12, fill: C.ink3, anchor: 'start' }, layer);
+      caption(g, '不可约的部分，拟合出的值约为每 token 1.69 nat');
+
+      readout.innerHTML = '不可约 <b>' + FLOOR + '</b>　模型项 ' + rN.toFixed(3) + '　数据项 ' + rD.toFixed(3) + '<br>' +
+        '合计 ＝ <b>' + total.toFixed(3) + '</b> nat（＝ ' + (total * Math.log2(Math.E)).toFixed(2) + ' bit）';
+    }
+
+    var bN = document.createElement('button');
+    bN.className = 'qbtn'; bN.textContent = '参数 ×10';
+    bN.addEventListener('click', function () { if (nN < 6) { nN++; draw(); } });
+    var bD = document.createElement('button');
+    bD.className = 'qbtn'; bD.textContent = '数据 ×10';
+    bD.addEventListener('click', function () { if (nD < 6) { nD++; draw(); } });
+    var rs = document.createElement('button');
+    rs.className = 'qbtn'; rs.textContent = '重置';
+    rs.addEventListener('click', function () { nN = 0; nD = 0; draw(); });
+    var w = document.createElement('div');
+    w.appendChild(bN); w.appendChild(bD); w.appendChild(rs);
+    host.appendChild(w);
+    cHint(host, '每按一次 ×10，灰色的两段缩一点，红色那段纹丝不动。');
+    draw();
+  } });
+
+  /* ═══════════════════════════════════════════════════════════════
+     滚动驱动 · 章节 → 场景
+     ───────────────────────────────────────────────────────────────
+     把正文里的每个 <section> 映到某个场景；章节标题走 CH_OPEN。
+     落在视口 32% 线上方的最后一个元素，就是当前正在读的那一段。
+     正文一个字没动 —— 这里只读它的编号。
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* 小节编号 → 场景 key。缺号的小节不切换场景，画布保持上一幕 —— 这正是「持久画布」的本意。 */
+  var NUM_MAP = {
+    '1.1': 'tokenize',
+    '1.3': 'halving',
+    '1.4': 'entropy',
+    '1.5': 'entropy',
+    '1.6': 'shannon',
+    '2.0': 'lookup',
+    '2.1': 'relu',
+    '2.2': 'softmax',
+    '2.3': 'tents',
+    '2.4': 'depth',
+    '2.5': 'gradient',
+    '2.7': 'norm',
+    '2.8': 'residual',
+    '2.9': 'generalize',
+    '3.1': 'embed',
+    '3.2': 'attention',
+    '3.3': 'mask',
+    '3.4': 'attention',
+    '3.5': 'attention',
+    '3.6': 'rope',
+    '3.7': 'ffn',
+    '3.8': 'params',
+    '4.1': 'autoreg',
+    '4.2': 'sampling',
+    '4.3': 'sampling',
+    '4.4': 'posttrain',
+    '4.5': 'posttrain',
+    '4.6': 'posttrain',
+    '4.7': 'posttrain',
+    '4.8': 'tools',
+    '4.9': 'scaling',
+    '4.10': 'lossfloor',
+    '4.11': 'lossfloor'
+  };
+  /* 章节标题（章扉）落到哪一幕 */
+  var CH_OPEN = { 1: 'tokenize', 2: 'lookup', 3: 'embed', 4: 'autoreg' };
+
+  var stops = [];
+  (function collect() {
+    var mainEl = document.querySelector('main.text-col');
+    if (!mainEl) return;
+    var beforeFirstChapter = true;
+    Array.prototype.slice.call(mainEl.children).forEach(function (node) {
+      if (node.classList && node.classList.contains('chapter-head')) {
+        beforeFirstChapter = false;
+        var c = parseInt(node.getAttribute('data-ch'), 10);
+        if (hasScene(CH_OPEN[c])) stops.push({ key: CH_OPEN[c], el: node });
+        return;
+      }
+      if (node.tagName === 'SECTION') {
+        var numEl = node.querySelector('h2 .num');
+        var num = numEl ? numEl.textContent.trim() : '';
+        var key = NUM_MAP[num];
+        var carried = key && hasScene(key) ? key : (stops.length ? stops[stops.length - 1].key : null);
+        if (carried) stops.push({ key: carried, el: node });   /* 借上一幕，滚动时也能停在这 */
+        return;
+      }
+      if (beforeFirstChapter && hasScene('hero')) stops.push({ key: 'hero', el: node });
+    });
+    /* 页脚在 .layout 之外，滚到那儿时左侧舞台已经不在视口里了 ——
+       所以不设尾幕，收束交给正文自己。 */
+  })();
+
+  /* ── 顶栏高亮 ── */
+  var navEls = Array.prototype.slice.call(document.querySelectorAll('.topnav a[data-ch]'));
+  function setNav(ch) {
+    navEls.forEach(function (a) {
+      a.classList.toggle('active', parseInt(a.getAttribute('data-ch'), 10) === ch);
+    });
+  }
+
+  var LINE = 0.32;      /* 视口 32% 处就是「正在读」的判定线 */
+  var lastKey = null;
+  var raf = null;
+
+  function update() {
+    raf = null;
+    if (!stops.length) return;
+    var target = window.innerHeight * LINE;
+    var idx = 0;
+    for (var i = 0; i < stops.length; i++) {
+      if (stops[i].el.getBoundingClientRect().top <= target) idx = i;
+      else break;
+    }
+    /* 第一条线都还没过时，停在第一幕 */
+    if (stops[0].el.getBoundingClientRect().top > target) idx = 0;
+
+    var key = stops[idx].key;
+    if (key !== lastKey) {
+      lastKey = key;
+      activate(key);
+      setNav(sceneChapter(key));
+    }
+  }
+  function requestUpdate() { if (raf === null) raf = requestAnimationFrame(update); }
+
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+  document.addEventListener('visibilitychange', requestUpdate);
+
+  /* 顶栏点击时立刻切，不等滚动落定 */
+  navEls.forEach(function (a) {
+    a.addEventListener('click', function () { setTimeout(requestUpdate, 60); });
+  });
+
+  /* 起手 */
+  update();
+  setTimeout(requestUpdate, 80);
+})();
+</script>
+</body>
+</html>
