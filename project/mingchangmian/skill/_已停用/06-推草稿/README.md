@@ -75,7 +75,7 @@ node src/index.js --image "..." --out-dir "..." --dry-run
 
 > mingchangmian 曾在 2026-10-07 临时切到 `wx23ba7fe304c76711`（方盖）试过，**2026-10-08 已换回名场面档案**。两个版本的凭据都有备份（`/tmp/mingchangmian.env.bak`、`/tmp/mingchangmian.env.fangai.bak`）。
 >
-> ⚠️ 名场面档案号的 **IP 白名单目前没放行本机**（`40164`），所以 API 通道暂时用不了 —— 此时改用 [`../B3-浏览器发草稿/README.md`](../B3-浏览器发草稿/README.md)（不需要白名单）。
+> ⚠️ 名场面档案号的 **IP 白名单目前没放行本机**（`40164`），所以 API 通道暂时用不了 —— 此时改用 [`../08-推草稿箱/README.md`](../08-推草稿箱/README.md)（操作浏览器，不需要白名单）。
 
 **怎么自己确认某个 appid 对应哪个号**（比看 `.env` 可靠）：
 

@@ -11,17 +11,25 @@
 | 原步骤 | 换成 | 停用的代码 |
 |---|---|---|
 | `06-推草稿`（微信 API 推草稿）| [`../06-出物料/`](../06-出物料/README.md) —— 同样的 `wechat-img` 脚本，改跑 `--dry-run`，出物料不推送 | 无独立脚本（推送逻辑在 wechat-img 项目里）|
-| `B3-浏览器发草稿`（Playwright 操作公众号网页）| `06-出物料` 生成的 `copy.html`，人手动粘贴 | `mp_draft.py`、`fix_draft.py` |
-| `B4-发视频号`（Playwright 发视频号草稿）| [`../B4-出视频物料/`](../B4-出视频物料/README.md) —— 只产出文案 | `publish.py` |
+
+> `B3-浏览器发草稿`（Playwright 操作公众号网页）**2026-10-17 已恢复**，
+> 提为正式步骤 [`../08-推草稿箱/`](../08-推草稿箱/README.md)（`mp_draft.py`、`fix_draft.py`、
+> `list_drafts.py`、`cleanup_dupes.py`），**不在本目录里了**。
+>
+> `B4-发视频号`（Playwright 发视频号草稿）**2026-10-17 也已恢复**，
+> 提为正式步骤 [`../B5-发视频号/`](../B5-发视频号/README.md)（`vh_draft.py`），
+> **也不在本目录里了** —— 注意那个 `publish.py`（带 `--publish` 开关的旧版）留在本目录作参考，
+> 新版**没有发表开关**，只会存草稿。
 
 ## 要恢复自动化时
 
-三个目录里各自的 README **原封不动**，坑都还在（IP 白名单、token 缓存不区分 appid、Wujie 微前端 frame 选择器……），照着跑就行。
+`06-推草稿` 目录里的 README **原封不动**，坑都还在（IP 白名单、token 缓存不区分 appid……），照着跑就行。
 
 共同前提：
 
-- **B3 / B4 共用同一个浏览器 profile**：`~/Library/Caches/mingchangmian-mp-profile`，过期就删掉重新扫码
 - **06 用微信 API，需要 IP 白名单**，且必须在 `../wechat-img` 目录下跑（preflight 按 cwd 解析）
+- **浏览器通道共用同一个 profile**：`~/Library/Caches/mingchangmian-mp-profile`，过期就删掉重新扫码
+  （`08-推草稿箱` 与 `B5-发视频号` 共用；但**视频号要单独扫一次码**，公众号的登录态不通用）
 - 抖音 / 快手**从来没做过自动化**（平台没有面向个人的开放接口），后台地址见 `名场面/账号运营.md`
 
 > 留个提醒：`wechat-img/src/wechat.js` 的 token 缓存是**固定文件名**，换 appid 跑会复用上一个号的 token、把稿子推进错的草稿箱。换号前先删 `../wechat-img/cache/token.json`。这条一直没修（改动在 wechat-img 项目）。

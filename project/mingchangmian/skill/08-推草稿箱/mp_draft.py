@@ -2,8 +2,8 @@
 # 把 article.json 通过「操作浏览器」发进公众号草稿箱（不走微信 API，因此不受 IP 白名单限制）
 #
 # 用法:
-#   cd skill/B3-浏览器发草稿
-#   python3 mp_draft.py <article.json 路径> [--author 署名] [--no-save]
+#   cd skill/08-推草稿箱
+#   python3 mp_draft.py <article.json 路径> [--author 署名] [--head-image x.gif] [--no-save]
 #
 # 首次跑（或浏览器 profile 失效）会让你扫码登录。登录态存在持久化 profile 里，
 # 之后不用反复扫 —— 直到公众号会话过期。
@@ -53,45 +53,138 @@ def _pick(root, sel, timeout=10):
     return None
 
 
+def _js_click_text(page, txt):
+    """按文字点 button（绕过蒙层拦截）"""
+    return page.evaluate("""(t)=>{let hit=false;
+        document.querySelectorAll('button').forEach(b=>{
+          if((b.innerText||'').trim()===t && b.getBoundingClientRect().width>0
+             && !b.className.includes('disabled')){b.click(); hit=true;}});
+        return hit;}""", txt)
+
+
+def _btn_enabled(page, txt, timeout=15):
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        st = page.evaluate("""(t)=>{let r=null;
+            document.querySelectorAll('button').forEach(b=>{
+              if((b.innerText||'').trim()===t && b.getBoundingClientRect().width>0)
+                r={dis:b.className.includes('disabled')};});
+            return r;}""", txt)
+        if st and not st["dis"]:
+            return True
+        time.sleep(0.7)
+    return False
+
+
+def _mouse_click_sel(page, sel, nth=0):
+    """用真实鼠标点元素的中心 —— JS .click() 对 Vue 的选中态**不生效**（实测 2026-10-17），
+    必须发真实鼠标事件。"""
+    box = page.evaluate("""([s,n])=>{const e=document.querySelectorAll(s)[n];
+        if(!e) return null; const r=e.getBoundingClientRect();
+        if(r.width<2||r.height<2) return null;
+        return {x:r.x+r.width/2, y:r.y+r.height/2};}""", [sel, nth])
+    if not box:
+        return False
+    page.mouse.move(box["x"], box["y"]); time.sleep(0.3)
+    page.mouse.click(box["x"], box["y"]); return True
+
+
+def _close_dialog(page):
+    """把挡在保存按钮前面的弹窗关掉（不然「保存为草稿」点不到）"""
+    for sel in ["button:has-text('取消')", ".weui-desktop-dialog__close-btn"]:
+        el = _pick(page, sel, 3)
+        if el:
+            try:
+                el.click(timeout=4000); time.sleep(2)
+                print("   已关掉挡住的弹窗", flush=True)
+                return True
+            except Exception:
+                pass
+    return False
+
+
+def cover_is_set(page):
+    """封面到底设上了没有。
+
+    ⚠️ 只看 `.js_cover_preview_new` 有没有 `mmbiz` 背景图。**别信这两样**：
+    - 那句「拖拽或选择封面」文案：封面**设上了它照样显示**；
+    - `.js_share_type_image`：封面设上了它仍是 `display:none`。
+    2026-10-17 实测：封面已在列表显示缩略图，编辑页这两处却都还是「未设」的样子 ——
+    拿它们判定会得到假阴性。
+    """
+    return bool(page.evaluate("""()=>{const d=document.querySelector('.js_cover_preview_new');
+        if(!d) return false;
+        const bg=getComputedStyle(d).backgroundImage||'';
+        return bg.includes('mmbiz') || (bg.includes('url(') && !bg.includes('svg'));}"""))
+
+
 def set_cover_from_body(page):
     """把正文里第一张图设为封面。
 
     微信的封面**必须来自正文已有图片或图片库**，没有「直接上传本地文件」的入口
-    （对话框只有：从正文选择 / 从图片库选择 / 微信扫码上传）。
-    所以顺序是：先把头图粘进正文 → 再回来「从正文选择」。
+    （对话框只有：从正文选择 / 从图片库选择 / 微信扫码上传 / 一键生成封面）。
 
-    失败不影响文章本身，返回 False 让调用方继续。
+    ⚠️ 2026-10-17 实测的坑：
+    1. 弹窗里的缩略图是 **`span.appmsg_content_img`（background-image，不是 `<img>`）**，
+       旧选择器找 `.weui-desktop-dialog img` 必然落空；
+    2. 选中它**必须用真实鼠标点击**，JS `.click()` 不触发 Vue 的选中态 →「下一步」一直 disabled。
+       而且点完后要等「下一步」从 disabled 变可用；
+    3. 裁切页按钮是 **「上一步 / 确认」**，**不叫「完成」**；
+    4. **封面区的选择器必须精确**：`[class*='js_cover_btn_area']` 在**编辑已有草稿**的页面里
+       会连下拉菜单（`pop-opr__group js_cover_opr js_cover_btn_area`）一起匹配到，
+       取错元素会让 hover 干等 30 秒超时（fix_draft 路上踩到）。
+       用 `.select-cover__btn.js_cover_btn_area`（复合类名，唯一）或 `#js_cover_area`。
+
+    失败不影响文章本身，返回 False 让调用方继续（但要记得关掉弹窗）。
     """
     try:
-        b = _pick(page, "[class*='js_cover_btn_area']", 8)
+        b = _pick(page, ".select-cover__btn.js_cover_btn_area", 8) or _pick(page, "#js_cover_area", 8)
         if not b:
             print("   ! 找不到封面区", flush=True)
             return False
-        b.hover(); time.sleep(1)
-        b.click(); time.sleep(3)
-        c = _pick(page, ".js_selectCoverFromContent", 8)   # 『从正文选择』
+        # hover 让下拉浮层出现（失败就重试，别一口气干等 30 秒）
+        c = None
+        for _ in range(3):
+            try:
+                b.hover(timeout=6000); time.sleep(2)
+            except Exception:
+                pass
+            c = _pick(page, "a.js_selectCoverFromContent", 4)
+            if c:
+                break
+            print("   · 下拉浮层没出来，重试 hover", flush=True)
         if not c:
             print("   ! 找不到『从正文选择』", flush=True)
             return False
-        c.click(); time.sleep(4)
-        # 对话框里选那张图
-        img = _pick(page, ".weui-desktop-dialog img", 6) or _pick(page, "[class*=dialog] img", 5)
-        if not img:
-            print("   ! 对话框里没看到图", flush=True)
+        c.click(); time.sleep(5)
+
+        if not _mouse_click_sel(page, "span.appmsg_content_img"):
+            print("   ! 弹窗里没有可选的图", flush=True)
             return False
-        img.click(); time.sleep(1.5)
-        for sel in ["button:has-text('确定')", "button:has-text('确认')",
-                    ".weui-desktop-btn_primary", "button:has-text('下一步')"]:
-            try:
-                btn = _pick(page, sel, 3)
-                if btn:
-                    btn.click(timeout=4000); time.sleep(4)
-                    print("   ✓ 封面已设为正文首图", flush=True)
-                    return True
-            except Exception:
-                pass
-        print("   ! 选了图但没找到确认按钮", flush=True)
-        return False
+        time.sleep(2)
+        if not _btn_enabled(page, "下一步", 12):
+            print("   ! 选了图但『下一步』没启用", flush=True)
+            return False
+        _js_click_text(page, "下一步"); time.sleep(5)
+        # 裁切页：按钮是「上一步 / 确认」（**不叫「完成」** —— 2026-10-17 实测）
+        got_it = False
+        for name in ["确认", "完成", "确定"]:
+            if _btn_enabled(page, name, 8):
+                _js_click_text(page, name)
+                got_it = True
+                print("   裁切页点『%s』" % name, flush=True)
+                time.sleep(5)
+                break
+        if not got_it:
+            print("   ! 裁切页没找到确认按钮", flush=True)
+            return False
+        # 校验：靠 `.js_cover_preview_new` 有没有 mmbiz 背景图判断
+        # （别用 `js_share_type_image` 或「拖拽或选择封面」文案 —— 封面设上了它们也不变，
+        #  见 cover_is_set 的注释）
+        shown = cover_is_set(page)
+        print("   %s 封面%s" % ("✓" if shown else "?", "已设为正文首图" if shown else "状态未确认"),
+              flush=True)
+        return bool(shown)
     except Exception as e:
         print("   ! 设封面失败:", str(e)[:90], flush=True)
         return False
@@ -118,11 +211,28 @@ def head_img_tag(path):
 
 
 # ---------- 登录 ----------
+def _find_token_page(ctx):
+    """在 context 的**所有**页面里找带 token 的后台页。
+
+    ⚠️ 不能只看最初那个 page：扫码成功后，微信常常**另开一个标签页**打开后台，
+    原登录页会一直停在「扫码成功」不动 —— 脚本傻等 360 秒后超时（2026-10-17 踩到）。
+    """
+    for pg in list(ctx.pages):
+        try:
+            u = pg.url
+        except Exception:
+            continue
+        if "token=" in u and "cgi-bin" in u:
+            return u.split("token=")[1].split("&")[0], pg
+    return None, None
+
+
 def ensure_login(ctx, page):
-    """返回 token；未登录则提示扫码并等待"""
+    """返回 (token, 后台页)；未登录则提示扫码并等待"""
     page.goto("https://mp.weixin.qq.com/", wait_until="domcontentloaded", timeout=60000)
     time.sleep(3)
-    if "token=" in page.url:
+    tok, pg = _find_token_page(ctx)
+    if tok:
         print("[✓] 已有登录态", flush=True)
     else:
         print("=" * 58, flush=True)
@@ -130,13 +240,14 @@ def ensure_login(ctx, page):
         print("=" * 58, flush=True)
         t0 = time.time()
         while time.time() - t0 < LOGIN_WAIT:
-            if "token=" in page.url and "cgi-bin" in page.url:
+            tok, pg = _find_token_page(ctx)
+            if tok:
                 break
             time.sleep(2)
         else:
             sys.exit("[✗] 扫码等待超时")
         print("[✓] 登录成功", flush=True)
-    return page.url.split("token=")[1].split("&")[0]
+    return tok, pg
 
 
 # ---------- 主流程 ----------
@@ -177,7 +288,9 @@ def main():
             pass
         page = ctx.pages[0] if ctx.pages else ctx.new_page()
 
-        tok = ensure_login(ctx, page)
+        tok, back = ensure_login(ctx, page)
+        # 扫码成功后微信会另开标签页；用那个后台页继续，别在登录页上干活
+        page = back or page
         print("[1] token = %s...  打开编辑器" % tok[:8], flush=True)
         page.goto(EDITOR % tok, wait_until="domcontentloaded", timeout=60000)
         time.sleep(8)
@@ -193,7 +306,11 @@ def main():
 
         # 标题 = 第 1 个 ProseMirror（#title 那个 textarea 是隐藏镜像，高 0，不能用）
         print("[2] 标题...", flush=True)
-        page.locator("div.ProseMirror").nth(0).click(); time.sleep(0.6)
+        ttl = page.locator("div.ProseMirror").nth(0)
+        ttl.click(); time.sleep(0.6)
+        # ⚠️ 先清空：标题框可能残留自动填充的字符，直接 type 会拼出脏标题
+        page.keyboard.press("Meta+a"); time.sleep(0.3)
+        page.keyboard.press("Backspace"); time.sleep(0.6)
         page.keyboard.type(art["title"], delay=8); time.sleep(1)
 
         print("[3] 作者...", flush=True)
@@ -284,6 +401,8 @@ def main():
                 break
 
         print("[8] 保存为草稿...", flush=True)
+        # ⚠️ 封面/结构检测的弹窗如果还开着，会挡住保存按钮 —— 先清干净
+        _close_dialog(page)
         ok = False
         for sel in [SAVE_BTN, "button:has-text('保存为草稿')"]:
             try:
@@ -293,10 +412,24 @@ def main():
             except Exception:
                 pass
         if not ok:
+            # 兜底：JS 直接点（前面弹窗残留时 Playwright 的 click 会判定被遮挡）
+            ok = page.evaluate("""()=>{let hit=false;
+                document.querySelectorAll('button').forEach(b=>{
+                  if((b.innerText||'').trim()==='保存为草稿' && b.getBoundingClientRect().width>0){
+                    b.click(); hit=true;}});return hit;}""")
+        if not ok:
             sys.exit("[✗] 找不到『保存为草稿』按钮")
-        time.sleep(8)
+        time.sleep(10)
+
+        # 回读校验：底部状态条出现「已保存」才算真存进去了（防止「静默成功」）
+        saved = page.evaluate("""()=>{const t=document.body.innerText;
+            return /已保存/.test(t) ? (t.match(/\\d\\d:\\d\\d\\s*已保存[^\\n]*/)||['已保存'])[0] : '';}""")
         page.screenshot(path=os.path.join(args.shot_dir, "mp_saved.png"), full_page=True)
-        print("[✓] 已保存。截图 %s/mp_saved.png" % args.shot_dir, flush=True)
+        if saved:
+            print("[✓] 已保存（状态条：%s）。截图 %s/mp_saved.png" % (saved, args.shot_dir), flush=True)
+        else:
+            print("[?] 点了保存但没看到『已保存』状态 —— 去草稿箱核对！截图 %s/mp_saved.png"
+                  % args.shot_dir, flush=True)
         print("[!] 浏览器留 60 秒供你核对", flush=True)
         time.sleep(60)
         ctx.close()

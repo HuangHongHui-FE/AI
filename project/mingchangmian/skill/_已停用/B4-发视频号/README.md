@@ -26,7 +26,7 @@ python3 skill/B4-发视频号/publish.py "名场面/成品/019-爆笑吕子乔 �
 
 **默认只点「保存草稿」，加 `--publish` 才真正发表**（发布不可逆，别手滑）。
 
-首次跑（或会话过期）会弹 Chrome 提示扫码，登录态存在 `~/Library/Caches/mingchangmian-mp-profile`，和 B3 发公众号草稿**共用同一个 profile**。
+首次跑（或会话过期）会弹 Chrome 提示扫码，登录态存在 `~/Library/Caches/mingchangmian-mp-profile`，和 `08-推草稿箱` 发公众号草稿**共用同一个 profile**。
 
 ## 短标题的字符规则（⚠️ 最容易踩）
 
