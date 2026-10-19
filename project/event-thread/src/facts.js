@@ -146,7 +146,10 @@ export function splitByParts(nodes, ev) {
       chunks.push({ nodes: cur, title: parts[pi].title, digest: parts[pi].digest, summary: parts[pi].summary, closing: parts[pi].closing });
       cur = [];
       pi++;
-      if (pi >= parts.length) break;
+      // 注意：这里【不能】break。切完最后一篇时若直接跳出循环，
+      // 与最后边界同日的其余节点会被静默丢弃（2026-10-18 实踩：
+      // 两个 2026-10-16 节点只保留了前一个）。pi 越界后 parts[pi] 为
+      // undefined，until 自然为假，剩余节点会累积到 cur 并在循环末尾并入末篇。
     }
   }
   // 剩余节点并入最后一篇

@@ -1,0 +1,508 @@
+{
+  "slug": "tesla-roadster",
+  "name": "特斯拉第二代Roadster",
+  "summary": "特斯拉第二代Roadster于2017年11月16日以原型车亮相、承诺2020年交付，此后量产时间至少改口八次，直到2026年10月15日才在得克萨斯州完成实车演示，马斯克宣布2028年开始生产；2026年10月16日中国官网开放预订，意向金33.2万元。",
+  "started": "2017-11-16",
+  "ended": "",
+  "theme": "ink",
+  "parts": [
+    {
+      "title": "特斯拉Roadster亮相：说好2020年交付",
+      "summary": "2017年11月16日晚，特斯拉在加州霍桑的设计中心发布电动卡车Semi。发布会结束、灯光熄灭之后，马斯克用一句「One More Thing」从货车车厢里放出一辆红色敞篷跑车——第二代Roadster。他当场报出的数字是0到60英里1.9秒、续航620英里、200千瓦时电池组，并承诺2020年量产上市，售价20万美元起。三天后预订开启，标准版定金5万美元，限量1000台的「创始人系列」要全额预付25万美元。",
+      "closing": "2020年到了，车没来。这一年马斯克改口说，Roadster会在2021年于加州产线启动量产——从这句话开始，往后每一次给出的时间，都没能兑现。",
+      "digest": "2017年11月16日，第二代Roadster在Semi发布会上以「One More Thing」亮相：0-60英里1.9秒、续航620英里、售价20万美元起，承诺2020年交付。定金5万美元，创始人系列25万美元。2020年目标落空，马斯克改口2021年量产，2021年又先后推到2022年和2023年。",
+      "until": "2021-09-01"
+    },
+    {
+      "title": "特斯拉Roadster八次改口：从2022推到2028",
+      "summary": "2020年的交付承诺落空之后，Roadster的上市时间开始一段接一段地往后挪。2023年5月的股东大会改到2024年；2024年2月，马斯克承诺当年底展示量产版、2025年初交付，还把0到60英里的目标从1.9秒上调到1秒以内；2024年10月的财报电话会上，时间窗又变成2025至2026年。2025年11月的股东大会，量产时间被推到2027或2028年，实车演示定在2026年4月1日——愚人节。",
+      "closing": "九年里，这辆车的参数一路往上加，时间一路往后推。到了2025年底，唯一确定的只剩一件事：第一批交了钱的人，还在等。",
+      "digest": "2023年改到2024年，2024年改到2025年初、再改到2025-2026年，2025年11月推到2027或2028年，演示定在2026年愚人节。奥特曼想退订2018年的预订，发现项目联系邮箱已经停用。",
+      "until": "2025-11"
+    },
+    {
+      "title": "特斯拉Roadster腾空：2028年才量产",
+      "summary": "2026年，这辆车终于动了。2月提交新商标，3月马斯克把说法从「演示」换成「发布」，4月说月底前亮相、没等到，9月11日一张「Go for launch」预热图定档10月1日，特斯拉同时重新收了一轮5万美元定金。原定10月1日的活动因天气改到10月15日。当地时间10月15日晚，得州麦格雷戈的SpaceX火箭测试场上，Roadster冲上倒置坡道、倒挂贴壁，脱离瞬间冷气推进器点火，整车在空中横滚后落地。马斯克宣布2028年开始生产。",
+      "closing": "腾空是真的，0.81秒也是真的，九年跳票同样是真的。发布会第二天，中国官网开放预订——交的是33.2万元意向金，买的是2028年的排号。",
+      "digest": "2026年9月11日定档10月1日，因天气改到10月15日。当晚在得州SpaceX测试场，Roadster靠车底负压吸附倒挂贴壁，再用冷气推进器腾空横滚，0-60英里自测0.81秒。马斯克宣布2028年投产，中国官网次日开放预订，意向金33.2万元。",
+      "until": "2026-10-16"
+    }
+  ],
+  "nodes": [
+    {
+      "date": "2017-11-16",
+      "title": "第二代Roadster在Semi发布会上「One More Thing」亮相",
+      "level": "major",
+      "detail": "发布会结束、灯光熄灭之后，一辆厢式货车开进场地，车厢门打开，红色敞篷跑车驶出——马斯克用一句「One More Thing」发布了第二代Roadster。这款双门四座可拆敞篷车当场公布的数字是：0到60英里加速1.9秒，0到100英里4.2秒，400米直线加速8.9秒，最高时速超过250英里，高速公路续航620英里（约992公里），搭载三个电机和200千瓦时电池组，最大扭矩1万牛米。马斯克称它将在2020年量产上市，售价20万美元起。",
+      "facts": [
+        "发布会地点为加州霍桑的特斯拉设计中心，时间为2017年11月16日晚（美国太平洋时间）",
+        "现场公布的参数：0-60英里加速1.9秒、0-100英里4.2秒、400米直线加速8.9秒、最高时速超250英里（400公里）、续航620英里（992公里）",
+        "搭载三个电机、200千瓦时电池组，最大扭矩1万牛米",
+        "标准版售价20万美元起、定金5万美元；「创始人系列」限量1000台，需全额预付25万美元"
+      ],
+      "sources": [
+        {
+          "publisher": "新浪科技",
+          "title": "特斯拉超跑Roadster二代亮相：百公里加速仅需1.9秒",
+          "url": "https://tech.sina.cn/it/2017-11-17/detail-ifynwnty4052482.d.html",
+          "date": "2017-11-17"
+        },
+        {
+          "publisher": "中证网",
+          "title": "订金133万起！特斯拉最贵跑车无货开售 3年后量产",
+          "url": "https://www.cs.com.cn/xwzx/201711/t20171121_5583181.html",
+          "date": "2017-11-21"
+        },
+        {
+          "publisher": "界面新闻",
+          "title": "特斯拉新款Roadster亮相：短暂腾空并翻转，计划2028年投产",
+          "url": "https://www.jiemian.com/article/15198047.html",
+          "date": "2026-10-16"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/006.jpg",
+          "alt": "红色Roadster二代原型车行驶在公路上"
+        },
+        {
+          "src": "input/20261018-tesla-roadster/008.jpg",
+          "alt": "白色Roadster二代原型车停在TESLA展台前，正面视角"
+        }
+      ]
+    },
+    {
+      "date": "2018-02-06",
+      "title": "猎鹰重型首飞，把一辆初代Roadster送进太空",
+      "detail": "SpaceX的猎鹰重型火箭首次试飞成功，载荷是一辆初代特斯拉Roadster，驾驶座上坐着穿宇航服的假人「Starman」。这辆车被安装在火箭第二级，随后进入绕太阳飞行的轨道。这是特斯拉和SpaceX两家公司的名字第一次以这种方式绑在一起。",
+      "facts": [
+        "发射时间为当地时间2018年2月6日，跑车安装在猎鹰重型火箭第二级",
+        "2019年8月，这辆Roadster完成第一圈绕日飞行"
+      ],
+      "sources": [
+        {
+          "publisher": "中国新闻网",
+          "title": "特斯拉“太空跑车”完成第一圈绕日飞行 向火星靠近",
+          "url": "https://www.chinanews.com.cn/gj/2019/08-19/8931354.shtml",
+          "date": "2019-08-19"
+        },
+        {
+          "publisher": "界面新闻",
+          "title": "特斯拉新款Roadster亮相：短暂腾空并翻转，计划2028年投产",
+          "url": "https://www.jiemian.com/article/15198047.html",
+          "date": "2026-10-16"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/010.jpg",
+          "alt": "一辆Roadster连同驾驶座上的宇航员假人悬浮在太空背景中"
+        },
+        {
+          "src": "input/20261018-tesla-roadster/015.jpg",
+          "alt": "从太空视角拍摄的Roadster与宇航员假人"
+        }
+      ]
+    },
+    {
+      "date": "2020-08-28",
+      "title": "2020年交付落空，马斯克改口「2021年在加州量产」",
+      "level": "turning",
+      "detail": "原定2020年开始交付的Roadster没有动静，特斯拉的产能全部压在Model 3和Model Y上。马斯克在推特上表示，Roadster的测试调整仍在进行，预计2021年在加州产线启动量产；同时透露未来将追加含冷风推进器的「SpaceX性能套件」，以及F1赛车等级的单螺栓铝合金轮圈。这是「会飞的特斯拉」这个说法的起点。",
+      "facts": [
+        "2017年宣布的2020年交付目标未实现",
+        "马斯克称Roadster预计2021年在加州工厂启动量产",
+        "马斯克透露将追加含冷风推进器的「SpaceX性能套件」"
+      ],
+      "sources": [
+        {
+          "publisher": "央视网汽车频道",
+          "title": "特斯拉Roadster预计在2021年开始在加州正式启动量产",
+          "url": "https://auto.cctv.com/2020/08/28/ARTItNslIqDuJN5cVZJZEfFx200828.shtml",
+          "date": "2020-08-28"
+        },
+        {
+          "publisher": "Electrek",
+          "title": "Tesla is supposed to imminently unveil its new Roadster after years of delays",
+          "url": "https://electrek.co/2026/04/21/tesla-roadster-unveil-imminent-after-years-delays/",
+          "date": "2026-04-21"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/007.jpg",
+          "alt": "白色Roadster二代原型车停在展厅内，车头可见特斯拉标志"
+        }
+      ]
+    },
+    {
+      "date": "2021-09-01",
+      "title": "马斯克把交付时间推迟到2023年，理由是缺芯片",
+      "level": "turning",
+      "detail": "马斯克在社交平台称，2021年供应链短缺相当严重，即使特斯拉有17种新产品，也没有一种会出货；如果2022年没有大的变故，Roadster将在2023年出货。这是他当年第二次改口——1月他刚把这款车的上市时间推到2022年。",
+      "facts": [
+        "马斯克给出的理由是2021年全球供应链短缺、芯片紧缺",
+        "2021年1月，他刚把Roadster的上市时间从2021年推迟到2022年"
+      ],
+      "sources": [
+        {
+          "publisher": "央视网汽车频道（转载中国经济网）",
+          "title": "特斯拉Roadster交付时间 再度推迟至2023年",
+          "url": "https://auto.cctv.com/2021/09/03/ARTImbnivXgNae1GjGGXx4gm210903.shtml",
+          "date": "2021-09-03"
+        },
+        {
+          "publisher": "央视网汽车频道（转载中国经济网）",
+          "title": "马斯克要求员工“努力干活”以弥补第三季初的生产挑战",
+          "url": "https://auto.cctv.com/2021/09/14/ARTIG8BArpWMTK5cYk9IiQOY210914.shtml",
+          "date": "2021-09-14"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/012.jpg",
+          "alt": "红色Roadster二代原型车停在建筑门前"
+        }
+      ]
+    },
+    {
+      "date": "2023-05",
+      "title": "股东大会上，量产目标改到2024年",
+      "detail": "在2023年5月的特斯拉股东大会上，马斯克把Roadster的量产目标从2023年改到2024年。这是这款车2017年亮相以来的又一次顺延，2017年那批预订者已经等了五年半。",
+      "facts": [
+        "2023年5月股东大会，马斯克把Roadster的量产目标改到2024年",
+        "此时距2017年11月原型车亮相已过去五年半"
+      ],
+      "sources": [
+        {
+          "publisher": "Electrek",
+          "title": "Tesla is supposed to imminently unveil its new Roadster after years of delays",
+          "url": "https://electrek.co/2026/04/21/tesla-roadster-unveil-imminent-after-years-delays/",
+          "date": "2026-04-21"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/009.jpg",
+          "alt": "红色Roadster二代原型车行驶在山路上，车尾视角"
+        }
+      ]
+    },
+    {
+      "date": "2024-02",
+      "title": "改口「2024年底展示、2025年初交付」，加速目标上调到1秒内",
+      "level": "turning",
+      "detail": "2024年2月，马斯克承诺2024年底展示量产版Roadster、2025年初开始交付。同月他在X上表示，新的设计目标是把0到60英里加速压进1秒以内——比2017年公布的1.9秒又提高了一档。",
+      "facts": [
+        "2024年2月，马斯克承诺2024年底展示量产版、2025年初开始交付",
+        "同月他把0-60英里的设计目标从1.9秒上调到1秒以内",
+        "2018年首次公布的「SpaceX套件」方案，据称包含约10个冷气推进器，用于增强过弯、制动和加速"
+      ],
+      "sources": [
+        {
+          "publisher": "Electrek",
+          "title": "Tesla is supposed to imminently unveil its new Roadster after years of delays",
+          "url": "https://electrek.co/2026/04/21/tesla-roadster-unveil-imminent-after-years-delays/",
+          "date": "2026-04-21"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/005.jpg",
+          "alt": "红色Roadster二代原型车停在展台上，侧面视角"
+        }
+      ]
+    },
+    {
+      "date": "2024-10",
+      "title": "财报电话会上承认：又推迟到2025至2026年",
+      "detail": "在2024年第三季度财报电话会上，马斯克承认Roadster量产再次推迟，时间窗改成2025至2026年。这是这款车第七次被给出新的生产时间。",
+      "facts": [
+        "2024年10月，特斯拉第三季度财报电话会上，量产时间改为2025-2026年"
+      ],
+      "sources": [
+        {
+          "publisher": "Electrek",
+          "title": "Tesla is supposed to imminently unveil its new Roadster after years of delays",
+          "url": "https://electrek.co/2026/04/21/tesla-roadster-unveil-imminent-after-years-delays/",
+          "date": "2026-04-21"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/019.jpg",
+          "alt": "红色Roadster二代原型车行驶在公路上，正面视角"
+        }
+      ]
+    },
+    {
+      "date": "2025-10",
+      "title": "奥特曼退订被卡：Roadster项目的联系邮箱已经停用",
+      "detail": "OpenAI首席执行官萨姆·奥特曼想退掉他2018年7月下的Roadster预订，却发现特斯拉Roadster项目的联系邮箱已经停止使用。他把这件事公开之后，马斯克回应称退款已在24小时内处理——但那是在事情公开之后。",
+      "facts": [
+        "奥特曼的Roadster预订下于2018年7月",
+        "特斯拉Roadster项目的联系邮箱已停止使用",
+        "马斯克称退款在24小时内完成，时点在事件公开之后"
+      ],
+      "sources": [
+        {
+          "publisher": "Electrek",
+          "title": "Tesla is supposed to imminently unveil its new Roadster after years of delays",
+          "url": "https://electrek.co/2026/04/21/tesla-roadster-unveil-imminent-after-years-delays/",
+          "date": "2026-04-21"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/025-MKBHD与马斯克.jpg",
+          "alt": "科技博主MKBHD与马斯克对谈的访谈画面截图"
+        }
+      ]
+    },
+    {
+      "date": "2025-11",
+      "title": "股东大会：量产推到2027或2028年，演示定在愚人节",
+      "level": "turning",
+      "detail": "2025年11月的特斯拉股东大会上，马斯克把Roadster的量产时间推到2027或2028年，并把实车演示定在2026年4月1日——愚人节。他开玩笑说，选这天是为了给自己留「否认的余地」，万一失败可以说只是在开玩笑。",
+      "facts": [
+        "2025年11月股东大会，马斯克称Roadster量产要到2027或2028年",
+        "实车演示日期被定为2026年4月1日（愚人节）",
+        "马斯克称选愚人节是为了「万一失败可以说我只是在开玩笑」"
+      ],
+      "quote": {
+        "text": "deniability because I can say I was just kidding.",
+        "speaker": "埃隆·马斯克，2025年11月特斯拉股东大会"
+      },
+      "sources": [
+        {
+          "publisher": "Electrek",
+          "title": "Tesla is supposed to imminently unveil its new Roadster after years of delays",
+          "url": "https://electrek.co/2026/04/21/tesla-roadster-unveil-imminent-after-years-delays/",
+          "date": "2026-04-21"
+        },
+        {
+          "publisher": "Electrek",
+          "title": "Tesla teases new Roadster reveal for October 1: 'Go for launch'",
+          "url": "https://electrek.co/2026/09/12/tesla-roadster-october-1-reveal-teaser/",
+          "date": "2026-09-12"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/016.jpg",
+          "alt": "红色Roadster二代原型车停在一处展示装置中"
+        }
+      ]
+    },
+    {
+      "date": "2026-02",
+      "title": "向美国专利商标局提交两项新商标申请",
+      "detail": "2026年2月，特斯拉向美国专利商标局提交两项新商标申请，其中一项的车身剪影与2017年原型车不同：更流线、车顶更方。同期还申请了一体成型复合材料座椅的专利。",
+      "facts": [
+        "2026年2月向美国专利商标局提交两项商标申请",
+        "其中一项的车身剪影比2017年原型车更流线、车顶更方"
+      ],
+      "sources": [
+        {
+          "publisher": "Electrek",
+          "title": "Tesla is supposed to imminently unveil its new Roadster after years of delays",
+          "url": "https://electrek.co/2026/04/21/tesla-roadster-unveil-imminent-after-years-delays/",
+          "date": "2026-04-21"
+        }
+      ]
+    },
+    {
+      "date": "2026-03",
+      "title": "马斯克改口：不叫「演示」了，叫「发布」",
+      "detail": "2026年3月，马斯克的说法从「demo（演示）」换成「unveil（发布）」，在X上称Roadster的发布会在4月下旬，是一场「next-level 的重磅」，并说量产车会和此前展示的「很不一样」。",
+      "facts": [
+        "2026年3月，马斯克称Roadster的发布会将在4月下旬",
+        "他把说法从「演示」改成了「发布」"
+      ],
+      "sources": [
+        {
+          "publisher": "Electrek",
+          "title": "Tesla is supposed to imminently unveil its new Roadster after years of delays",
+          "url": "https://electrek.co/2026/04/21/tesla-roadster-unveil-imminent-after-years-delays/",
+          "date": "2026-04-21"
+        }
+      ]
+    },
+    {
+      "date": "2026-04",
+      "title": "4月没等到，再改口「月底前」",
+      "detail": "4月，马斯克称Roadster会在月底前发布，此时距他说好的4月1日演示已经过去三周。这个4月也过去了，之后是「可能再过一个月」，再之后是「夏天」——直到9月才定下具体日期。",
+      "facts": [
+        "2026年4月，马斯克称Roadster将在月底前发布",
+        "该承诺未兑现，此后又出现「可能再过一个月」等说法"
+      ],
+      "sources": [
+        {
+          "publisher": "Electrek",
+          "title": "Tesla is supposed to imminently unveil its new Roadster after years of delays",
+          "url": "https://electrek.co/2026/04/21/tesla-roadster-unveil-imminent-after-years-delays/",
+          "date": "2026-04-21"
+        },
+        {
+          "publisher": "Electrek",
+          "title": "Tesla teases new Roadster reveal for October 1: 'Go for launch'",
+          "url": "https://electrek.co/2026/09/12/tesla-roadster-october-1-reveal-teaser/",
+          "date": "2026-09-12"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-11",
+      "title": "「Go for launch」：定档10月1日，预订重新开放",
+      "level": "turning",
+      "detail": "特斯拉发布预热图：一辆红色Roadster笼罩在火箭发射台那样的垂直灯光下，配文「Go for launch」，底部印着日期「10.01」，官网同步挂出倒计时。图里的暗示很直接——这辆车要悬空。定档之后，特斯拉重新开放了Roadster预订，要求5万美元定金：先刷5000美元信用卡（可全额退），10天内再电汇4.5万美元，汇款到账预订才算数。这是特斯拉第二次收这5万美元，2017年那批交钱的人已经等了近九年。",
+      "facts": [
+        "2026年9月11日（周五），特斯拉发布「Go for launch」预热图，定档10月1日发布，官网同步挂出倒计时",
+        "定档后特斯拉重新开放预订，定金5万美元：5000美元刷卡+10天内电汇4.5万美元",
+        "2017年那批预订者的定金同样是5万美元"
+      ],
+      "sources": [
+        {
+          "publisher": "Electrek",
+          "title": "Tesla teases new Roadster reveal for October 1: 'Go for launch'",
+          "url": "https://electrek.co/2026/09/12/tesla-roadster-october-1-reveal-teaser/",
+          "date": "2026-09-12"
+        },
+        {
+          "publisher": "Electrek",
+          "title": "Tesla reopens $50,000 Roadster reservations ahead of October 1 unveil",
+          "url": "https://electrek.co/2026/09/20/tesla-reopens-50000-roadster-reservations-october-1-unveil/",
+          "date": "2026-09-20"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-29",
+      "title": "因恶劣天气改期到10月15日",
+      "detail": "特斯拉在社交平台宣布，原定10月1日在得克萨斯州韦科举行的新一代Roadster发布会，因恶劣天气预报推迟到10月15日。官方解释：演示的核心是冷气推进套件，这类高压惰性气体喷射存在安全风险，室内空间不足以承载，活动只能在开阔户外场地办，天气条件因此直接决定成败。",
+      "facts": [
+        "原定10月1日举行，改为10月15日",
+        "官方给出的理由是活动只能在户外举办，而预报有恶劣天气",
+        "演示内容为Roadster搭载的SpaceX冷气推进套件"
+      ],
+      "quote": {
+        "text": "鉴于预报将会出现恶劣天气，且本次活动只能在户外举办，我们做出了改期的艰难决定。",
+        "speaker": "特斯拉官方声明，2026年9月29日"
+      },
+      "sources": [
+        {
+          "publisher": "今日头条（转载报道）",
+          "title": "再度改期！特斯拉新一代Roadster发布会推迟",
+          "url": "http://m.toutiao.com/group/7690743117045170688/",
+          "date": "2026-09-29"
+        },
+        {
+          "publisher": "汽车之家·车家号",
+          "title": "特斯拉Roadster再延期，发布会改至10月15日",
+          "url": "https://chejiahao.m.autohome.com.cn/pingan/chejiahao/detailinfo/26574628",
+          "date": "2026-10"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "得州腾空：Roadster真的离地了",
+      "level": "climax",
+      "detail": "当地时间10月15日晚，特斯拉在得州麦格雷戈的SpaceX火箭发动机测试场发布第二代Roadster。原型车先沿弧形倒置坡道冲上顶端，靠车底负压吸附系统倒挂贴壁行驶；脱离坡道的瞬间冷气推进器启动，整车在空中完成横滚后平稳落地。第二轮演示中它短时腾空，横向飞越了列队的Cybertruck、Semi、Cybercab、Model Y和Model 3。0到60英里的现场自测成绩是0.81秒。马斯克宣布2028年开始生产，但没有公布售价和交付日期。",
+      "facts": [
+        "演示地点为得克萨斯州麦格雷戈的SpaceX火箭发动机测试场",
+        "推进系统代号A71，与SpaceX联合开发；车内两只碳纤维高压气瓶总容积600升，可储约250公斤压缩空气，车身共10个喷口",
+        "车底负压吸附系统由大功率风扇制造低压区，最高产生2G吸附下压力",
+        "0-60英里（约97公里）现场自测成绩0.81秒",
+        "马斯克宣布2028年开始生产，未公布售价与交付日期",
+        "新车改为双座布局，配线控转向、制动和油门；2017年亮相的原型车是四座"
+      ],
+      "quote": {
+        "text": "你将看到世界最好的汽车公司与世界最好的火箭公司合作的结果。",
+        "speaker": "埃隆·马斯克，2026年10月15日发布会开场"
+      },
+      "sources": [
+        {
+          "publisher": "澎湃新闻",
+          "title": "特斯拉Roadster“起飞”背后：SpaceX技术上车，国内预订意向金33万元",
+          "url": "https://www.thepaper.cn/newsDetail_forward_34262742",
+          "date": "2026-10-16"
+        },
+        {
+          "publisher": "界面新闻",
+          "title": "特斯拉新款Roadster亮相：短暂腾空并翻转，计划2028年投产",
+          "url": "https://www.jiemian.com/article/15198047.html",
+          "date": "2026-10-16"
+        },
+        {
+          "publisher": "证券时报",
+          "title": "火箭技术“上车”！飞行汽车概念全线爆发！马斯克瞬间引爆新风口",
+          "url": "https://www.stcn.com/article/detail/4222130.html",
+          "date": "2026-10-16"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/022-腾空翻越车队.jpg",
+          "alt": "夜间，Roadster腾空横越停放着半挂卡车与多辆特斯拉的场地"
+        },
+        {
+          "src": "input/20261018-tesla-roadster/023-发布会舞台.jpg",
+          "alt": "白色Roadster停在发布舞台射灯下，鸥翼门开启，驾驶座无人"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "title": "中国官网开放预订：只有Performance版，意向金33.2万元",
+      "detail": "发布会次日，特斯拉中国官网开放Roadster预订，但只放Performance版本，意向金33.2万元人民币，可退。官网同时提示「车辆最终能否在您所在地区上市提供需以届时在行法律法规为准」。美国官网则挂出三个版本：Performance定金5万美元、Thrust定金25万美元、单座的Rocket仅接受邀请。",
+      "facts": [
+        "中国官网仅开放Performance版本，预订意向金33.2万元人民币",
+        "美国官网：Performance定金5万美元、Thrust定金25万美元、Rocket为邀请制",
+        "Rocket为单座版本，不具备公共道路行驶资质，仅限封闭场地使用",
+        "三个版本续航均标称超300英里、极速超230英里，最终售价均未公布"
+      ],
+      "sources": [
+        {
+          "publisher": "澎湃新闻",
+          "title": "特斯拉Roadster“起飞”背后：SpaceX技术上车，国内预订意向金33万元",
+          "url": "https://www.thepaper.cn/newsDetail_forward_34262742",
+          "date": "2026-10-16"
+        },
+        {
+          "publisher": "证券时报",
+          "title": "火箭技术“上车”！飞行汽车概念全线爆发！马斯克瞬间引爆新风口",
+          "url": "https://www.stcn.com/article/detail/4222130.html",
+          "date": "2026-10-16"
+        }
+      ],
+      "images": [
+        {
+          "src": "input/20261018-tesla-roadster/024-官方X帖.jpg",
+          "alt": "特斯拉官方X账号在发布会次日发布的帖子截图，配文“Real life, baby”"
+        },
+        {
+          "src": "input/20261018-tesla-roadster/020.jpg",
+          "alt": "红色Roadster二代原型车行驶在公路上，车尾视角"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "title": "A股「飞行汽车」概念股集体涨停",
+      "detail": "发布会次日，A股「飞行汽车」概念全线走强：北交所捷众科技30%涨停，华力创通、佳力奇、金盾股份、广联航空、英搏尔均20%涨停，板块整体涨超5%。同一天沪指收涨0.24%，万丰奥威、瑞玛精密等多股涨停。",
+      "facts": [
+        "北交所捷众科技30%涨停，华力创通、佳力奇、金盾股份、广联航空、英搏尔20%涨停，板块涨超5%",
+        "同日沪指涨0.24%，万丰奥威、瑞玛精密等多股涨停"
+      ],
+      "sources": [
+        {
+          "publisher": "证券时报",
+          "title": "火箭技术“上车”！飞行汽车概念全线爆发！马斯克瞬间引爆新风口",
+          "url": "https://www.stcn.com/article/detail/4222130.html",
+          "date": "2026-10-16"
+        }
+      ]
+    }
+  ]
+}
