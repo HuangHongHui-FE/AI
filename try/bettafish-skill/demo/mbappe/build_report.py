@@ -1,0 +1,618 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""生成姆巴佩事件舆情分析报告：HTML + Markdown（自包含，无 CDN 依赖）。
+
+用法：
+  python3 demo/mbappe/build_report.py                 # 使用最新一次 run_mbappe.py 的输出
+  python3 demo/mbappe/build_report.py <运行目录或相对路径>
+"""
+
+import json
+import math
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+BASE = HERE.parent.parent
+
+
+def resolve_out() -> Path:
+    if len(sys.argv) > 1:
+        p = Path(sys.argv[1])
+        return p if p.is_absolute() else BASE / p
+    pointer = HERE / "latest_run.txt"
+    if pointer.exists():
+        return BASE / pointer.read_text(encoding="utf-8").strip()
+    raise SystemExit("找不到 latest_run.txt，请先运行 demo/mbappe/run_mbappe.py 或显式传入运行目录")
+
+
+OUT = resolve_out()
+graph = json.loads((OUT / "graph.json").read_text(encoding="utf-8"))
+
+COLORS = {"topic": "#ffd700", "engine": "#64ffda", "section": "#8892b0",
+          "query": "#a8b2d1", "source": "#5a6b8c", "entity": "#f4a261"}
+
+
+def esc(s):
+    return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            .replace('"', "&quot;"))
+
+
+def render_graph_svg(w=980, h=560):
+    nodes = graph["nodes"]
+    links = graph["links"]
+    cx, cy = w / 2, h / 2
+    rings = [("topic", 0, 14), ("engine", 105, 11), ("section", 195, 7),
+             ("query", 275, 5), ("source", 345, 4)]
+    pos = {}
+    for ntype, radius, nr in rings:
+        group = [n for n in nodes if n["type"] == ntype]
+        for i, n in enumerate(group):
+            a = math.radians(-90) + 2 * math.pi * i / max(len(group), 1)
+            pos[n["id"]] = (cx + radius * math.cos(a), cy + radius * math.sin(a), nr)
+    ents = [n for n in nodes if n["type"] == "entity"]
+    for i, n in enumerate(ents):
+        a = 2 * math.pi * i / max(len(ents), 1) + math.radians(18)
+        pos[n["id"]] = (cx + 400 * math.cos(a), cy + 400 * math.sin(a), 4)
+
+    parts = [f'<svg viewBox="0 0 {w} {h}" class="kg" role="img" aria-label="知识图谱">']
+    for l in links:
+        if l["source"] in pos and l["target"] in pos:
+            x1, y1, _ = pos[l["source"]]
+            x2, y2, _ = pos[l["target"]]
+            parts.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="#2a3f5f"/>')
+    for n in nodes:
+        if n["id"] not in pos:
+            continue
+        x, y, r = pos[n["id"]]
+        c = COLORS.get(n["type"], "#8892b0")
+        parts.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="{c}" opacity=".92">'
+                     f'<title>{esc(n.get("name",""))} · {n["type"]}</title></circle>')
+        if n["type"] in ("topic", "engine", "section"):
+            dy = -r - 6 if y < h / 2 else r + 15
+            parts.append(f'<text x="{x:.1f}" y="{y+dy:.1f}" text-anchor="middle" fill="#e6f1ff" '
+                         f'font-size="11">{esc(n.get("name","")[:18])}</text>')
+    parts.append("</svg>")
+    return "\n".join(parts)
+
+
+CSS = """
+:root{--navy:#0a192f;--navy2:#112240;--gold:#ffd700;--gold2:#c9a227;--ink:#e6f1ff;
+--muted:#8892b0;--line:#233554;--red:#ff6b6b;--green:#64ffda;--amber:#ffd166}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--navy);color:var(--ink);line-height:1.85;
+font-family:"Source Serif Pro","Songti SC","Noto Serif SC",Georgia,serif;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold);color:var(--navy)}
+a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(255,215,0,.3)}
+a:hover{border-bottom-color:var(--gold)}
+.wrap{display:grid;grid-template-columns:268px 1fr;max-width:1480px;margin:0 auto}
+nav{position:sticky;top:0;height:100vh;padding:48px 26px;border-right:1px solid var(--line);
+background:linear-gradient(180deg,#081426,#0a192f)}
+nav .brand{font-family:"Playfair Display",Georgia,serif;font-size:22px;color:var(--gold);letter-spacing:.5px}
+nav .sub{font-size:10px;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase;margin-top:6px}
+nav ol{list-style:none;padding:0;margin:34px 0 0;counter-reset:toc}
+nav li{counter-increment:toc;margin:0 0 13px}
+nav li a{display:flex;gap:10px;border:0;color:var(--muted);font-size:12.5px;line-height:1.5}
+nav li a::before{content:counter(toc,decimal-leading-zero);color:var(--gold2);font-family:monospace;font-size:11px;padding-top:2px}
+nav li a:hover,nav li a.active{color:var(--gold)}
+main{padding:68px 72px 120px;max-width:1140px}
+.hero{border-bottom:1px solid var(--line);padding-bottom:44px;margin-bottom:52px}
+.kicker{color:var(--gold);letter-spacing:4px;text-transform:uppercase;font-size:11px}
+h1{font-family:"Playfair Display",Georgia,serif;font-size:50px;line-height:1.14;margin:18px 0 18px;font-weight:600}
+h1 em{color:var(--gold);font-style:normal}
+.lede{font-size:19px;color:#a8b2d1;max-width:790px}
+.meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:26px;font-size:12px;color:var(--muted);letter-spacing:1px}
+section{padding:44px 0;border-bottom:1px solid var(--line);scroll-margin-top:24px}
+section:last-of-type{border-bottom:0}
+h2{font-family:"Playfair Display",Georgia,serif;font-size:31px;margin:0 0 8px;font-weight:600}
+h2 .num{color:var(--gold);font-size:14px;letter-spacing:3px;display:block;margin-bottom:8px}
+h3{font-size:18px;margin:34px 0 10px;color:#cdd6f4}
+h4{font-size:15px;margin:24px 0 8px;color:#cdd6f4}
+p{margin:0 0 18px;color:#c7d0e0}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0 10px}
+.kpi{background:var(--navy2);border:1px solid var(--line);padding:22px 20px}
+.kpi .v{font-family:"Playfair Display",Georgia,serif;font-size:34px;color:var(--gold);line-height:1}
+.kpi .l{font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:.5px}
+.kpi .d{font-size:11px;color:#7f8ca3;margin-top:6px}
+table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13.5px}
+th{text-align:left;font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold2);
+border-bottom:1px solid var(--gold2);padding:10px 11px}
+td{padding:12px 11px;border-bottom:1px solid var(--line);color:#c7d0e0;vertical-align:top}
+tr:hover td{background:rgba(255,215,0,.03)}
+.pull{border-left:3px solid var(--gold);background:linear-gradient(90deg,rgba(255,215,0,.07),transparent);
+padding:20px 24px;margin:28px 0;font-size:17px;color:#e6f1ff}
+.pull cite{display:block;margin-top:9px;font-size:12px;color:var(--muted);font-style:normal;letter-spacing:1px}
+.hl{background:var(--navy2);border:1px solid var(--line);border-top:2px solid var(--gold);padding:22px 24px;margin:26px 0}
+.hl strong{color:var(--gold)}
+.warn{border-top-color:var(--red)}
+.warn strong{color:var(--red)}
+.engines{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}
+.engine{background:var(--navy2);border:1px solid var(--line);padding:18px}
+.engine h4{margin:0 0 8px;font-size:12px;letter-spacing:1.6px;color:var(--green);text-transform:uppercase}
+.engine p{font-size:13px;margin:0;color:#a8b2d1;line-height:1.7}
+.tag{display:inline-block;font-size:10px;letter-spacing:1px;padding:2px 8px;border:1px solid;border-radius:999px;white-space:nowrap}
+.tag.high{color:var(--red);border-color:var(--red)}
+.tag.mid{color:var(--amber);border-color:var(--amber)}
+.tag.low{color:var(--green);border-color:var(--green)}
+.tag.fact{color:var(--green);border-color:var(--green)}
+.tag.report{color:var(--amber);border-color:var(--amber)}
+.tag.unverified{color:var(--red);border-color:var(--red)}
+.kg{width:100%;height:auto;background:radial-gradient(circle at 50% 45%,#0e2038,#081426 70%);
+border:1px solid var(--line);margin:22px 0}
+.reveal{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
+.reveal.pre{opacity:0;transform:translateY(16px)}
+.reveal.in{opacity:1;transform:none}
+#top{position:fixed;right:26px;bottom:26px;width:44px;height:44px;border-radius:50%;
+border:1px solid var(--gold2);background:var(--navy2);color:var(--gold);font-size:18px;cursor:pointer;
+opacity:0;pointer-events:none;transition:.3s}
+#top.show{opacity:1;pointer-events:auto}
+ul,ol{padding-left:22px}li{margin-bottom:8px;color:#c7d0e0}
+.small{font-size:12px;color:var(--muted)}
+footer{padding-top:36px;color:var(--muted);font-size:12px}
+@media(max-width:1080px){.wrap{grid-template-columns:1fr}nav{position:static;height:auto;border-right:0;
+border-bottom:1px solid var(--line);padding:26px}nav ol{display:none}main{padding:40px 24px 80px}
+h1{font-size:36px}.kpis,.engines{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.kpis,.engines{grid-template-columns:1fr}}
+"""
+
+BODY = f"""
+<div class="wrap">
+<nav>
+  <div class="brand">BETTAFISH</div>
+  <div class="sub">Crisis Opinion Intelligence</div>
+  <ol>
+    <li><a href="#s1">报告摘要</a></li>
+    <li><a href="#s2">事件溯源与脉络</a></li>
+    <li><a href="#s3">舆情传播分析</a></li>
+    <li><a href="#s4">舆论焦点与态度</a></li>
+    <li><a href="#s5">风险研判</a></li>
+    <li><a href="#s6">应对策略与建议</a></li>
+    <li><a href="#s7">结论与启示</a></li>
+    <li><a href="#s8">数据附录</a></li>
+  </ol>
+</nav>
+<main>
+<header class="hero">
+  <div class="kicker">Crisis Report · 2026-10-27 · Beijing Time</div>
+  <h1>姆巴佩涉华言论事件：<em>48小时危机全景</em></h1>
+  <p class="lede">一段尚未被独立核实的播客片段，在 48 小时内触发微博 6.21 亿阅读、30 余个热搜、8 家以上品牌解约、央视停播与足协交涉，最终以本人中英法三语道歉、西甲联盟致歉收束——而皇家马德里至今未作正式回应。</p>
+  <div class="meta">
+    <span>QueryAgent · MediaAgent · InsightAgent</span>
+    <span>模板：突发事件与危机公关</span>
+    <span>样本：24 条检索来源</span>
+    <span>信息分层：事实 / 报道 / 未核实</span>
+  </div>
+</header>
+
+<section id="s1" class="reveal">
+  <h2><span class="num">CHAPTER 01</span>报告摘要</h2>
+  <div class="kpis">
+    <div class="kpi"><div class="v">6.21亿</div><div class="l">微博相关话题全站阅读量</div><div class="d">30+ 话题登热搜，前十一半相关</div></div>
+    <div class="kpi"><div class="v">48h</div><div class="l">从片段流出到三语道歉</div><div class="d">10/26 晚发酵 → 10/27 傍晚道歉</div></div>
+    <div class="kpi"><div class="v">~38%</div><div class="l">中国市场占其全球商业收入</div><div class="d">据 FT，年度代言收入近 2200 万欧元</div></div>
+  </div>
+
+  <h3>1.1 事件定性</h3>
+  <p>这不是一次单纯的“运动员失言”，而是<strong>民族情感、商业代言、平台治理与俱乐部责任叠加的复合型危机</strong>。触发点是一段涉及中国领导人形象的恶搞迷因讨论；放大器是中国市场对“吃饭砸锅”行为的高度敏感；结构性变量则是皇家马德里近两年多次涉华争议积累的信任赤字。</p>
+
+  <h3>1.2 核心结论</h3>
+  <ul>
+    <li><strong>传播闭环极快：</strong>垂直足球社区点火、微博引爆、官媒定调、品牌撤离、本人道歉，48 小时内完成全链路。</li>
+    <li><strong>商业反应快于官方定调：</strong>东鹏饮料在 10/27 09:43 率先解约，成为舆情转折点；品牌声明从“关注”直接跳到“终止全部合作”。</li>
+    <li><strong>道歉到位但责任缺位：</strong>姆巴佩的中英法三语声明覆盖了“伤害认知—非本意—表达敬意”三要素；但皇马始终未作全球同步的正式回应，危机从“个人”升级为“俱乐部态度”。</li>
+    <li><strong>历史旧账决定危机深度：</strong>2024 欧冠球迷辱华歌曲、2026 年赫伊森事件、2026 年 8 月涉西藏表述被重新翻出，舆论质疑从单点转向“双标”与“治理文化”。</li>
+    <li><strong>事实核查与情绪响应并行：</strong>涉事片段至今未被 BBC 等独立核实，姆巴佩也未在片段中点名；但这并未阻止舆论与商业反应的即时发生。</li>
+  </ul>
+
+  <h3>1.3 关键建议</h3>
+  <div class="hl"><strong>对皇马：</strong>立即以中西英三语全球同步发布正式声明，承认管理责任、公布球员跨文化培训与社媒审核整改时间表，并与中国足协、总台建立直接沟通渠道。<strong>沉默每多一天，修复成本就多一分。</strong></div>
+
+  <div class="engines">
+    <div class="engine"><h4>QueryAgent</h4><p>核验官方表态、品牌声明与时间线，区分“已确认事实”与“媒体转述”。</p></div>
+    <div class="engine"><h4>MediaAgent</h4><p>追踪微博热搜、短视频二传、账号禁言、央视停播等平台侧动作。</p></div>
+    <div class="engine"><h4>InsightAgent</h4><p>拆解情绪结构、议题聚类、责任归属与次生风险。</p></div>
+  </div>
+</section>
+
+<section id="s2" class="reveal">
+  <h2><span class="num">CHAPTER 02</span>事件溯源与发展脉络</h2>
+
+  <h3>2.1 事件背景与首发</h3>
+  <p>事件发生在姆巴佩竞技声望的高点：他刚在西甲国家德比中帮助皇马绝杀巴萨，并达成个人百球纪录。随后，一段据称来自法国节目《The Bridge》的片段在海外社交平台流传——主持人问及他最喜欢的网络迷因，他提到一张将自己的脸与中国领导人形象合成的图片，并表现出觉得好笑的态度。</p>
+  <p>北京时间 10 月 26 日晚，足球垂直社区懂球帝率先关注并定性为不当言论，相关截图迅速进入微博。此时事件完成了从“海外播客片段”到“中文舆论事件”的关键跃迁：<strong>不是官媒首发，而是球迷社区首发</strong>。</p>
+
+  <div class="hl warn"><strong>信息可信度提示：</strong>BBC 明确表示无法独立核实该访谈的录制与发布时间，原始视频已不在节目官方账号，节目网站也无重播；姆巴佩在片段中并未点名毛泽东。因此，本报告将该片段列为 <span class="tag unverified">未核实</span>，后续官方与商业反应则属于 <span class="tag fact">已确认</span> 或 <span class="tag report">多方报道</span>。</div>
+
+  <h3>2.2 关键发展时间线</h3>
+  <table>
+    <thead><tr><th>时间（北京时间）</th><th>节点</th><th>主体</th><th>性质</th></tr></thead>
+    <tbody>
+      <tr><td>10/25–26</td><td>国家德比绝杀巴萨 + 百球纪录，个人热度登顶</td><td>姆巴佩 / 皇马</td><td><span class="tag fact">背景事实</span></td></tr>
+      <tr><td>10/26 白天</td><td>《The Bridge》片段在海外平台流传</td><td>海外社媒</td><td><span class="tag unverified">未核实</span></td></tr>
+      <tr><td>10/26 晚</td><td>懂球帝关注定性；截图进入微博；话题开始发酵</td><td>懂球帝 / 球迷</td><td><span class="tag report">多方报道</span></td></tr>
+      <tr><td>10/26 晚起</td><td>央视叫停涉及西甲和姆巴佩的赛事播出与广告；咪咕删除其进球视频</td><td>央视 / 咪咕</td><td><span class="tag report">多方报道</span></td></tr>
+      <tr><td>10/27 09:43</td><td>东鹏饮料及“补水啦”率先宣布终止全部合作</td><td>东鹏饮料</td><td><span class="tag fact">官方声明</span></td></tr>
+      <tr><td>10/27 上午</td><td>蒙牛、妙可蓝多宣布终止合作；小红书下架物料并禁言禁关；昂跑、迪奥删除物料</td><td>品牌 / 平台</td><td><span class="tag fact">官方声明</span></td></tr>
+      <tr><td>10/27 白天</td><td>中国足协向皇马严正交涉；外交部回应；总台致函西甲主席特巴斯</td><td>足协 / 外交部 / 总台</td><td><span class="tag fact">官方表态</span></td></tr>
+      <tr><td>10/27</td><td>西甲联盟声明致歉，称言论不代表联盟立场；特巴斯公开道歉</td><td>西甲联盟</td><td><span class="tag fact">官方声明</span></td></tr>
+      <tr><td>10/27 傍晚</td><td>姆巴佩以法、中、英三语发布道歉声明</td><td>姆巴佩</td><td><span class="tag fact">官方声明</span></td></tr>
+      <tr><td>10/27 晚</td><td>央视回应“听其言更观其行”</td><td>中央广播电视总台</td><td><span class="tag fact">官方表态</span></td></tr>
+      <tr><td>截至发稿</td><td>皇马未就姆巴佩致歉作进一步官方回应</td><td>皇家马德里</td><td><span class="tag report">多方报道</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>2.3 当前态势</h3>
+  <p>目前事件处于“本人已道歉、联盟已道歉、俱乐部未回应”的不对称状态。品牌侧的解约与物料下架已经落地，平台侧的禁言与内容清理仍在持续，官方侧的表态停留在“听其言观其行”。这意味着危机并未结束，而是进入<strong>观察期</strong>：皇马是否补位，将决定事件是停留在“球员个人失言”，还是升级为“俱乐部对华态度”的长期叙事。</p>
+
+  <h3>2.4 ForumEngine 三轮校验</h3>
+  <table>
+    <thead><tr><th>轮次</th><th>三引擎发现</th><th>主持人追问</th><th>校验结论</th></tr></thead>
+    <tbody>
+      <tr><td>第 1 轮</td><td>Query：官方表态密集；Media：热搜与解约同步爆发；Insight：情绪以愤怒/失望为主</td><td>视频本身可信吗？道歉是否足够？皇马为何沉默？</td><td>先分层：片段未核实，官方反应已确认；道歉覆盖情绪但不覆盖责任</td></tr>
+      <tr><td>第 2 轮</td><td>Query：皇马近两年 4 起涉华争议；Media：账号禁言、央视停播；Insight：“双标”叙事成形</td><td>商业反应为何快于官方？历史旧账如何影响定性？</td><td>品牌决策链更短、风险更直接；历史旧账把单点事件变成结构性不信任</td></tr>
+      <tr><td>第 3 轮</td><td>交叉核对 6.21 亿阅读、38% 商业占比、2200 万欧元等数据</td><td>哪些是事实，哪些是转述或评论？</td><td>区分事实/报道/未核实/评论四级；报告按此标注，避免把转述当定论</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="s3" class="reveal">
+  <h2><span class="num">CHAPTER 03</span>舆情传播分析</h2>
+
+  <h3>3.1 传播声量趋势</h3>
+  <p>传播呈典型的“陡升—平台期—长尾”曲线。10 月 26 日晚由足球社区点火，数小时内进入微博热搜；10 月 27 日上午品牌解约声明密集发布，声量达到峰值；10 月 27 日傍晚本人道歉后，主话题热度回落，但“皇马沉默”“道歉不等于翻篇”等衍生议题接棒，形成长尾。</p>
+  <ul>
+    <li>微博 30 余个相关话题登上热搜，全站阅读量约 <strong>6.21 亿</strong>；热搜前十中 5 项与姆巴佩相关。</li>
+    <li>“东鹏饮料终止与姆巴佩合作”话题发布后 <strong>半小时阅读量破 2 亿</strong>。</li>
+    <li>据外媒转述，单一主话题阅读量达 <strong>4.3 亿</strong>（统计口径与微博全站阅读量不同）。</li>
+    <li>懂球帝、虎扑等垂直平台贡献了最早的内容供给与情绪动员；虎扑将其从 2026 金球奖榜单（原第二）移除。</li>
+  </ul>
+
+  <h3>3.2 核心传播渠道</h3>
+  <table>
+    <thead><tr><th>渠道</th><th>角色</th><th>关键动作</th><th>传播特征</th></tr></thead>
+    <tbody>
+      <tr><td>足球垂直社区</td><td>点火</td><td>懂球帝定性、拒绝翻译原话；虎扑移除榜单</td><td>用户重合度高、情绪动员快、可信度背书强</td></tr>
+      <tr><td>微博</td><td>引爆</td><td>30+ 热搜、6.21 亿阅读、账号禁言</td><td>公共议题化、官媒与品牌快速进场</td></tr>
+      <tr><td>短视频 / 资讯端</td><td>二传</td><td>切片、评论、二创；部分平台搜索受限</td><td>情绪化表达强、事实细节易失真</td></tr>
+      <tr><td>官媒 / 官方</td><td>定调</td><td>央视停播、足协交涉、外交部回应</td><td>把“球迷不满”升级为“官方立场”</td></tr>
+      <tr><td>品牌方</td><td>商业撤离</td><td>东鹏、蒙牛、妙可蓝多终止合作</td><td>声明模板化、决策极快、带股价反应</td></tr>
+      <tr><td>海外媒体</td><td>外溢与回传</td><td>BBC、AFP、Reuters、EFE、ORF 等报道</td><td>框架聚焦“言论自由 vs 市场红线”</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.3 关键传播节点</h3>
+  <p><strong>第一节点是懂球帝。</strong>它把一段海外娱乐播客内容翻译成中文公共议题，并给出“不当、冒犯”的定性，降低了普通用户的判断成本。<strong>第二节点是东鹏饮料。</strong>09:43 的解约声明提供了“可模仿的行动模板”，蒙牛、妙可蓝多在数小时内跟进，形成商业侧的连锁反应。<strong>第三节点是央视。</strong>停播与“听其言观其行”的表态，把事件从市场行为提升到官方态度层面。<strong>第四节点是姆巴佩的三语道歉。</strong>它止住了本人侧的失血，但没有解决俱乐部侧的缺位。</p>
+
+  <div class="engines">
+    <div class="engine"><h4>QueryAgent</h4><p>传播链路的“事实骨架”由官方声明与品牌公告构成，媒体评论只作辅助，避免情绪化转述污染时间线。</p></div>
+    <div class="engine"><h4>MediaAgent</h4><p>短视频与热搜把“事件”压缩成“标签”，传播效率极高，但细节（是否点名、视频是否核实）在此过程中大量丢失。</p></div>
+    <div class="engine"><h4>InsightAgent</h4><p>真正的引爆点不是视频本身，而是“在中国赚钱却冒犯中国”的叙事模板；它让用户无需了解全部事实即可完成立场选择。</p></div>
+  </div>
+</section>
+
+<section id="s4" class="reveal">
+  <h2><span class="num">CHAPTER 04</span>舆论场核心焦点与公众态度</h2>
+
+  <h3>4.1 舆论焦点分析</h3>
+  <table>
+    <thead><tr><th>焦点</th><th>核心叙事</th><th>情绪</th><th>典型表达</th></tr></thead>
+    <tbody>
+      <tr><td>民族情感底线</td><td>涉及领导人形象的恶搞不可接受，公众人物须有基本尊重</td><td>愤怒</td><td>“在民族情感面前，大牌没有价值”</td></tr>
+      <tr><td>“吃饭砸锅”</td><td>一边赚中国市场 38% 的商业收入，一边拿冒犯当玩笑</td><td>愤怒 / 被背叛</td><td>“吃中国饭砸中国锅”</td></tr>
+      <tr><td>道歉诚意与时点</td><td>沉默一天后才道歉，更像商业止损而非真诚反省</td><td>怀疑</td><td>“道歉不等于翻篇”“听其言观其行”</td></tr>
+      <tr><td>皇马责任</td><td>俱乐部不能躲在球员身后，历史旧账不能再用沉默处理</td><td>失望 / 不信任</td><td>“皇马，别躲在姆巴佩身后装睡”</td></tr>
+      <tr><td>商业与法律后果</td><td>道德条款、解约、反向索赔、跨境执行</td><td>理性关注</td><td>“品牌方可单方解约并主张违约金”</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.2 网民情绪分布</h3>
+  <p>从可观测信号看，情绪结构以<strong>愤怒与失望为主导</strong>：主话题阅读量 6.21 亿、多个抵制话题集中出现、品牌解约声明获得高位热搜。理性讨论（区分视频未核实、区分个人与俱乐部）与海外平台的调侃构成少数派，但在传播中不占主导。</p>
+  <p class="small">说明：仓库自带情感规则引擎在本轮 20 条文本上仍输出 100% 中性（分词缺陷，见附录），因此本节采用“可观测传播信号 + 人工判读”的定性结论，不给出精确百分比，避免伪精确。</p>
+
+  <h3>4.3 主要观点摘录</h3>
+  <div class="pull">“枉我以前这么喜欢你，你却在我们中国人心上捅刀。”<cite>—— 球迷留言，转引自微博话题报道</cite></div>
+  <div class="pull">“听其言更观其行。”<cite>—— 中央广播电视总台对姆巴佩道歉的回应</cite></div>
+  <div class="pull">“道歉不等于翻篇，皇马更不能继续‘装死’。”<cite>—— 极目锐评标题</cite></div>
+  <div class="pull">“反歧视火力全开，辱华就沉默。”<cite>—— 媒体评论对皇马“双标”的概括</cite></div>
+</section>
+
+<section id="s5" class="reveal">
+  <h2><span class="num">CHAPTER 05</span>风险研判</h2>
+
+  <h3>5.1 风险矩阵</h3>
+  <table>
+    <thead><tr><th>风险项</th><th>可能性</th><th>影响</th><th>等级</th><th>判断依据</th></tr></thead>
+    <tbody>
+      <tr><td>皇马在华品牌资产受损</td><td>高</td><td>高</td><td><span class="tag high">高</span></td><td>沉默 + 历史 4 起争议，信任赤字持续累积</td></tr>
+      <tr><td>西甲转播与商业合作受阻</td><td>高</td><td>高</td><td><span class="tag high">高</span></td><td>央视停播、总台致函；转播方是直接监管接口</td></tr>
+      <tr><td>姆巴佩中国商业价值归零</td><td>已发生</td><td>高</td><td><span class="tag high">高</span></td><td>8+ 品牌解约/下架；中国市场占其全球商业收入约 38%</td></tr>
+      <tr><td>历史争议二次发酵</td><td>高</td><td>中高</td><td><span class="tag high">高</span></td><td>2024 欧冠、2026 赫伊森、2026 西藏表述被集中翻出</td></tr>
+      <tr><td>品牌方短期股价与销量波动</td><td>中</td><td>中</td><td><span class="tag mid">中</span></td><td>蒙牛、妙可蓝多、东鹏当日股价短线下跌</td></tr>
+      <tr><td>“未核实视频”反转或 AI 伪造争议</td><td>中</td><td>中</td><td><span class="tag mid">中</span></td><td>BBC 无法核实；原始视频缺失；若反转将重排叙事</td></tr>
+      <tr><td>跨境索赔与法律执行</td><td>中</td><td>低</td><td><span class="tag low">低</span></td><td>道德条款支持解约，但境外主体执行复杂</td></tr>
+    </tbody>
+  </table>
+
+  <h3>5.2 短期风险</h3>
+  <p>未来 7–14 天是观察窗口。核心变量不是姆巴佩本人，而是皇马：若继续沉默，舆论会把“球员失言”改写为“俱乐部默许”，并把 2024 年以来的旧账串成系统性叙事；若皇马发布全球同步声明并给出可验证整改，事件有望在两周内进入降温通道。</p>
+
+  <h3>5.3 长期风险</h3>
+  <p>长期看，事件会改变三类主体的行为：其一，国际体育俱乐部将把“涉华议题”纳入球员培训与社媒审核；其二，中国品牌会把“道德条款 + 舆情触发解约”写进标准合同；其三，转播与平台会建立更快的下架/停播应急预案。<strong>“道歉—解约—停播”可能成为可复制的危机模板。</strong></p>
+
+  <h3>5.4 次生 / 衍生风险</h3>
+  <ul>
+    <li><strong>历史旧账连锁：</strong>皇马 2024 欧冠球迷辱华歌曲、2026 年 2 月赫伊森转发嘲讽东亚人外貌内容、2026 年 8 月官方社媒涉西藏表述，被媒体整合为“两年四起”。</li>
+    <li><strong>情绪外溢：</strong>其他涉华争议球星、俱乐部可能被“翻旧账”；品牌代言人筛查将更严。</li>
+    <li><strong>信息失真：</strong>片段未核实、姆巴佩未点名，但传播中常被简化为“点名辱华”；若后续出现反转，公众对媒体与平台的信任会二次受损。</li>
+    <li><strong>法律与商业纠纷：</strong>品牌方是否索赔、能否执行，将成为后续财经媒体的跟踪议题。</li>
+  </ul>
+</section>
+
+<section id="s6" class="reveal">
+  <h2><span class="num">CHAPTER 06</span>应对策略与处置建议</h2>
+
+  <h3>6.1 黄金应对期复盘</h3>
+  <p>本次危机的黄金 24 小时已被错过一半：品牌方在 12 小时内完成解约，官方在 24 小时内完成表态，而皇马至今未回应。危机沟通的基本原则是“<strong>速度、态度、行动</strong>”三件套——姆巴佩补上了态度，西甲补上了联盟层面的态度，皇马三者皆缺。</p>
+
+  <h3>6.2 口径与声明建议（面向皇马）</h3>
+  <ol>
+    <li><strong>全球同步：</strong>中文、西班牙语、英语三语同稿，官网、X、Instagram、微博同一时间发布，避免“微博特供式道歉”。</li>
+    <li><strong>承认伤害，不做“个人观点”切割：</strong>“个人表达不代表俱乐部”只能作为事实说明，不能作为免责理由。</li>
+    <li><strong>公布可验证整改：</strong>球员跨文化培训、社媒发布审核、涉华议题清单、第三方监督与复盘时间表。</li>
+    <li><strong>直接沟通：</strong>与中国足协、中央广播电视总台建立正式沟通渠道，回应“书面道歉信”等具体要求。</li>
+    <li><strong>避免辩解式措辞：</strong>不强调“视频未核实”“被误解”，先处理情绪，再处理事实。</li>
+  </ol>
+
+  <h3>6.3 内外部沟通策略</h3>
+  <table>
+    <thead><tr><th>对象</th><th>核心诉求</th><th>沟通要点</th><th>渠道</th></tr></thead>
+    <tbody>
+      <tr><td>中国球迷</td><td>被尊重的确定性</td><td>承认伤害、明确整改、持续更新进展</td><td>微博 + 官网 + 俱乐部中文账号</td></tr>
+      <tr><td>中国足协 / 总台</td><td>正式交代与书面道歉</td><td>按外交与行业沟通规范，专人对接、限时回复</td><td>正式函件 + 面谈</td></tr>
+      <tr><td>品牌方</td><td>风险切割与索赔</td><td>尊重解约决定，配合物料下架，协商后续</td><td>商务渠道 + 法务</td></tr>
+      <tr><td>国际媒体</td><td>事实与整改</td><td>统一口径，强调尊重与行动，避免“言论自由”对抗框架</td><td>新闻稿 + 采访</td></tr>
+    </tbody>
+  </table>
+
+  <h3>6.4 后续行动规划（30 / 60 / 90 天）</h3>
+  <ul>
+    <li><strong>30 天：</strong>完成正式道歉与整改方案发布；球员完成首轮跨文化培训；与总台/足协建立定期沟通。</li>
+    <li><strong>60 天：</strong>发布整改中期报告；恢复受影响的转播与商业合作沟通；开展中国球迷开放日/公益项目。</li>
+    <li><strong>90 天：</strong>第三方评估整改效果；把涉华议题纳入俱乐部全球合规手册；形成可复用的危机响应 SOP。</li>
+  </ul>
+
+  <div class="hl"><strong>对其他主体的启示：</strong>品牌方应把“道德条款 + 舆情触发 + 反向索赔”标准化；平台方应建立“未核实内容”的分级标注与限流机制；运动员经纪团队应把跨文化敏感议题纳入日常培训，而不是等危机发生后再补课。</div>
+</section>
+
+<section id="s7" class="reveal">
+  <h2><span class="num">CHAPTER 07</span>结论与启示</h2>
+
+  <h3>7.1 五条结论</h3>
+  <ol>
+    <li><strong>这是复合型危机，不是单点失言。</strong>民族情感、商业利益、平台治理、俱乐部历史责任四条线同时被触发，任何单点回应都不足以收束。</li>
+    <li><strong>商业反应已成为舆情的第一约束。</strong>东鹏 09:43 的解约声明比大多数官方表态更早，直接定义了事件的性质与烈度。</li>
+    <li><strong>道歉是止损起点，不是终点。</strong>姆巴佩的三语声明覆盖了情绪层面，但皇马的责任缺位让“道歉不等于翻篇”成为主流叙事。</li>
+    <li><strong>历史旧账决定危机深度。</strong>两年四起涉华争议，让舆论不再接受“孤立事件”的解释；信任赤字会把新事件自动放大。</li>
+    <li><strong>事实核查与情绪响应必须并行。</strong>片段未核实、本人未点名，但舆论与商业反应已经发生；在“未核实信息时代”，延迟响应等于把定义权交给别人。</li>
+  </ol>
+
+  <h3>7.2 对行业的启示</h3>
+  <p>对国际体育组织与俱乐部而言，中国市场的商业价值与合规要求已经不可分割，“先赚钱、后道歉”的模式不再可行。对中国品牌而言，代言人风险管理需要从“名气评估”升级为“价值观与历史言论尽调”。对平台与媒体而言，需要在“快速响应”与“事实核实”之间建立分级机制，避免把未核实片段直接等同于定论。</p>
+
+  <div class="pull">“在民族情感面前，姆巴佩的‘大牌’没有价值。”<cite>—— 广西新闻网评论标题</cite></div>
+</section>
+
+<section id="s8" class="reveal">
+  <h2><span class="num">CHAPTER 08</span>数据附录</h2>
+
+  <h3>8.1 知识图谱（graph_generator.py 生成）</h3>
+  {render_graph_svg()}
+  <p class="small">节点 {graph['stats']['node_count']} 个，关系 {graph['stats']['link_count']} 条；类型：{'、'.join(graph['stats']['node_types'])}。完整数据见 <code>demo/mbappe/output/graph.json</code>。</p>
+
+  <h3>8.2 来源清单</h3>
+  <table>
+    <thead><tr><th>#</th><th>标题</th><th>来源</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><a href="https://finance.sina.com.cn/wm/2026-10-27/doc-iniwsseu0222086.shtml">中国足协与皇马严正交涉</a></td><td>新浪财经</td></tr>
+      <tr><td>2</td><td><a href="https://www.toutiao.com/article/7701335416577753600/">姆巴佩致歉，三文发布</a></td><td>今日头条</td></tr>
+      <tr><td>3</td><td><a href="https://www.sohu.com/a/1093507975_255783">姆巴佩致歉声明内容</a></td><td>搜狐</td></tr>
+      <tr><td>4</td><td><a href="http://news.yunnan.cn/system/2026/10/27/034182705.shtml">多家中企解约，外交部回应</a></td><td>云南网</td></tr>
+      <tr><td>5</td><td><a href="https://www.tsrb.com.cn/xwzx/2026-10/27/content_300026126.html">总台要求公开道歉并递交书面道歉信</a></td><td>新天水</td></tr>
+      <tr><td>6</td><td><a href="https://news.ycwb.com/ikimvjktil/content_54331570.htm">球迷抵制，沉默比失言更说明问题</a></td><td>羊城晚报</td></tr>
+      <tr><td>7</td><td><a href="https://finance.sina.com.cn/wm/2026-10-27/doc-iniwsseu0236203.shtml">央视回应：听其言观其行</a></td><td>新浪财经</td></tr>
+      <tr><td>8</td><td><a href="https://www.gxnews.com.cn/staticpages/20261027/newgx6ae08f4a-22008816.shtml">在民族情感面前，“大牌”没有价值</a></td><td>广西新闻网</td></tr>
+      <tr><td>9</td><td><a href="https://m.163.com/dy/article/LA987CA8053469KC.html">快快评：姆巴佩“翻车”绝非偶然</a></td><td>网易</td></tr>
+      <tr><td>10</td><td><a href="https://www.ctdsb.net/c1715_202610/2889727.html">极目锐评：道歉不等于翻篇</a></td><td>楚天都市报</td></tr>
+      <tr><td>11</td><td><a href="https://www.shobserver.com/staticsg/wap/newsDetail?id=1201973">两年多 4 起涉华争议</a></td><td>上观新闻</td></tr>
+      <tr><td>12</td><td><a href="https://view.inews.qq.com/a/20261027A08E0E00">皇马“双标”争议</a></td><td>腾讯新闻</td></tr>
+      <tr><td>13</td><td><a href="https://m.163.com/dy/article/LA90F7IL0534A4SC.html">热搜数据与多品牌解约</a></td><td>网易</td></tr>
+      <tr><td>14</td><td><a href="https://www.sohu.com/a/1093299339_115092">东鹏、蒙牛终止合作</a></td><td>搜狐</td></tr>
+      <tr><td>15</td><td><a href="https://www.sohu.com/a/1093294291_121019331">妙可蓝多终止全部合作</a></td><td>搜狐</td></tr>
+      <tr><td>16</td><td><a href="https://gzstv.cn/a/330cb9333921428b973c0229ab12adb7">账号禁言、央视叫停赛事</a></td><td>贵州广电</td></tr>
+      <tr><td>17</td><td><a href="http://stock.10jqka.com.cn/20261027/c681126657.shtml">品牌解约与违约金讨论</a></td><td>同花顺</td></tr>
+      <tr><td>18</td><td><a href="https://m.thepaper.cn/newsDetail_forward_34344710">西甲官方、中国足协发声</a></td><td>澎湃新闻</td></tr>
+      <tr><td>19</td><td><a href="https://www.qzwb.com/gb/content/2026-10/27/content_9258975.htm">西甲联盟官方声明</a></td><td>泉州网</td></tr>
+      <tr><td>20</td><td><a href="https://www.bbc.com/zhongwen/articles/c6x2v4p284ylo/simp">BBC：品牌解约、央视停播</a></td><td>BBC 中文</td></tr>
+      <tr><td>21</td><td><a href="https://www.bbc.com/news/articles/cv62yg0erp8zo">BBC: Major Chinese brands drop Mbappé</a></td><td>BBC</td></tr>
+      <tr><td>22</td><td><a href="https://www.the-star.co.ke/news/world/2026-10-27-mbappe-sorry-for-ill-judged-mao-remark-after-backlash-in-china">Mbappé sorry for 'ill-judged' remark</a></td><td>The Star</td></tr>
+      <tr><td>23</td><td><a href="https://www.thedailystar.net/sports/football/news/mbappe-la-liga-apologise-china-over-mao-zedong-remarks-4308761">Mbappe, LaLiga apologise</a></td><td>The Daily Star</td></tr>
+      <tr><td>24</td><td><a href="https://efe.com/deportes/2026-10-27/china-suspension-emisiones-laliga-mbappe/">EFE: Mbappé pide disculpas</a></td><td>EFE</td></tr>
+    </tbody>
+  </table>
+
+  <h3>8.3 方法与复现</h3>
+  <ul>
+    <li><strong>数据获取：</strong>Claude Code WebSearch，检索时间 2026-10-27，关键词覆盖事件、官方表态、品牌解约、传播数据、皇马历史争议、海外报道。</li>
+    <li><strong>处理链路：</strong><code>demo/mbappe/run_mbappe.py</code> → 模板匹配（突发事件与危机公关）→ DataCollector 聚合 → sentiment_analyzer → graph_generator → <code>demo/mbappe/build_report.py</code> 生成本页。</li>
+    <li><strong>复现命令：</strong><code>python3 demo/mbappe/run_mbappe.py && python3 demo/mbappe/build_report.py</code>。</li>
+    <li><strong>信息分级：</strong><span class="tag fact">事实</span> 官方声明/本人声明；<span class="tag report">报道</span> 多家媒体一致转述；<span class="tag unverified">未核实</span> 原始片段真实性；评论与网民观点单独标注。</li>
+    <li><strong>已知限制：</strong>情感规则引擎分词失效（20 条文本全部判中性）；平台识别仅覆盖 6 类；样本为公开检索结果，非全量舆情数据；部分外媒数据统计口径不同。</li>
+  </ul>
+
+  <footer>Generated by BettaFish-skill · 突发事件与危机公关模板 · 数据截至 2026-10-27 北京时间</footer>
+</section>
+</main>
+</div>
+<button id="top" title="回到顶部">↑</button>
+<script>
+const links=[...document.querySelectorAll('nav a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+secs.forEach(s=>s.classList.add('pre'));
+const io=new IntersectionObserver(es=>{{es.forEach(e=>{{if(e.isIntersecting){{
+e.target.classList.add('in');
+links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}})}})}},{{threshold:.15}});
+secs.forEach(s=>io.observe(s));
+setTimeout(()=>secs.forEach(s=>s.classList.add('in')),700);
+const topBtn=document.getElementById('top');
+addEventListener('scroll',()=>topBtn.classList.toggle('show',scrollY>600),{{passive:true}});
+topBtn.onclick=()=>scrollTo({{top:0,behavior:'smooth'}});
+</script>
+</body>
+</html>
+"""
+
+HTML = f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>姆巴佩涉华言论事件 · 舆情分析报告 | BettaFish</title>
+<style>{CSS}</style>
+</head>
+<body>
+{BODY}
+"""
+(OUT / "report.html").write_text(HTML, encoding="utf-8")
+
+MD = """# 姆巴佩涉华言论事件 · 舆情分析报告
+
+> 生成时间：2026-10-27（北京时间）｜模板：突发事件与危机公关｜样本：24 条公开检索来源
+> 信息分级：事实 / 报道 / 未核实。涉事播客片段截至检索时仍未获独立核实。
+
+## 一、报告摘要
+
+### 事件定性
+这不是单纯的运动员失言，而是民族情感、商业代言、平台治理与俱乐部责任叠加的**复合型危机**。
+
+### 核心结论
+1. **传播闭环极快**：垂直社区点火 → 微博引爆 → 官媒定调 → 品牌撤离 → 本人道歉，48 小时内完成。
+2. **商业反应快于官方定调**：东鹏饮料 10/27 09:43 率先解约，成为舆情转折点。
+3. **道歉到位但责任缺位**：姆巴佩中英法三语道歉覆盖情绪层面；皇马至今未作正式回应。
+4. **历史旧账决定危机深度**：两年四起涉华争议被重新翻出，“双标”叙事成形。
+5. **事实核查与情绪响应并行**：片段未被独立核实、本人未点名，但商业与舆论反应已发生。
+
+### 关键建议
+皇马应立即以中西英三语全球同步发布正式声明，承认管理责任、公布整改时间表，并与中国足协、总台建立直接沟通渠道。**沉默每多一天，修复成本就多一分。**
+
+## 二、事件溯源与发展脉络
+
+### 背景与首发
+姆巴佩刚在国家德比绝杀巴萨并达成百球纪录。随后一段据称来自《The Bridge》的片段在海外平台流传：他被问及最喜欢的迷因，提到一张把自己的脸与中国领导人形象合成的图片。10 月 26 日晚，懂球帝率先关注并定性，截图进入微博。
+
+> **可信度提示**：BBC 表示无法独立核实该访谈的录制与发布时间，原始视频已不在节目官方账号；姆巴佩在片段中未点名毛泽东。片段列为“未核实”。
+
+### 时间线
+| 时间（北京时间） | 节点 | 性质 |
+|---|---|---|
+| 10/25–26 | 国家德比绝杀 + 百球纪录，热度登顶 | 背景事实 |
+| 10/26 白天 | 《The Bridge》片段在海外平台流传 | 未核实 |
+| 10/26 晚 | 懂球帝定性，微博扩散 | 多方报道 |
+| 10/26 晚起 | 央视叫停涉西甲/姆巴佩播出与广告；咪咕删除进球视频 | 多方报道 |
+| 10/27 09:43 | 东鹏饮料及“补水啦”终止全部合作 | 官方声明 |
+| 10/27 上午 | 蒙牛、妙可蓝多解约；小红书下架并禁言禁关；昂跑、迪奥删物料 | 官方声明 |
+| 10/27 白天 | 中国足协严正交涉；外交部回应；总台致函西甲 | 官方表态 |
+| 10/27 | 西甲联盟声明致歉；特巴斯公开道歉 | 官方声明 |
+| 10/27 傍晚 | 姆巴佩中英法三语道歉 | 官方声明 |
+| 10/27 晚 | 央视回应“听其言更观其行” | 官方表态 |
+| 截至发稿 | 皇马未进一步官方回应 | 多方报道 |
+
+### 当前态势
+“本人已道歉、联盟已道歉、俱乐部未回应”的不对称状态。危机进入观察期，皇马是否补位决定事件走向。
+
+## 三、舆情传播分析
+
+### 声量
+- 微博 30 余个话题登热搜，全站阅读量约 **6.21 亿**，前十一半相关。
+- “东鹏饮料终止合作”话题半小时阅读量破 **2 亿**。
+- 据外媒转述，单一主话题阅读量达 **4.3 亿**（口径不同）。
+
+### 路径
+足球垂直社区（点火）→ 微博（引爆）→ 短视频/资讯端（二传）→ 官媒/官方（定调）→ 品牌（商业撤离）→ 海外媒体（外溢回传）。
+
+### 关键节点
+懂球帝（定性）→ 东鹏饮料（行动模板）→ 央视（官方态度）→ 姆巴佩三语道歉（本人止损，俱乐部缺位）。
+
+### ForumEngine 三轮校验
+| 轮次 | 发现 | 追问 | 结论 |
+|---|---|---|---|
+| 1 | 官方表态密集、热搜与解约同步 | 视频可信吗？道歉够吗？皇马为何沉默？ | 分层：片段未核实，反应已确认 |
+| 2 | 皇马两年 4 起涉华争议 | 商业为何快于官方？ | 决策链更短；历史旧账放大定性 |
+| 3 | 交叉核对阅读量/商业占比 | 哪些是事实？ | 按事实/报道/未核实/评论四级标注 |
+
+## 四、舆论焦点与公众态度
+
+| 焦点 | 核心叙事 | 情绪 |
+|---|---|---|
+| 民族情感底线 | 涉及领导人形象的恶搞不可接受 | 愤怒 |
+| “吃饭砸锅” | 赚中国市场 38% 收入却拿冒犯当玩笑 | 愤怒/被背叛 |
+| 道歉诚意与时点 | 沉默一天后才道歉，更像商业止损 | 怀疑 |
+| 皇马责任 | 不能躲在球员身后，历史旧账不能沉默处理 | 失望/不信任 |
+| 商业与法律后果 | 道德条款、解约、反向索赔 | 理性关注 |
+
+情绪结构以愤怒与失望为主导；理性讨论与海外调侃为少数。因规则引擎分词缺陷，本报告不给出精确百分比。
+
+> “枉我以前这么喜欢你，你却在我们中国人心上捅刀。”——球迷留言
+> “听其言更观其行。”——中央广播电视总台
+> “道歉不等于翻篇，皇马更不能继续‘装死’。”——极目锐评
+
+## 五、风险研判
+
+| 风险项 | 等级 | 依据 |
+|---|---|---|
+| 皇马在华品牌资产受损 | 高 | 沉默 + 两年四起争议 |
+| 西甲转播与商业合作受阻 | 高 | 央视停播、总台致函 |
+| 姆巴佩中国商业价值归零 | 高（已发生） | 8+ 品牌解约；中国市场约占其全球商业收入 38% |
+| 历史争议二次发酵 | 高 | 2024 欧冠、2026 赫伊森、2026 西藏表述 |
+| 品牌股价与销量波动 | 中 | 蒙牛、妙可蓝多、东鹏当日下跌 |
+| 视频反转/AI 伪造争议 | 中 | 原始视频缺失，BBC 无法核实 |
+| 跨境索赔与执行 | 低 | 道德条款支持解约，执行复杂 |
+
+**短期（7–14 天）**：核心变量是皇马是否补位。
+**长期**：俱乐部合规培训、品牌道德条款、平台应急机制将制度化。
+**次生**：历史旧账连锁、情绪外溢、信息失真、法律纠纷。
+
+## 六、应对策略与处置建议
+
+### 口径与声明（皇马）
+1. 中/西/英三语同稿，全球同步发布，避免“微博特供式道歉”。
+2. 承认伤害，不以“个人观点”免责。
+3. 公布可验证整改：跨文化培训、社媒审核、涉华议题清单、第三方监督。
+4. 与足协、总台建立正式沟通，回应书面道歉要求。
+5. 先处理情绪，再处理事实，避免“视频未核实”式辩解。
+
+### 30/60/90 天
+- **30 天**：正式道歉 + 整改方案；首轮培训；建立沟通渠道。
+- **60 天**：中期报告；恢复转播/商业沟通；球迷开放日或公益项目。
+- **90 天**：第三方评估；纳入全球合规手册；形成危机 SOP。
+
+## 七、结论与启示
+
+1. 这是复合型危机，不是单点失言。
+2. 商业反应已成为舆情第一约束。
+3. 道歉是止损起点，不是终点。
+4. 历史旧账决定危机深度。
+5. 事实核查与情绪响应必须并行。
+
+对国际体育组织：中国市场商业价值与合规要求不可分割。对中国品牌：代言人尽调需覆盖价值观与历史言论。对平台媒体：建立“未核实内容”的分级标注与响应机制。
+
+## 八、数据附录
+
+- 知识图谱：35 节点 / 43 关系，见 `demo/mbappe/output/graph.json`。
+- 来源：24 条，完整链接见 `demo/mbappe/output/report.html` 附录。
+- 复现：`python3 demo/mbappe/run_mbappe.py && python3 demo/mbappe/build_report.py`。
+- 限制：规则情感引擎分词失效（20 条全部判中性）；平台识别仅覆盖 6 类；样本为公开检索结果，非全量数据。
+"""
+(OUT / "report.md").write_text(MD, encoding="utf-8")
+
+print(f"written: {OUT/'report.html'} ({len(HTML):,} bytes)")
+print(f"written: {OUT/'report.md'} ({len(MD):,} bytes)")

@@ -1,0 +1,458 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+根据指定的运行目录（result/<日期时间>_iphone17）生成一份自包含的
+编辑杂志风格 HTML 报告。不依赖 CDN，双击即可离线打开。
+
+用法：
+  python3 demo/build_report.py                 # 使用最新一次 run_demo.py 的输出
+  python3 demo/build_report.py <运行目录或相对路径>
+"""
+
+import json
+import math
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+BASE = HERE.parent
+
+
+def resolve_out() -> Path:
+    if len(sys.argv) > 1:
+        p = Path(sys.argv[1])
+        return p if p.is_absolute() else BASE / p
+    pointer = HERE / "latest_run.txt"
+    if pointer.exists():
+        return BASE / pointer.read_text(encoding="utf-8").strip()
+    raise SystemExit("找不到 latest_run.txt，请先运行 demo/run_demo.py 或显式传入运行目录")
+
+
+OUT = resolve_out()
+graph = json.loads((OUT / "graph.json").read_text(encoding="utf-8"))
+
+COLORS = {
+    "topic": "#ffd700",
+    "engine": "#64ffda",
+    "section": "#8892b0",
+    "query": "#a8b2d1",
+    "source": "#5a6b8c",
+    "entity": "#f4a261",
+}
+
+
+def esc(s):
+    return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            .replace('"', "&quot;"))
+
+
+def radial_positions(nodes, w=980, h=560):
+    """按节点类型分环布局，返回 {id: (x, y, r)}。"""
+    cx, cy = w / 2, h / 2
+    rings = [
+        ("topic", 0, 14, 1),
+        ("engine", 105, 11, 3),
+        ("section", 195, 7, 5),
+        ("query", 275, 5, 5),
+        ("source", 345, 4, 10),
+    ]
+    pos = {}
+    for ntype, radius, nr, expected in rings:
+        group = [n for n in nodes if n["type"] == ntype]
+        if not group:
+            continue
+        offset = math.radians(-90 if ntype != "source" else -90)
+        for i, n in enumerate(group):
+            angle = offset + 2 * math.pi * i / max(len(group), 1)
+            pos[n["id"]] = (cx + radius * math.cos(angle),
+                            cy + radius * math.sin(angle), nr)
+    # 实体单独摆在外圈，避免和 source 重叠
+    entities = [n for n in nodes if n["type"] == "entity"]
+    for i, n in enumerate(entities):
+        angle = 2 * math.pi * i / max(len(entities), 1) + math.radians(18)
+        pos[n["id"]] = (cx + 400 * math.cos(angle), cy + 400 * math.sin(angle), 4)
+    return pos
+
+
+def render_graph_svg():
+    nodes, links = graph["nodes"], graph["links"]
+    pos = radial_positions(nodes)
+    parts = ['<svg viewBox="0 0 980 560" class="kg" role="img" aria-label="知识图谱">']
+    for link in links:
+        if link["source"] in pos and link["target"] in pos:
+            x1, y1, _ = pos[link["source"]]
+            x2, y2, _ = pos[link["target"]]
+            parts.append(
+                f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" '
+                f'stroke="#2a3f5f" stroke-width="1"/>')
+    for n in nodes:
+        p = pos.get(n["id"])
+        if not p:
+            continue
+        x, y, r = p
+        color = COLORS.get(n["type"], "#8892b0")
+        label = esc(n.get("name", "")[:18])
+        parts.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="{color}" '
+                     f'opacity="0.92"><title>{esc(n.get("name", ""))} · {n["type"]}</title></circle>')
+        if n["type"] in ("topic", "engine", "section"):
+            dy = -r - 6 if y < 280 else r + 15
+            parts.append(f'<text x="{x:.1f}" y="{y + dy:.1f}" text-anchor="middle" '
+                         f'fill="#e6f1ff" font-size="11">{label}</text>')
+    parts.append("</svg>")
+    return "\n".join(parts)
+
+
+CSS = """
+:root{
+  --navy:#0a192f; --navy-2:#112240; --navy-3:#1d2d50;
+  --gold:#ffd700; --gold-dim:#c9a227; --ink:#e6f1ff; --muted:#8892b0;
+  --line:#233554; --red:#ff6b6b; --green:#64ffda;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--navy); color:var(--ink);
+  font-family:"Source Serif Pro","Songti SC","Noto Serif SC",Georgia,serif;
+  line-height:1.85; -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--gold);color:var(--navy)}
+a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(255,215,0,.3)}
+a:hover{border-bottom-color:var(--gold)}
+.wrap{display:grid;grid-template-columns:260px 1fr;max-width:1480px;margin:0 auto}
+nav{
+  position:sticky;top:0;height:100vh;padding:48px 28px;border-right:1px solid var(--line);
+  background:linear-gradient(180deg,#081426,#0a192f);
+}
+nav .brand{font-family:"Playfair Display",Georgia,serif;font-size:22px;color:var(--gold);letter-spacing:.5px}
+nav .sub{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px}
+nav ol{list-style:none;padding:0;margin:36px 0 0;counter-reset:toc}
+nav li{counter-increment:toc;margin:0 0 14px}
+nav li a{display:flex;gap:10px;border:0;color:var(--muted);font-size:13px;line-height:1.5}
+nav li a::before{content:counter(toc,decimal-leading-zero);color:var(--gold-dim);font-family:monospace;font-size:11px;padding-top:2px}
+nav li a:hover,nav li a.active{color:var(--gold)}
+main{padding:72px 72px 120px;max-width:1120px}
+.hero{border-bottom:1px solid var(--line);padding-bottom:48px;margin-bottom:56px}
+.kicker{color:var(--gold);letter-spacing:4px;text-transform:uppercase;font-size:11px}
+h1{font-family:"Playfair Display",Georgia,serif;font-size:54px;line-height:1.12;margin:18px 0 20px;font-weight:600}
+h1 em{color:var(--gold);font-style:normal}
+.lede{font-size:19px;color:#a8b2d1;max-width:760px}
+.meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:28px;font-size:12px;color:var(--muted);letter-spacing:1px}
+section{padding:46px 0;border-bottom:1px solid var(--line);scroll-margin-top:24px}
+section:last-of-type{border-bottom:0}
+h2{font-family:"Playfair Display",Georgia,serif;font-size:32px;margin:0 0 8px;font-weight:600}
+h2 .num{color:var(--gold);font-size:15px;letter-spacing:3px;display:block;margin-bottom:8px}
+h3{font-size:18px;margin:36px 0 10px;color:#cdd6f4}
+p{margin:0 0 18px;color:#c7d0e0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:34px 0 8px}
+.kpi{background:var(--navy-2);border:1px solid var(--line);padding:22px 20px}
+.kpi .v{font-family:"Playfair Display",Georgia,serif;font-size:36px;color:var(--gold);line-height:1}
+.kpi .l{font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:1px}
+.kpi .d{font-size:11px;color:#7f8ca3;margin-top:6px}
+table{width:100%;border-collapse:collapse;margin:26px 0;font-size:14px}
+th{text-align:left;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dim);
+   border-bottom:1px solid var(--gold-dim);padding:10px 12px}
+td{padding:13px 12px;border-bottom:1px solid var(--line);color:#c7d0e0;vertical-align:top}
+tr:hover td{background:rgba(255,215,0,.03)}
+.pull{border-left:3px solid var(--gold);background:linear-gradient(90deg,rgba(255,215,0,.07),transparent);
+      padding:22px 26px;margin:30px 0;font-size:18px;color:#e6f1ff}
+.pull cite{display:block;margin-top:10px;font-size:12px;color:var(--muted);font-style:normal;letter-spacing:1px}
+.hl{background:var(--navy-2);border:1px solid var(--line);border-top:2px solid var(--gold);padding:24px 26px;margin:28px 0}
+.hl strong{color:var(--gold)}
+.engines{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.engine{background:var(--navy-2);border:1px solid var(--line);padding:20px}
+.engine h4{margin:0 0 8px;font-size:13px;letter-spacing:2px;color:var(--green);text-transform:uppercase}
+.engine p{font-size:13px;margin:0;color:#a8b2d1;line-height:1.7}
+.spectrum{height:14px;display:flex;margin:18px 0 8px;border-radius:2px;overflow:hidden}
+.spectrum i{display:block;height:100%}
+.legend{display:flex;gap:22px;font-size:12px;color:var(--muted);margin-bottom:8px}
+.legend b{display:inline-block;width:9px;height:9px;margin-right:7px;border-radius:50%}
+.kg{width:100%;height:auto;background:radial-gradient(circle at 50% 45%,#0e2038,#081426 70%);
+    border:1px solid var(--line);margin:24px 0}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0}
+.swot div{background:var(--navy-2);border:1px solid var(--line);padding:20px}
+.swot h4{margin:0 0 10px;font-size:12px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.swot li{font-size:13px;color:#a8b2d1;margin-bottom:8px}
+ul,ol{padding-left:22px}
+li{margin-bottom:8px;color:#c7d0e0}
+.risk td:first-child{color:var(--ink)}
+.tag{display:inline-block;font-size:10px;letter-spacing:1px;padding:2px 8px;border:1px solid;border-radius:999px}
+.tag.high{color:var(--red);border-color:var(--red)}
+.tag.mid{color:#ffd166;border-color:#ffd166}
+.tag.low{color:var(--green);border-color:var(--green)}
+footer{padding-top:40px;color:var(--muted);font-size:12px}
+.reveal{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease}
+.reveal.pre{opacity:0;transform:translateY(18px)}
+.reveal.in{opacity:1;transform:none}
+#top{position:fixed;right:28px;bottom:28px;width:44px;height:44px;border-radius:50%;
+     border:1px solid var(--gold-dim);background:var(--navy-2);color:var(--gold);font-size:18px;
+     cursor:pointer;opacity:0;pointer-events:none;transition:.3s}
+#top.show{opacity:1;pointer-events:auto}
+@media (max-width:1080px){
+  .wrap{grid-template-columns:1fr}
+  nav{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:28px}
+  nav ol{display:none}
+  main{padding:40px 24px 80px}
+  h1{font-size:38px}
+  .kpis,.engines,.swot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){.kpis,.engines,.swot{grid-template-columns:1fr}}
+"""
+
+BODY = f"""
+<div class="wrap">
+<nav>
+  <div class="brand">BETTAFISH</div>
+  <div class="sub">Opinion Intelligence</div>
+  <ol>
+    <li><a href="#s1">执行摘要</a></li>
+    <li><a href="#s2">声量与平台分布</a></li>
+    <li><a href="#s3">关键议题回顾</a></li>
+    <li><a href="#s4">情感与认知</a></li>
+    <li><a href="#s5">用户画像</a></li>
+    <li><a href="#s6">风险与机遇</a></li>
+    <li><a href="#s7">结论与建议</a></li>
+    <li><a href="#s8">数据附录</a></li>
+  </ol>
+</nav>
+<main>
+  <header class="hero">
+    <div class="kicker">Public Opinion Report · 2026-10-27</div>
+    <h1>iPhone 17 国内口碑：<em>优点封神，短板依旧</em></h1>
+    <p class="lede">基于 10 条真实检索来源与 12 条用户观点聚合的三引擎舆情速览。标准版首次下放 120Hz 高刷、256GB 起步，但续航、信号、无长焦仍是差评集中区——口碑呈明显的“两极分化”。</p>
+    <div class="meta">
+      <span>QueryAgent · MediaAgent · InsightAgent</span>
+      <span>模板：企业品牌声誉分析</span>
+      <span>样本：10 来源 / 12 观点</span>
+      <span>Demo run</span>
+    </div>
+  </header>
+
+  <section id="s1" class="reveal">
+    <h2><span class="num">CHAPTER 01</span>执行摘要</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="v">10</div><div class="l">检索来源</div><div class="d">头条 / 网易 / 搜狐 / 小红书 / 微信 / 京东</div></div>
+      <div class="kpi"><div class="v">12</div><div class="l">聚合观点</div><div class="d">来自长测、短评与电商评价转述</div></div>
+      <div class="kpi"><div class="v">6 : 5</div><div class="l">正向 : 负向议题</div><div class="d">“优点突出、短板明显”</div></div>
+      <div class="kpi"><div class="v">2 极</div><div class="l">口碑形态</div><div class="d">长测用户与首购用户评价分化</div></div>
+    </div>
+
+    <p>本轮检索覆盖图文长测、短视频测评转述、小红书体验帖与京东金榜评价。整体结论可以浓缩成一句话：<strong>这是近年标准版升级力度最大的一代，但离“无短板水桶机”仍有距离。</strong>被反复肯定的升级点集中在屏幕、存储、重量与性能；被反复吐槽的点则集中在续航充电、信号、长焦缺失与系统小 bug。</p>
+
+    <p>值得注意的是，“网上骂声一片”和“销量破纪录”同时出现。这并不矛盾：差评主要来自重度用户与参数党，而标准版的增量升级恰好击中了最大基数换机人群的痛点——120Hz、256GB、轻手感。舆情情绪因此呈现“总体偏正面、局部强负面”的结构。</p>
+
+    <div class="pull">“都说 iPhone 17 很香，我实打实使用一年：去掉滤镜，也就那样。”<cite>—— 今日头条长测标题（真实检索结果）</cite></div>
+
+    <div class="hl"><strong>一句话结论：</strong>对 iPhone 13 及更早机型的换机用户，这是一代“感知最强”的标准版；对重度游戏/视频用户和摄影爱好者，续航与长焦的短板足以构成放弃理由。</div>
+  </section>
+
+  <section id="s2" class="reveal">
+    <h2><span class="num">CHAPTER 02</span>声量与平台分布</h2>
+    <p>本次检索的声量高度集中在资讯平台的长测文章与短视频平台的体验帖。资讯平台贡献了最完整的观点结构（优点、缺点、购买建议齐全），小红书贡献了更情绪化、更短平快的真实体验，电商榜单则提供了“用钱投票”的侧面印证。</p>
+
+    <table>
+      <thead><tr><th>平台</th><th>样本</th><th>内容形态</th><th>舆情特征</th></tr></thead>
+      <tbody>
+        <tr><td>今日头条</td><td>4</td><td>长测 / 使用一年复盘</td><td>观点最完整，褒贬都具体，是本次分析的主干</td></tr>
+        <tr><td>网易号</td><td>2</td><td>30 天体验 / 退货理由</td><td>负面议题密度最高，续航与影像是火力集中点</td></tr>
+        <tr><td>小红书</td><td>2</td><td>短体验 / 种草</td><td>情绪正向偏多，“后悔没早买”类表达典型</td></tr>
+        <tr><td>搜狐</td><td>1</td><td>购买决策分析</td><td>价格与人群匹配度讨论，理性向</td></tr>
+        <tr><td>微信公众号</td><td>1</td><td>销量与骂声的反差叙事</td><td>“嘴上说不买、销量破纪录”的传播梗</td></tr>
+        <tr><td>京东金榜</td><td>1</td><td>电商评价聚合</td><td>正向评价更集中，待机表现出现正反两例</td></tr>
+      </tbody>
+    </table>
+
+    <div class="engines">
+      <div class="engine"><h4>QueryAgent</h4><p>抓取新闻、论坛与电商评价，建立“平台—观点”对应关系。本次识别出 6 类平台，其中资讯类占比最高。</p></div>
+      <div class="engine"><h4>MediaAgent</h4><p>短视频测评以“30 秒讲清优缺点”为主，信息密度低于图文长测，但情绪表达更强，适合捕捉口碑温度。</p></div>
+      <div class="engine"><h4>InsightAgent</h4><p>对观点做正负向归类与议题聚类，发现“续航”是唯一同时出现在好评与差评两侧的议题（轻度够用 / 重度焦虑）。</p></div>
+    </div>
+
+    <div class="hl"><strong>工具观察：</strong>仓库自带的 <code>DataCollector.identify_platform()</code> 只识别微博/小红书/抖音/B站/知乎/贴吧六类，头条、网易、搜狐、微信、京东都会落到 <code>other</code>。做国内全域舆情时需要先补平台规则。</div>
+  </section>
+
+  <section id="s3" class="reveal">
+    <h2><span class="num">CHAPTER 03</span>关键议题回顾</h2>
+    <p>从传播节奏看，iPhone 17 的口碑经历了“发布期参数兴奋 → 首销期体验分化 → 长测期缺点固化”三段式演进。真正决定口碑走向的不是发布会参数，而是长测博主把续航和信号问题反复验证之后形成的“共识叙事”。</p>
+
+    <table>
+      <thead><tr><th>阶段</th><th>主导议题</th><th>情绪</th><th>关键载体</th></tr></thead>
+      <tbody>
+        <tr><td>发布期</td><td>120Hz 下放、256GB 起步、A19 性能</td><td>正向、期待</td><td>发布会切片、参数对比图</td></tr>
+        <tr><td>首销期</td><td>手感、屏幕、拍照第一印象</td><td>正向为主</td><td>开箱视频、小红书体验帖</td></tr>
+        <tr><td>首月长测</td><td>续航掉电、充电速度、发热</td><td>转负</td><td>30 天长测、退货理由清单</td></tr>
+        <tr><td>季度复盘</td><td>信号、无长焦、系统小 bug</td><td>负面固化</td><td>“用满一年”类复盘长文</td></tr>
+      </tbody>
+    </table>
+
+    <p>议题之间并非平均分布。续航是“一票否决型”议题：它不进入优点列表，却能单独构成退货理由。信号则是“沉默的差评”——用户平时不主动讨论，一旦进入地铁、地库、商场角落就会集中爆发，属于典型的场景触发型负面。</p>
+
+    <div class="pull">“最让我想退货的三个缺点”——网易号 30 天体验标题，把续航、充电与影像放在同一叙事框架里，形成了高传播力的负面模板。<cite>—— 真实检索结果</cite></div>
+  </section>
+
+  <section id="s4" class="reveal">
+    <h2><span class="num">CHAPTER 04</span>情感与认知</h2>
+    <p>把 12 条观点按议题而不是按句子归类，可以看到清晰的“双峰结构”：正向峰值来自屏幕与存储的越级升级，负向峰值来自续航与影像的结构性缺失。中间地带很薄——这解释了为什么舆论场看起来“吵得很凶”，但销量并没有崩。</p>
+
+    <div class="legend">
+      <span><b style="background:#64ffda"></b>正向议题 6</span>
+      <span><b style="background:#ffd700"></b>中性/条件性 1</span>
+      <span><b style="background:#ff6b6b"></b>负向议题 5</span>
+    </div>
+    <div class="spectrum" aria-label="议题情感分布">
+      <i style="width:50%;background:#64ffda"></i>
+      <i style="width:8%;background:#ffd700"></i>
+      <i style="width:42%;background:#ff6b6b"></i>
+    </div>
+
+    <h3>正向认知关键词</h3>
+    <p>高刷、跟手、亮度、轻薄、256GB、满帧、口袋电影机、真实自然。用户对“标准版终于给了 ProMotion”这件事的评价带有明显的“补偿性满足”——不是因为它新，而是因为等了太久。</p>
+
+    <h3>负向认知关键词</h3>
+    <p>一天两充、掉电、充电慢、无长焦、夜景噪点、鬼影、掉格、杀后台、小 bug。其中“鬼影”与“信号”属于跨代老问题，用户已经形成“苹果不会改”的预期，这类负面不会爆发式传播，但会持续侵蚀换机推荐意愿。</p>
+
+    <div class="hl"><strong>规则引擎实测：</strong>仓库自带的 <code>sentiment_analyzer.py</code> 对上述 12 条真实观点给出 <strong>100% 中性</strong>。原因是用 <code>[\\u4e00-\\u9fff]{2,4}</code> 贪婪切词，把“体验很差”切成四字块，永远命中不了词典里的单字“差”。这个模块目前只能当占位符，情感结论需要 LLM 或接入 jieba/SnowNLP。</div>
+
+    <div class="engines">
+      <div class="engine"><h4>QueryAgent 视角</h4><p>资讯长测的负面表达更克制、更有论据；短评平台的负面更情绪化。两者叠加会放大“差评很多”的体感。</p></div>
+      <div class="engine"><h4>MediaAgent 视角</h4><p>视频测评倾向用“优点封神 / 老毛病闹心”的对仗标题，天然适合传播，也天然放大两极分化。</p></div>
+      <div class="engine"><h4>InsightAgent 视角</h4><p>把“续航”拆成轻度与重度两种使用场景后，同一议题会得到相反结论——这是本次分析最重要的细分发现。</p></div>
+    </div>
+  </section>
+
+  <section id="s5" class="reveal">
+    <h2><span class="num">CHAPTER 05</span>用户画像</h2>
+    <p>舆情中的“用户”并不是一个人群，而是三到四类需求结构完全不同的群体。把它们混在一起讨论，就会得出“又香又烂”的矛盾结论。</p>
+
+    <table>
+      <thead><tr><th>人群</th><th>核心诉求</th><th>对 iPhone 17 的态度</th><th>典型表达</th></tr></thead>
+      <tbody>
+        <tr><td>老机型换机用户</td><td>流畅、省心、生态</td><td>强烈推荐</td><td>“后悔没早点拿下”</td></tr>
+        <tr><td>重度游戏/视频用户</td><td>续航、快充、散热</td><td>明确劝退</td><td>“一天两充，出门带充电宝”</td></tr>
+        <tr><td>摄影爱好者</td><td>长焦、夜景、可控性</td><td>转向 Pro 或安卓</td><td>“没有长焦，演唱会没法拍”</td></tr>
+        <tr><td>性价比用户</td><td>同价位参数对比</td><td>观望/转向安卓</td><td>“同价位百瓦快充大电池”</td></tr>
+      </tbody>
+    </table>
+
+    <p>从触媒习惯看，换机用户更依赖长测文章和电商评价，重度用户更依赖视频测评，摄影人群则集中在样张对比与论坛讨论。品牌若要做口碑管理，应针对这三条链路分别投放内容，而不是用一套通稿覆盖所有人。</p>
+  </section>
+
+  <section id="s6" class="reveal">
+    <h2><span class="num">CHAPTER 06</span>风险与机遇</h2>
+    <p>风险并不都同等重要。按“传播强度 × 购买阻断力”两个维度，可以把本次识别出的负面议题放进一张简单的风险矩阵。</p>
+
+    <table class="risk">
+      <thead><tr><th>议题</th><th>传播强度</th><th>购买阻断力</th><th>等级</th><th>判断依据</th></tr></thead>
+      <tbody>
+        <tr><td>续航 / 充电慢</td><td>高</td><td>高</td><td><span class="tag high">高</span></td><td>3692mAh、40W，重度一天两充；被写成“退货理由”</td></tr>
+        <tr><td>无长焦 / 夜景弱</td><td>中</td><td>高（摄影人群）</td><td><span class="tag high">高</span></td><td>标准版无长焦，远景裁切画质断崖</td></tr>
+        <tr><td>信号差</td><td>中</td><td>中高</td><td><span class="tag mid">中</span></td><td>地铁/地库场景触发，跨代老问题</td></tr>
+        <tr><td>系统小 bug / 杀后台</td><td>中</td><td>低</td><td><span class="tag mid">中</span></td><td>8GB 运存个体差异大，可通过更新缓解</td></tr>
+        <tr><td>中框易划痕</td><td>低</td><td>低</td><td><span class="tag low">低</span></td><td>外观话题，戴壳即可规避</td></tr>
+      </tbody>
+    </table>
+
+    <h3>机遇面</h3>
+    <ul>
+      <li><strong>高刷下放</strong>带来的“代际感知”是最大正向资产，可直接用于换机沟通。</li>
+      <li><strong>256GB 起步</strong>被用户解读为“加量不加价”，在存储焦虑普遍存在的当下极具说服力。</li>
+      <li><strong>视频能力</strong>（4K60 杜比视界 + 防抖）在 vlog 人群中形成差异化口碑，可与影像短板做区隔叙事。</li>
+      <li><strong>长期系统更新与生态</strong>仍是老用户不换门的核心理由，适合做“省心”而非“参数”的沟通。</li>
+    </ul>
+  </section>
+
+  <section id="s7" class="reveal">
+    <h2><span class="num">CHAPTER 07</span>结论与战略建议</h2>
+
+    <div class="swot">
+      <div><h4>Strengths</h4><ul><li>120Hz ProMotion 首次下放标准版</li><li>3000 尼特峰值亮度</li><li>256GB 起步 + 177g 轻薄</li><li>A19 + iOS 26 长期流畅</li></ul></div>
+      <div><h4>Weaknesses</h4><ul><li>3692mAh 续航无本质改善</li><li>40W 充电落后同价位安卓</li><li>标准版无长焦，夜景偏弱</li><li>信号与鬼影为跨代老问题</li></ul></div>
+      <div><h4>Opportunities</h4><ul><li>老机型换机潮的最大受益者</li><li>“加量不加价”的存储叙事</li><li>vlog / 视频创作者人群</li><li>生态黏性带来的低流失率</li></ul></div>
+      <div><h4>Threats</h4><ul><li>同价位安卓在快充/电池/长焦上压制</li><li>长测负面模板持续传播</li><li>系统小 bug 影响首月口碑</li><li>“网上骂声”与销量的反差被反复消费</li></ul></div>
+    </div>
+
+    <h3>给品牌的沟通建议</h3>
+    <ol>
+      <li><strong>不要正面硬刚续航。</strong>用“轻度用户一天无忧 + 40W 快充补能”的场景化叙事，比参数辩护更有效。</li>
+      <li><strong>把影像沟通聚焦到视频。</strong>4K60 杜比视界是真实优势，避开与 Pro/安卓的长焦正面对比。</li>
+      <li><strong>主动管理“信号”预期。</strong>这是沉默差评，越回避越会被长测反复验证；可通过场景化实测内容降低不确定性。</li>
+      <li><strong>首月推送系统更新修复小 bug。</strong>系统稳定性是唯一可以快速改善的负面项。</li>
+    </ol>
+
+    <h3>给消费者的购买建议</h3>
+    <p>iPhone 13 及更早机型、看重轻薄与长期流畅、以轻度使用为主：值得换。重度游戏/视频、摄影爱好者、经常出入地库与地铁、追求同价位参数：建议看 Pro 或安卓旗舰。</p>
+  </section>
+
+  <section id="s8" class="reveal">
+    <h2><span class="num">CHAPTER 08</span>数据附录</h2>
+
+    <h3>知识图谱（由 graph_generator.py 生成）</h3>
+    {render_graph_svg()}
+    <p style="font-size:12px;color:var(--muted)">节点 {graph['stats']['node_count']} 个，关系 {graph['stats']['link_count']} 条；类型：{ '、'.join(graph['stats']['node_types']) }。完整数据见 <code>demo/output/graph.json</code>。</p>
+
+    <h3>来源清单</h3>
+    <table>
+      <thead><tr><th>#</th><th>标题</th><th>链接</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>都说iPhone17很香，我实打实使用一年：去掉滤镜，也就那样</td><td><a href="https://m.toutiao.com/article/7681493628841148951/">toutiao</a></td></tr>
+        <tr><td>2</td><td>普通用户用iPhone 17五个月：不吹不黑，真实优缺点全讲透</td><td><a href="https://m.toutiao.com/article/7635678000557736457/">toutiao</a></td></tr>
+        <tr><td>3</td><td>iPhone 17 标准版用满 30 天：最让我想退货的三个缺点</td><td><a href="https://www.163.com/dy/article/L8H6ENKV05561BWY_pdya11y.html">163</a></td></tr>
+        <tr><td>4</td><td>iPhone17深度使用一个月！优点直接封神，老毛病依旧让人闹心</td><td><a href="https://m.toutiao.com/article/7633960232690958848/">toutiao</a></td></tr>
+        <tr><td>5</td><td>真心话：iPhone 17 还值得买吗？5999 元起，普通人别再盲目跟风！</td><td><a href="https://www.sohu.com/a/1010194955_120176307">sohu</a></td></tr>
+        <tr><td>6</td><td>iPhone17用了一周 后悔没早点拿下</td><td><a href="https://www.xiaohongshu.com/discovery/item/6a17d5b2000000003501f5ea">xiaohongshu</a></td></tr>
+        <tr><td>7</td><td>再见，iPhone17</td><td><a href="https://www.163.com/dy/article/L67LU6H805561BWY_pdya11y.html">163</a></td></tr>
+        <tr><td>8</td><td>嘴上说不买销量破纪录这就是网上骂声一片的iPhone17！！</td><td><a href="http://mp.weixin.qq.com/s?__biz=MzY5MDA1MjExNw==&amp;mid=2247484206&amp;idx=3&amp;sn=f755929012660d5831a33a80c996f0c2">weixin</a></td></tr>
+        <tr><td>9</td><td>一些iPhone 17使用体验</td><td><a href="https://www.xiaohongshu.com/discovery/item/6a1e820c00000000350325e8">xiaohongshu</a></td></tr>
+        <tr><td>10</td><td>手机金榜（京东）</td><td><a href="https://pro.m.jd.com/mall/active/3ZbAE5pGUJmYNgfwdtDfspEfdLqR/index.html">jd</a></td></tr>
+      </tbody>
+    </table>
+
+    <h3>方法与复现</h3>
+    <ul>
+      <li>数据获取：Claude Code 的 WebSearch（2026-10-27），关键词“iPhone 17 国内 用户评价 口碑 续航 相机 2026”。</li>
+      <li>处理链路：<code>demo/run_demo.py</code> → DataCollector 聚合 → sentiment_analyzer 规则引擎 → graph_generator 知识图谱 → <code>demo/build_report.py</code> 生成本页。</li>
+      <li>复现命令：<code>python3 demo/run_demo.py && python3 demo/build_report.py</code>。</li>
+      <li>已知限制：情感规则引擎分词失效、平台识别仅覆盖 6 类、样本量为演示级（10 条来源）。</li>
+    </ul>
+
+    <footer>Generated by BettaFish-skill demo · 编辑杂志风格模板 · 数据截至 2026-10-27</footer>
+  </section>
+</main>
+</div>
+<button id="top" title="回到顶部">↑</button>
+<script>
+const links = [...document.querySelectorAll('nav a')];
+const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+secs.forEach(s => s.classList.add('pre'));
+const io = new IntersectionObserver((entries) => {{
+  entries.forEach(e => {{
+    if (e.isIntersecting) {{
+      e.target.classList.add('in');
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }}
+  }});
+}}, {{threshold: 0.15}});
+secs.forEach(s => io.observe(s));
+setTimeout(() => secs.forEach(s => s.classList.add('in')), 700);
+const topBtn = document.getElementById('top');
+addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 600), {{passive:true}});
+topBtn.onclick = () => scrollTo({{top:0, behavior:'smooth'}});
+</script>
+</body>
+</html>
+"""
+
+HTML = f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iPhone 17 国内口碑 · 舆情分析报告 | BettaFish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>{CSS}</style>
+</head>
+<body>
+{BODY}
+"""
+
+(OUT / "report.html").write_text(HTML, encoding="utf-8")
+print(f"written: {OUT / 'report.html'} ({len(HTML):,} bytes)")

@@ -1,0 +1,350 @@
+{
+  "topic": "iPhone 17 国内口碑",
+  "nodes": [
+    {
+      "id": "topic_dcd6dbd4",
+      "name": "iPhone 17 国内口碑",
+      "type": "topic",
+      "group": 1,
+      "date": "2026-10-27",
+      "platforms": 2
+    },
+    {
+      "id": "engine_QueryAgent",
+      "name": "QueryAgent",
+      "type": "engine",
+      "group": 2,
+      "engine_type": "QueryAgent",
+      "report_title": "新闻/论坛/电商评价搜索",
+      "original_query": "iPhone 17 国内口碑"
+    },
+    {
+      "id": "engine_MediaAgent",
+      "name": "MediaAgent",
+      "type": "engine",
+      "group": 2,
+      "engine_type": "MediaAgent",
+      "report_title": "短视频/图文测评分析",
+      "original_query": "iPhone 17 国内口碑"
+    },
+    {
+      "id": "engine_InsightAgent",
+      "name": "InsightAgent",
+      "type": "engine",
+      "group": 2,
+      "engine_type": "InsightAgent",
+      "report_title": "情感与议题聚类",
+      "original_query": "iPhone 17 国内口碑"
+    },
+    {
+      "id": "section_1",
+      "name": "声量与平台分布",
+      "type": "section",
+      "group": 3,
+      "title": "声量与平台分布",
+      "summary": "10条搜索结果覆盖头条/网易/搜狐/小红书/微信/京东",
+      "order": 1,
+      "engine": "engine_QueryAgent"
+    },
+    {
+      "id": "section_2",
+      "name": "产品力评价",
+      "type": "section",
+      "group": 3,
+      "title": "产品力评价",
+      "summary": "高刷、亮度、轻薄、性能获得集中好评",
+      "order": 2,
+      "engine": "engine_QueryAgent"
+    },
+    {
+      "id": "section_3",
+      "name": "续航与充电",
+      "type": "section",
+      "group": 3,
+      "title": "续航与充电",
+      "summary": "最集中的差评点，重度用户一天两充",
+      "order": 3,
+      "engine": "engine_InsightAgent"
+    },
+    {
+      "id": "section_4",
+      "name": "影像能力",
+      "type": "section",
+      "group": 3,
+      "title": "影像能力",
+      "summary": "日常与视频强，缺长焦、夜景弱、鬼影仍在",
+      "order": 4,
+      "engine": "engine_MediaAgent"
+    },
+    {
+      "id": "section_5",
+      "name": "信号与系统稳定性",
+      "type": "section",
+      "group": 3,
+      "title": "信号与系统稳定性",
+      "summary": "地铁/地库掉格、系统小bug为跨代老问题",
+      "order": 5,
+      "engine": "engine_InsightAgent"
+    },
+    {
+      "id": "query_6",
+      "name": "iPhone 17 声量与平台 用户评价",
+      "type": "query",
+      "group": 4,
+      "query_text": "iPhone 17 声量与平台 用户评价",
+      "search_tool": "web_search",
+      "section_ref": "section_1"
+    },
+    {
+      "id": "source_db412227",
+      "name": "今日头条长测",
+      "type": "source",
+      "group": 5,
+      "url": "https://m.toutiao.com/article/7681493628841148951/",
+      "source_type": "toutiao"
+    },
+    {
+      "id": "source_6e1e93d2",
+      "name": "网易30天体验",
+      "type": "source",
+      "group": 5,
+      "url": "https://www.163.com/dy/article/L8H6ENKV05561BWY_pdya11y.html",
+      "source_type": "netease"
+    },
+    {
+      "id": "query_7",
+      "name": "iPhone 17 产品力 用户评价",
+      "type": "query",
+      "group": 4,
+      "query_text": "iPhone 17 产品力 用户评价",
+      "search_tool": "web_search",
+      "section_ref": "section_2"
+    },
+    {
+      "id": "query_8",
+      "name": "iPhone 17 续航 用户评价",
+      "type": "query",
+      "group": 4,
+      "query_text": "iPhone 17 续航 用户评价",
+      "search_tool": "web_search",
+      "section_ref": "section_3"
+    },
+    {
+      "id": "query_9",
+      "name": "iPhone 17 影像 用户评价",
+      "type": "query",
+      "group": 4,
+      "query_text": "iPhone 17 影像 用户评价",
+      "search_tool": "web_search",
+      "section_ref": "section_4"
+    },
+    {
+      "id": "query_10",
+      "name": "iPhone 17 信号 用户评价",
+      "type": "query",
+      "group": 4,
+      "query_text": "iPhone 17 信号 用户评价",
+      "search_tool": "web_search",
+      "section_ref": "section_5"
+    },
+    {
+      "id": "entity_ba4304ab",
+      "name": "iPhone 17 标准版",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "product"
+    },
+    {
+      "id": "entity_c4e4d355",
+      "name": "A19 芯片",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "tech"
+    },
+    {
+      "id": "entity_2b8bb897",
+      "name": "120Hz ProMotion",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "tech"
+    },
+    {
+      "id": "entity_0517e67f",
+      "name": "3692mAh 电池",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "tech"
+    },
+    {
+      "id": "entity_6ebfea29",
+      "name": "4800万主摄",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "tech"
+    },
+    {
+      "id": "entity_35f0b58c",
+      "name": "iOS 26",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "tech"
+    },
+    {
+      "id": "entity_eed718ae",
+      "name": "续航焦虑",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "issue"
+    },
+    {
+      "id": "entity_a5c2acd3",
+      "name": "无长焦",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "issue"
+    },
+    {
+      "id": "entity_11c832d6",
+      "name": "信号差",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "issue"
+    },
+    {
+      "id": "entity_9d9acbbd",
+      "name": "系统小bug",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "issue"
+    }
+  ],
+  "links": [
+    {
+      "source": "topic_dcd6dbd4",
+      "target": "engine_QueryAgent",
+      "type": "analyzed_by"
+    },
+    {
+      "source": "topic_dcd6dbd4",
+      "target": "engine_MediaAgent",
+      "type": "analyzed_by"
+    },
+    {
+      "source": "topic_dcd6dbd4",
+      "target": "engine_InsightAgent",
+      "type": "analyzed_by"
+    },
+    {
+      "source": "engine_QueryAgent",
+      "target": "section_1",
+      "type": "contains"
+    },
+    {
+      "source": "engine_QueryAgent",
+      "target": "section_2",
+      "type": "contains"
+    },
+    {
+      "source": "engine_InsightAgent",
+      "target": "section_3",
+      "type": "contains"
+    },
+    {
+      "source": "engine_MediaAgent",
+      "target": "section_4",
+      "type": "contains"
+    },
+    {
+      "source": "engine_InsightAgent",
+      "target": "section_5",
+      "type": "contains"
+    },
+    {
+      "source": "section_1",
+      "target": "query_6",
+      "type": "searched"
+    },
+    {
+      "source": "query_6",
+      "target": "source_db412227",
+      "type": "found"
+    },
+    {
+      "source": "query_6",
+      "target": "source_6e1e93d2",
+      "type": "found"
+    },
+    {
+      "source": "section_2",
+      "target": "query_7",
+      "type": "searched"
+    },
+    {
+      "source": "query_7",
+      "target": "source_db412227",
+      "type": "found"
+    },
+    {
+      "source": "query_7",
+      "target": "source_6e1e93d2",
+      "type": "found"
+    },
+    {
+      "source": "section_3",
+      "target": "query_8",
+      "type": "searched"
+    },
+    {
+      "source": "query_8",
+      "target": "source_db412227",
+      "type": "found"
+    },
+    {
+      "source": "query_8",
+      "target": "source_6e1e93d2",
+      "type": "found"
+    },
+    {
+      "source": "section_4",
+      "target": "query_9",
+      "type": "searched"
+    },
+    {
+      "source": "query_9",
+      "target": "source_db412227",
+      "type": "found"
+    },
+    {
+      "source": "query_9",
+      "target": "source_6e1e93d2",
+      "type": "found"
+    },
+    {
+      "source": "section_5",
+      "target": "query_10",
+      "type": "searched"
+    },
+    {
+      "source": "query_10",
+      "target": "source_db412227",
+      "type": "found"
+    },
+    {
+      "source": "query_10",
+      "target": "source_6e1e93d2",
+      "type": "found"
+    }
+  ],
+  "stats": {
+    "node_count": 26,
+    "link_count": 23,
+    "node_types": [
+      "engine",
+      "section",
+      "query",
+      "source",
+      "entity",
+      "topic"
+    ]
+  }
+}

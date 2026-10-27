@@ -1,0 +1,44 @@
+{
+  "topic": "姆巴佩涉华言论事件",
+  "generated_at": "2026-10-27",
+  "template": {
+    "name": "突发事件与危机公关",
+    "path": "assets/templates/突发事件与危机公关舆情报告模板.md"
+  },
+  "sources": 24,
+  "platform_stats": {
+    "other": 24
+  },
+  "sentiment_rule_engine": {
+    "positive_count": 0,
+    "negative_count": 0,
+    "neutral_count": 20,
+    "positive_pct": 0.0,
+    "negative_pct": 0.0,
+    "neutral_pct": 100.0,
+    "total": 20,
+    "average_confidence": 0.5,
+    "emotion_distribution": {
+      "anticipation": 1
+    }
+  },
+  "keywords_rule_engine": [
+    [
+      "表述",
+      2
+    ]
+  ],
+  "graph": {
+    "node_count": 35,
+    "link_count": 43,
+    "node_types": [
+      "query",
+      "entity",
+      "source",
+      "engine",
+      "topic",
+      "section"
+    ]
+  },
+  "verification_note": "涉事播客片段截至检索时仍属“未独立核实”；姆巴佩在片段中未点名。报告中“事实 / 报道 / 评论”分层标注。"
+}

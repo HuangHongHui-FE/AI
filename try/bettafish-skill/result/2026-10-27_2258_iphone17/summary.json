@@ -1,0 +1,45 @@
+{
+  "topic": "iPhone 17 国内口碑",
+  "generated_at": "2026-10-27",
+  "search_results": 10,
+  "platform_stats": {
+    "other": 8,
+    "xiaohongshu": 2
+  },
+  "template": {
+    "name": "企业品牌声誉分析",
+    "path": "assets/templates/企业品牌声誉分析报告模板.md"
+  },
+  "sentiment": {
+    "positive_count": 0,
+    "negative_count": 0,
+    "neutral_count": 12,
+    "positive_pct": 0.0,
+    "negative_pct": 0.0,
+    "neutral_pct": 100.0,
+    "total": 12,
+    "average_confidence": 0.5,
+    "emotion_distribution": {
+      "worry": 1
+    }
+  },
+  "keywords": [
+    [
+      "ios",
+      2
+    ]
+  ],
+  "graph": {
+    "node_count": 26,
+    "link_count": 23,
+    "node_types": [
+      "engine",
+      "section",
+      "query",
+      "source",
+      "entity",
+      "topic"
+    ]
+  },
+  "note": "情感分数字段来自 scripts/sentiment_analyzer.py 的规则引擎；其 2-4 字贪婪分词会切碎词典词，负面句常被判中性，报告中的定性结论以人工/LLM 阅读原文为准。"
+}

@@ -1,0 +1,517 @@
+{
+  "topic": "姆巴佩涉华言论事件",
+  "nodes": [
+    {
+      "id": "topic_c8ebf34e",
+      "name": "姆巴佩涉华言论事件",
+      "type": "crisis",
+      "group": 1,
+      "date": "2026-10-27",
+      "sources": 24
+    },
+    {
+      "id": "engine_QueryAgent",
+      "name": "QueryAgent",
+      "type": "engine",
+      "group": 2,
+      "engine_type": "QueryAgent",
+      "report_title": "新闻、官方表态与时间线核验",
+      "original_query": "姆巴佩涉华言论事件"
+    },
+    {
+      "id": "engine_MediaAgent",
+      "name": "MediaAgent",
+      "type": "engine",
+      "group": 2,
+      "engine_type": "MediaAgent",
+      "report_title": "微博热搜、短视频与平台处置",
+      "original_query": "姆巴佩涉华言论事件"
+    },
+    {
+      "id": "engine_InsightAgent",
+      "name": "InsightAgent",
+      "type": "engine",
+      "group": 2,
+      "engine_type": "InsightAgent",
+      "report_title": "情绪结构、议题聚类与风险研判",
+      "original_query": "姆巴佩涉华言论事件"
+    },
+    {
+      "id": "section_1",
+      "name": "事件溯源与发展脉络",
+      "type": "section",
+      "group": 3,
+      "title": "事件溯源与发展脉络",
+      "summary": "播客片段流出到本人三语道歉的48小时",
+      "order": 1,
+      "engine": "engine_QueryAgent"
+    },
+    {
+      "id": "section_2",
+      "name": "舆情传播分析",
+      "type": "section",
+      "group": 3,
+      "title": "舆情传播分析",
+      "summary": "垂直社区点火、微博引爆、官媒定调、商业撤离",
+      "order": 2,
+      "engine": "engine_MediaAgent"
+    },
+    {
+      "id": "section_3",
+      "name": "舆论焦点与公众态度",
+      "type": "section",
+      "group": 3,
+      "title": "舆论焦点与公众态度",
+      "summary": "民族情感、吃饭砸锅、道歉诚意、皇马沉默",
+      "order": 3,
+      "engine": "engine_InsightAgent"
+    },
+    {
+      "id": "section_4",
+      "name": "风险研判",
+      "type": "section",
+      "group": 3,
+      "title": "风险研判",
+      "summary": "商业、转播、俱乐部治理与历史旧账",
+      "order": 4,
+      "engine": "engine_InsightAgent"
+    },
+    {
+      "id": "section_5",
+      "name": "应对策略与处置建议",
+      "type": "section",
+      "group": 3,
+      "title": "应对策略与处置建议",
+      "summary": "皇马补位、全球同步、整改与修复",
+      "order": 5,
+      "engine": "engine_InsightAgent"
+    },
+    {
+      "id": "query_6",
+      "name": "姆巴佩事件 事件溯源 舆情检索",
+      "type": "query",
+      "group": 4,
+      "query_text": "姆巴佩事件 事件溯源 舆情检索",
+      "search_tool": "web_search",
+      "section_ref": "section_1"
+    },
+    {
+      "id": "source_91a9eba1",
+      "name": "姆巴佩发表涉华错误言论，中国足协：第一时间与皇家马德里俱乐部进行严正交涉",
+      "type": "source",
+      "group": 5,
+      "url": "https://finance.sina.com.cn/wm/2026-10-27/doc-iniwsseu0222086.shtml",
+      "source_type": "other"
+    },
+    {
+      "id": "source_7c277861",
+      "name": "姆巴佩致歉！声明用法、中、英三文发布",
+      "type": "source",
+      "group": 5,
+      "url": "https://www.toutiao.com/article/7701335416577753600/",
+      "source_type": "other"
+    },
+    {
+      "id": "source_325c5d1c",
+      "name": "姆巴佩致歉：言论欠妥，绝非本意，我向所有被我的言论所伤害的人道歉",
+      "type": "source",
+      "group": 5,
+      "url": "https://www.sohu.com/a/1093507975_255783",
+      "source_type": "other"
+    },
+    {
+      "id": "source_eb31357c",
+      "name": "姆巴佩遭数家中国公司解约品牌代言 外交部回应",
+      "type": "source",
+      "group": 5,
+      "url": "http://news.yunnan.cn/system/2026/10/27/034182705.shtml",
+      "source_type": "other"
+    },
+    {
+      "id": "source_f8136983",
+      "name": "央视总台要求皇马和姆巴佩公开道歉，并向总台递交书面道歉信",
+      "type": "source",
+      "group": 5,
+      "url": "https://www.tsrb.com.cn/xwzx/2026-10/27/content_300026126.html",
+      "source_type": "other"
+    },
+    {
+      "id": "source_80416d10",
+      "name": "吃中国饭砸中国锅？球迷抵制姆巴佩，他的沉默比失言更说明问题",
+      "type": "source",
+      "group": 5,
+      "url": "https://news.ycwb.com/ikimvjktil/content_54331570.htm",
+      "source_type": "other"
+    },
+    {
+      "id": "query_7",
+      "name": "姆巴佩事件 传播分析 舆情检索",
+      "type": "query",
+      "group": 4,
+      "query_text": "姆巴佩事件 传播分析 舆情检索",
+      "search_tool": "web_search",
+      "section_ref": "section_2"
+    },
+    {
+      "id": "query_8",
+      "name": "姆巴佩事件 舆论焦点 舆情检索",
+      "type": "query",
+      "group": 4,
+      "query_text": "姆巴佩事件 舆论焦点 舆情检索",
+      "search_tool": "web_search",
+      "section_ref": "section_3"
+    },
+    {
+      "id": "query_9",
+      "name": "姆巴佩事件 风险研判 舆情检索",
+      "type": "query",
+      "group": 4,
+      "query_text": "姆巴佩事件 风险研判 舆情检索",
+      "search_tool": "web_search",
+      "section_ref": "section_4"
+    },
+    {
+      "id": "query_10",
+      "name": "姆巴佩事件 应对策略 舆情检索",
+      "type": "query",
+      "group": 4,
+      "query_text": "姆巴佩事件 应对策略 舆情检索",
+      "search_tool": "web_search",
+      "section_ref": "section_5"
+    },
+    {
+      "id": "entity_03034097",
+      "name": "姆巴佩",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "person"
+    },
+    {
+      "id": "entity_3265bf19",
+      "name": "皇家马德里",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "organization"
+    },
+    {
+      "id": "entity_8f21be48",
+      "name": "西甲联盟",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "organization"
+    },
+    {
+      "id": "entity_5282e64d",
+      "name": "中国足协",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "organization"
+    },
+    {
+      "id": "entity_c406e22c",
+      "name": "中央广播电视总台",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "organization"
+    },
+    {
+      "id": "entity_af6fc068",
+      "name": "外交部",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "organization"
+    },
+    {
+      "id": "entity_7b7fedee",
+      "name": "东鹏饮料",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "brand"
+    },
+    {
+      "id": "entity_3352ac28",
+      "name": "蒙牛乳业",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "brand"
+    },
+    {
+      "id": "entity_7190d4ca",
+      "name": "妙可蓝多",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "brand"
+    },
+    {
+      "id": "entity_ae26bb04",
+      "name": "小红书",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "platform"
+    },
+    {
+      "id": "entity_d0391ef1",
+      "name": "The Bridge 播客",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "media"
+    },
+    {
+      "id": "entity_ca1cc3c5",
+      "name": "三语道歉声明",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "statement"
+    },
+    {
+      "id": "entity_9510dd48",
+      "name": "道德条款",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "legal"
+    },
+    {
+      "id": "entity_8c3d4a28",
+      "name": "未核实视频",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "risk"
+    },
+    {
+      "id": "entity_d086768a",
+      "name": "历史涉华争议",
+      "type": "entity",
+      "group": 6,
+      "entity_type": "risk"
+    }
+  ],
+  "links": [
+    {
+      "source": "topic_c8ebf34e",
+      "target": "engine_QueryAgent",
+      "type": "analyzed_by"
+    },
+    {
+      "source": "topic_c8ebf34e",
+      "target": "engine_MediaAgent",
+      "type": "analyzed_by"
+    },
+    {
+      "source": "topic_c8ebf34e",
+      "target": "engine_InsightAgent",
+      "type": "analyzed_by"
+    },
+    {
+      "source": "engine_QueryAgent",
+      "target": "section_1",
+      "type": "contains"
+    },
+    {
+      "source": "engine_MediaAgent",
+      "target": "section_2",
+      "type": "contains"
+    },
+    {
+      "source": "engine_InsightAgent",
+      "target": "section_3",
+      "type": "contains"
+    },
+    {
+      "source": "engine_InsightAgent",
+      "target": "section_4",
+      "type": "contains"
+    },
+    {
+      "source": "engine_InsightAgent",
+      "target": "section_5",
+      "type": "contains"
+    },
+    {
+      "source": "section_1",
+      "target": "query_6",
+      "type": "searched"
+    },
+    {
+      "source": "query_6",
+      "target": "source_91a9eba1",
+      "type": "found"
+    },
+    {
+      "source": "query_6",
+      "target": "source_7c277861",
+      "type": "found"
+    },
+    {
+      "source": "query_6",
+      "target": "source_325c5d1c",
+      "type": "found"
+    },
+    {
+      "source": "query_6",
+      "target": "source_eb31357c",
+      "type": "found"
+    },
+    {
+      "source": "query_6",
+      "target": "source_f8136983",
+      "type": "found"
+    },
+    {
+      "source": "query_6",
+      "target": "source_80416d10",
+      "type": "found"
+    },
+    {
+      "source": "section_2",
+      "target": "query_7",
+      "type": "searched"
+    },
+    {
+      "source": "query_7",
+      "target": "source_91a9eba1",
+      "type": "found"
+    },
+    {
+      "source": "query_7",
+      "target": "source_7c277861",
+      "type": "found"
+    },
+    {
+      "source": "query_7",
+      "target": "source_325c5d1c",
+      "type": "found"
+    },
+    {
+      "source": "query_7",
+      "target": "source_eb31357c",
+      "type": "found"
+    },
+    {
+      "source": "query_7",
+      "target": "source_f8136983",
+      "type": "found"
+    },
+    {
+      "source": "query_7",
+      "target": "source_80416d10",
+      "type": "found"
+    },
+    {
+      "source": "section_3",
+      "target": "query_8",
+      "type": "searched"
+    },
+    {
+      "source": "query_8",
+      "target": "source_91a9eba1",
+      "type": "found"
+    },
+    {
+      "source": "query_8",
+      "target": "source_7c277861",
+      "type": "found"
+    },
+    {
+      "source": "query_8",
+      "target": "source_325c5d1c",
+      "type": "found"
+    },
+    {
+      "source": "query_8",
+      "target": "source_eb31357c",
+      "type": "found"
+    },
+    {
+      "source": "query_8",
+      "target": "source_f8136983",
+      "type": "found"
+    },
+    {
+      "source": "query_8",
+      "target": "source_80416d10",
+      "type": "found"
+    },
+    {
+      "source": "section_4",
+      "target": "query_9",
+      "type": "searched"
+    },
+    {
+      "source": "query_9",
+      "target": "source_91a9eba1",
+      "type": "found"
+    },
+    {
+      "source": "query_9",
+      "target": "source_7c277861",
+      "type": "found"
+    },
+    {
+      "source": "query_9",
+      "target": "source_325c5d1c",
+      "type": "found"
+    },
+    {
+      "source": "query_9",
+      "target": "source_eb31357c",
+      "type": "found"
+    },
+    {
+      "source": "query_9",
+      "target": "source_f8136983",
+      "type": "found"
+    },
+    {
+      "source": "query_9",
+      "target": "source_80416d10",
+      "type": "found"
+    },
+    {
+      "source": "section_5",
+      "target": "query_10",
+      "type": "searched"
+    },
+    {
+      "source": "query_10",
+      "target": "source_91a9eba1",
+      "type": "found"
+    },
+    {
+      "source": "query_10",
+      "target": "source_7c277861",
+      "type": "found"
+    },
+    {
+      "source": "query_10",
+      "target": "source_325c5d1c",
+      "type": "found"
+    },
+    {
+      "source": "query_10",
+      "target": "source_eb31357c",
+      "type": "found"
+    },
+    {
+      "source": "query_10",
+      "target": "source_f8136983",
+      "type": "found"
+    },
+    {
+      "source": "query_10",
+      "target": "source_80416d10",
+      "type": "found"
+    }
+  ],
+  "stats": {
+    "node_count": 35,
+    "link_count": 43,
+    "node_types": [
+      "query",
+      "entity",
+      "source",
+      "engine",
+      "topic",
+      "section"
+    ]
+  }
+}
