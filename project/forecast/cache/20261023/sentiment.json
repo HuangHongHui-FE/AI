@@ -1,0 +1,14 @@
+{
+  "date": "20261023",
+  "ts": "14:02:38",
+  "host": "push2delay.eastmoney.com",
+  "up": 2008,
+  "down": 3121,
+  "flat": 167,
+  "total": 5296,
+  "limit_up": 2,
+  "limit_down": 0,
+  "profit_ratio": 37.9,
+  "sentiment_temp": 2,
+  "note": "f104涨/f105跌/f106平/f107涨停/f108跌停,取上证指数市场级统计"
+}
