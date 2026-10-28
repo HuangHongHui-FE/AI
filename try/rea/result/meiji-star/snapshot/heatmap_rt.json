@@ -1,0 +1,184 @@
+[
+  {
+    "name": "AI 算力",
+    "code": "ai-compute",
+    "chg": "+2.85%",
+    "value": 2.85,
+    "trend": "up"
+  },
+  {
+    "name": "CPO",
+    "code": "cpo",
+    "chg": "+5.13%",
+    "value": 5.13,
+    "trend": "up"
+  },
+  {
+    "name": "半导体",
+    "code": "semiconductor",
+    "chg": "+2.44%",
+    "value": 2.44,
+    "trend": "up"
+  },
+  {
+    "name": "存储",
+    "code": "storage",
+    "chg": "+3.89%",
+    "value": 3.89,
+    "trend": "up"
+  },
+  {
+    "name": "数据中心",
+    "code": "data-center",
+    "chg": "+4.07%",
+    "value": 4.07,
+    "trend": "up"
+  },
+  {
+    "name": "云计算",
+    "code": "cloud-computing",
+    "chg": "+0.59%",
+    "value": 0.59,
+    "trend": "up"
+  },
+  {
+    "name": "商业航天",
+    "code": "commercial-space",
+    "chg": "+7.16%",
+    "value": 7.16,
+    "trend": "up"
+  },
+  {
+    "name": "卫星",
+    "code": "satellite",
+    "chg": "+4.65%",
+    "value": 4.65,
+    "trend": "up"
+  },
+  {
+    "name": "机器人",
+    "code": "robotics",
+    "chg": "+2.14%",
+    "value": 2.14,
+    "trend": "up"
+  },
+  {
+    "name": "自动驾驶",
+    "code": "autonomous-driving",
+    "chg": "+3.17%",
+    "value": 3.17,
+    "trend": "up"
+  },
+  {
+    "name": "核电",
+    "code": "nuclear-power",
+    "chg": "+3.83%",
+    "value": 3.83,
+    "trend": "up"
+  },
+  {
+    "name": "电网",
+    "code": "power-grid",
+    "chg": "+1.86%",
+    "value": 1.86,
+    "trend": "up"
+  },
+  {
+    "name": "军工",
+    "code": "defense",
+    "chg": "-0.22%",
+    "value": -0.22,
+    "trend": "down"
+  },
+  {
+    "name": "光伏",
+    "code": "solar",
+    "chg": "+3.61%",
+    "value": 3.61,
+    "trend": "up"
+  },
+  {
+    "name": "锂电池",
+    "code": "lithium-battery",
+    "chg": "+7.10%",
+    "value": 7.1,
+    "trend": "up"
+  },
+  {
+    "name": "油气",
+    "code": "oil",
+    "chg": "-1.44%",
+    "value": -1.44,
+    "trend": "down"
+  },
+  {
+    "name": "铜 / 有色",
+    "code": "copper-metals",
+    "chg": "+2.52%",
+    "value": 2.52,
+    "trend": "up"
+  },
+  {
+    "name": "黄金矿业",
+    "code": "gold-miners",
+    "chg": "+1.84%",
+    "value": 1.84,
+    "trend": "up"
+  },
+  {
+    "name": "银行金融",
+    "code": "bank-finance",
+    "chg": "+0.62%",
+    "value": 0.62,
+    "trend": "up"
+  },
+  {
+    "name": "生物医药",
+    "code": "biotech",
+    "chg": "+0.02%",
+    "value": 0.02,
+    "trend": "up"
+  },
+  {
+    "name": "消费",
+    "code": "consumer",
+    "chg": "-0.34%",
+    "value": -0.34,
+    "trend": "down"
+  },
+  {
+    "name": "稀土",
+    "code": "rare-earth",
+    "chg": "+8.70%",
+    "value": 8.7,
+    "trend": "up"
+  },
+  {
+    "name": "通信设备",
+    "code": "telecom-equipment",
+    "chg": "+2.62%",
+    "value": 2.62,
+    "trend": "up"
+  },
+  {
+    "name": "量子计算",
+    "code": "quantum-computing",
+    "chg": "+5.05%",
+    "value": 5.05,
+    "trend": "up"
+  },
+  {
+    "name": "区块链",
+    "code": "blockchain",
+    "chg": "+2.22%",
+    "value": 2.22,
+    "trend": "up"
+  },
+  {
+    "name": "AI 应用",
+    "code": "ai-application",
+    "chg": "+0.01%",
+    "value": 0.01,
+    "trend": "up"
+  }
+]

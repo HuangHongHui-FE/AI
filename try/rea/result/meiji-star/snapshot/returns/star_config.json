@@ -1,0 +1,155 @@
+{
+  "appName": "美基星图",
+  "logoUrl": "https://www.enlee.cloud/assets/star-logo.webp",
+  "navigationBarTitle": "",
+  "riskWarningText": "本程序仅供参考，不构成任何建议。",
+  "defaultTheme": "light",
+  "share": {
+    "title": "美基星图 · 美股基金实时行情",
+    "imageUrl": "https://www.enlee.cloud/assets/star-logo.webp"
+  },
+  "tabBar": {
+    "home": "美股",
+    "asia": "亚盘",
+    "gold": "黄金",
+    "me": "我的"
+  },
+  "popupAnnouncement": {
+    "imageUrl": ""
+  },
+  "marketHoursTimeline": {
+    "imageUrl": "https://www.enlee.cloud/assets/jysd-v2.webp"
+  },
+  "sectionLabels": {
+    "up": "涨",
+    "flat": "平",
+    "down": "跌",
+    "sort": "排序"
+  },
+  "text": {
+    "loadFailed": "数据加载失败",
+    "durationDayUnit": "天"
+  },
+  "quoteMode": {
+    "title": "行情口径",
+    "previousTradingDayDescriptionPrefix": "截止 10/27 ",
+    "previousTradingDayDescriptionSuffix": " 收盘",
+    "daylightSavingLabel": "",
+    "standardTimeLabel": "",
+    "realtimeDescriptionPrefix": "更新于",
+    "realtimeDescriptionSuffix": "",
+    "ariaLabel": "选择行情时间",
+    "heatmapAriaLabel": "选择热力图行情时间",
+    "closeLabel": "收盘"
+  },
+  "home": {
+    "pageTitle": "美基星图",
+    "sectionTitle": "美基星图",
+    "topMarqueeText": "点击“收盘”按钮，查看早上4点美股收盘行情",
+    "riskWarningText": "",
+    "shareTitle": "美基星图 · 美股板块行情",
+    "share": {
+      "label": "生成分享图",
+      "busy": "生成中",
+      "subtitle": "全球行情 · 经济与产业一览",
+      "tag": "小程序",
+      "empty": "暂无可分享的数据",
+      "failed": "生成失败，可用右上角 ··· 分享",
+      "hint": "长按图片可直接发送给朋友"
+    },
+    "refreshTime": 1,
+    "showQuoteModeSwitch": true,
+    "refreshOnShow": true,
+    "showRefreshFlash": true,
+    "showSectionStats": false,
+    "marketClock": {
+      "switchToCloseHours": 4
+    }
+  },
+  "asia": {
+    "pageTitle": "美基星图",
+    "sectionTitle": "美基星图",
+    "topMarqueeText": "",
+    "riskWarningText": "",
+    "shareTitle": "美基星图 · 亚盘行情",
+    "refreshTime": 3,
+    "showRefreshFlash": true,
+    "showSectionStats": false,
+    "marketStatus": {
+      "regionLabel": "日韩",
+      "sessionText": {
+        "trading": "盘中",
+        "closed": "休市"
+      }
+    }
+  },
+  "gold": {
+    "pageTitle": "美基星图",
+    "topMarqueeText": "",
+    "riskWarningText": "实际成交以门店/柜台为准；数据存在延迟,以上均仅供参考。",
+    "shareTitle": "美基星图 · 今日金价",
+    "shareButtonText": "",
+    "refreshTime": 30,
+    "sectionKeys": [
+      "international"
+    ],
+    "symbols": [
+      "GC00Y"
+    ],
+    "brandGroups": [
+      "wholesale",
+      "brand"
+    ]
+  },
+  "heatmap": {
+    "enabled": true,
+    "pageTitle": "美基星图",
+    "logoUrl": "https://www.enlee.cloud/assets/star-logo.webp",
+    "topMarqueeText": "",
+    "riskWarningText": "",
+    "shareTitle": "美基星图 · 美股热力图",
+    "refreshTime": 1,
+    "showQuoteModeSwitch": true,
+    "refreshOnShow": true
+  },
+  "me": {
+    "pageTitle": "我的",
+    "shareTitle": "美基星图",
+    "themeTitle": "主题颜色",
+    "themeDescription": "切换浅色或深色模式",
+    "versionTitle": "当前版本",
+    "versionPrefix": "v",
+    "userIdTitle": "用户 ID",
+    "contactSectionTitle": "",
+    "officialAccountQrUrl": "https://www.enlee.cloud/assets/mp.webp",
+    "officialAccountTitle": "防失联公众号",
+    "officialAccountDescription": "搜「蓝猫估值助手」",
+    "wechatGroupQrUrl": "https://www.enlee.cloud/assets/zxwx.webp",
+    "wechatGroupTitle": "限时优惠活动",
+    "wechatGroupDescription": "银河证券开户ETF交易免5元",
+    "clickPreviewHint": "",
+    "miniProgramSectionTitle": "更多功能",
+    "miniPrograms": [
+      {
+        "name": "港美估值",
+        "iconUrl": "https://www.enlee.cloud/assets/valuation-logo.webp",
+        "appId": "wx0f3650eff47cb32b",
+        "path": "pages/index/index"
+      },
+      {
+        "name": "恐慌贪婪指数",
+        "iconUrl": "https://www.enlee.cloud/assets/fear-greed-logo.jpg",
+        "appId": "wx45fdacdd80655161",
+        "path": "pages/home/home"
+      },
+      {
+        "name": "蓝猫估值",
+        "iconUrl": "https://www.enlee.cloud/assets/sv-logo.webp",
+        "appId": "wx683a012f14bfff62",
+        "path": "pages/index/index"
+      }
+    ],
+    "noteSectionTitle": "说明",
+    "noteText": "本程序展示的公开查询数据、仅供参考，不构成任何投资建议。"
+  }
+}

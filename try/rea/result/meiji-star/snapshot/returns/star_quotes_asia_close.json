@@ -1,0 +1,210 @@
+{
+  "s": [
+    {
+      "c": "cn-ai-compute",
+      "v": -4.13
+    },
+    {
+      "c": "cn-cpo",
+      "v": -3.93
+    },
+    {
+      "c": "cn-semiconductor",
+      "v": -3.55
+    },
+    {
+      "c": "cn-storage",
+      "v": -2.06
+    },
+    {
+      "c": "cn-data-center",
+      "v": -3.09
+    },
+    {
+      "c": "cn-cloud-computing",
+      "v": -3.29
+    },
+    {
+      "c": "cn-commercial-space",
+      "v": -4.05
+    },
+    {
+      "c": "cn-satellite",
+      "v": -4.53
+    },
+    {
+      "c": "cn-robotics",
+      "v": -2.41
+    },
+    {
+      "c": "cn-autonomous-driving",
+      "v": -1.07
+    },
+    {
+      "c": "cn-nuclear-power",
+      "v": -0.91
+    },
+    {
+      "c": "cn-power-grid",
+      "v": -1.88
+    },
+    {
+      "c": "cn-defense",
+      "v": -3.18
+    },
+    {
+      "c": "cn-solar",
+      "v": -1.7
+    },
+    {
+      "c": "cn-lithium-battery",
+      "v": -1.75
+    },
+    {
+      "c": "cn-oil",
+      "v": -0.98
+    },
+    {
+      "c": "cn-copper-metals",
+      "v": 1.44
+    },
+    {
+      "c": "cn-gold-miners",
+      "v": -0.75
+    },
+    {
+      "c": "cn-bank-finance",
+      "v": 0.04
+    },
+    {
+      "c": "cn-biotech",
+      "v": -3.94
+    },
+    {
+      "c": "cn-consumer",
+      "v": -0.49
+    },
+    {
+      "c": "cn-rare-earth",
+      "v": -2.74
+    },
+    {
+      "c": "cn-telecom-equipment",
+      "v": -2.62
+    },
+    {
+      "c": "cn-quantum-computing",
+      "v": -3.77
+    },
+    {
+      "c": "cn-blockchain",
+      "v": -3.26
+    },
+    {
+      "c": "cn-ai-application",
+      "v": -2.84
+    },
+    {
+      "c": "KOSPI",
+      "v": 3.09
+    },
+    {
+      "c": "KOSDAQ",
+      "v": 2.29
+    },
+    {
+      "c": "kr-memory",
+      "v": 4.4
+    },
+    {
+      "c": "kr-semiconductor",
+      "v": 3.02
+    },
+    {
+      "c": "kr-battery",
+      "v": 3.12
+    },
+    {
+      "c": "kr-consumer-electronics",
+      "v": 2.99
+    },
+    {
+      "c": "kr-internet",
+      "v": -0.07
+    },
+    {
+      "c": "kr-auto",
+      "v": 1.29
+    },
+    {
+      "c": "kr-biotech",
+      "v": -2.37
+    },
+    {
+      "c": "kr-chemicals",
+      "v": 0.0
+    },
+    {
+      "c": "N225",
+      "v": 1.73
+    },
+    {
+      "c": "TOPIX",
+      "v": 0.61
+    },
+    {
+      "c": "jp-semi-equipment",
+      "v": 4.77
+    },
+    {
+      "c": "jp-factory-automation",
+      "v": 2.49
+    },
+    {
+      "c": "jp-precision",
+      "v": 0.77
+    },
+    {
+      "c": "jp-auto",
+      "v": -0.62
+    },
+    {
+      "c": "jp-consumer-electronics",
+      "v": 0.29
+    },
+    {
+      "c": "jp-semi-materials",
+      "v": 4.0
+    },
+    {
+      "c": "jp-electronic-components",
+      "v": 2.28
+    },
+    {
+      "c": "jp-gaming",
+      "v": -1.04
+    }
+  ],
+  "m": {
+    "kr-index": {
+      "s": "closed",
+      "t": "休市",
+      "u": "更新于 14:30 收盘"
+    },
+    "cn": {
+      "s": "closed",
+      "t": "休市",
+      "u": "更新于 15:00 收盘"
+    },
+    "jp": {
+      "s": "closed",
+      "t": "休市",
+      "u": "更新于 14:30 收盘"
+    },
+    "kr": {
+      "s": "closed",
+      "t": "休市",
+      "u": "更新于 19:00 盘后收盘"
+    }
+  }
+}

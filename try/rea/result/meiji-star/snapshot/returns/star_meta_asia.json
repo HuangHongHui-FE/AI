@@ -1,0 +1,360 @@
+{
+  "sections": [
+    {
+      "id": "cn-sectors",
+      "name": "A股板块数据",
+      "sort": true,
+      "sta": false,
+      "showStats": true,
+      "def": "all",
+      "market": "cn",
+      "tabs": [
+        {
+          "key": "all",
+          "list": [
+            {
+              "type": "sector",
+              "img": "🧠",
+              "name": "AI 算力",
+              "code": "cn-ai-compute"
+            },
+            {
+              "type": "sector",
+              "img": "💡",
+              "name": "CPO",
+              "code": "cn-cpo"
+            },
+            {
+              "type": "sector",
+              "img": "🔬",
+              "name": "半导体",
+              "code": "cn-semiconductor"
+            },
+            {
+              "type": "sector",
+              "img": "💾",
+              "name": "存储",
+              "code": "cn-storage"
+            },
+            {
+              "type": "sector",
+              "img": "🗄️",
+              "name": "数据中心",
+              "code": "cn-data-center"
+            },
+            {
+              "type": "sector",
+              "img": "☁️",
+              "name": "云计算",
+              "code": "cn-cloud-computing"
+            },
+            {
+              "type": "sector",
+              "img": "🚀",
+              "name": "商业航天",
+              "code": "cn-commercial-space"
+            },
+            {
+              "type": "sector",
+              "img": "🛰️",
+              "name": "卫星",
+              "code": "cn-satellite"
+            },
+            {
+              "type": "sector",
+              "img": "🤖",
+              "name": "机器人",
+              "code": "cn-robotics"
+            },
+            {
+              "type": "sector",
+              "img": "🚗",
+              "name": "自动驾驶",
+              "code": "cn-autonomous-driving"
+            },
+            {
+              "type": "sector",
+              "img": "⚛️",
+              "name": "核电",
+              "code": "cn-nuclear-power"
+            },
+            {
+              "type": "sector",
+              "img": "⚡",
+              "name": "电网",
+              "code": "cn-power-grid"
+            },
+            {
+              "type": "sector",
+              "img": "🛡️",
+              "name": "军工",
+              "code": "cn-defense"
+            },
+            {
+              "type": "sector",
+              "img": "☀️",
+              "name": "光伏",
+              "code": "cn-solar"
+            },
+            {
+              "type": "sector",
+              "img": "🔌",
+              "name": "锂电池",
+              "code": "cn-lithium-battery"
+            },
+            {
+              "type": "sector",
+              "img": "🛢️",
+              "name": "油气",
+              "code": "cn-oil"
+            },
+            {
+              "type": "sector",
+              "img": "🟠",
+              "name": "铜 / 有色",
+              "code": "cn-copper-metals"
+            },
+            {
+              "type": "sector",
+              "img": "🥇",
+              "name": "黄金矿业",
+              "code": "cn-gold-miners"
+            },
+            {
+              "type": "sector",
+              "img": "🏦",
+              "name": "银行金融",
+              "code": "cn-bank-finance"
+            },
+            {
+              "type": "sector",
+              "img": "💊",
+              "name": "生物医药",
+              "code": "cn-biotech"
+            },
+            {
+              "type": "sector",
+              "img": "🛒",
+              "name": "消费",
+              "code": "cn-consumer"
+            },
+            {
+              "type": "sector",
+              "img": "🧲",
+              "name": "稀土",
+              "code": "cn-rare-earth"
+            },
+            {
+              "type": "sector",
+              "img": "📶",
+              "name": "通信设备",
+              "code": "cn-telecom-equipment"
+            },
+            {
+              "type": "sector",
+              "img": "🌀",
+              "name": "量子计算",
+              "code": "cn-quantum-computing"
+            },
+            {
+              "type": "sector",
+              "img": "⛓️",
+              "name": "区块链",
+              "code": "cn-blockchain"
+            },
+            {
+              "type": "sector",
+              "img": "✨",
+              "name": "AI 应用",
+              "code": "cn-ai-application"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kr-indices",
+      "name": "韩国综合",
+      "sort": false,
+      "sta": false,
+      "showStats": true,
+      "def": "all",
+      "market": "kr-index",
+      "tabs": [
+        {
+          "key": "all",
+          "list": [
+            {
+              "type": "index",
+              "img": "🇰🇷",
+              "name": "KOSPI",
+              "code": "KOSPI"
+            },
+            {
+              "type": "index",
+              "img": "🇰🇷",
+              "name": "KOSDAQ",
+              "code": "KOSDAQ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kr-sectors",
+      "name": "韩国板块数据",
+      "sort": true,
+      "sta": false,
+      "showStats": true,
+      "def": "all",
+      "market": "kr",
+      "tabs": [
+        {
+          "key": "all",
+          "list": [
+            {
+              "type": "sector",
+              "img": "💾",
+              "name": "存储",
+              "code": "kr-memory"
+            },
+            {
+              "type": "sector",
+              "img": "🧩",
+              "name": "半导体",
+              "code": "kr-semiconductor"
+            },
+            {
+              "type": "sector",
+              "img": "🔋",
+              "name": "电池",
+              "code": "kr-battery"
+            },
+            {
+              "type": "sector",
+              "img": "📱",
+              "name": "消费电子",
+              "code": "kr-consumer-electronics"
+            },
+            {
+              "type": "sector",
+              "img": "🌐",
+              "name": "互联网",
+              "code": "kr-internet"
+            },
+            {
+              "type": "sector",
+              "img": "🚗",
+              "name": "汽车",
+              "code": "kr-auto"
+            },
+            {
+              "type": "sector",
+              "img": "🧬",
+              "name": "生物医药",
+              "code": "kr-biotech"
+            },
+            {
+              "type": "sector",
+              "img": "⚗️",
+              "name": "化工材料",
+              "code": "kr-chemicals"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jp-indices",
+      "name": "日本综合",
+      "sort": false,
+      "sta": false,
+      "showStats": true,
+      "def": "all",
+      "market": "jp",
+      "tabs": [
+        {
+          "key": "all",
+          "list": [
+            {
+              "type": "index",
+              "img": "🇯🇵",
+              "name": "N225",
+              "code": "N225"
+            },
+            {
+              "type": "index",
+              "img": "🇯🇵",
+              "name": "TOPIX",
+              "code": "TOPIX"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jp-sectors",
+      "name": "日本板块数据",
+      "sort": true,
+      "sta": false,
+      "showStats": true,
+      "def": "all",
+      "market": "jp",
+      "tabs": [
+        {
+          "key": "all",
+          "list": [
+            {
+              "type": "sector",
+              "img": "🛠️",
+              "name": "半导体设备",
+              "code": "jp-semi-equipment"
+            },
+            {
+              "type": "sector",
+              "img": "🤖",
+              "name": "工业自动化",
+              "code": "jp-factory-automation"
+            },
+            {
+              "type": "sector",
+              "img": "🔬",
+              "name": "精密制造",
+              "code": "jp-precision"
+            },
+            {
+              "type": "sector",
+              "img": "🚗",
+              "name": "汽车产业链",
+              "code": "jp-auto"
+            },
+            {
+              "type": "sector",
+              "img": "📱",
+              "name": "消费电子",
+              "code": "jp-consumer-electronics"
+            },
+            {
+              "type": "sector",
+              "img": "🧪",
+              "name": "半导体材料",
+              "code": "jp-semi-materials"
+            },
+            {
+              "type": "sector",
+              "img": "🔌",
+              "name": "电子元件",
+              "code": "jp-electronic-components"
+            },
+            {
+              "type": "sector",
+              "img": "🎮",
+              "name": "游戏娱乐",
+              "code": "jp-gaming"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

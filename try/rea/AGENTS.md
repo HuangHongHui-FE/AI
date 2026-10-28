@@ -91,6 +91,16 @@ Incomplete reports, source-only findings, and early feature or design ideas are
 welcome when their limitations are explicit; a completed diagnosis or fix is not
 required to open an issue.
 
+## Reverse-Engineering Results
+
+When asked to reverse engineer a piece of software, create
+`result/<software-slug>/` under this `rea/` directory and keep all related
+artifacts there: the original package, unpacked source, scripts, captures, notes,
+and data snapshots. Use one directory per target. Never place transport
+credentials, tokens, or private keys in tracked files; keep them in the working
+tree and exclude them with a local `.gitignore`. Do not commit third-party
+binaries or unpacked provider code.
+
 ## Pull Request Readiness
 
 Follow [human ownership and readiness](CONTRIBUTING.md#pull-request-ownership-and-readiness)

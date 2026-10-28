@@ -1,0 +1,8 @@
+﻿category,symbol,name,price,unit,changePercent,source
+benchmark,AU9999,黄金9999,866.01,gram,0.66,eastmoney
+sge,AU9999,黄金9999,866.01,gram,0.66,eastmoney
+sge,AUTD,黄金T+D,867.17,gram,0.68,eastmoney
+sge,MAUTD,Mini黄金T+D,867.84,gram,0.72,eastmoney
+sge,AU100,黄金100g,861.84,gram,,eastmoney
+international,XAUUSD,伦敦金现,4040.2,ounce,0.04,eastmoney
+international,GC00Y,COMEX黄金,4040.2,ounce,0.04,eastmoney

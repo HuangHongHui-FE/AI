@@ -81,6 +81,18 @@ skill replacement before applying authorized changes. Preserve existing approval
 and target-execution boundaries. REA setup never installs or upgrades unrelated
 software, including Node.js, npm, Homebrew, Java, Ghidra, IDA, JADX, Kuna, Binwalk or Unblob.
 
+## Keep artifacts in the project workspace
+
+Unless the user specifies another location, write every artifact produced for a
+reverse-engineering target under `result/<software-slug>/` in the current
+project root. Use one directory per target; keep the original package, unpacked
+source, scripts, captures, notes, evidence, and data snapshots together there.
+Record the target identity, method, hashes, and unknowns in the target
+directory's README or notes. Never place transport credentials, tokens, or
+private keys in tracked files; keep them in the working tree and exclude them
+with a local `.gitignore`. Do not commit third-party binaries or unpacked
+provider code.
+
 ## Route the target first
 
 Choose the first tool from the target the user supplied. Use `open_binary` for

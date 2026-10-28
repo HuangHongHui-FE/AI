@@ -1,0 +1,106 @@
+{
+  "appName": "黄金金价查询",
+  "navigationBarTitle": "",
+  "riskWarningText": "数据来自公开渠道，仅供参考，不构成任何建议。",
+  "defaultTheme": "light",
+  "tabBar": {
+    "home": "实时金价",
+    "brands": "品牌金价",
+    "history": "历史金价",
+    "me": "我的"
+  },
+  "popupAnnouncement": {
+    "imageUrl": ""
+  },
+  "share": {
+    "title": "黄金金价查询",
+    "imageUrl": ""
+  },
+  "text": {
+    "loadFailed": "数据加载失败",
+    "updatedAtPrefix": "更新于",
+    "noQuoteHint": "休市中，显示上一交易日收盘价",
+    "unitCnyPerGram": "元/克",
+    "unitUsdPerOunce": "美元/盎司",
+    "convertedLabel": "折合",
+    "highLabel": "最高",
+    "lowLabel": "最低",
+    "prevCloseTag": "昨收"
+  },
+  "home": {
+    "pageTitle": "实时金价",
+    "topMarqueeText": "",
+    "refreshTime": 30,
+    "benchmarkSymbol": "AU9999",
+    "benchmarkCaption": "上海黄金交易所 Au99.99",
+    "riskWarningText": "行情数据存在延迟，仅供参考。",
+    "shareTitle": "今日黄金金价 · 上海金 Au99.99 实时行情",
+    "shareButtonText": "分享给好友"
+  },
+  "brands": {
+    "pageTitle": "品牌金价",
+    "refreshTime": 0,
+    "estimateBadge": "参考价",
+    "estimateNote": "基于上海金 Au99.99 基准价 + 各品牌加工费估算",
+    "premiumLabel": "溢价",
+    "calibratedAtPrefix": "工费校准于",
+    "riskWarningText": "本页为基于上海金基准的估算参考价，非品牌官方报价，实际成交以门店/柜台为准。",
+    "shareTitle": "各品牌黄金参考金价"
+  },
+  "history": {
+    "pageTitle": "历史金价",
+    "defaultSymbol": "AU9999",
+    "defaultRange": "3m",
+    "ranges": [
+      {
+        "key": "1m",
+        "label": "近1月"
+      },
+      {
+        "key": "3m",
+        "label": "近3月"
+      },
+      {
+        "key": "1y",
+        "label": "近1年"
+      },
+      {
+        "key": "5y",
+        "label": "近5年"
+      },
+      {
+        "key": "10y",
+        "label": "近10年"
+      }
+    ],
+    "listHeader": {
+      "date": "日期",
+      "open": "开盘",
+      "high": "最高",
+      "low": "最低",
+      "close": "收盘",
+      "changePercent": "涨跌幅"
+    },
+    "riskWarningText": "历史数据仅供参考，不构成任何建议。",
+    "shareTitle": "黄金历史金价走势"
+  },
+  "me": {
+    "pageTitle": "我的",
+    "themeTitle": "主题颜色",
+    "themeDescription": "切换浅色或深色模式",
+    "versionTitle": "当前版本",
+    "versionPrefix": "v",
+    "userIdTitle": "用户 ID",
+    "contactSectionTitle": "",
+    "officialAccountQrUrl": "https://www.enwali.com/api/mp.jpg",
+    "officialAccountTitle": "防失联公众号",
+    "officialAccountDescription": "搜「蓝猫估值助手」",
+    "wechatGroupQrUrl": "https://www.enwali.com/wx19.png",
+    "wechatGroupTitle": "微信交流群",
+    "wechatGroupDescription": "扫码进群交流",
+    "clickPreviewHint": "点击放大",
+    "shareTitle": "",
+    "noteSectionTitle": "免责声明",
+    "noteText": "本程序仅提供黄金价格信息查询，不提供任何买卖、投资建议或收益预测。所有价格数据来自公开渠道并可能存在延迟或误差，实际成交价格以交易所、门店或柜台公布为准。请勿将本程序内容作为交易依据。"
+  }
+}

@@ -1,0 +1,13 @@
+# Credentials and private keys — never commit
+token.txt
+*.key
+capture.jsonl
+bodies/
+proxy.log
+
+# Third-party binaries and unpacked provider code — do not commit
+artifacts/*.wxapkg
+src/wxapp/
+
+# macOS
+.DS_Store

@@ -1,0 +1,88 @@
+{
+  "indices": [
+    {
+      "key": "brent",
+      "name": "布伦特原油",
+      "price": 109.42,
+      "value": "109.42",
+      "changePercent": -1.1919812172656612,
+      "chg": "-1.19%",
+      "change": -1.3199999999999932,
+      "trend": "down",
+      "source": "tencent",
+      "symbol": "hf_OIL",
+      "lastUpdated": "2026-10-27T15:33:04Z"
+    },
+    {
+      "key": "vix",
+      "name": "恐慌指数",
+      "price": 17.55,
+      "value": "17.55",
+      "changePercent": -4.57,
+      "chg": "-4.57%",
+      "change": -0.84,
+      "trend": "down",
+      "source": "us_quote",
+      "symbol": ".VIX",
+      "lastUpdated": "2026-10-27T15:33:16Z"
+    },
+    {
+      "key": "usd",
+      "name": "美元指数",
+      "price": 102.12,
+      "value": "102.12",
+      "changePercent": 0.1,
+      "chg": "+0.10%",
+      "change": 0.1,
+      "trend": "up",
+      "source": "eastmoney",
+      "symbol": "UDI",
+      "lastUpdated": "2026-10-27T06:54:56Z"
+    },
+    {
+      "key": "treasury",
+      "name": "美债长债",
+      "price": 81.61,
+      "value": "81.61",
+      "changePercent": -0.09,
+      "chg": "-0.09%",
+      "change": -0.08,
+      "trend": "down",
+      "source": "us_quote",
+      "symbol": "TLT",
+      "lastUpdated": "2026-10-27T15:33:24Z"
+    },
+    {
+      "key": "gold",
+      "name": "伦敦现货金",
+      "price": 4058.38,
+      "value": "4058.38",
+      "changePercent": 1.0308765064215144,
+      "chg": "+1.03%",
+      "change": 41.41000000000031,
+      "trend": "up",
+      "source": "tencent",
+      "symbol": "hf_XAU",
+      "lastUpdated": "2026-10-27T15:32:00Z"
+    },
+    {
+      "key": "silver",
+      "name": "伦敦现货银",
+      "price": 54.43,
+      "value": "54.43",
+      "changePercent": 0.8897126969416068,
+      "chg": "+0.89%",
+      "change": 0.4799999999999969,
+      "trend": "up",
+      "source": "tencent",
+      "symbol": "hf_XAG",
+      "lastUpdated": "2026-10-27T15:32:00Z"
+    }
+  ],
+  "label": "全球经济数据",
+  "update": "10-27 23:33",
+  "brief": {
+    "label": "",
+    "body": ""
+  }
+}

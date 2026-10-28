@@ -1,0 +1,21 @@
+{
+  "serverNow": 1793114931,
+  "open": 1793107800,
+  "close": 1793131200,
+  "previousClose": 1793044800,
+  "previousCloseDaylight": true,
+  "session": "regular",
+  "labels": {
+    "sessions": {
+      "pre_market": "盘前",
+      "regular": "盘中",
+      "post_market": "盘后",
+      "overnight": "夜盘",
+      "closed": "休市"
+    },
+    "toOpen": " · 距开盘 ",
+    "opened": " · 已开盘 ",
+    "toClose": " · 距收盘 ",
+    "ended": "已收盘"
+  }
+}

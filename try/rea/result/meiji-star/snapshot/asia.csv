@@ -1,0 +1,47 @@
+﻿section_id,section_name,market,market_state,name,code,value,chg
+cn-sectors,A股板块数据,cn,休市,AI 算力,cn-ai-compute,-4.13,-4.13%
+cn-sectors,A股板块数据,cn,休市,CPO,cn-cpo,-3.93,-3.93%
+cn-sectors,A股板块数据,cn,休市,半导体,cn-semiconductor,-3.55,-3.55%
+cn-sectors,A股板块数据,cn,休市,存储,cn-storage,-2.06,-2.06%
+cn-sectors,A股板块数据,cn,休市,数据中心,cn-data-center,-3.09,-3.09%
+cn-sectors,A股板块数据,cn,休市,云计算,cn-cloud-computing,-3.29,-3.29%
+cn-sectors,A股板块数据,cn,休市,商业航天,cn-commercial-space,-4.05,-4.05%
+cn-sectors,A股板块数据,cn,休市,卫星,cn-satellite,-4.53,-4.53%
+cn-sectors,A股板块数据,cn,休市,机器人,cn-robotics,-2.41,-2.41%
+cn-sectors,A股板块数据,cn,休市,自动驾驶,cn-autonomous-driving,-1.07,-1.07%
+cn-sectors,A股板块数据,cn,休市,核电,cn-nuclear-power,-0.91,-0.91%
+cn-sectors,A股板块数据,cn,休市,电网,cn-power-grid,-1.88,-1.88%
+cn-sectors,A股板块数据,cn,休市,军工,cn-defense,-3.18,-3.18%
+cn-sectors,A股板块数据,cn,休市,光伏,cn-solar,-1.7,-1.70%
+cn-sectors,A股板块数据,cn,休市,锂电池,cn-lithium-battery,-1.75,-1.75%
+cn-sectors,A股板块数据,cn,休市,油气,cn-oil,-0.98,-0.98%
+cn-sectors,A股板块数据,cn,休市,铜 / 有色,cn-copper-metals,1.44,+1.44%
+cn-sectors,A股板块数据,cn,休市,黄金矿业,cn-gold-miners,-0.75,-0.75%
+cn-sectors,A股板块数据,cn,休市,银行金融,cn-bank-finance,0.04,+0.04%
+cn-sectors,A股板块数据,cn,休市,生物医药,cn-biotech,-3.94,-3.94%
+cn-sectors,A股板块数据,cn,休市,消费,cn-consumer,-0.49,-0.49%
+cn-sectors,A股板块数据,cn,休市,稀土,cn-rare-earth,-2.74,-2.74%
+cn-sectors,A股板块数据,cn,休市,通信设备,cn-telecom-equipment,-2.62,-2.62%
+cn-sectors,A股板块数据,cn,休市,量子计算,cn-quantum-computing,-3.77,-3.77%
+cn-sectors,A股板块数据,cn,休市,区块链,cn-blockchain,-3.26,-3.26%
+cn-sectors,A股板块数据,cn,休市,AI 应用,cn-ai-application,-2.84,-2.84%
+kr-indices,韩国综合,kr-index,休市,KOSPI,KOSPI,3.09,+3.09%
+kr-indices,韩国综合,kr-index,休市,KOSDAQ,KOSDAQ,2.29,+2.29%
+kr-sectors,韩国板块数据,kr,休市,存储,kr-memory,6.59,+6.59%
+kr-sectors,韩国板块数据,kr,休市,半导体,kr-semiconductor,4.81,+4.81%
+kr-sectors,韩国板块数据,kr,休市,电池,kr-battery,3.93,+3.93%
+kr-sectors,韩国板块数据,kr,休市,消费电子,kr-consumer-electronics,4.38,+4.38%
+kr-sectors,韩国板块数据,kr,休市,互联网,kr-internet,1.85,+1.85%
+kr-sectors,韩国板块数据,kr,休市,汽车,kr-auto,1.7,+1.70%
+kr-sectors,韩国板块数据,kr,休市,生物医药,kr-biotech,-1.92,-1.92%
+kr-sectors,韩国板块数据,kr,休市,化工材料,kr-chemicals,1.05,+1.05%
+jp-indices,日本综合,jp,休市,N225,N225,1.73,+1.73%
+jp-indices,日本综合,jp,休市,TOPIX,TOPIX,0.61,+0.61%
+jp-sectors,日本板块数据,jp,休市,半导体设备,jp-semi-equipment,4.77,+4.77%
+jp-sectors,日本板块数据,jp,休市,工业自动化,jp-factory-automation,2.49,+2.49%
+jp-sectors,日本板块数据,jp,休市,精密制造,jp-precision,0.77,+0.77%
+jp-sectors,日本板块数据,jp,休市,汽车产业链,jp-auto,-0.62,-0.62%
+jp-sectors,日本板块数据,jp,休市,消费电子,jp-consumer-electronics,0.29,+0.29%
+jp-sectors,日本板块数据,jp,休市,半导体材料,jp-semi-materials,4.0,+4.00%
+jp-sectors,日本板块数据,jp,休市,电子元件,jp-electronic-components,2.28,+2.28%
+jp-sectors,日本板块数据,jp,休市,游戏娱乐,jp-gaming,-1.04,-1.04%

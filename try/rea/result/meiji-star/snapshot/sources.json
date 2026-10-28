@@ -1,0 +1,83 @@
+{
+  "tencent": {
+    "vendor": "腾讯行情",
+    "items": [
+      {
+        "name": "布伦特原油",
+        "symbol": "hf_OIL"
+      },
+      {
+        "name": "伦敦现货金",
+        "symbol": "hf_XAU"
+      },
+      {
+        "name": "伦敦现货银",
+        "symbol": "hf_XAG"
+      }
+    ]
+  },
+  "eastmoney": {
+    "vendor": "东方财富",
+    "items": [
+      {
+        "name": "美元指数",
+        "symbol": "UDI"
+      },
+      {
+        "name": "黄金9999",
+        "symbol": "AU9999"
+      },
+      {
+        "name": "黄金T+D",
+        "symbol": "AUTD"
+      },
+      {
+        "name": "Mini黄金T+D",
+        "symbol": "MAUTD"
+      },
+      {
+        "name": "黄金100g",
+        "symbol": "AU100"
+      },
+      {
+        "name": "伦敦金现",
+        "symbol": "XAUUSD"
+      },
+      {
+        "name": "COMEX黄金",
+        "symbol": "GC00Y"
+      }
+    ]
+  },
+  "us_quote": {
+    "vendor": "内部美股行情适配器（具体供应商未暴露）",
+    "items": [
+      {
+        "name": "恐慌指数",
+        "symbol": ".VIX"
+      },
+      {
+        "name": "美债长债",
+        "symbol": "TLT"
+      }
+    ]
+  },
+  "unexposed": {
+    "home_sectors": {
+      "endpoint": "/api/v3/star/quotes?page=home",
+      "note": "26 个自定义板块，只有 code/value，无 source/成分/权重"
+    },
+    "asia_sectors": {
+      "endpoint": "/api/v3/star/quotes?page=asia",
+      "note": "A股 26 + 韩国 8 + 日本 8，只有 code/value"
+    },
+    "indices": {
+      "endpoint": "/api/v3/star/indices",
+      "note": "纳指/标普，无 source"
+    },
+    "brand_prices": {
+      "endpoint": "/api/v3/gold/brands",
+      "note": "AU9999 基准 + 品牌溢价，每日 12:00Z 批量"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "indices": [
+    {
+      "name": "纳斯达克",
+      "changePercent": 0.82,
+      "chg": "+0.82%",
+      "change": 214.04,
+      "price": 26169.38,
+      "trend": "up",
+      "lastUpdated": "2026-10-26T20:00:00Z"
+    },
+    {
+      "name": "标普500",
+      "changePercent": 0.7,
+      "chg": "+0.70%",
+      "change": 53.09,
+      "price": 7676.77,
+      "trend": "up",
+      "lastUpdated": "2026-10-26T19:59:43Z"
+    }
+  ],
+  "brief": {
+    "label": "",
+    "body": ""
+  },
+  "label": "昨夜收盘",
+  "update": "10-27 04:00"
+}

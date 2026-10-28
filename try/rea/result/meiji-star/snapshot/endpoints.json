@@ -1,0 +1,73 @@
+{
+  "config": {
+    "method": "GET",
+    "path": "/api/v3/star/config",
+    "page": "全局"
+  },
+  "meta_home": {
+    "method": "GET",
+    "path": "/api/v3/star/meta?page=home",
+    "page": "美股"
+  },
+  "quotes_home": {
+    "method": "GET",
+    "path": "/api/v3/star/quotes?page=home&quoteMode={realtime|previousTradingDay}",
+    "page": "美股"
+  },
+  "economy": {
+    "method": "GET",
+    "path": "/api/v3/star/economy",
+    "page": "美股顶部"
+  },
+  "indices": {
+    "method": "GET",
+    "path": "/api/v3/star/indices",
+    "page": "美股（老接口）"
+  },
+  "market_clock": {
+    "method": "GET",
+    "path": "/api/v3/star/market-clock",
+    "page": "全局"
+  },
+  "heatmap": {
+    "method": "GET",
+    "path": "/api/v3/star/heatmap?quoteMode={realtime|previousTradingDay}",
+    "page": "热力图"
+  },
+  "meta_asia": {
+    "method": "GET",
+    "path": "/api/v3/star/meta?page=asia",
+    "page": "亚盘"
+  },
+  "quotes_asia": {
+    "method": "GET",
+    "path": "/api/v3/star/quotes?page=asia&quoteMode={realtime|previousTradingDay}",
+    "page": "亚盘"
+  },
+  "gold_config": {
+    "method": "GET",
+    "path": "/api/v3/gold/config",
+    "page": "黄金"
+  },
+  "gold_home": {
+    "method": "GET",
+    "path": "/api/v3/gold/home",
+    "page": "黄金"
+  },
+  "gold_brands": {
+    "method": "GET",
+    "path": "/api/v3/gold/brands",
+    "page": "黄金"
+  },
+  "auth_login": {
+    "method": "POST",
+    "path": "/api/v3/star/auth/login",
+    "page": "登录",
+    "body": "{\"code\": \"<wx.login code>\"}"
+  },
+  "metrics_report": {
+    "method": "POST",
+    "path": "/api/v3/metrics/report",
+    "page": "埋点"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "s": [
+    {
+      "c": "ai-compute",
+      "v": 2.67
+    },
+    {
+      "c": "cpo",
+      "v": 5.02
+    },
+    {
+      "c": "semiconductor",
+      "v": 2.25
+    },
+    {
+      "c": "storage",
+      "v": 3.83
+    },
+    {
+      "c": "data-center",
+      "v": 4.05
+    },
+    {
+      "c": "cloud-computing",
+      "v": 0.6
+    },
+    {
+      "c": "commercial-space",
+      "v": 7.11
+    },
+    {
+      "c": "satellite",
+      "v": 4.65
+    },
+    {
+      "c": "robotics",
+      "v": 2.11
+    },
+    {
+      "c": "autonomous-driving",
+      "v": 3.11
+    },
+    {
+      "c": "nuclear-power",
+      "v": 4.07
+    },
+    {
+      "c": "power-grid",
+      "v": 1.85
+    },
+    {
+      "c": "defense",
+      "v": -0.22
+    },
+    {
+      "c": "solar",
+      "v": 3.55
+    },
+    {
+      "c": "lithium-battery",
+      "v": 7.15
+    },
+    {
+      "c": "oil",
+      "v": -1.34
+    },
+    {
+      "c": "copper-metals",
+      "v": 2.52
+    },
+    {
+      "c": "gold-miners",
+      "v": 1.83
+    },
+    {
+      "c": "bank-finance",
+      "v": 0.69
+    },
+    {
+      "c": "biotech",
+      "v": 0.06
+    },
+    {
+      "c": "consumer",
+      "v": -0.38
+    },
+    {
+      "c": "rare-earth",
+      "v": 8.7
+    },
+    {
+      "c": "telecom-equipment",
+      "v": 2.65
+    },
+    {
+      "c": "quantum-computing",
+      "v": 5.04
+    },
+    {
+      "c": "blockchain",
+      "v": 2.11
+    },
+    {
+      "c": "ai-application",
+      "v": 0.02
+    }
+  ],
+  "sectorStatusColor": 2,
+  "sectorStatusText": "盘中"
+}

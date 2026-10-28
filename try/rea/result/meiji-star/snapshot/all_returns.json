@@ -1,0 +1,2524 @@
+{
+  "fetchedAt": "2026-10-27 23:34:08 +0800",
+  "token": {
+    "uid": "sw_f93dd75c1c1d736a455cee8e",
+    "exp": 1793117556
+  },
+  "endpoints": {
+    "star_config": {
+      "method": "GET",
+      "path": "/api/v3/star/config",
+      "response": {
+        "appName": "美基星图",
+        "logoUrl": "https://www.enlee.cloud/assets/star-logo.webp",
+        "navigationBarTitle": "",
+        "riskWarningText": "本程序仅供参考，不构成任何建议。",
+        "defaultTheme": "light",
+        "share": {
+          "title": "美基星图 · 美股基金实时行情",
+          "imageUrl": "https://www.enlee.cloud/assets/star-logo.webp"
+        },
+        "tabBar": {
+          "home": "美股",
+          "asia": "亚盘",
+          "gold": "黄金",
+          "me": "我的"
+        },
+        "popupAnnouncement": {
+          "imageUrl": ""
+        },
+        "marketHoursTimeline": {
+          "imageUrl": "https://www.enlee.cloud/assets/jysd-v2.webp"
+        },
+        "sectionLabels": {
+          "up": "涨",
+          "flat": "平",
+          "down": "跌",
+          "sort": "排序"
+        },
+        "text": {
+          "loadFailed": "数据加载失败",
+          "durationDayUnit": "天"
+        },
+        "quoteMode": {
+          "title": "行情口径",
+          "previousTradingDayDescriptionPrefix": "截止 10/27 ",
+          "previousTradingDayDescriptionSuffix": " 收盘",
+          "daylightSavingLabel": "",
+          "standardTimeLabel": "",
+          "realtimeDescriptionPrefix": "更新于",
+          "realtimeDescriptionSuffix": "",
+          "ariaLabel": "选择行情时间",
+          "heatmapAriaLabel": "选择热力图行情时间",
+          "closeLabel": "收盘"
+        },
+        "home": {
+          "pageTitle": "美基星图",
+          "sectionTitle": "美基星图",
+          "topMarqueeText": "点击“收盘”按钮，查看早上4点美股收盘行情",
+          "riskWarningText": "",
+          "shareTitle": "美基星图 · 美股板块行情",
+          "share": {
+            "label": "生成分享图",
+            "busy": "生成中",
+            "subtitle": "全球行情 · 经济与产业一览",
+            "tag": "小程序",
+            "empty": "暂无可分享的数据",
+            "failed": "生成失败，可用右上角 ··· 分享",
+            "hint": "长按图片可直接发送给朋友"
+          },
+          "refreshTime": 1,
+          "showQuoteModeSwitch": true,
+          "refreshOnShow": true,
+          "showRefreshFlash": true,
+          "showSectionStats": false,
+          "marketClock": {
+            "switchToCloseHours": 4
+          }
+        },
+        "asia": {
+          "pageTitle": "美基星图",
+          "sectionTitle": "美基星图",
+          "topMarqueeText": "",
+          "riskWarningText": "",
+          "shareTitle": "美基星图 · 亚盘行情",
+          "refreshTime": 3,
+          "showRefreshFlash": true,
+          "showSectionStats": false,
+          "marketStatus": {
+            "regionLabel": "日韩",
+            "sessionText": {
+              "trading": "盘中",
+              "closed": "休市"
+            }
+          }
+        },
+        "gold": {
+          "pageTitle": "美基星图",
+          "topMarqueeText": "",
+          "riskWarningText": "实际成交以门店/柜台为准；数据存在延迟,以上均仅供参考。",
+          "shareTitle": "美基星图 · 今日金价",
+          "shareButtonText": "",
+          "refreshTime": 30,
+          "sectionKeys": [
+            "international"
+          ],
+          "symbols": [
+            "GC00Y"
+          ],
+          "brandGroups": [
+            "wholesale",
+            "brand"
+          ]
+        },
+        "heatmap": {
+          "enabled": true,
+          "pageTitle": "美基星图",
+          "logoUrl": "https://www.enlee.cloud/assets/star-logo.webp",
+          "topMarqueeText": "",
+          "riskWarningText": "",
+          "shareTitle": "美基星图 · 美股热力图",
+          "refreshTime": 1,
+          "showQuoteModeSwitch": true,
+          "refreshOnShow": true
+        },
+        "me": {
+          "pageTitle": "我的",
+          "shareTitle": "美基星图",
+          "themeTitle": "主题颜色",
+          "themeDescription": "切换浅色或深色模式",
+          "versionTitle": "当前版本",
+          "versionPrefix": "v",
+          "userIdTitle": "用户 ID",
+          "contactSectionTitle": "",
+          "officialAccountQrUrl": "https://www.enlee.cloud/assets/mp.webp",
+          "officialAccountTitle": "防失联公众号",
+          "officialAccountDescription": "搜「蓝猫估值助手」",
+          "wechatGroupQrUrl": "https://www.enlee.cloud/assets/zxwx.webp",
+          "wechatGroupTitle": "限时优惠活动",
+          "wechatGroupDescription": "银河证券开户ETF交易免5元",
+          "clickPreviewHint": "",
+          "miniProgramSectionTitle": "更多功能",
+          "miniPrograms": [
+            {
+              "name": "港美估值",
+              "iconUrl": "https://www.enlee.cloud/assets/valuation-logo.webp",
+              "appId": "wx0f3650eff47cb32b",
+              "path": "pages/index/index"
+            },
+            {
+              "name": "恐慌贪婪指数",
+              "iconUrl": "https://www.enlee.cloud/assets/fear-greed-logo.jpg",
+              "appId": "wx45fdacdd80655161",
+              "path": "pages/home/home"
+            },
+            {
+              "name": "蓝猫估值",
+              "iconUrl": "https://www.enlee.cloud/assets/sv-logo.webp",
+              "appId": "wx683a012f14bfff62",
+              "path": "pages/index/index"
+            }
+          ],
+          "noteSectionTitle": "说明",
+          "noteText": "本程序展示的公开查询数据、仅供参考，不构成任何投资建议。"
+        }
+      }
+    },
+    "star_meta_home": {
+      "method": "GET",
+      "path": "/api/v3/star/meta?page=home",
+      "response": {
+        "sections": [
+          {
+            "id": "sectors",
+            "name": "全球产业数据",
+            "sort": true,
+            "sta": false,
+            "showStats": true,
+            "def": "real",
+            "tabs": [
+              {
+                "key": "real",
+                "list": [
+                  {
+                    "type": "sector",
+                    "img": "🧠",
+                    "name": "AI 算力",
+                    "code": "ai-compute"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "💡",
+                    "name": "CPO",
+                    "code": "cpo"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🔬",
+                    "name": "半导体",
+                    "code": "semiconductor"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "💾",
+                    "name": "存储",
+                    "code": "storage"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🗄️",
+                    "name": "数据中心",
+                    "code": "data-center"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "☁️",
+                    "name": "云计算",
+                    "code": "cloud-computing"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🚀",
+                    "name": "商业航天",
+                    "code": "commercial-space"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🛰️",
+                    "name": "卫星",
+                    "code": "satellite"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🤖",
+                    "name": "机器人",
+                    "code": "robotics"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🚗",
+                    "name": "自动驾驶",
+                    "code": "autonomous-driving"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "⚛️",
+                    "name": "核电",
+                    "code": "nuclear-power"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "⚡",
+                    "name": "电网",
+                    "code": "power-grid"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🛡️",
+                    "name": "军工",
+                    "code": "defense"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "☀️",
+                    "name": "光伏",
+                    "code": "solar"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🔌",
+                    "name": "锂电池",
+                    "code": "lithium-battery"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🛢️",
+                    "name": "油气",
+                    "code": "oil"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🟠",
+                    "name": "铜 / 有色",
+                    "code": "copper-metals"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🥇",
+                    "name": "黄金矿业",
+                    "code": "gold-miners"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🏦",
+                    "name": "银行金融",
+                    "code": "bank-finance"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "💊",
+                    "name": "生物医药",
+                    "code": "biotech"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🛒",
+                    "name": "消费",
+                    "code": "consumer"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🧲",
+                    "name": "稀土",
+                    "code": "rare-earth"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "📶",
+                    "name": "通信设备",
+                    "code": "telecom-equipment"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🌀",
+                    "name": "量子计算",
+                    "code": "quantum-computing"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "⛓️",
+                    "name": "区块链",
+                    "code": "blockchain"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "✨",
+                    "name": "AI 应用",
+                    "code": "ai-application"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "star_quotes_home_rt": {
+      "method": "GET",
+      "path": "/api/v3/star/quotes?page=home&quoteMode=realtime",
+      "response": {
+        "s": [
+          {
+            "c": "ai-compute",
+            "v": 2.67
+          },
+          {
+            "c": "cpo",
+            "v": 5.02
+          },
+          {
+            "c": "semiconductor",
+            "v": 2.25
+          },
+          {
+            "c": "storage",
+            "v": 3.83
+          },
+          {
+            "c": "data-center",
+            "v": 4.05
+          },
+          {
+            "c": "cloud-computing",
+            "v": 0.6
+          },
+          {
+            "c": "commercial-space",
+            "v": 7.11
+          },
+          {
+            "c": "satellite",
+            "v": 4.65
+          },
+          {
+            "c": "robotics",
+            "v": 2.11
+          },
+          {
+            "c": "autonomous-driving",
+            "v": 3.11
+          },
+          {
+            "c": "nuclear-power",
+            "v": 4.07
+          },
+          {
+            "c": "power-grid",
+            "v": 1.85
+          },
+          {
+            "c": "defense",
+            "v": -0.22
+          },
+          {
+            "c": "solar",
+            "v": 3.55
+          },
+          {
+            "c": "lithium-battery",
+            "v": 7.15
+          },
+          {
+            "c": "oil",
+            "v": -1.34
+          },
+          {
+            "c": "copper-metals",
+            "v": 2.52
+          },
+          {
+            "c": "gold-miners",
+            "v": 1.83
+          },
+          {
+            "c": "bank-finance",
+            "v": 0.69
+          },
+          {
+            "c": "biotech",
+            "v": 0.06
+          },
+          {
+            "c": "consumer",
+            "v": -0.38
+          },
+          {
+            "c": "rare-earth",
+            "v": 8.7
+          },
+          {
+            "c": "telecom-equipment",
+            "v": 2.65
+          },
+          {
+            "c": "quantum-computing",
+            "v": 5.04
+          },
+          {
+            "c": "blockchain",
+            "v": 2.11
+          },
+          {
+            "c": "ai-application",
+            "v": 0.02
+          }
+        ],
+        "sectorStatusColor": 2,
+        "sectorStatusText": "盘中"
+      }
+    },
+    "star_quotes_home_close": {
+      "method": "GET",
+      "path": "/api/v3/star/quotes?page=home&quoteMode=previousTradingDay",
+      "response": {
+        "s": [
+          {
+            "c": "ai-compute",
+            "v": 2.26
+          },
+          {
+            "c": "cpo",
+            "v": 4.63
+          },
+          {
+            "c": "semiconductor",
+            "v": 2.58
+          },
+          {
+            "c": "storage",
+            "v": 2.6
+          },
+          {
+            "c": "data-center",
+            "v": 1.81
+          },
+          {
+            "c": "cloud-computing",
+            "v": 0.55
+          },
+          {
+            "c": "commercial-space",
+            "v": 1.14
+          },
+          {
+            "c": "satellite",
+            "v": 1.9
+          },
+          {
+            "c": "robotics",
+            "v": 0.06
+          },
+          {
+            "c": "autonomous-driving",
+            "v": 1.91
+          },
+          {
+            "c": "nuclear-power",
+            "v": 0.47
+          },
+          {
+            "c": "power-grid",
+            "v": 2.76
+          },
+          {
+            "c": "defense",
+            "v": 2.56
+          },
+          {
+            "c": "solar",
+            "v": -0.55
+          },
+          {
+            "c": "lithium-battery",
+            "v": -0.66
+          },
+          {
+            "c": "oil",
+            "v": 0.21
+          },
+          {
+            "c": "copper-metals",
+            "v": 0.53
+          },
+          {
+            "c": "gold-miners",
+            "v": 0.95
+          },
+          {
+            "c": "bank-finance",
+            "v": 0.75
+          },
+          {
+            "c": "biotech",
+            "v": -0.02
+          },
+          {
+            "c": "consumer",
+            "v": 0.01
+          },
+          {
+            "c": "rare-earth",
+            "v": -0.61
+          },
+          {
+            "c": "telecom-equipment",
+            "v": 2.8
+          },
+          {
+            "c": "quantum-computing",
+            "v": -0.54
+          },
+          {
+            "c": "blockchain",
+            "v": -2.81
+          },
+          {
+            "c": "ai-application",
+            "v": 0.3
+          }
+        ],
+        "sectorStatusColor": 3,
+        "sectorStatusText": "10/27 4:00 收盘"
+      }
+    },
+    "star_economy": {
+      "method": "GET",
+      "path": "/api/v3/star/economy",
+      "response": {
+        "indices": [
+          {
+            "key": "brent",
+            "name": "布伦特原油",
+            "price": 109.42,
+            "value": "109.42",
+            "changePercent": -1.1919812172656612,
+            "chg": "-1.19%",
+            "change": -1.3199999999999932,
+            "trend": "down",
+            "source": "tencent",
+            "symbol": "hf_OIL",
+            "lastUpdated": "2026-10-27T15:33:04Z"
+          },
+          {
+            "key": "vix",
+            "name": "恐慌指数",
+            "price": 17.55,
+            "value": "17.55",
+            "changePercent": -4.57,
+            "chg": "-4.57%",
+            "change": -0.84,
+            "trend": "down",
+            "source": "us_quote",
+            "symbol": ".VIX",
+            "lastUpdated": "2026-10-27T15:33:16Z"
+          },
+          {
+            "key": "usd",
+            "name": "美元指数",
+            "price": 102.12,
+            "value": "102.12",
+            "changePercent": 0.1,
+            "chg": "+0.10%",
+            "change": 0.1,
+            "trend": "up",
+            "source": "eastmoney",
+            "symbol": "UDI",
+            "lastUpdated": "2026-10-27T06:54:56Z"
+          },
+          {
+            "key": "treasury",
+            "name": "美债长债",
+            "price": 81.61,
+            "value": "81.61",
+            "changePercent": -0.09,
+            "chg": "-0.09%",
+            "change": -0.08,
+            "trend": "down",
+            "source": "us_quote",
+            "symbol": "TLT",
+            "lastUpdated": "2026-10-27T15:33:24Z"
+          },
+          {
+            "key": "gold",
+            "name": "伦敦现货金",
+            "price": 4058.38,
+            "value": "4058.38",
+            "changePercent": 1.0308765064215144,
+            "chg": "+1.03%",
+            "change": 41.41000000000031,
+            "trend": "up",
+            "source": "tencent",
+            "symbol": "hf_XAU",
+            "lastUpdated": "2026-10-27T15:32:00Z"
+          },
+          {
+            "key": "silver",
+            "name": "伦敦现货银",
+            "price": 54.43,
+            "value": "54.43",
+            "changePercent": 0.8897126969416068,
+            "chg": "+0.89%",
+            "change": 0.4799999999999969,
+            "trend": "up",
+            "source": "tencent",
+            "symbol": "hf_XAG",
+            "lastUpdated": "2026-10-27T15:32:00Z"
+          }
+        ],
+        "label": "全球经济数据",
+        "update": "10-27 23:33",
+        "brief": {
+          "label": "",
+          "body": ""
+        }
+      }
+    },
+    "star_indices": {
+      "method": "GET",
+      "path": "/api/v3/star/indices",
+      "response": {
+        "indices": [
+          {
+            "name": "纳斯达克",
+            "changePercent": 0.82,
+            "chg": "+0.82%",
+            "change": 214.04,
+            "price": 26169.38,
+            "trend": "up",
+            "lastUpdated": "2026-10-26T20:00:00Z"
+          },
+          {
+            "name": "标普500",
+            "changePercent": 0.7,
+            "chg": "+0.70%",
+            "change": 53.09,
+            "price": 7676.77,
+            "trend": "up",
+            "lastUpdated": "2026-10-26T19:59:43Z"
+          }
+        ],
+        "brief": {
+          "label": "",
+          "body": ""
+        },
+        "label": "昨夜收盘",
+        "update": "10-27 04:00"
+      }
+    },
+    "star_market_clock": {
+      "method": "GET",
+      "path": "/api/v3/star/market-clock",
+      "response": {
+        "serverNow": 1793115217,
+        "open": 1793107800,
+        "close": 1793131200,
+        "previousClose": 1793044800,
+        "previousCloseDaylight": true,
+        "session": "regular",
+        "labels": {
+          "sessions": {
+            "pre_market": "盘前",
+            "regular": "盘中",
+            "post_market": "盘后",
+            "overnight": "夜盘",
+            "closed": "休市"
+          },
+          "toOpen": " · 距开盘 ",
+          "opened": " · 已开盘 ",
+          "toClose": " · 距收盘 ",
+          "ended": "已收盘"
+        }
+      }
+    },
+    "star_heatmap_rt": {
+      "method": "GET",
+      "path": "/api/v3/star/heatmap?quoteMode=realtime",
+      "response": [
+        {
+          "name": "AI 算力",
+          "code": "ai-compute",
+          "chg": "+2.67%",
+          "value": 2.67,
+          "trend": "up"
+        },
+        {
+          "name": "CPO",
+          "code": "cpo",
+          "chg": "+5.02%",
+          "value": 5.02,
+          "trend": "up"
+        },
+        {
+          "name": "半导体",
+          "code": "semiconductor",
+          "chg": "+2.26%",
+          "value": 2.26,
+          "trend": "up"
+        },
+        {
+          "name": "存储",
+          "code": "storage",
+          "chg": "+3.83%",
+          "value": 3.83,
+          "trend": "up"
+        },
+        {
+          "name": "数据中心",
+          "code": "data-center",
+          "chg": "+4.05%",
+          "value": 4.05,
+          "trend": "up"
+        },
+        {
+          "name": "云计算",
+          "code": "cloud-computing",
+          "chg": "+0.60%",
+          "value": 0.6,
+          "trend": "up"
+        },
+        {
+          "name": "商业航天",
+          "code": "commercial-space",
+          "chg": "+7.11%",
+          "value": 7.11,
+          "trend": "up"
+        },
+        {
+          "name": "卫星",
+          "code": "satellite",
+          "chg": "+4.65%",
+          "value": 4.65,
+          "trend": "up"
+        },
+        {
+          "name": "机器人",
+          "code": "robotics",
+          "chg": "+2.11%",
+          "value": 2.11,
+          "trend": "up"
+        },
+        {
+          "name": "自动驾驶",
+          "code": "autonomous-driving",
+          "chg": "+3.11%",
+          "value": 3.11,
+          "trend": "up"
+        },
+        {
+          "name": "核电",
+          "code": "nuclear-power",
+          "chg": "+4.07%",
+          "value": 4.07,
+          "trend": "up"
+        },
+        {
+          "name": "电网",
+          "code": "power-grid",
+          "chg": "+1.85%",
+          "value": 1.85,
+          "trend": "up"
+        },
+        {
+          "name": "军工",
+          "code": "defense",
+          "chg": "-0.22%",
+          "value": -0.22,
+          "trend": "down"
+        },
+        {
+          "name": "光伏",
+          "code": "solar",
+          "chg": "+3.55%",
+          "value": 3.55,
+          "trend": "up"
+        },
+        {
+          "name": "锂电池",
+          "code": "lithium-battery",
+          "chg": "+7.15%",
+          "value": 7.15,
+          "trend": "up"
+        },
+        {
+          "name": "油气",
+          "code": "oil",
+          "chg": "-1.34%",
+          "value": -1.34,
+          "trend": "down"
+        },
+        {
+          "name": "铜 / 有色",
+          "code": "copper-metals",
+          "chg": "+2.52%",
+          "value": 2.52,
+          "trend": "up"
+        },
+        {
+          "name": "黄金矿业",
+          "code": "gold-miners",
+          "chg": "+1.83%",
+          "value": 1.83,
+          "trend": "up"
+        },
+        {
+          "name": "银行金融",
+          "code": "bank-finance",
+          "chg": "+0.69%",
+          "value": 0.69,
+          "trend": "up"
+        },
+        {
+          "name": "生物医药",
+          "code": "biotech",
+          "chg": "+0.06%",
+          "value": 0.06,
+          "trend": "up"
+        },
+        {
+          "name": "消费",
+          "code": "consumer",
+          "chg": "-0.38%",
+          "value": -0.38,
+          "trend": "down"
+        },
+        {
+          "name": "稀土",
+          "code": "rare-earth",
+          "chg": "+8.70%",
+          "value": 8.7,
+          "trend": "up"
+        },
+        {
+          "name": "通信设备",
+          "code": "telecom-equipment",
+          "chg": "+2.65%",
+          "value": 2.65,
+          "trend": "up"
+        },
+        {
+          "name": "量子计算",
+          "code": "quantum-computing",
+          "chg": "+5.04%",
+          "value": 5.04,
+          "trend": "up"
+        },
+        {
+          "name": "区块链",
+          "code": "blockchain",
+          "chg": "+2.11%",
+          "value": 2.11,
+          "trend": "up"
+        },
+        {
+          "name": "AI 应用",
+          "code": "ai-application",
+          "chg": "+0.02%",
+          "value": 0.02,
+          "trend": "up"
+        }
+      ]
+    },
+    "star_heatmap_close": {
+      "method": "GET",
+      "path": "/api/v3/star/heatmap?quoteMode=previousTradingDay",
+      "response": [
+        {
+          "name": "AI 算力",
+          "code": "ai-compute",
+          "chg": "+2.26%",
+          "value": 2.26,
+          "trend": "up"
+        },
+        {
+          "name": "CPO",
+          "code": "cpo",
+          "chg": "+4.63%",
+          "value": 4.63,
+          "trend": "up"
+        },
+        {
+          "name": "半导体",
+          "code": "semiconductor",
+          "chg": "+2.58%",
+          "value": 2.58,
+          "trend": "up"
+        },
+        {
+          "name": "存储",
+          "code": "storage",
+          "chg": "+2.60%",
+          "value": 2.6,
+          "trend": "up"
+        },
+        {
+          "name": "数据中心",
+          "code": "data-center",
+          "chg": "+1.81%",
+          "value": 1.81,
+          "trend": "up"
+        },
+        {
+          "name": "云计算",
+          "code": "cloud-computing",
+          "chg": "+0.55%",
+          "value": 0.55,
+          "trend": "up"
+        },
+        {
+          "name": "商业航天",
+          "code": "commercial-space",
+          "chg": "+1.14%",
+          "value": 1.14,
+          "trend": "up"
+        },
+        {
+          "name": "卫星",
+          "code": "satellite",
+          "chg": "+1.90%",
+          "value": 1.9,
+          "trend": "up"
+        },
+        {
+          "name": "机器人",
+          "code": "robotics",
+          "chg": "+0.06%",
+          "value": 0.06,
+          "trend": "up"
+        },
+        {
+          "name": "自动驾驶",
+          "code": "autonomous-driving",
+          "chg": "+1.91%",
+          "value": 1.91,
+          "trend": "up"
+        },
+        {
+          "name": "核电",
+          "code": "nuclear-power",
+          "chg": "+0.47%",
+          "value": 0.47,
+          "trend": "up"
+        },
+        {
+          "name": "电网",
+          "code": "power-grid",
+          "chg": "+2.76%",
+          "value": 2.76,
+          "trend": "up"
+        },
+        {
+          "name": "军工",
+          "code": "defense",
+          "chg": "+2.56%",
+          "value": 2.56,
+          "trend": "up"
+        },
+        {
+          "name": "光伏",
+          "code": "solar",
+          "chg": "-0.55%",
+          "value": -0.55,
+          "trend": "down"
+        },
+        {
+          "name": "锂电池",
+          "code": "lithium-battery",
+          "chg": "-0.66%",
+          "value": -0.66,
+          "trend": "down"
+        },
+        {
+          "name": "油气",
+          "code": "oil",
+          "chg": "+0.21%",
+          "value": 0.21,
+          "trend": "up"
+        },
+        {
+          "name": "铜 / 有色",
+          "code": "copper-metals",
+          "chg": "+0.53%",
+          "value": 0.53,
+          "trend": "up"
+        },
+        {
+          "name": "黄金矿业",
+          "code": "gold-miners",
+          "chg": "+0.95%",
+          "value": 0.95,
+          "trend": "up"
+        },
+        {
+          "name": "银行金融",
+          "code": "bank-finance",
+          "chg": "+0.75%",
+          "value": 0.75,
+          "trend": "up"
+        },
+        {
+          "name": "生物医药",
+          "code": "biotech",
+          "chg": "-0.02%",
+          "value": -0.02,
+          "trend": "down"
+        },
+        {
+          "name": "消费",
+          "code": "consumer",
+          "chg": "+0.01%",
+          "value": 0.01,
+          "trend": "up"
+        },
+        {
+          "name": "稀土",
+          "code": "rare-earth",
+          "chg": "-0.61%",
+          "value": -0.61,
+          "trend": "down"
+        },
+        {
+          "name": "通信设备",
+          "code": "telecom-equipment",
+          "chg": "+2.80%",
+          "value": 2.8,
+          "trend": "up"
+        },
+        {
+          "name": "量子计算",
+          "code": "quantum-computing",
+          "chg": "-0.54%",
+          "value": -0.54,
+          "trend": "down"
+        },
+        {
+          "name": "区块链",
+          "code": "blockchain",
+          "chg": "-2.81%",
+          "value": -2.81,
+          "trend": "down"
+        },
+        {
+          "name": "AI 应用",
+          "code": "ai-application",
+          "chg": "+0.30%",
+          "value": 0.3,
+          "trend": "up"
+        }
+      ]
+    },
+    "star_meta_asia": {
+      "method": "GET",
+      "path": "/api/v3/star/meta?page=asia",
+      "response": {
+        "sections": [
+          {
+            "id": "cn-sectors",
+            "name": "A股板块数据",
+            "sort": true,
+            "sta": false,
+            "showStats": true,
+            "def": "all",
+            "market": "cn",
+            "tabs": [
+              {
+                "key": "all",
+                "list": [
+                  {
+                    "type": "sector",
+                    "img": "🧠",
+                    "name": "AI 算力",
+                    "code": "cn-ai-compute"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "💡",
+                    "name": "CPO",
+                    "code": "cn-cpo"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🔬",
+                    "name": "半导体",
+                    "code": "cn-semiconductor"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "💾",
+                    "name": "存储",
+                    "code": "cn-storage"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🗄️",
+                    "name": "数据中心",
+                    "code": "cn-data-center"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "☁️",
+                    "name": "云计算",
+                    "code": "cn-cloud-computing"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🚀",
+                    "name": "商业航天",
+                    "code": "cn-commercial-space"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🛰️",
+                    "name": "卫星",
+                    "code": "cn-satellite"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🤖",
+                    "name": "机器人",
+                    "code": "cn-robotics"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🚗",
+                    "name": "自动驾驶",
+                    "code": "cn-autonomous-driving"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "⚛️",
+                    "name": "核电",
+                    "code": "cn-nuclear-power"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "⚡",
+                    "name": "电网",
+                    "code": "cn-power-grid"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🛡️",
+                    "name": "军工",
+                    "code": "cn-defense"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "☀️",
+                    "name": "光伏",
+                    "code": "cn-solar"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🔌",
+                    "name": "锂电池",
+                    "code": "cn-lithium-battery"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🛢️",
+                    "name": "油气",
+                    "code": "cn-oil"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🟠",
+                    "name": "铜 / 有色",
+                    "code": "cn-copper-metals"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🥇",
+                    "name": "黄金矿业",
+                    "code": "cn-gold-miners"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🏦",
+                    "name": "银行金融",
+                    "code": "cn-bank-finance"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "💊",
+                    "name": "生物医药",
+                    "code": "cn-biotech"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🛒",
+                    "name": "消费",
+                    "code": "cn-consumer"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🧲",
+                    "name": "稀土",
+                    "code": "cn-rare-earth"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "📶",
+                    "name": "通信设备",
+                    "code": "cn-telecom-equipment"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🌀",
+                    "name": "量子计算",
+                    "code": "cn-quantum-computing"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "⛓️",
+                    "name": "区块链",
+                    "code": "cn-blockchain"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "✨",
+                    "name": "AI 应用",
+                    "code": "cn-ai-application"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "kr-indices",
+            "name": "韩国综合",
+            "sort": false,
+            "sta": false,
+            "showStats": true,
+            "def": "all",
+            "market": "kr-index",
+            "tabs": [
+              {
+                "key": "all",
+                "list": [
+                  {
+                    "type": "index",
+                    "img": "🇰🇷",
+                    "name": "KOSPI",
+                    "code": "KOSPI"
+                  },
+                  {
+                    "type": "index",
+                    "img": "🇰🇷",
+                    "name": "KOSDAQ",
+                    "code": "KOSDAQ"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "kr-sectors",
+            "name": "韩国板块数据",
+            "sort": true,
+            "sta": false,
+            "showStats": true,
+            "def": "all",
+            "market": "kr",
+            "tabs": [
+              {
+                "key": "all",
+                "list": [
+                  {
+                    "type": "sector",
+                    "img": "💾",
+                    "name": "存储",
+                    "code": "kr-memory"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🧩",
+                    "name": "半导体",
+                    "code": "kr-semiconductor"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🔋",
+                    "name": "电池",
+                    "code": "kr-battery"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "📱",
+                    "name": "消费电子",
+                    "code": "kr-consumer-electronics"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🌐",
+                    "name": "互联网",
+                    "code": "kr-internet"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🚗",
+                    "name": "汽车",
+                    "code": "kr-auto"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🧬",
+                    "name": "生物医药",
+                    "code": "kr-biotech"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "⚗️",
+                    "name": "化工材料",
+                    "code": "kr-chemicals"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "jp-indices",
+            "name": "日本综合",
+            "sort": false,
+            "sta": false,
+            "showStats": true,
+            "def": "all",
+            "market": "jp",
+            "tabs": [
+              {
+                "key": "all",
+                "list": [
+                  {
+                    "type": "index",
+                    "img": "🇯🇵",
+                    "name": "N225",
+                    "code": "N225"
+                  },
+                  {
+                    "type": "index",
+                    "img": "🇯🇵",
+                    "name": "TOPIX",
+                    "code": "TOPIX"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "jp-sectors",
+            "name": "日本板块数据",
+            "sort": true,
+            "sta": false,
+            "showStats": true,
+            "def": "all",
+            "market": "jp",
+            "tabs": [
+              {
+                "key": "all",
+                "list": [
+                  {
+                    "type": "sector",
+                    "img": "🛠️",
+                    "name": "半导体设备",
+                    "code": "jp-semi-equipment"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🤖",
+                    "name": "工业自动化",
+                    "code": "jp-factory-automation"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🔬",
+                    "name": "精密制造",
+                    "code": "jp-precision"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🚗",
+                    "name": "汽车产业链",
+                    "code": "jp-auto"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "📱",
+                    "name": "消费电子",
+                    "code": "jp-consumer-electronics"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🧪",
+                    "name": "半导体材料",
+                    "code": "jp-semi-materials"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🔌",
+                    "name": "电子元件",
+                    "code": "jp-electronic-components"
+                  },
+                  {
+                    "type": "sector",
+                    "img": "🎮",
+                    "name": "游戏娱乐",
+                    "code": "jp-gaming"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "star_quotes_asia_rt": {
+      "method": "GET",
+      "path": "/api/v3/star/quotes?page=asia&quoteMode=realtime",
+      "response": {
+        "s": [
+          {
+            "c": "cn-ai-compute",
+            "v": -4.13
+          },
+          {
+            "c": "cn-cpo",
+            "v": -3.93
+          },
+          {
+            "c": "cn-semiconductor",
+            "v": -3.55
+          },
+          {
+            "c": "cn-storage",
+            "v": -2.06
+          },
+          {
+            "c": "cn-data-center",
+            "v": -3.09
+          },
+          {
+            "c": "cn-cloud-computing",
+            "v": -3.29
+          },
+          {
+            "c": "cn-commercial-space",
+            "v": -4.05
+          },
+          {
+            "c": "cn-satellite",
+            "v": -4.53
+          },
+          {
+            "c": "cn-robotics",
+            "v": -2.41
+          },
+          {
+            "c": "cn-autonomous-driving",
+            "v": -1.07
+          },
+          {
+            "c": "cn-nuclear-power",
+            "v": -0.91
+          },
+          {
+            "c": "cn-power-grid",
+            "v": -1.88
+          },
+          {
+            "c": "cn-defense",
+            "v": -3.18
+          },
+          {
+            "c": "cn-solar",
+            "v": -1.7
+          },
+          {
+            "c": "cn-lithium-battery",
+            "v": -1.75
+          },
+          {
+            "c": "cn-oil",
+            "v": -0.98
+          },
+          {
+            "c": "cn-copper-metals",
+            "v": 1.44
+          },
+          {
+            "c": "cn-gold-miners",
+            "v": -0.75
+          },
+          {
+            "c": "cn-bank-finance",
+            "v": 0.04
+          },
+          {
+            "c": "cn-biotech",
+            "v": -3.94
+          },
+          {
+            "c": "cn-consumer",
+            "v": -0.49
+          },
+          {
+            "c": "cn-rare-earth",
+            "v": -2.74
+          },
+          {
+            "c": "cn-telecom-equipment",
+            "v": -2.62
+          },
+          {
+            "c": "cn-quantum-computing",
+            "v": -3.77
+          },
+          {
+            "c": "cn-blockchain",
+            "v": -3.26
+          },
+          {
+            "c": "cn-ai-application",
+            "v": -2.84
+          },
+          {
+            "c": "KOSPI",
+            "v": 3.09
+          },
+          {
+            "c": "KOSDAQ",
+            "v": 2.29
+          },
+          {
+            "c": "kr-memory",
+            "v": 6.59
+          },
+          {
+            "c": "kr-semiconductor",
+            "v": 4.81
+          },
+          {
+            "c": "kr-battery",
+            "v": 3.93
+          },
+          {
+            "c": "kr-consumer-electronics",
+            "v": 4.38
+          },
+          {
+            "c": "kr-internet",
+            "v": 1.85
+          },
+          {
+            "c": "kr-auto",
+            "v": 1.7
+          },
+          {
+            "c": "kr-biotech",
+            "v": -1.92
+          },
+          {
+            "c": "kr-chemicals",
+            "v": 1.05
+          },
+          {
+            "c": "N225",
+            "v": 1.73
+          },
+          {
+            "c": "TOPIX",
+            "v": 0.61
+          },
+          {
+            "c": "jp-semi-equipment",
+            "v": 4.77
+          },
+          {
+            "c": "jp-factory-automation",
+            "v": 2.49
+          },
+          {
+            "c": "jp-precision",
+            "v": 0.77
+          },
+          {
+            "c": "jp-auto",
+            "v": -0.62
+          },
+          {
+            "c": "jp-consumer-electronics",
+            "v": 0.29
+          },
+          {
+            "c": "jp-semi-materials",
+            "v": 4.0
+          },
+          {
+            "c": "jp-electronic-components",
+            "v": 2.28
+          },
+          {
+            "c": "jp-gaming",
+            "v": -1.04
+          }
+        ],
+        "m": {
+          "kr-index": {
+            "s": "closed",
+            "t": "休市",
+            "u": "更新于 14:30 收盘"
+          },
+          "cn": {
+            "s": "closed",
+            "t": "休市",
+            "u": "更新于 15:00 收盘"
+          },
+          "jp": {
+            "s": "closed",
+            "t": "休市",
+            "u": "更新于 14:30 收盘"
+          },
+          "kr": {
+            "s": "closed",
+            "t": "休市",
+            "u": "更新于 19:00 盘后收盘"
+          }
+        }
+      }
+    },
+    "star_quotes_asia_close": {
+      "method": "GET",
+      "path": "/api/v3/star/quotes?page=asia&quoteMode=previousTradingDay",
+      "response": {
+        "s": [
+          {
+            "c": "cn-ai-compute",
+            "v": -4.13
+          },
+          {
+            "c": "cn-cpo",
+            "v": -3.93
+          },
+          {
+            "c": "cn-semiconductor",
+            "v": -3.55
+          },
+          {
+            "c": "cn-storage",
+            "v": -2.06
+          },
+          {
+            "c": "cn-data-center",
+            "v": -3.09
+          },
+          {
+            "c": "cn-cloud-computing",
+            "v": -3.29
+          },
+          {
+            "c": "cn-commercial-space",
+            "v": -4.05
+          },
+          {
+            "c": "cn-satellite",
+            "v": -4.53
+          },
+          {
+            "c": "cn-robotics",
+            "v": -2.41
+          },
+          {
+            "c": "cn-autonomous-driving",
+            "v": -1.07
+          },
+          {
+            "c": "cn-nuclear-power",
+            "v": -0.91
+          },
+          {
+            "c": "cn-power-grid",
+            "v": -1.88
+          },
+          {
+            "c": "cn-defense",
+            "v": -3.18
+          },
+          {
+            "c": "cn-solar",
+            "v": -1.7
+          },
+          {
+            "c": "cn-lithium-battery",
+            "v": -1.75
+          },
+          {
+            "c": "cn-oil",
+            "v": -0.98
+          },
+          {
+            "c": "cn-copper-metals",
+            "v": 1.44
+          },
+          {
+            "c": "cn-gold-miners",
+            "v": -0.75
+          },
+          {
+            "c": "cn-bank-finance",
+            "v": 0.04
+          },
+          {
+            "c": "cn-biotech",
+            "v": -3.94
+          },
+          {
+            "c": "cn-consumer",
+            "v": -0.49
+          },
+          {
+            "c": "cn-rare-earth",
+            "v": -2.74
+          },
+          {
+            "c": "cn-telecom-equipment",
+            "v": -2.62
+          },
+          {
+            "c": "cn-quantum-computing",
+            "v": -3.77
+          },
+          {
+            "c": "cn-blockchain",
+            "v": -3.26
+          },
+          {
+            "c": "cn-ai-application",
+            "v": -2.84
+          },
+          {
+            "c": "KOSPI",
+            "v": 3.09
+          },
+          {
+            "c": "KOSDAQ",
+            "v": 2.29
+          },
+          {
+            "c": "kr-memory",
+            "v": 4.4
+          },
+          {
+            "c": "kr-semiconductor",
+            "v": 3.02
+          },
+          {
+            "c": "kr-battery",
+            "v": 3.12
+          },
+          {
+            "c": "kr-consumer-electronics",
+            "v": 2.99
+          },
+          {
+            "c": "kr-internet",
+            "v": -0.07
+          },
+          {
+            "c": "kr-auto",
+            "v": 1.29
+          },
+          {
+            "c": "kr-biotech",
+            "v": -2.37
+          },
+          {
+            "c": "kr-chemicals",
+            "v": 0.0
+          },
+          {
+            "c": "N225",
+            "v": 1.73
+          },
+          {
+            "c": "TOPIX",
+            "v": 0.61
+          },
+          {
+            "c": "jp-semi-equipment",
+            "v": 4.77
+          },
+          {
+            "c": "jp-factory-automation",
+            "v": 2.49
+          },
+          {
+            "c": "jp-precision",
+            "v": 0.77
+          },
+          {
+            "c": "jp-auto",
+            "v": -0.62
+          },
+          {
+            "c": "jp-consumer-electronics",
+            "v": 0.29
+          },
+          {
+            "c": "jp-semi-materials",
+            "v": 4.0
+          },
+          {
+            "c": "jp-electronic-components",
+            "v": 2.28
+          },
+          {
+            "c": "jp-gaming",
+            "v": -1.04
+          }
+        ],
+        "m": {
+          "kr-index": {
+            "s": "closed",
+            "t": "休市",
+            "u": "更新于 14:30 收盘"
+          },
+          "cn": {
+            "s": "closed",
+            "t": "休市",
+            "u": "更新于 15:00 收盘"
+          },
+          "jp": {
+            "s": "closed",
+            "t": "休市",
+            "u": "更新于 14:30 收盘"
+          },
+          "kr": {
+            "s": "closed",
+            "t": "休市",
+            "u": "更新于 19:00 盘后收盘"
+          }
+        }
+      }
+    },
+    "gold_config": {
+      "method": "GET",
+      "path": "/api/v3/gold/config",
+      "response": {
+        "appName": "黄金金价查询",
+        "navigationBarTitle": "",
+        "riskWarningText": "数据来自公开渠道，仅供参考，不构成任何建议。",
+        "defaultTheme": "light",
+        "tabBar": {
+          "home": "实时金价",
+          "brands": "品牌金价",
+          "history": "历史金价",
+          "me": "我的"
+        },
+        "popupAnnouncement": {
+          "imageUrl": ""
+        },
+        "share": {
+          "title": "黄金金价查询",
+          "imageUrl": ""
+        },
+        "text": {
+          "loadFailed": "数据加载失败",
+          "updatedAtPrefix": "更新于",
+          "noQuoteHint": "休市中，显示上一交易日收盘价",
+          "unitCnyPerGram": "元/克",
+          "unitUsdPerOunce": "美元/盎司",
+          "convertedLabel": "折合",
+          "highLabel": "最高",
+          "lowLabel": "最低",
+          "prevCloseTag": "昨收"
+        },
+        "home": {
+          "pageTitle": "实时金价",
+          "topMarqueeText": "",
+          "refreshTime": 30,
+          "benchmarkSymbol": "AU9999",
+          "benchmarkCaption": "上海黄金交易所 Au99.99",
+          "riskWarningText": "行情数据存在延迟，仅供参考。",
+          "shareTitle": "今日黄金金价 · 上海金 Au99.99 实时行情",
+          "shareButtonText": "分享给好友"
+        },
+        "brands": {
+          "pageTitle": "品牌金价",
+          "refreshTime": 0,
+          "estimateBadge": "参考价",
+          "estimateNote": "基于上海金 Au99.99 基准价 + 各品牌加工费估算",
+          "premiumLabel": "溢价",
+          "calibratedAtPrefix": "工费校准于",
+          "riskWarningText": "本页为基于上海金基准的估算参考价，非品牌官方报价，实际成交以门店/柜台为准。",
+          "shareTitle": "各品牌黄金参考金价"
+        },
+        "history": {
+          "pageTitle": "历史金价",
+          "defaultSymbol": "AU9999",
+          "defaultRange": "3m",
+          "ranges": [
+            {
+              "key": "1m",
+              "label": "近1月"
+            },
+            {
+              "key": "3m",
+              "label": "近3月"
+            },
+            {
+              "key": "1y",
+              "label": "近1年"
+            },
+            {
+              "key": "5y",
+              "label": "近5年"
+            },
+            {
+              "key": "10y",
+              "label": "近10年"
+            }
+          ],
+          "listHeader": {
+            "date": "日期",
+            "open": "开盘",
+            "high": "最高",
+            "low": "最低",
+            "close": "收盘",
+            "changePercent": "涨跌幅"
+          },
+          "riskWarningText": "历史数据仅供参考，不构成任何建议。",
+          "shareTitle": "黄金历史金价走势"
+        },
+        "me": {
+          "pageTitle": "我的",
+          "themeTitle": "主题颜色",
+          "themeDescription": "切换浅色或深色模式",
+          "versionTitle": "当前版本",
+          "versionPrefix": "v",
+          "userIdTitle": "用户 ID",
+          "contactSectionTitle": "",
+          "officialAccountQrUrl": "https://www.enwali.com/api/mp.jpg",
+          "officialAccountTitle": "防失联公众号",
+          "officialAccountDescription": "搜「蓝猫估值助手」",
+          "wechatGroupQrUrl": "https://www.enwali.com/wx19.png",
+          "wechatGroupTitle": "微信交流群",
+          "wechatGroupDescription": "扫码进群交流",
+          "clickPreviewHint": "点击放大",
+          "shareTitle": "",
+          "noteSectionTitle": "免责声明",
+          "noteText": "本程序仅提供黄金价格信息查询，不提供任何买卖、投资建议或收益预测。所有价格数据来自公开渠道并可能存在延迟或误差，实际成交价格以交易所、门店或柜台公布为准。请勿将本程序内容作为交易依据。"
+        }
+      }
+    },
+    "gold_home": {
+      "method": "GET",
+      "path": "/api/v3/gold/home",
+      "response": {
+        "benchmark": {
+          "symbol": "AU9999",
+          "name": "黄金9999",
+          "displayName": "Au99.99",
+          "market": "sge",
+          "currency": "CNY",
+          "unit": "gram",
+          "price": 866.01,
+          "priceCnyPerGram": 866.01,
+          "open": 862.5,
+          "high": 868.98,
+          "low": 860.2,
+          "prevClose": 860.31,
+          "change": 5.7,
+          "changePercent": 0.66,
+          "tradeDate": "2026-10-27",
+          "quotedAt": "2026-10-27T14:07:17Z",
+          "usingPrevClose": false,
+          "dataStatus": "ok",
+          "source": "eastmoney"
+        },
+        "sections": [
+          {
+            "key": "sge",
+            "title": "上海黄金交易所",
+            "note": "",
+            "noteMode": "unitGram",
+            "subLine": "highLow",
+            "footnote": "",
+            "items": [
+              {
+                "symbol": "AU9999",
+                "name": "黄金9999",
+                "displayName": "Au99.99",
+                "market": "sge",
+                "currency": "CNY",
+                "unit": "gram",
+                "price": 866.01,
+                "priceCnyPerGram": 866.01,
+                "open": 862.5,
+                "high": 868.98,
+                "low": 860.2,
+                "prevClose": 860.31,
+                "change": 5.7,
+                "changePercent": 0.66,
+                "tradeDate": "2026-10-27",
+                "quotedAt": "2026-10-27T14:07:17Z",
+                "usingPrevClose": false,
+                "dataStatus": "ok",
+                "source": "eastmoney"
+              },
+              {
+                "symbol": "AUTD",
+                "name": "黄金T+D",
+                "displayName": "Au(T+D)",
+                "market": "sge",
+                "currency": "CNY",
+                "unit": "gram",
+                "price": 867.17,
+                "priceCnyPerGram": 867.17,
+                "open": 862.0,
+                "high": 867.17,
+                "low": 862.0,
+                "prevClose": 860.49,
+                "change": 5.83,
+                "changePercent": 0.68,
+                "tradeDate": "2026-10-27",
+                "quotedAt": "2026-10-27T14:07:25Z",
+                "usingPrevClose": false,
+                "dataStatus": "ok",
+                "source": "eastmoney"
+              },
+              {
+                "symbol": "MAUTD",
+                "name": "Mini黄金T+D",
+                "displayName": "mAu(T+D)",
+                "market": "sge",
+                "currency": "CNY",
+                "unit": "gram",
+                "price": 867.84,
+                "priceCnyPerGram": 867.84,
+                "open": 862.0,
+                "high": 867.84,
+                "low": 862.0,
+                "prevClose": 860.44,
+                "change": 6.24,
+                "changePercent": 0.72,
+                "tradeDate": null,
+                "quotedAt": "2026-10-27T14:07:20Z",
+                "usingPrevClose": false,
+                "dataStatus": "ok",
+                "source": "eastmoney"
+              },
+              {
+                "symbol": "AU100",
+                "name": "黄金100g",
+                "displayName": "Au100g",
+                "market": "sge",
+                "currency": "CNY",
+                "unit": "gram",
+                "price": 861.84,
+                "priceCnyPerGram": 861.84,
+                "open": null,
+                "high": null,
+                "low": null,
+                "prevClose": 861.84,
+                "change": null,
+                "changePercent": null,
+                "tradeDate": null,
+                "quotedAt": "2026-10-27T14:07:17Z",
+                "usingPrevClose": true,
+                "dataStatus": "stale",
+                "source": "eastmoney"
+              }
+            ]
+          },
+          {
+            "key": "international",
+            "title": "国际市场行情",
+            "note": "",
+            "noteMode": "fx",
+            "subLine": "unit",
+            "footnote": "美元报价按离岸人民币汇率折算为元/克，仅供参考",
+            "items": [
+              {
+                "symbol": "XAUUSD",
+                "name": "伦敦金现",
+                "displayName": "伦敦金（现货黄金）",
+                "market": "international",
+                "currency": "USD",
+                "unit": "ounce",
+                "price": 4040.2,
+                "priceCnyPerGram": 865.71,
+                "open": 4032.8,
+                "high": 4046.4,
+                "low": 4001.6,
+                "prevClose": 4038.4,
+                "change": 1.8,
+                "changePercent": 0.04,
+                "tradeDate": "2026-10-27",
+                "quotedAt": "2026-10-27T13:57:25Z",
+                "usingPrevClose": false,
+                "dataStatus": "ok",
+                "source": "eastmoney",
+                "fxRate": 6.6647,
+                "fallbackFromSymbol": "GC00Y",
+                "fallbackNote": "以纽约期金替代（现货源暂不可用）"
+              },
+              {
+                "symbol": "GC00Y",
+                "name": "COMEX黄金",
+                "displayName": "纽约黄金（COMEX）",
+                "market": "international",
+                "currency": "USD",
+                "unit": "ounce",
+                "price": 4040.2,
+                "priceCnyPerGram": 865.71,
+                "open": 4032.8,
+                "high": 4046.4,
+                "low": 4001.6,
+                "prevClose": 4038.4,
+                "change": 1.8,
+                "changePercent": 0.04,
+                "tradeDate": "2026-10-27",
+                "quotedAt": "2026-10-27T13:57:25Z",
+                "usingPrevClose": false,
+                "dataStatus": "ok",
+                "source": "eastmoney",
+                "fxRate": 6.6647
+              }
+            ]
+          }
+        ],
+        "fx": {
+          "pair": "USDCNH",
+          "rate": 6.6647,
+          "quotedAt": "2026-10-27T13:57:25Z"
+        },
+        "serverNow": "2026-10-27T15:33:58Z"
+      }
+    },
+    "gold_brands": {
+      "method": "GET",
+      "path": "/api/v3/gold/brands",
+      "response": {
+        "isEstimated": false,
+        "baseSymbol": "AU9999",
+        "basePrice": 866.01,
+        "baseQuotedAt": "2026-10-27T14:07:17Z",
+        "baseTradeDate": "2026-10-27",
+        "calibratedAt": null,
+        "quotedDate": "2026-10-27",
+        "currency": "CNY",
+        "unit": "gram",
+        "productTypes": [
+          {
+            "code": "jewelry",
+            "label": "足金饰品"
+          },
+          {
+            "code": "bar",
+            "label": "投资金条"
+          }
+        ],
+        "groups": [
+          {
+            "group": "wholesale",
+            "title": "批发基准",
+            "note": "",
+            "noteMode": "unitGram",
+            "footnote": "",
+            "items": [
+              {
+                "brandCode": "shuibei",
+                "brandName": "深圳水贝",
+                "group": "wholesale",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 965.0,
+                    "premium": 98.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 881.0,
+                    "premium": 14.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "group": "brand",
+            "title": "品牌参考价",
+            "note": "",
+            "noteMode": "unitGram",
+            "footnote": "",
+            "items": [
+              {
+                "brandCode": "chowtaifook",
+                "brandName": "周大福",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1202.0,
+                    "premium": 335.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 1060.0,
+                    "premium": 193.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "laofengxiang",
+                "brandName": "老凤祥",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1205.0,
+                    "premium": 338.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 1063.0,
+                    "premium": 196.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "chinagold",
+                "brandName": "中国黄金",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1192.0,
+                    "premium": 325.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 876.7,
+                    "premium": 10.69,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "chowtaiseng",
+                "brandName": "周大生",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1202.0,
+                    "premium": 335.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "chowsangsang",
+                "brandName": "周生生",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1205.0,
+                    "premium": 338.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 1060.0,
+                    "premium": 193.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "lukfook",
+                "brandName": "六福珠宝",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1200.0,
+                    "premium": 333.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 1060.0,
+                    "premium": 193.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "laomiao",
+                "brandName": "老庙黄金",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1201.0,
+                    "premium": 334.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 1026.0,
+                    "premium": 159.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "zhouliufu",
+                "brandName": "周六福",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1197.0,
+                    "premium": 330.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 1060.0,
+                    "premium": 193.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "caibai",
+                "brandName": "菜百首饰",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1205.0,
+                    "premium": 338.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 1020.0,
+                    "premium": 153.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "chjjewellery",
+                "brandName": "潮宏基",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1202.0,
+                    "premium": 335.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 1060.0,
+                    "premium": 193.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "tsl",
+                "brandName": "谢瑞麟",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1202.0,
+                    "premium": 335.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 1060.0,
+                    "premium": 193.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              },
+              {
+                "brandCode": "3dgold",
+                "brandName": "金至尊",
+                "group": "brand",
+                "prices": [
+                  {
+                    "productType": "jewelry",
+                    "productLabel": "足金饰品",
+                    "pricePerGram": 1202.0,
+                    "premium": 335.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  },
+                  {
+                    "productType": "bar",
+                    "productLabel": "投资金条",
+                    "pricePerGram": 1060.0,
+                    "premium": 193.99,
+                    "quotedDate": "2026-10-27",
+                    "quotedAt": "2026-10-27T12:00:02Z"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "serverNow": "2026-10-27T15:33:58Z"
+      }
+    }
+  }
+}

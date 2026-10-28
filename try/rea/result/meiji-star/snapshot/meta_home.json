@@ -1,0 +1,175 @@
+{
+  "sections": [
+    {
+      "id": "sectors",
+      "name": "全球产业数据",
+      "sort": true,
+      "sta": false,
+      "showStats": true,
+      "def": "real",
+      "tabs": [
+        {
+          "key": "real",
+          "list": [
+            {
+              "type": "sector",
+              "img": "🧠",
+              "name": "AI 算力",
+              "code": "ai-compute"
+            },
+            {
+              "type": "sector",
+              "img": "💡",
+              "name": "CPO",
+              "code": "cpo"
+            },
+            {
+              "type": "sector",
+              "img": "🔬",
+              "name": "半导体",
+              "code": "semiconductor"
+            },
+            {
+              "type": "sector",
+              "img": "💾",
+              "name": "存储",
+              "code": "storage"
+            },
+            {
+              "type": "sector",
+              "img": "🗄️",
+              "name": "数据中心",
+              "code": "data-center"
+            },
+            {
+              "type": "sector",
+              "img": "☁️",
+              "name": "云计算",
+              "code": "cloud-computing"
+            },
+            {
+              "type": "sector",
+              "img": "🚀",
+              "name": "商业航天",
+              "code": "commercial-space"
+            },
+            {
+              "type": "sector",
+              "img": "🛰️",
+              "name": "卫星",
+              "code": "satellite"
+            },
+            {
+              "type": "sector",
+              "img": "🤖",
+              "name": "机器人",
+              "code": "robotics"
+            },
+            {
+              "type": "sector",
+              "img": "🚗",
+              "name": "自动驾驶",
+              "code": "autonomous-driving"
+            },
+            {
+              "type": "sector",
+              "img": "⚛️",
+              "name": "核电",
+              "code": "nuclear-power"
+            },
+            {
+              "type": "sector",
+              "img": "⚡",
+              "name": "电网",
+              "code": "power-grid"
+            },
+            {
+              "type": "sector",
+              "img": "🛡️",
+              "name": "军工",
+              "code": "defense"
+            },
+            {
+              "type": "sector",
+              "img": "☀️",
+              "name": "光伏",
+              "code": "solar"
+            },
+            {
+              "type": "sector",
+              "img": "🔌",
+              "name": "锂电池",
+              "code": "lithium-battery"
+            },
+            {
+              "type": "sector",
+              "img": "🛢️",
+              "name": "油气",
+              "code": "oil"
+            },
+            {
+              "type": "sector",
+              "img": "🟠",
+              "name": "铜 / 有色",
+              "code": "copper-metals"
+            },
+            {
+              "type": "sector",
+              "img": "🥇",
+              "name": "黄金矿业",
+              "code": "gold-miners"
+            },
+            {
+              "type": "sector",
+              "img": "🏦",
+              "name": "银行金融",
+              "code": "bank-finance"
+            },
+            {
+              "type": "sector",
+              "img": "💊",
+              "name": "生物医药",
+              "code": "biotech"
+            },
+            {
+              "type": "sector",
+              "img": "🛒",
+              "name": "消费",
+              "code": "consumer"
+            },
+            {
+              "type": "sector",
+              "img": "🧲",
+              "name": "稀土",
+              "code": "rare-earth"
+            },
+            {
+              "type": "sector",
+              "img": "📶",
+              "name": "通信设备",
+              "code": "telecom-equipment"
+            },
+            {
+              "type": "sector",
+              "img": "🌀",
+              "name": "量子计算",
+              "code": "quantum-computing"
+            },
+            {
+              "type": "sector",
+              "img": "⛓️",
+              "name": "区块链",
+              "code": "blockchain"
+            },
+            {
+              "type": "sector",
+              "img": "✨",
+              "name": "AI 应用",
+              "code": "ai-application"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

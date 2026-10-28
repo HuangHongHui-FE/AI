@@ -1,0 +1,6129 @@
+{
+  "meta": {
+    "report_path": "/Users/hongenhuang/code/self/AI/project/forecast/results/20261016-1728.html",
+    "report_stem": "20261016-1728",
+    "report_time": "2026-10-16 17:28",
+    "target": "10/19 周一",
+    "title": "20261016-1728 收盘后预测（预测下一交易日 10/19 周一）",
+    "snapshot_path": "/Users/hongenhuang/code/self/AI/try/rea/result/meiji-star/snapshot/summary.json",
+    "snapshot_time": "2026-10-27 23:29:21 +0800",
+    "generated_at": "2026-10-28 00:31",
+    "summary": "周五走出全天剧烈震荡的\"高开—杀跌—尾盘分化\"行情：三大指数早盘高开 +1% 以上，午后全线翻绿，尾盘指数小幅拉回（上证收 +0.24%、创业板指 -0.39%），但板块内部严重分化——军工 +2.72%、房地产 +2.29%、恒生红利 +2.29%、煤炭/钢铁/恒生科技/港股互联网 +1.20% 收红，而医药医疗 -2.13%、创新药A股 -1.82%、电池 -1.02%、半导体 -0.65% 继续被杀。收盘定格资金揭示了最关键的结构：机构真金白银只买了三个方向（半导体 +34.22亿全场最大、军工 +29.34亿、房地产 +6.51亿），而收红的周期资源（有色 -14.02亿、煤炭 -5.05亿、钢铁 -1.01亿、稀土 -7.43亿）机构全部净流出、靠散户抬轿（有色散户 +18.75亿），是典型的\"价涨量出\"；医药医疗则全天最剧烈反转——机构盘中最高 +16.38亿到收盘 -13.21亿（净反转 29.6亿），放量 1.52 倍杀跌。因此对下周一（10/19）给出 ▲5（房地产/军工/港股三只）/ △17 / ▼10（医药医疗/创新药A股/券商/电池/新能源车/固态电池/有色/稀土/创业板50/港股金融），并特别提示\"价涨量出\"的周期资源应趁高位减。回检方面，今日 5 份预测已全部回填：命中率 21.9%→37.5%→37.5%→56.2%→59.4%，越接近收盘越准；13:57 版对\"医药医疗重演边拉边撤\"与\"半导体/CPO 尾盘撤退\"两个预判完全兑现。场外加仓首选房地产，可减医药医疗/券商/有色稀土，半导体需等周一确认机构曲线重新抬升再加。今晚 21:30 美股开盘是最大变量，建议周一开盘前复核。",
+    "market_clock": {
+      "serverNow": 1793114931,
+      "open": 1793107800,
+      "close": 1793131200,
+      "previousClose": 1793044800,
+      "previousCloseDaylight": true,
+      "session": "regular",
+      "labels": {
+        "sessions": {
+          "pre_market": "盘前",
+          "regular": "盘中",
+          "post_market": "盘后",
+          "overnight": "夜盘",
+          "closed": "休市"
+        },
+        "toOpen": " · 距开盘 ",
+        "opened": " · 已开盘 ",
+        "toClose": " · 距收盘 ",
+        "ended": "已收盘"
+      }
+    }
+  },
+  "macro_forecast": [
+    {
+      "name": "纳指",
+      "value": "29,935.59",
+      "delta": "-0.05%",
+      "time": "2026-10-16 09:47:30"
+    },
+    {
+      "name": "费半",
+      "value": "11,581.22",
+      "delta": "-0.88%",
+      "time": "2026-10-16 09:47:29"
+    },
+    {
+      "name": "标普500",
+      "value": "7,744.06",
+      "delta": "+0.33%",
+      "time": "2026-10-16 04:34:03"
+    },
+    {
+      "name": "富时A50期指",
+      "value": "13,346.20",
+      "delta": "+0.05%",
+      "time": "17:28:15"
+    },
+    {
+      "name": "恒指期货",
+      "value": "24,192.43",
+      "delta": "+0.02%",
+      "time": "17:28:10"
+    },
+    {
+      "name": "美债10Y",
+      "value": "5.0936%",
+      "delta": "+2.52bp",
+      "time": "17:28:34"
+    },
+    {
+      "name": "美债30Y",
+      "value": "5.4374%",
+      "delta": "+2.75bp",
+      "time": "17:28:25"
+    },
+    {
+      "name": "美债2Y",
+      "value": "4.7422%",
+      "delta": "-0.87bp",
+      "time": "17:28:25"
+    },
+    {
+      "name": "中国10Y国债",
+      "value": "1.6601%",
+      "delta": "+0.36bp",
+      "time": "17:00:05"
+    },
+    {
+      "name": "美元指数",
+      "value": "101.71",
+      "delta": "-0.29",
+      "time": "17:28:24"
+    },
+    {
+      "name": "中美利差",
+      "value": "-3.4335%",
+      "delta": "",
+      "time": "17:28:34"
+    }
+  ],
+  "macro_snapshot": [
+    {
+      "name": "布伦特原油",
+      "value": "109.33",
+      "delta": "-1.27%",
+      "source": "tencent",
+      "symbol": "hf_OIL"
+    },
+    {
+      "name": "恐慌指数",
+      "value": "17.59",
+      "delta": "-4.35%",
+      "source": "us_quote",
+      "symbol": ".VIX"
+    },
+    {
+      "name": "美元指数",
+      "value": "102.12",
+      "delta": "+0.10%",
+      "source": "eastmoney",
+      "symbol": "UDI"
+    },
+    {
+      "name": "美债长债",
+      "value": "81.59",
+      "delta": "-0.11%",
+      "source": "us_quote",
+      "symbol": "TLT"
+    },
+    {
+      "name": "伦敦现货金",
+      "value": "4057.49",
+      "delta": "+1.01%",
+      "source": "tencent",
+      "symbol": "hf_XAU"
+    },
+    {
+      "name": "伦敦现货银",
+      "value": "54.47",
+      "delta": "+0.96%",
+      "source": "tencent",
+      "symbol": "hf_XAG"
+    }
+  ],
+  "regions": {
+    "us": {
+      "cards": [
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "AI 算力",
+          "code": "ai-compute",
+          "icon": "🧠",
+          "chg_value": 2.84,
+          "chg_text": "+2.84%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美债 10Y 5.09% 上行压制成长估值；费半 -0.88% 拖累半导体链（10/16 宏观背景）",
+          "trend_text": "当日上涨 +2.84%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "CPO",
+          "code": "cpo",
+          "icon": "💡",
+          "chg_value": 5.14,
+          "chg_text": "+5.14%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美债 10Y 5.09% 上行压制成长估值；费半 -0.88% 拖累半导体链（10/16 宏观背景）",
+          "trend_text": "当日上涨 +5.14%（强）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "半导体",
+          "code": "semiconductor",
+          "icon": "🔬",
+          "chg_value": 2.43,
+          "chg_text": "+2.43%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美债 10Y 5.09% 上行压制成长估值；费半 -0.88% 拖累半导体链（10/16 宏观背景）",
+          "trend_text": "当日上涨 +2.43%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "存储",
+          "code": "storage",
+          "icon": "💾",
+          "chg_value": 3.88,
+          "chg_text": "+3.88%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美债 10Y 5.09% 上行压制成长估值；费半 -0.88% 拖累半导体链（10/16 宏观背景）",
+          "trend_text": "当日上涨 +3.88%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "数据中心",
+          "code": "data-center",
+          "icon": "🗄️",
+          "chg_value": 4.08,
+          "chg_text": "+4.08%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美债 10Y 5.09% 上行压制成长估值；费半 -0.88% 拖累半导体链（10/16 宏观背景）",
+          "trend_text": "当日上涨 +4.08%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "云计算",
+          "code": "cloud-computing",
+          "icon": "☁️",
+          "chg_value": 0.59,
+          "chg_text": "+0.59%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美债 10Y 5.09% 上行压制成长估值；费半 -0.88% 拖累半导体链（10/16 宏观背景）",
+          "trend_text": "当日上涨 +0.59%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "商业航天",
+          "code": "commercial-space",
+          "icon": "🚀",
+          "chg_value": 7.15,
+          "chg_text": "+7.15%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "地缘/航天主题；报告未逐板块归因（10/16 宏观背景）",
+          "trend_text": "当日上涨 +7.15%（强）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "卫星",
+          "code": "satellite",
+          "icon": "🛰️",
+          "chg_value": 4.65,
+          "chg_text": "+4.65%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "地缘/航天主题；报告未逐板块归因（10/16 宏观背景）",
+          "trend_text": "当日上涨 +4.65%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "机器人",
+          "code": "robotics",
+          "icon": "🤖",
+          "chg_value": 2.14,
+          "chg_text": "+2.14%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "纳指/费半走弱压制成长主题；报告未逐板块归因（10/16 宏观背景）",
+          "trend_text": "当日上涨 +2.14%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "自动驾驶",
+          "code": "autonomous-driving",
+          "icon": "🚗",
+          "chg_value": 3.17,
+          "chg_text": "+3.17%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "纳指/费半走弱压制成长主题；报告未逐板块归因（10/16 宏观背景）",
+          "trend_text": "当日上涨 +3.17%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "核电",
+          "code": "nuclear-power",
+          "icon": "⚛️",
+          "chg_value": 3.83,
+          "chg_text": "+3.83%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+          "trend_text": "当日上涨 +3.83%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "电网",
+          "code": "power-grid",
+          "icon": "⚡",
+          "chg_value": 1.86,
+          "chg_text": "+1.86%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+          "trend_text": "当日上涨 +1.86%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "军工",
+          "code": "defense",
+          "icon": "🛡️",
+          "chg_value": -0.22,
+          "chg_text": "-0.22%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "地缘/航天主题；报告未逐板块归因（10/16 宏观背景）",
+          "trend_text": "当日下跌 -0.22%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "光伏",
+          "code": "solar",
+          "icon": "☀️",
+          "chg_value": 3.61,
+          "chg_text": "+3.61%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+          "trend_text": "当日上涨 +3.61%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "锂电池",
+          "code": "lithium-battery",
+          "icon": "🔌",
+          "chg_value": 7.1,
+          "chg_text": "+7.10%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+          "trend_text": "当日上涨 +7.10%（强）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "油气",
+          "code": "oil",
+          "icon": "🛢️",
+          "chg_value": -1.44,
+          "chg_text": "-1.44%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+          "trend_text": "当日下跌 -1.44%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "铜 / 有色",
+          "code": "copper-metals",
+          "icon": "🟠",
+          "chg_value": 2.52,
+          "chg_text": "+2.52%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+          "trend_text": "当日上涨 +2.52%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "黄金矿业",
+          "code": "gold-miners",
+          "icon": "🥇",
+          "chg_value": 1.84,
+          "chg_text": "+1.84%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+          "trend_text": "当日上涨 +1.84%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "银行金融",
+          "code": "bank-finance",
+          "icon": "🏦",
+          "chg_value": 0.62,
+          "chg_text": "+0.62%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "利率敏感/防御板块；报告未逐板块归因（10/16 宏观背景）",
+          "trend_text": "当日上涨 +0.62%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "生物医药",
+          "code": "biotech",
+          "icon": "💊",
+          "chg_value": 0.01,
+          "chg_text": "+0.01%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "利率敏感/防御板块；报告未逐板块归因（10/16 宏观背景）",
+          "trend_text": "当日上涨 +0.01%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "消费",
+          "code": "consumer",
+          "icon": "🛒",
+          "chg_value": -0.34,
+          "chg_text": "-0.34%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "利率敏感/防御板块；报告未逐板块归因（10/16 宏观背景）",
+          "trend_text": "当日下跌 -0.34%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "稀土",
+          "code": "rare-earth",
+          "icon": "🧲",
+          "chg_value": 8.7,
+          "chg_text": "+8.70%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+          "trend_text": "当日上涨 +8.70%（强）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "通信设备",
+          "code": "telecom-equipment",
+          "icon": "📶",
+          "chg_value": 2.62,
+          "chg_text": "+2.62%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美债 10Y 5.09% 上行压制成长估值；费半 -0.88% 拖累半导体链（10/16 宏观背景）",
+          "trend_text": "当日上涨 +2.62%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "量子计算",
+          "code": "quantum-computing",
+          "icon": "🌀",
+          "chg_value": 5.05,
+          "chg_text": "+5.05%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美债 10Y 5.09% 上行压制成长估值；费半 -0.88% 拖累半导体链（10/16 宏观背景）",
+          "trend_text": "当日上涨 +5.05%（强）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "区块链",
+          "code": "blockchain",
+          "icon": "⛓️",
+          "chg_value": 2.21,
+          "chg_text": "+2.21%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "利率敏感/防御板块；报告未逐板块归因（10/16 宏观背景）",
+          "trend_text": "当日上涨 +2.21%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "美股",
+          "region_class": "r-us",
+          "kind": "sector",
+          "name": "AI 应用",
+          "code": "ai-application",
+          "icon": "✨",
+          "chg_value": 0.01,
+          "chg_text": "+0.01%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美债 10Y 5.09% 上行压制成长估值；费半 -0.88% 拖累半导体链（10/16 宏观背景）",
+          "trend_text": "当日上涨 +0.01%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        }
+      ],
+      "summary": {
+        "count": 26,
+        "up": 23,
+        "down": 3,
+        "flat": 0,
+        "avg": 2.848076923076923,
+        "avg_text": "+2.85%",
+        "avg_label": "均值",
+        "top": [
+          {
+            "region": "美股",
+            "region_class": "r-us",
+            "kind": "sector",
+            "name": "稀土",
+            "code": "rare-earth",
+            "icon": "🧲",
+            "chg_value": 8.7,
+            "chg_text": "+8.70%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+            "trend_text": "当日上涨 +8.70%（强）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "美股",
+            "region_class": "r-us",
+            "kind": "sector",
+            "name": "商业航天",
+            "code": "commercial-space",
+            "icon": "🚀",
+            "chg_value": 7.15,
+            "chg_text": "+7.15%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "地缘/航天主题；报告未逐板块归因（10/16 宏观背景）",
+            "trend_text": "当日上涨 +7.15%（强）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "美股",
+            "region_class": "r-us",
+            "kind": "sector",
+            "name": "锂电池",
+            "code": "lithium-battery",
+            "icon": "🔌",
+            "chg_value": 7.1,
+            "chg_text": "+7.10%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+            "trend_text": "当日上涨 +7.10%（强）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          }
+        ],
+        "bottom": [
+          {
+            "region": "美股",
+            "region_class": "r-us",
+            "kind": "sector",
+            "name": "油气",
+            "code": "oil",
+            "icon": "🛢️",
+            "chg_value": -1.44,
+            "chg_text": "-1.44%",
+            "dir": "down",
+            "chg_dir": "down",
+            "dir_text": "",
+            "reason": "美元指数 101.71 走弱 vs 美债上行；周期资源/能源宏观背景（报告未逐板块归因）",
+            "trend_text": "当日下跌 -1.44%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "美股",
+            "region_class": "r-us",
+            "kind": "sector",
+            "name": "消费",
+            "code": "consumer",
+            "icon": "🛒",
+            "chg_value": -0.34,
+            "chg_text": "-0.34%",
+            "dir": "down",
+            "chg_dir": "down",
+            "dir_text": "",
+            "reason": "利率敏感/防御板块；报告未逐板块归因（10/16 宏观背景）",
+            "trend_text": "当日下跌 -0.34%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "美股",
+            "region_class": "r-us",
+            "kind": "sector",
+            "name": "军工",
+            "code": "defense",
+            "icon": "🛡️",
+            "chg_value": -0.22,
+            "chg_text": "-0.22%",
+            "dir": "down",
+            "chg_dir": "down",
+            "dir_text": "",
+            "reason": "地缘/航天主题；报告未逐板块归因（10/16 宏观背景）",
+            "trend_text": "当日下跌 -0.22%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          }
+        ]
+      }
+    },
+    "cn_forecast": {
+      "cards": [
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "军工",
+          "code": "512660",
+          "icon": "",
+          "chg_value": 2.72,
+          "chg_text": "+2.72%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "▲ 看涨",
+          "reason": "罗斯福号航母停靠日本+霍尔木兹海峡地缘",
+          "trend_text": "▲ 看涨 · 综合分 +0.65 · 置信 低",
+          "sub": "吸筹（机构最大净买入）｜机构 +29.34亿 · 游资 -10.73亿 · 散户 -16.89亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": 0.65,
+          "confidence": "L",
+          "risk": "已涨2.72%+地缘脉冲，事件降温即回落",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 2.0,
+              "text": "机构+29.34亿全场第二",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": 1.0,
+              "text": "收+2.72%/放量1.69倍",
+              "cls": "up"
+            },
+            {
+              "label": "情绪",
+              "score": 1.0,
+              "text": "逆势领涨",
+              "cls": "up"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "罗斯福号+霍尔木兹海峡",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "半导体",
+          "code": "159995",
+          "icon": "",
+          "chg_value": -0.65,
+          "chg_text": "-0.65%",
+          "dir": "flat",
+          "chg_dir": "down",
+          "dir_text": "△ 震荡",
+          "reason": "全场机构最大净买入，但连8跌+瑞芯微跌停",
+          "trend_text": "△ 震荡 · 综合分 -0.10 · 置信 低",
+          "sub": "机构买、价格跌（分歧）｜机构 +34.22亿 · 游资 -24.45亿 · 散户 -9.92亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.1,
+          "confidence": "L",
+          "risk": "机构买、价格跌的分歧，若美股再杀则破位",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "美债10Y 5.0936%上行压制",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 2.0,
+              "text": "机构+34.22亿全场最大净买入",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "空头排列-13.34%/连8跌/位置0%",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "盘面中性",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "瑞芯微跌停vs存储反弹",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "房地产",
+          "code": "512200",
+          "icon": "",
+          "chg_value": 2.29,
+          "chg_text": "+2.29%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "▲ 看涨",
+          "reason": "北上广深4城新政细则全落地",
+          "trend_text": "▲ 看涨 · 综合分 +0.75 · 置信 中",
+          "sub": "吸筹｜机构 +6.51亿 · 游资 -3.10亿 · 散户 -3.41亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": 0.75,
+          "confidence": "M",
+          "risk": "政策脉冲，基本面未改善",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "美债上行",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 2.0,
+              "text": "机构+6.51亿吸筹",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": 1.0,
+              "text": "收+2.29%封近最高/位置27.5%",
+              "cls": "up"
+            },
+            {
+              "label": "情绪",
+              "score": 1.0,
+              "text": "逆势领涨",
+              "cls": "up"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "北上广深4城新政细则全落地",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "创新药A股",
+          "code": "515120",
+          "icon": "",
+          "chg_value": -1.82,
+          "chg_text": "-1.82%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "▼ 看跌",
+          "reason": "医药链整体崩塌",
+          "trend_text": "▼ 看跌 · 综合分 -1.00 · 置信 中",
+          "sub": "吸筹但价格暴跌｜机构 +4.49亿 · 游资 -1.78亿 · 散户 -2.93亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -1.0,
+          "confidence": "M",
+          "risk": "放量杀跌+机构与价格背离",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "机构+4.49亿但价格暴跌",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -2.0,
+              "text": "收-1.82%/连5跌/放量1.66倍破位",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "恒瑞回购19.5万股",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "AI算力",
+          "code": "159819",
+          "icon": "",
+          "chg_value": 0.14,
+          "chg_text": "+0.14%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "上海数据中心/算力跨境政策",
+          "trend_text": "△ 震荡 · 综合分 -0.15 · 置信 低",
+          "sub": "弱吸筹｜机构 +4.24亿 · 游资 -0.64亿 · 散户 -3.62亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.15,
+          "confidence": "L",
+          "risk": "涨幅几近回吐",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "机构+4.24亿",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-12.57%破位/位置0.5%",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "上海数据中心/算力跨境政策",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "CPO",
+          "code": "515880",
+          "icon": "",
+          "chg_value": 0.19,
+          "chg_text": "+0.19%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "腾景科技Q3营收预增84.90%-97.22%",
+          "trend_text": "△ 震荡 · 综合分 -0.20 · 置信 低",
+          "sub": "吸筹大幅撤退（盘中曾+14.40亿）｜机构 +2.42亿 · 游资 -7.30亿 · 散户 +4.08亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.2,
+          "confidence": "L",
+          "risk": "机构大幅撤退，仅剩+2.42亿",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "机构+2.42亿(盘中曾+14.40大幅撤退)",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-17.48%破位最深",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "腾景科技Q3营收预增84.90%-97.22%",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "消费电子",
+          "code": "159732",
+          "icon": "",
+          "chg_value": -0.09,
+          "chg_text": "-0.09%",
+          "dir": "flat",
+          "chg_dir": "down",
+          "dir_text": "△ 震荡",
+          "reason": "华为Pura X View出货超71万",
+          "trend_text": "△ 震荡 · 综合分 -0.25 · 置信 低",
+          "sub": "弱吸筹｜机构 +2.07亿 · 游资 -2.27亿 · 散户 +0.34亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.25,
+          "confidence": "L",
+          "risk": "缩量0.63倍，无承接",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "机构+2.07亿",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-14.62%破位/连3跌",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "华为Pura X View出货超71万",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "农业种植",
+          "code": "159825",
+          "icon": "",
+          "chg_value": 2.18,
+          "chg_text": "+2.18%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "无明确催化",
+          "trend_text": "△ 震荡 · 综合分 -0.35 · 置信 低",
+          "sub": "无机构支撑｜机构 +0.43亿 · 游资 -5.14亿 · 散户 +4.70亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.35,
+          "confidence": "L",
+          "risk": "无机构支撑，纯超跌反弹",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "机构+0.43亿(几乎无)",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "收+2.18%/位置25.4%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "无催化",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "食品饮料",
+          "code": "515170",
+          "icon": "",
+          "chg_value": 0.65,
+          "chg_text": "+0.65%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "机构脉冲吸筹已兑现",
+          "trend_text": "△ 震荡 · 综合分 +0.10 · 置信 低",
+          "sub": "散户抬轿｜机构 -0.51亿 · 游资 -8.22亿 · 散户 +8.49亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": 0.1,
+          "confidence": "L",
+          "risk": "20日位置100%高位透支，机构已撤",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "机构-0.51亿(散户+8.49抬轿)",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 1.0,
+              "text": "多头排列站上MA20+1.59%",
+              "cls": "up"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+0.65%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "光伏",
+          "code": "515790",
+          "icon": "",
+          "chg_value": 0.42,
+          "chg_text": "+0.42%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "机构由正转负",
+          "trend_text": "△ 震荡 · 综合分 -0.30 · 置信 低",
+          "sub": "转负｜机构 -1.00亿 · 游资 -4.97亿 · 散户 +6.05亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.3,
+          "confidence": "L",
+          "risk": "机构转负，无催化",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构由正转负-1.00亿",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-7.78%破位",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "龙头未披露",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "钢铁",
+          "code": "515210",
+          "icon": "",
+          "chg_value": 1.19,
+          "chg_text": "+1.19%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "机构净流出",
+          "trend_text": "△ 震荡 · 综合分 -0.35 · 置信 低",
+          "sub": "派发｜机构 -1.01亿 · 游资 -1.91亿 · 散户 +2.92亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.35,
+          "confidence": "L",
+          "risk": "机构净流出，靠散户撑",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-1.01亿派发",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "收+1.19%/位置23.6%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "银行",
+          "code": "512800",
+          "icon": "",
+          "chg_value": 0.12,
+          "chg_text": "+0.12%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "多头排列但机构流出",
+          "trend_text": "△ 震荡 · 综合分 -0.15 · 置信 低",
+          "sub": "派发｜机构 -2.28亿 · 游资 +1.61亿 · 散户 +0.67亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.15,
+          "confidence": "L",
+          "risk": "多头排列但机构流出+缩量0.7倍",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "机构-2.28亿",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 1.0,
+              "text": "多头排列站上MA20+1.83%",
+              "cls": "up"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+0.12%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "煤炭",
+          "code": "515220",
+          "icon": "",
+          "chg_value": 1.2,
+          "chg_text": "+1.20%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "避险溢价兑现",
+          "trend_text": "△ 震荡 · 综合分 -0.30 · 置信 低",
+          "sub": "派发（缩量0.47倍上涨）｜机构 -5.05亿 · 游资 +2.08亿 · 散户 +2.96亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.3,
+          "confidence": "L",
+          "risk": "缩量0.47倍上涨+机构派发=虚涨",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-5.05亿派发",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "多头排列但跌破MA20-0.56%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+1.20%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "稀土永磁",
+          "code": "159711",
+          "icon": "",
+          "chg_value": 0.63,
+          "chg_text": "+0.63%",
+          "dir": "down",
+          "chg_dir": "up",
+          "dir_text": "▼ 看跌",
+          "reason": "机构出逃",
+          "trend_text": "▼ 看跌 · 综合分 -0.60 · 置信 低",
+          "sub": "派发（散户接盘）｜机构 -7.43亿 · 游资 -1.42亿 · 散户 +8.93亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.6,
+          "confidence": "L",
+          "risk": "机构出逃，散户接盘",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-7.43亿派发/散户+8.93接盘",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "收+0.63%/位置43.3%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "关键矿产合作",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "AI应用",
+          "code": "515990",
+          "icon": "",
+          "chg_value": 0.83,
+          "chg_text": "+0.83%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "软件股机构全天出逃",
+          "trend_text": "△ 震荡 · 综合分 -0.35 · 置信 低",
+          "sub": "派发（散户接盘）｜机构 -11.32亿 · 游资 +2.66亿 · 散户 +8.28亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.35,
+          "confidence": "L",
+          "risk": "机构全天出逃，靠散户撑住涨幅",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-11.32亿派发/散户+8.28接盘",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-2.64%接近MA20/缩量0.66倍",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "金山办公预增210-264%",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "医药医疗",
+          "code": "512170",
+          "icon": "",
+          "chg_value": -2.13,
+          "chg_text": "-2.13%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "▼ 看跌",
+          "reason": "⚠️ 全天最大反转，放量1.52倍杀跌",
+          "trend_text": "▼ 看跌 · 综合分 -1.15 · 置信 中",
+          "sub": "剧烈出逃（盘中曾 +16.38亿）｜机构 -13.21亿 · 游资 +5.04亿 · 散户 +7.53亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -1.15,
+          "confidence": "M",
+          "risk": "⚠️ 全天最大反转，放量杀跌，反弹需时间",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -2.0,
+              "text": "机构盘中+16.38→收盘-13.21亿(净反转29.6亿)",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": -2.0,
+              "text": "收-2.13%/连5跌/放量1.52倍",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "迈瑞药明未披露",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "有色金属",
+          "code": "512400",
+          "icon": "",
+          "chg_value": 0.79,
+          "chg_text": "+0.79%",
+          "dir": "down",
+          "chg_dir": "up",
+          "dir_text": "▼ 看跌",
+          "reason": "⚠️ 价涨量出，机构尾盘再撤7.16亿",
+          "trend_text": "▼ 看跌 · 综合分 -0.65 · 置信 低",
+          "sub": "派发（散户单边抬轿）｜机构 -14.02亿 · 游资 -4.60亿 · 散户 +18.75亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.65,
+          "confidence": "L",
+          "risk": "⚠️ 价涨量出，尾盘机构再撤7.16亿，次日回落风险大",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-14.02亿/散户+18.75亿接盘",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "收+0.79%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "世行关键矿产5年扩5倍",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "券商",
+          "code": "512000",
+          "icon": "",
+          "chg_value": -0.8,
+          "chg_text": "-0.80%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "▼ 看跌",
+          "reason": "中金合并登记日=事件兑现",
+          "trend_text": "▼ 看跌 · 综合分 -0.95 · 置信 中",
+          "sub": "派发持续加剧｜机构 -14.76亿 · 游资 +8.06亿 · 散户 +6.69亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.95,
+          "confidence": "M",
+          "risk": "事件驱动结束+护盘资金全面撤退",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -2.0,
+              "text": "机构-14.76亿派发持续加剧",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "收-0.80%/连1跌",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "中金合并登记日=事件兑现",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "新能源车",
+          "code": "515030",
+          "icon": "",
+          "chg_value": -0.45,
+          "chg_text": "-0.45%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "▼ 看跌",
+          "reason": "长安汽车预减-68%~-58%",
+          "trend_text": "▼ 看跌 · 综合分 -0.70 · 置信 低",
+          "sub": "派发（散户接盘）｜机构 -16.92亿 · 游资 +1.56亿 · 散户 +14.13亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.7,
+          "confidence": "L",
+          "risk": "龙头预减+机构派发+散户接盘",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-16.92亿派发/散户+14.13接盘",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-7.78%破位/连5跌",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收-0.45%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": -1.0,
+              "text": "长安汽车预减-68%~-58%",
+              "cls": "down"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "电池",
+          "code": "159755",
+          "icon": "",
+          "chg_value": -1.02,
+          "chg_text": "-1.02%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "▼ 看跌",
+          "reason": "与新能源车同源 BK1033",
+          "trend_text": "▼ 看跌 · 综合分 -0.90 · 置信 中",
+          "sub": "派发（散户接盘）｜机构 -16.92亿 · 游资 +1.56亿 · 散户 +14.13亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.9,
+          "confidence": "M",
+          "risk": "收盘-1.02%，连5跌无支撑",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-16.92亿/散户+14.13亿接盘",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-8.15%破位/连5跌/缩量0.69倍",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收-1.02%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "宁德未披露",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "固态电池",
+          "code": "BK0968",
+          "icon": "",
+          "chg_value": -0.45,
+          "chg_text": "-0.45%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "▼ 看跌",
+          "reason": "机构单边出逃、散户单边接盘",
+          "trend_text": "▼ 看跌 · 综合分 -0.75 · 置信 低",
+          "sub": "派发最重（全场最大流出）｜机构 -24.58亿 · 游资 -0.93亿 · 散户 +24.27亿",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.75,
+          "confidence": "L",
+          "risk": "机构单边出逃+散户单边接盘，最危险结构",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -2.0,
+              "text": "机构-24.58亿全场最大流出",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "收-0.45%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "当升预增54-70%",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "红利低波",
+          "code": "515080",
+          "icon": "",
+          "chg_value": 0.7,
+          "chg_text": "+0.70%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "站上MA20 +0.77%",
+          "trend_text": "△ 震荡 · 综合分 +0.00 · 置信 低",
+          "sub": "—｜机构 未取到 · 游资 未取到 · 散户 未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": 0.0,
+          "confidence": "L",
+          "risk": "避险溢价兑现中",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "未取到",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 1.0,
+              "text": "站上MA20+0.77%/位置64.3%",
+              "cls": "up"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+0.70%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "机器人",
+          "code": "159770",
+          "icon": "",
+          "chg_value": 0.98,
+          "chg_text": "+0.98%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "放量1.38倍，乐聚产线常态化",
+          "trend_text": "△ 震荡 · 综合分 -0.10 · 置信 低",
+          "sub": "—｜机构 未取到 · 游资 未取到 · 散户 未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.1,
+          "confidence": "L",
+          "risk": "资金数据缺失",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "未取到(权重归一化)",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "放量1.38倍收+0.98%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "乐聚产线常态化+具身智能报告",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "科创50",
+          "code": "588000",
+          "icon": "",
+          "chg_value": -0.56,
+          "chg_text": "-0.56%",
+          "dir": "flat",
+          "chg_dir": "down",
+          "dir_text": "△ 震荡",
+          "reason": "连3跌",
+          "trend_text": "△ 震荡 · 综合分 -0.35 · 置信 低",
+          "sub": "半导体代理 +34.22亿｜机构 未取到 · 游资 未取到 · 散户 未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.35,
+          "confidence": "L",
+          "risk": "半导体权重高波动",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "半导体+34.22亿传导",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-11.58%破位/连3跌/位置0%",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收-0.56%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "创业板50",
+          "code": "159949",
+          "icon": "",
+          "chg_value": -0.62,
+          "chg_text": "-0.62%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "▼ 看跌",
+          "reason": "连5跌，宁德权重拖累",
+          "trend_text": "▼ 看跌 · 综合分 -0.60 · 置信 低",
+          "sub": "电池代理 -16.92亿｜机构 未取到 · 游资 未取到 · 散户 未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.6,
+          "confidence": "L",
+          "risk": "宁德权重拖累，连5跌",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "电池-16.92亿拖累",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-12.78%破位/连5跌",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收-0.62%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "中证500",
+          "code": "510500",
+          "icon": "",
+          "chg_value": 0.1,
+          "chg_text": "+0.10%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "高开+1.15%全回吐",
+          "trend_text": "△ 震荡 · 综合分 -0.20 · 置信 低",
+          "sub": "—｜机构 未取到 · 游资 未取到 · 散户 未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.2,
+          "confidence": "L",
+          "risk": "高开全回吐",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "未取到",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-8.62%破位/位置0.7%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+0.10%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "forecast",
+          "name": "中证1000",
+          "code": "560010",
+          "icon": "",
+          "chg_value": 0.18,
+          "chg_text": "+0.18%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "高开+1.01%全回吐",
+          "trend_text": "△ 震荡 · 综合分 -0.20 · 置信 低",
+          "sub": "—｜机构 未取到 · 游资 未取到 · 散户 未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.2,
+          "confidence": "L",
+          "risk": "高开全回吐",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "未取到",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-8.72%破位/位置1.1%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+0.18%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "count": 27,
+        "up": 2,
+        "down": 9,
+        "flat": 16,
+        "avg": -0.3388888888888889,
+        "avg_text": "-0.34",
+        "avg_label": "均分",
+        "movers_suffix": " 分",
+        "high": 0,
+        "top": [
+          {
+            "name": "房地产",
+            "chg_value": 0.75,
+            "chg_text": "+0.75"
+          },
+          {
+            "name": "军工",
+            "chg_value": 0.65,
+            "chg_text": "+0.65"
+          },
+          {
+            "name": "食品饮料",
+            "chg_value": 0.1,
+            "chg_text": "+0.10"
+          }
+        ],
+        "bottom": [
+          {
+            "name": "医药医疗",
+            "chg_value": -1.15,
+            "chg_text": "-1.15"
+          },
+          {
+            "name": "创新药A股",
+            "chg_value": -1.0,
+            "chg_text": "-1.00"
+          },
+          {
+            "name": "券商",
+            "chg_value": -0.95,
+            "chg_text": "-0.95"
+          }
+        ]
+      }
+    },
+    "cn_snapshot": {
+      "cards": [
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "AI 算力",
+          "code": "cn-ai-compute",
+          "icon": "",
+          "chg_value": -4.13,
+          "chg_text": "-4.13%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -4.13%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "CPO",
+          "code": "cn-cpo",
+          "icon": "",
+          "chg_value": -3.93,
+          "chg_text": "-3.93%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -3.93%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "半导体",
+          "code": "cn-semiconductor",
+          "icon": "",
+          "chg_value": -3.55,
+          "chg_text": "-3.55%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -3.55%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "存储",
+          "code": "cn-storage",
+          "icon": "",
+          "chg_value": -2.06,
+          "chg_text": "-2.06%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -2.06%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "数据中心",
+          "code": "cn-data-center",
+          "icon": "",
+          "chg_value": -3.09,
+          "chg_text": "-3.09%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -3.09%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "云计算",
+          "code": "cn-cloud-computing",
+          "icon": "",
+          "chg_value": -3.29,
+          "chg_text": "-3.29%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -3.29%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "商业航天",
+          "code": "cn-commercial-space",
+          "icon": "",
+          "chg_value": -4.05,
+          "chg_text": "-4.05%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -4.05%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "卫星",
+          "code": "cn-satellite",
+          "icon": "",
+          "chg_value": -4.53,
+          "chg_text": "-4.53%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -4.53%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "机器人",
+          "code": "cn-robotics",
+          "icon": "",
+          "chg_value": -2.41,
+          "chg_text": "-2.41%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -2.41%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "自动驾驶",
+          "code": "cn-autonomous-driving",
+          "icon": "",
+          "chg_value": -1.07,
+          "chg_text": "-1.07%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -1.07%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "核电",
+          "code": "cn-nuclear-power",
+          "icon": "",
+          "chg_value": -0.91,
+          "chg_text": "-0.91%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -0.91%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "电网",
+          "code": "cn-power-grid",
+          "icon": "",
+          "chg_value": -1.88,
+          "chg_text": "-1.88%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -1.88%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "军工",
+          "code": "cn-defense",
+          "icon": "",
+          "chg_value": -3.18,
+          "chg_text": "-3.18%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -3.18%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "光伏",
+          "code": "cn-solar",
+          "icon": "",
+          "chg_value": -1.7,
+          "chg_text": "-1.70%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -1.70%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "锂电池",
+          "code": "cn-lithium-battery",
+          "icon": "",
+          "chg_value": -1.75,
+          "chg_text": "-1.75%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -1.75%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "油气",
+          "code": "cn-oil",
+          "icon": "",
+          "chg_value": -0.98,
+          "chg_text": "-0.98%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -0.98%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "铜 / 有色",
+          "code": "cn-copper-metals",
+          "icon": "",
+          "chg_value": 1.44,
+          "chg_text": "+1.44%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日上涨 +1.44%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "黄金矿业",
+          "code": "cn-gold-miners",
+          "icon": "",
+          "chg_value": -0.75,
+          "chg_text": "-0.75%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -0.75%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "银行金融",
+          "code": "cn-bank-finance",
+          "icon": "",
+          "chg_value": 0.04,
+          "chg_text": "+0.04%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日上涨 +0.04%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "生物医药",
+          "code": "cn-biotech",
+          "icon": "",
+          "chg_value": -3.94,
+          "chg_text": "-3.94%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -3.94%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "消费",
+          "code": "cn-consumer",
+          "icon": "",
+          "chg_value": -0.49,
+          "chg_text": "-0.49%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -0.49%（弱）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "稀土",
+          "code": "cn-rare-earth",
+          "icon": "",
+          "chg_value": -2.74,
+          "chg_text": "-2.74%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -2.74%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "通信设备",
+          "code": "cn-telecom-equipment",
+          "icon": "",
+          "chg_value": -2.62,
+          "chg_text": "-2.62%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -2.62%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "量子计算",
+          "code": "cn-quantum-computing",
+          "icon": "",
+          "chg_value": -3.77,
+          "chg_text": "-3.77%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -3.77%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "区块链",
+          "code": "cn-blockchain",
+          "icon": "",
+          "chg_value": -3.26,
+          "chg_text": "-3.26%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -3.26%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "A股",
+          "region_class": "r-cn",
+          "kind": "sector",
+          "name": "AI 应用",
+          "code": "cn-ai-application",
+          "icon": "",
+          "chg_value": -2.84,
+          "chg_text": "-2.84%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "",
+          "reason": "10/27 快照 · 报告未逐板块归因",
+          "trend_text": "当日下跌 -2.84%（中）",
+          "sub": "",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        }
+      ],
+      "summary": {
+        "count": 26,
+        "up": 2,
+        "down": 24,
+        "flat": 0,
+        "avg": -2.3630769230769233,
+        "avg_text": "-2.36%",
+        "avg_label": "均值",
+        "top": [
+          {
+            "region": "A股",
+            "region_class": "r-cn",
+            "kind": "sector",
+            "name": "铜 / 有色",
+            "code": "cn-copper-metals",
+            "icon": "",
+            "chg_value": 1.44,
+            "chg_text": "+1.44%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "10/27 快照 · 报告未逐板块归因",
+            "trend_text": "当日上涨 +1.44%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "A股",
+            "region_class": "r-cn",
+            "kind": "sector",
+            "name": "银行金融",
+            "code": "cn-bank-finance",
+            "icon": "",
+            "chg_value": 0.04,
+            "chg_text": "+0.04%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "10/27 快照 · 报告未逐板块归因",
+            "trend_text": "当日上涨 +0.04%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "A股",
+            "region_class": "r-cn",
+            "kind": "sector",
+            "name": "消费",
+            "code": "cn-consumer",
+            "icon": "",
+            "chg_value": -0.49,
+            "chg_text": "-0.49%",
+            "dir": "down",
+            "chg_dir": "down",
+            "dir_text": "",
+            "reason": "10/27 快照 · 报告未逐板块归因",
+            "trend_text": "当日下跌 -0.49%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          }
+        ],
+        "bottom": [
+          {
+            "region": "A股",
+            "region_class": "r-cn",
+            "kind": "sector",
+            "name": "卫星",
+            "code": "cn-satellite",
+            "icon": "",
+            "chg_value": -4.53,
+            "chg_text": "-4.53%",
+            "dir": "down",
+            "chg_dir": "down",
+            "dir_text": "",
+            "reason": "10/27 快照 · 报告未逐板块归因",
+            "trend_text": "当日下跌 -4.53%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "A股",
+            "region_class": "r-cn",
+            "kind": "sector",
+            "name": "AI 算力",
+            "code": "cn-ai-compute",
+            "icon": "",
+            "chg_value": -4.13,
+            "chg_text": "-4.13%",
+            "dir": "down",
+            "chg_dir": "down",
+            "dir_text": "",
+            "reason": "10/27 快照 · 报告未逐板块归因",
+            "trend_text": "当日下跌 -4.13%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "A股",
+            "region_class": "r-cn",
+            "kind": "sector",
+            "name": "商业航天",
+            "code": "cn-commercial-space",
+            "icon": "",
+            "chg_value": -4.05,
+            "chg_text": "-4.05%",
+            "dir": "down",
+            "chg_dir": "down",
+            "dir_text": "",
+            "reason": "10/27 快照 · 报告未逐板块归因",
+            "trend_text": "当日下跌 -4.05%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          }
+        ]
+      }
+    },
+    "hk": {
+      "cards": [
+        {
+          "region": "港股",
+          "region_class": "r-hk",
+          "kind": "forecast",
+          "name": "港股金融",
+          "code": "513190",
+          "icon": "",
+          "chg_value": -0.82,
+          "chg_text": "-0.82%",
+          "dir": "down",
+          "chg_dir": "down",
+          "dir_text": "▼ 看跌",
+          "reason": "与A股券商同步杀跌",
+          "trend_text": "▼ 看跌 · 综合分 -0.45 · 置信 低",
+          "sub": "港股资金流未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.45,
+          "confidence": "L",
+          "risk": "与A股券商同步",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-1.93%破位/位置0%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收-0.82%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "港股",
+          "region_class": "r-hk",
+          "kind": "forecast",
+          "name": "港股创新药",
+          "code": "513120",
+          "icon": "",
+          "chg_value": 0.16,
+          "chg_text": "+0.16%",
+          "dir": "flat",
+          "chg_dir": "up",
+          "dir_text": "△ 震荡",
+          "reason": "盘中一度 +4.82%，尾盘全部回吐",
+          "trend_text": "△ 震荡 · 综合分 -0.20 · 置信 低",
+          "sub": "港股资金流未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": -0.2,
+          "confidence": "L",
+          "risk": "盘中大幅回吐，与A股医药链同步崩塌",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-5.51%/放量1.33倍",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "盘中+4.82%收盘仅+0.16%(全回吐)",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        },
+        {
+          "region": "港股",
+          "region_class": "r-hk",
+          "kind": "forecast",
+          "name": "恒生科技",
+          "code": "513130",
+          "icon": "",
+          "chg_value": 1.2,
+          "chg_text": "+1.20%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "▲ 看涨",
+          "reason": "港股独立走强",
+          "trend_text": "▲ 看涨 · 综合分 +0.35 · 置信 低",
+          "sub": "港股资金流未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": 0.35,
+          "confidence": "L",
+          "risk": "恒指期货已回落至平，独立行情可持续性待验",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": 0.0,
+              "text": "恒指期货+0.02%(尾盘由+1.37%回落)",
+              "cls": "flat"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "港股资金回流",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-3.96%破位/位置12.5%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 1.0,
+              "text": "收+1.20%独立走强",
+              "cls": "up"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "港交所:TMT/AI占今年港股IPO募资额约七成",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "港股",
+          "region_class": "r-hk",
+          "kind": "forecast",
+          "name": "港股互联网",
+          "code": "513330",
+          "icon": "",
+          "chg_value": 1.2,
+          "chg_text": "+1.20%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "▲ 看涨",
+          "reason": "同上",
+          "trend_text": "▲ 看涨 · 综合分 +0.35 · 置信 低",
+          "sub": "港股资金流未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": 0.35,
+          "confidence": "L",
+          "risk": "同上",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "同上",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-1.63%/位置28.0%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 1.0,
+              "text": "收+1.20%",
+              "cls": "up"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "同上",
+              "cls": "up"
+            }
+          ]
+        },
+        {
+          "region": "港股",
+          "region_class": "r-hk",
+          "kind": "forecast",
+          "name": "恒生红利",
+          "code": "513080",
+          "icon": "",
+          "chg_value": 2.29,
+          "chg_text": "+2.29%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "▲ 看涨",
+          "reason": "放量1.6倍领涨",
+          "trend_text": "▲ 看涨 · 综合分 +0.30 · 置信 低",
+          "sub": "港股资金流未取到",
+          "layer": "10/16 预测",
+          "layer_class": "layer-forecast",
+          "source": "forecast 20261016-1728 · 10/16 收盘后",
+          "score": 0.3,
+          "confidence": "L",
+          "risk": "放量领涨，需防高位兑现",
+          "dims": [
+            {
+              "label": "外盘",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-2.99%/放量1.6倍",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 1.0,
+              "text": "收+2.29%领涨",
+              "cls": "up"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "count": 5,
+        "up": 3,
+        "down": 1,
+        "flat": 1,
+        "avg": 0.06999999999999998,
+        "avg_text": "+0.07",
+        "avg_label": "均分",
+        "movers_suffix": " 分",
+        "high": 0,
+        "top": [
+          {
+            "name": "恒生科技",
+            "chg_value": 0.35,
+            "chg_text": "+0.35"
+          },
+          {
+            "name": "港股互联网",
+            "chg_value": 0.35,
+            "chg_text": "+0.35"
+          },
+          {
+            "name": "恒生红利",
+            "chg_value": 0.3,
+            "chg_text": "+0.30"
+          }
+        ],
+        "bottom": [
+          {
+            "name": "港股金融",
+            "chg_value": -0.45,
+            "chg_text": "-0.45"
+          },
+          {
+            "name": "港股创新药",
+            "chg_value": -0.2,
+            "chg_text": "-0.20"
+          },
+          {
+            "name": "恒生红利",
+            "chg_value": 0.3,
+            "chg_text": "+0.30"
+          }
+        ]
+      }
+    },
+    "jpkr": [
+      {
+        "country": "韩国",
+        "state": {
+          "s": "closed",
+          "t": "休市",
+          "u": "更新于 14:30 收盘"
+        },
+        "indices": [
+          {
+            "region": "韩国",
+            "region_class": "r-jpkr",
+            "kind": "index",
+            "name": "KOSPI",
+            "code": "KOSPI",
+            "icon": "",
+            "chg_value": 3.09,
+            "chg_text": "+3.09%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "指数行情；报告未覆盖日韩板块",
+            "trend_text": "当日上涨 +3.09%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "韩国",
+            "region_class": "r-jpkr",
+            "kind": "index",
+            "name": "KOSDAQ",
+            "code": "KOSDAQ",
+            "icon": "",
+            "chg_value": 2.29,
+            "chg_text": "+2.29%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "指数行情；报告未覆盖日韩板块",
+            "trend_text": "当日上涨 +2.29%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          }
+        ],
+        "sectors": [
+          {
+            "region": "韩国",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "存储",
+            "code": "kr-memory",
+            "icon": "",
+            "chg_value": 6.59,
+            "chg_text": "+6.59%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "报告未覆盖日韩板块；仅行情快照",
+            "trend_text": "当日上涨 +6.59%（强）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "韩国",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "半导体",
+            "code": "kr-semiconductor",
+            "icon": "",
+            "chg_value": 4.81,
+            "chg_text": "+4.81%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+            "trend_text": "当日上涨 +4.81%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "韩国",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "电池",
+            "code": "kr-battery",
+            "icon": "",
+            "chg_value": 3.93,
+            "chg_text": "+3.93%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "电池/汽车产业链；报告未覆盖日韩板块",
+            "trend_text": "当日上涨 +3.93%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "韩国",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "消费电子",
+            "code": "kr-consumer-electronics",
+            "icon": "",
+            "chg_value": 4.38,
+            "chg_text": "+4.38%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+            "trend_text": "当日上涨 +4.38%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "韩国",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "互联网",
+            "code": "kr-internet",
+            "icon": "",
+            "chg_value": 1.85,
+            "chg_text": "+1.85%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "报告未覆盖日韩板块；仅行情快照",
+            "trend_text": "当日上涨 +1.85%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "韩国",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "汽车",
+            "code": "kr-auto",
+            "icon": "",
+            "chg_value": 1.7,
+            "chg_text": "+1.70%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "电池/汽车产业链；报告未覆盖日韩板块",
+            "trend_text": "当日上涨 +1.70%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "韩国",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "生物医药",
+            "code": "kr-biotech",
+            "icon": "",
+            "chg_value": -1.92,
+            "chg_text": "-1.92%",
+            "dir": "down",
+            "chg_dir": "down",
+            "dir_text": "",
+            "reason": "报告未覆盖日韩板块；仅行情快照",
+            "trend_text": "当日下跌 -1.92%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "韩国",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "化工材料",
+            "code": "kr-chemicals",
+            "icon": "",
+            "chg_value": 1.05,
+            "chg_text": "+1.05%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "报告未覆盖日韩板块；仅行情快照",
+            "trend_text": "当日上涨 +1.05%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          }
+        ],
+        "summary": {
+          "count": 10,
+          "up": 9,
+          "down": 1,
+          "flat": 0,
+          "avg": 2.777,
+          "avg_text": "+2.78%",
+          "avg_label": "均值",
+          "top": [
+            {
+              "region": "韩国",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "存储",
+              "code": "kr-memory",
+              "icon": "",
+              "chg_value": 6.59,
+              "chg_text": "+6.59%",
+              "dir": "up",
+              "chg_dir": "up",
+              "dir_text": "",
+              "reason": "报告未覆盖日韩板块；仅行情快照",
+              "trend_text": "当日上涨 +6.59%（强）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            },
+            {
+              "region": "韩国",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "半导体",
+              "code": "kr-semiconductor",
+              "icon": "",
+              "chg_value": 4.81,
+              "chg_text": "+4.81%",
+              "dir": "up",
+              "chg_dir": "up",
+              "dir_text": "",
+              "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+              "trend_text": "当日上涨 +4.81%（中）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            },
+            {
+              "region": "韩国",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "消费电子",
+              "code": "kr-consumer-electronics",
+              "icon": "",
+              "chg_value": 4.38,
+              "chg_text": "+4.38%",
+              "dir": "up",
+              "chg_dir": "up",
+              "dir_text": "",
+              "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+              "trend_text": "当日上涨 +4.38%（中）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            }
+          ],
+          "bottom": [
+            {
+              "region": "韩国",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "生物医药",
+              "code": "kr-biotech",
+              "icon": "",
+              "chg_value": -1.92,
+              "chg_text": "-1.92%",
+              "dir": "down",
+              "chg_dir": "down",
+              "dir_text": "",
+              "reason": "报告未覆盖日韩板块；仅行情快照",
+              "trend_text": "当日下跌 -1.92%（弱）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            },
+            {
+              "region": "韩国",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "化工材料",
+              "code": "kr-chemicals",
+              "icon": "",
+              "chg_value": 1.05,
+              "chg_text": "+1.05%",
+              "dir": "up",
+              "chg_dir": "up",
+              "dir_text": "",
+              "reason": "报告未覆盖日韩板块；仅行情快照",
+              "trend_text": "当日上涨 +1.05%（弱）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            },
+            {
+              "region": "韩国",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "汽车",
+              "code": "kr-auto",
+              "icon": "",
+              "chg_value": 1.7,
+              "chg_text": "+1.70%",
+              "dir": "up",
+              "chg_dir": "up",
+              "dir_text": "",
+              "reason": "电池/汽车产业链；报告未覆盖日韩板块",
+              "trend_text": "当日上涨 +1.70%（弱）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            }
+          ]
+        }
+      },
+      {
+        "country": "日本",
+        "state": {
+          "s": "closed",
+          "t": "休市",
+          "u": "更新于 14:30 收盘"
+        },
+        "indices": [
+          {
+            "region": "日本",
+            "region_class": "r-jpkr",
+            "kind": "index",
+            "name": "N225",
+            "code": "N225",
+            "icon": "",
+            "chg_value": 1.73,
+            "chg_text": "+1.73%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "指数行情；报告未覆盖日韩板块",
+            "trend_text": "当日上涨 +1.73%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "日本",
+            "region_class": "r-jpkr",
+            "kind": "index",
+            "name": "TOPIX",
+            "code": "TOPIX",
+            "icon": "",
+            "chg_value": 0.61,
+            "chg_text": "+0.61%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "指数行情；报告未覆盖日韩板块",
+            "trend_text": "当日上涨 +0.61%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          }
+        ],
+        "sectors": [
+          {
+            "region": "日本",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "半导体设备",
+            "code": "jp-semi-equipment",
+            "icon": "",
+            "chg_value": 4.77,
+            "chg_text": "+4.77%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+            "trend_text": "当日上涨 +4.77%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "日本",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "工业自动化",
+            "code": "jp-factory-automation",
+            "icon": "",
+            "chg_value": 2.49,
+            "chg_text": "+2.49%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "电池/汽车产业链；报告未覆盖日韩板块",
+            "trend_text": "当日上涨 +2.49%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "日本",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "精密制造",
+            "code": "jp-precision",
+            "icon": "",
+            "chg_value": 0.77,
+            "chg_text": "+0.77%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "报告未覆盖日韩板块；仅行情快照",
+            "trend_text": "当日上涨 +0.77%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "日本",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "汽车产业链",
+            "code": "jp-auto",
+            "icon": "",
+            "chg_value": -0.62,
+            "chg_text": "-0.62%",
+            "dir": "down",
+            "chg_dir": "down",
+            "dir_text": "",
+            "reason": "电池/汽车产业链；报告未覆盖日韩板块",
+            "trend_text": "当日下跌 -0.62%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "日本",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "消费电子",
+            "code": "jp-consumer-electronics",
+            "icon": "",
+            "chg_value": 0.29,
+            "chg_text": "+0.29%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+            "trend_text": "当日上涨 +0.29%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "日本",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "半导体材料",
+            "code": "jp-semi-materials",
+            "icon": "",
+            "chg_value": 4.0,
+            "chg_text": "+4.00%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+            "trend_text": "当日上涨 +4.00%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "日本",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "电子元件",
+            "code": "jp-electronic-components",
+            "icon": "",
+            "chg_value": 2.28,
+            "chg_text": "+2.28%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+            "trend_text": "当日上涨 +2.28%（中）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "日本",
+            "region_class": "r-jpkr",
+            "kind": "sector",
+            "name": "游戏娱乐",
+            "code": "jp-gaming",
+            "icon": "",
+            "chg_value": -1.04,
+            "chg_text": "-1.04%",
+            "dir": "down",
+            "chg_dir": "down",
+            "dir_text": "",
+            "reason": "报告未覆盖日韩板块；仅行情快照",
+            "trend_text": "当日下跌 -1.04%（弱）",
+            "sub": "",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          }
+        ],
+        "summary": {
+          "count": 10,
+          "up": 8,
+          "down": 2,
+          "flat": 0,
+          "avg": 1.528,
+          "avg_text": "+1.53%",
+          "avg_label": "均值",
+          "top": [
+            {
+              "region": "日本",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "半导体设备",
+              "code": "jp-semi-equipment",
+              "icon": "",
+              "chg_value": 4.77,
+              "chg_text": "+4.77%",
+              "dir": "up",
+              "chg_dir": "up",
+              "dir_text": "",
+              "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+              "trend_text": "当日上涨 +4.77%（中）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            },
+            {
+              "region": "日本",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "半导体材料",
+              "code": "jp-semi-materials",
+              "icon": "",
+              "chg_value": 4.0,
+              "chg_text": "+4.00%",
+              "dir": "up",
+              "chg_dir": "up",
+              "dir_text": "",
+              "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+              "trend_text": "当日上涨 +4.00%（中）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            },
+            {
+              "region": "日本",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "工业自动化",
+              "code": "jp-factory-automation",
+              "icon": "",
+              "chg_value": 2.49,
+              "chg_text": "+2.49%",
+              "dir": "up",
+              "chg_dir": "up",
+              "dir_text": "",
+              "reason": "电池/汽车产业链；报告未覆盖日韩板块",
+              "trend_text": "当日上涨 +2.49%（中）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            }
+          ],
+          "bottom": [
+            {
+              "region": "日本",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "游戏娱乐",
+              "code": "jp-gaming",
+              "icon": "",
+              "chg_value": -1.04,
+              "chg_text": "-1.04%",
+              "dir": "down",
+              "chg_dir": "down",
+              "dir_text": "",
+              "reason": "报告未覆盖日韩板块；仅行情快照",
+              "trend_text": "当日下跌 -1.04%（弱）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            },
+            {
+              "region": "日本",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "汽车产业链",
+              "code": "jp-auto",
+              "icon": "",
+              "chg_value": -0.62,
+              "chg_text": "-0.62%",
+              "dir": "down",
+              "chg_dir": "down",
+              "dir_text": "",
+              "reason": "电池/汽车产业链；报告未覆盖日韩板块",
+              "trend_text": "当日下跌 -0.62%（弱）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            },
+            {
+              "region": "日本",
+              "region_class": "r-jpkr",
+              "kind": "sector",
+              "name": "消费电子",
+              "code": "jp-consumer-electronics",
+              "icon": "",
+              "chg_value": 0.29,
+              "chg_text": "+0.29%",
+              "dir": "up",
+              "chg_dir": "up",
+              "dir_text": "",
+              "reason": "半导体周期；美债/美元宏观背景（报告未覆盖日韩板块）",
+              "trend_text": "当日上涨 +0.29%（弱）",
+              "sub": "",
+              "layer": "10/27 快照",
+              "layer_class": "layer-snapshot",
+              "source": "美基星图 · 2026-10-27 23:29 快照",
+              "score": null,
+              "confidence": null,
+              "risk": "",
+              "dims": []
+            }
+          ]
+        }
+      }
+    ],
+    "gold": {
+      "cards": [
+        {
+          "region": "黄金",
+          "region_class": "r-gold",
+          "kind": "commodity",
+          "name": "黄金9999",
+          "code": "AU9999",
+          "icon": "🥇",
+          "chg_value": 0.66,
+          "chg_text": "+0.66%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美元指数走弱、美债上行；避险/实际利率背景（报告未逐板块归因）",
+          "trend_text": "当日上涨 +0.66%（弱）",
+          "sub": "866.01 元/克 · eastmoney",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        },
+        {
+          "region": "黄金",
+          "region_class": "r-gold",
+          "kind": "commodity",
+          "name": "COMEX黄金",
+          "code": "GC00Y",
+          "icon": "🪙",
+          "chg_value": 0.04,
+          "chg_text": "+0.04%",
+          "dir": "up",
+          "chg_dir": "up",
+          "dir_text": "",
+          "reason": "美元/美债与实际利率背景；报告未逐板块归因",
+          "trend_text": "当日上涨 +0.04%（弱）",
+          "sub": "4,040.20 ounce · eastmoney",
+          "layer": "10/27 快照",
+          "layer_class": "layer-snapshot",
+          "source": "美基星图 · 2026-10-27 23:29 快照",
+          "score": null,
+          "confidence": null,
+          "risk": "",
+          "dims": []
+        }
+      ],
+      "summary": {
+        "count": 2,
+        "up": 2,
+        "down": 0,
+        "flat": 0,
+        "avg": 0.35000000000000003,
+        "avg_text": "+0.35%",
+        "avg_label": "均值",
+        "top": [
+          {
+            "region": "黄金",
+            "region_class": "r-gold",
+            "kind": "commodity",
+            "name": "黄金9999",
+            "code": "AU9999",
+            "icon": "🥇",
+            "chg_value": 0.66,
+            "chg_text": "+0.66%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "美元指数走弱、美债上行；避险/实际利率背景（报告未逐板块归因）",
+            "trend_text": "当日上涨 +0.66%（弱）",
+            "sub": "866.01 元/克 · eastmoney",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "黄金",
+            "region_class": "r-gold",
+            "kind": "commodity",
+            "name": "COMEX黄金",
+            "code": "GC00Y",
+            "icon": "🪙",
+            "chg_value": 0.04,
+            "chg_text": "+0.04%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "美元/美债与实际利率背景；报告未逐板块归因",
+            "trend_text": "当日上涨 +0.04%（弱）",
+            "sub": "4,040.20 ounce · eastmoney",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          }
+        ],
+        "bottom": [
+          {
+            "region": "黄金",
+            "region_class": "r-gold",
+            "kind": "commodity",
+            "name": "COMEX黄金",
+            "code": "GC00Y",
+            "icon": "🪙",
+            "chg_value": 0.04,
+            "chg_text": "+0.04%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "美元/美债与实际利率背景；报告未逐板块归因",
+            "trend_text": "当日上涨 +0.04%（弱）",
+            "sub": "4,040.20 ounce · eastmoney",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          },
+          {
+            "region": "黄金",
+            "region_class": "r-gold",
+            "kind": "commodity",
+            "name": "黄金9999",
+            "code": "AU9999",
+            "icon": "🥇",
+            "chg_value": 0.66,
+            "chg_text": "+0.66%",
+            "dir": "up",
+            "chg_dir": "up",
+            "dir_text": "",
+            "reason": "美元指数走弱、美债上行；避险/实际利率背景（报告未逐板块归因）",
+            "trend_text": "当日上涨 +0.66%（弱）",
+            "sub": "866.01 元/克 · eastmoney",
+            "layer": "10/27 快照",
+            "layer_class": "layer-snapshot",
+            "source": "美基星图 · 2026-10-27 23:29 快照",
+            "score": null,
+            "confidence": null,
+            "risk": "",
+            "dims": []
+          }
+        ]
+      }
+    }
+  },
+  "forecast": {
+    "cn": [
+      {
+        "name": "军工",
+        "close_chg_text": "+2.72%",
+        "close_chg": 2.72,
+        "main": "+29.34亿",
+        "medium": "-10.73亿",
+        "retail": "-16.89亿",
+        "structure": "吸筹（机构最大净买入）",
+        "reason": "罗斯福号航母停靠日本+霍尔木兹海峡地缘",
+        "forecast": {
+          "name": "军工",
+          "code": "512660",
+          "direction": "▲",
+          "confidence": "L",
+          "score": 0.65,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 2.0,
+              "text": "机构+29.34亿全场第二",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": 1.0,
+              "text": "收+2.72%/放量1.69倍",
+              "cls": "up"
+            },
+            {
+              "label": "情绪",
+              "score": 1.0,
+              "text": "逆势领涨",
+              "cls": "up"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "罗斯福号+霍尔木兹海峡",
+              "cls": "up"
+            }
+          ],
+          "risk": "已涨2.72%+地缘脉冲，事件降温即回落"
+        }
+      },
+      {
+        "name": "半导体",
+        "close_chg_text": "-0.65%",
+        "close_chg": -0.65,
+        "main": "+34.22亿",
+        "medium": "-24.45亿",
+        "retail": "-9.92亿",
+        "structure": "机构买、价格跌（分歧）",
+        "reason": "全场机构最大净买入，但连8跌+瑞芯微跌停",
+        "forecast": {
+          "name": "半导体",
+          "code": "159995",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.1,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "美债10Y 5.0936%上行压制",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 2.0,
+              "text": "机构+34.22亿全场最大净买入",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "空头排列-13.34%/连8跌/位置0%",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "盘面中性",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "瑞芯微跌停vs存储反弹",
+              "cls": "flat"
+            }
+          ],
+          "risk": "机构买、价格跌的分歧，若美股再杀则破位"
+        }
+      },
+      {
+        "name": "房地产",
+        "close_chg_text": "+2.29%",
+        "close_chg": 2.29,
+        "main": "+6.51亿",
+        "medium": "-3.10亿",
+        "retail": "-3.41亿",
+        "structure": "吸筹",
+        "reason": "北上广深4城新政细则全落地",
+        "forecast": {
+          "name": "房地产",
+          "code": "512200",
+          "direction": "▲",
+          "confidence": "M",
+          "score": 0.75,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "美债上行",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 2.0,
+              "text": "机构+6.51亿吸筹",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": 1.0,
+              "text": "收+2.29%封近最高/位置27.5%",
+              "cls": "up"
+            },
+            {
+              "label": "情绪",
+              "score": 1.0,
+              "text": "逆势领涨",
+              "cls": "up"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "北上广深4城新政细则全落地",
+              "cls": "up"
+            }
+          ],
+          "risk": "政策脉冲，基本面未改善"
+        }
+      },
+      {
+        "name": "创新药A股",
+        "close_chg_text": "-1.82%",
+        "close_chg": -1.82,
+        "main": "+4.49亿",
+        "medium": "-1.78亿",
+        "retail": "-2.93亿",
+        "structure": "吸筹但价格暴跌",
+        "reason": "医药链整体崩塌",
+        "forecast": {
+          "name": "创新药A股",
+          "code": "515120",
+          "direction": "▼",
+          "confidence": "M",
+          "score": -1.0,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "机构+4.49亿但价格暴跌",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -2.0,
+              "text": "收-1.82%/连5跌/放量1.66倍破位",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "恒瑞回购19.5万股",
+              "cls": "flat"
+            }
+          ],
+          "risk": "放量杀跌+机构与价格背离"
+        }
+      },
+      {
+        "name": "AI算力",
+        "close_chg_text": "+0.14%",
+        "close_chg": 0.14,
+        "main": "+4.24亿",
+        "medium": "-0.64亿",
+        "retail": "-3.62亿",
+        "structure": "弱吸筹",
+        "reason": "上海数据中心/算力跨境政策",
+        "forecast": {
+          "name": "AI算力",
+          "code": "159819",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.15,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "机构+4.24亿",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-12.57%破位/位置0.5%",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "上海数据中心/算力跨境政策",
+              "cls": "up"
+            }
+          ],
+          "risk": "涨幅几近回吐"
+        }
+      },
+      {
+        "name": "CPO",
+        "close_chg_text": "+0.19%",
+        "close_chg": 0.19,
+        "main": "+2.42亿",
+        "medium": "-7.30亿",
+        "retail": "+4.08亿",
+        "structure": "吸筹大幅撤退（盘中曾+14.40亿）",
+        "reason": "腾景科技Q3营收预增84.90%-97.22%",
+        "forecast": {
+          "name": "CPO",
+          "code": "515880",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.2,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "机构+2.42亿(盘中曾+14.40大幅撤退)",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-17.48%破位最深",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "腾景科技Q3营收预增84.90%-97.22%",
+              "cls": "up"
+            }
+          ],
+          "risk": "机构大幅撤退，仅剩+2.42亿"
+        }
+      },
+      {
+        "name": "消费电子",
+        "close_chg_text": "-0.09%",
+        "close_chg": -0.09,
+        "main": "+2.07亿",
+        "medium": "-2.27亿",
+        "retail": "+0.34亿",
+        "structure": "弱吸筹",
+        "reason": "华为Pura X View出货超71万",
+        "forecast": {
+          "name": "消费电子",
+          "code": "159732",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.25,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "机构+2.07亿",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-14.62%破位/连3跌",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "华为Pura X View出货超71万",
+              "cls": "up"
+            }
+          ],
+          "risk": "缩量0.63倍，无承接"
+        }
+      },
+      {
+        "name": "农业种植",
+        "close_chg_text": "+2.18%",
+        "close_chg": 2.18,
+        "main": "+0.43亿",
+        "medium": "-5.14亿",
+        "retail": "+4.70亿",
+        "structure": "无机构支撑",
+        "reason": "无明确催化",
+        "forecast": {
+          "name": "农业种植",
+          "code": "159825",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.35,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "机构+0.43亿(几乎无)",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "收+2.18%/位置25.4%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "无催化",
+              "cls": "flat"
+            }
+          ],
+          "risk": "无机构支撑，纯超跌反弹"
+        }
+      },
+      {
+        "name": "食品饮料",
+        "close_chg_text": "+0.65%",
+        "close_chg": 0.65,
+        "main": "-0.51亿",
+        "medium": "-8.22亿",
+        "retail": "+8.49亿",
+        "structure": "散户抬轿",
+        "reason": "机构脉冲吸筹已兑现",
+        "forecast": {
+          "name": "食品饮料",
+          "code": "515170",
+          "direction": "△",
+          "confidence": "L",
+          "score": 0.1,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "机构-0.51亿(散户+8.49抬轿)",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 1.0,
+              "text": "多头排列站上MA20+1.59%",
+              "cls": "up"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+0.65%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "20日位置100%高位透支，机构已撤"
+        }
+      },
+      {
+        "name": "光伏",
+        "close_chg_text": "+0.42%",
+        "close_chg": 0.42,
+        "main": "-1.00亿",
+        "medium": "-4.97亿",
+        "retail": "+6.05亿",
+        "structure": "转负",
+        "reason": "机构由正转负",
+        "forecast": {
+          "name": "光伏",
+          "code": "515790",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.3,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构由正转负-1.00亿",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-7.78%破位",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "龙头未披露",
+              "cls": "flat"
+            }
+          ],
+          "risk": "机构转负，无催化"
+        }
+      },
+      {
+        "name": "钢铁",
+        "close_chg_text": "+1.19%",
+        "close_chg": 1.19,
+        "main": "-1.01亿",
+        "medium": "-1.91亿",
+        "retail": "+2.92亿",
+        "structure": "派发",
+        "reason": "机构净流出",
+        "forecast": {
+          "name": "钢铁",
+          "code": "515210",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.35,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-1.01亿派发",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "收+1.19%/位置23.6%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "机构净流出，靠散户撑"
+        }
+      },
+      {
+        "name": "银行",
+        "close_chg_text": "+0.12%",
+        "close_chg": 0.12,
+        "main": "-2.28亿",
+        "medium": "+1.61亿",
+        "retail": "+0.67亿",
+        "structure": "派发",
+        "reason": "多头排列但机构流出",
+        "forecast": {
+          "name": "银行",
+          "code": "512800",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.15,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "机构-2.28亿",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 1.0,
+              "text": "多头排列站上MA20+1.83%",
+              "cls": "up"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+0.12%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "多头排列但机构流出+缩量0.7倍"
+        }
+      },
+      {
+        "name": "煤炭",
+        "close_chg_text": "+1.20%",
+        "close_chg": 1.2,
+        "main": "-5.05亿",
+        "medium": "+2.08亿",
+        "retail": "+2.96亿",
+        "structure": "派发（缩量0.47倍上涨）",
+        "reason": "避险溢价兑现",
+        "forecast": {
+          "name": "煤炭",
+          "code": "515220",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.3,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-5.05亿派发",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "多头排列但跌破MA20-0.56%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+1.20%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "缩量0.47倍上涨+机构派发=虚涨"
+        }
+      },
+      {
+        "name": "稀土永磁",
+        "close_chg_text": "+0.63%",
+        "close_chg": 0.63,
+        "main": "-7.43亿",
+        "medium": "-1.42亿",
+        "retail": "+8.93亿",
+        "structure": "派发（散户接盘）",
+        "reason": "机构出逃",
+        "forecast": {
+          "name": "稀土永磁",
+          "code": "159711",
+          "direction": "▼",
+          "confidence": "L",
+          "score": -0.6,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-7.43亿派发/散户+8.93接盘",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "收+0.63%/位置43.3%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "关键矿产合作",
+              "cls": "up"
+            }
+          ],
+          "risk": "机构出逃，散户接盘"
+        }
+      },
+      {
+        "name": "AI应用",
+        "close_chg_text": "+0.83%",
+        "close_chg": 0.83,
+        "main": "-11.32亿",
+        "medium": "+2.66亿",
+        "retail": "+8.28亿",
+        "structure": "派发（散户接盘）",
+        "reason": "软件股机构全天出逃",
+        "forecast": {
+          "name": "AI应用",
+          "code": "515990",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.35,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-11.32亿派发/散户+8.28接盘",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-2.64%接近MA20/缩量0.66倍",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "金山办公预增210-264%",
+              "cls": "up"
+            }
+          ],
+          "risk": "机构全天出逃，靠散户撑住涨幅"
+        }
+      },
+      {
+        "name": "医药医疗",
+        "close_chg_text": "-2.13%",
+        "close_chg": -2.13,
+        "main": "-13.21亿",
+        "medium": "+5.04亿",
+        "retail": "+7.53亿",
+        "structure": "剧烈出逃（盘中曾 +16.38亿）",
+        "reason": "⚠️ 全天最大反转，放量1.52倍杀跌",
+        "forecast": {
+          "name": "医药医疗",
+          "code": "512170",
+          "direction": "▼",
+          "confidence": "M",
+          "score": -1.15,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -2.0,
+              "text": "机构盘中+16.38→收盘-13.21亿(净反转29.6亿)",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": -2.0,
+              "text": "收-2.13%/连5跌/放量1.52倍",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "迈瑞药明未披露",
+              "cls": "flat"
+            }
+          ],
+          "risk": "⚠️ 全天最大反转，放量杀跌，反弹需时间"
+        }
+      },
+      {
+        "name": "有色金属",
+        "close_chg_text": "+0.79%",
+        "close_chg": 0.79,
+        "main": "-14.02亿",
+        "medium": "-4.60亿",
+        "retail": "+18.75亿",
+        "structure": "派发（散户单边抬轿）",
+        "reason": "⚠️ 价涨量出，机构尾盘再撤7.16亿",
+        "forecast": {
+          "name": "有色金属",
+          "code": "512400",
+          "direction": "▼",
+          "confidence": "L",
+          "score": -0.65,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-14.02亿/散户+18.75亿接盘",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "收+0.79%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "世行关键矿产5年扩5倍",
+              "cls": "up"
+            }
+          ],
+          "risk": "⚠️ 价涨量出，尾盘机构再撤7.16亿，次日回落风险大"
+        }
+      },
+      {
+        "name": "券商",
+        "close_chg_text": "-0.80%",
+        "close_chg": -0.8,
+        "main": "-14.76亿",
+        "medium": "+8.06亿",
+        "retail": "+6.69亿",
+        "structure": "派发持续加剧",
+        "reason": "中金合并登记日=事件兑现",
+        "forecast": {
+          "name": "券商",
+          "code": "512000",
+          "direction": "▼",
+          "confidence": "M",
+          "score": -0.95,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -2.0,
+              "text": "机构-14.76亿派发持续加剧",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "收-0.80%/连1跌",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "中金合并登记日=事件兑现",
+              "cls": "flat"
+            }
+          ],
+          "risk": "事件驱动结束+护盘资金全面撤退"
+        }
+      },
+      {
+        "name": "新能源车",
+        "close_chg_text": "-0.45%",
+        "close_chg": -0.45,
+        "main": "-16.92亿",
+        "medium": "+1.56亿",
+        "retail": "+14.13亿",
+        "structure": "派发（散户接盘）",
+        "reason": "长安汽车预减-68%~-58%",
+        "forecast": {
+          "name": "新能源车",
+          "code": "515030",
+          "direction": "▼",
+          "confidence": "L",
+          "score": -0.7,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-16.92亿派发/散户+14.13接盘",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-7.78%破位/连5跌",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收-0.45%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": -1.0,
+              "text": "长安汽车预减-68%~-58%",
+              "cls": "down"
+            }
+          ],
+          "risk": "龙头预减+机构派发+散户接盘"
+        }
+      },
+      {
+        "name": "电池",
+        "close_chg_text": "-1.02%",
+        "close_chg": -1.02,
+        "main": "-16.92亿",
+        "medium": "+1.56亿",
+        "retail": "+14.13亿",
+        "structure": "派发（散户接盘）",
+        "reason": "与新能源车同源 BK1033",
+        "forecast": {
+          "name": "电池",
+          "code": "159755",
+          "direction": "▼",
+          "confidence": "M",
+          "score": -0.9,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "机构-16.92亿/散户+14.13亿接盘",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-8.15%破位/连5跌/缩量0.69倍",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收-1.02%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "宁德未披露",
+              "cls": "flat"
+            }
+          ],
+          "risk": "收盘-1.02%，连5跌无支撑"
+        }
+      },
+      {
+        "name": "固态电池",
+        "close_chg_text": "-0.45%",
+        "close_chg": -0.45,
+        "main": "-24.58亿",
+        "medium": "-0.93亿",
+        "retail": "+24.27亿",
+        "structure": "派发最重（全场最大流出）",
+        "reason": "机构单边出逃、散户单边接盘",
+        "forecast": {
+          "name": "固态电池",
+          "code": "BK0968",
+          "direction": "▼",
+          "confidence": "L",
+          "score": -0.75,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -2.0,
+              "text": "机构-24.58亿全场最大流出",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "收-0.45%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "当升预增54-70%",
+              "cls": "up"
+            }
+          ],
+          "risk": "机构单边出逃+散户单边接盘，最危险结构"
+        }
+      },
+      {
+        "name": "红利低波",
+        "close_chg_text": "+0.70%",
+        "close_chg": 0.7,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "—",
+        "reason": "站上MA20 +0.77%",
+        "forecast": {
+          "name": "红利低波",
+          "code": "515080",
+          "direction": "△",
+          "confidence": "L",
+          "score": 0.0,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "未取到",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 1.0,
+              "text": "站上MA20+0.77%/位置64.3%",
+              "cls": "up"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+0.70%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "避险溢价兑现中"
+        }
+      },
+      {
+        "name": "机器人",
+        "close_chg_text": "+0.98%",
+        "close_chg": 0.98,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "—",
+        "reason": "放量1.38倍，乐聚产线常态化",
+        "forecast": {
+          "name": "机器人",
+          "code": "159770",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.1,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "未取到(权重归一化)",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "放量1.38倍收+0.98%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "乐聚产线常态化+具身智能报告",
+              "cls": "up"
+            }
+          ],
+          "risk": "资金数据缺失"
+        }
+      },
+      {
+        "name": "科创50",
+        "close_chg_text": "-0.56%",
+        "close_chg": -0.56,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "半导体代理 +34.22亿",
+        "reason": "连3跌",
+        "forecast": {
+          "name": "科创50",
+          "code": "588000",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.35,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "半导体+34.22亿传导",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-11.58%破位/连3跌/位置0%",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收-0.56%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "半导体权重高波动"
+        }
+      },
+      {
+        "name": "创业板50",
+        "close_chg_text": "-0.62%",
+        "close_chg": -0.62,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "电池代理 -16.92亿",
+        "reason": "连5跌，宁德权重拖累",
+        "forecast": {
+          "name": "创业板50",
+          "code": "159949",
+          "direction": "▼",
+          "confidence": "L",
+          "score": -0.6,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": -1.0,
+              "text": "电池-16.92亿拖累",
+              "cls": "down"
+            },
+            {
+              "label": "技术",
+              "score": -1.0,
+              "text": "-12.78%破位/连5跌",
+              "cls": "down"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收-0.62%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "宁德权重拖累，连5跌"
+        }
+      },
+      {
+        "name": "中证500",
+        "close_chg_text": "+0.10%",
+        "close_chg": 0.1,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "—",
+        "reason": "高开+1.15%全回吐",
+        "forecast": {
+          "name": "中证500",
+          "code": "510500",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.2,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "未取到",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-8.62%破位/位置0.7%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+0.10%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "高开全回吐"
+        }
+      },
+      {
+        "name": "中证1000",
+        "close_chg_text": "+0.18%",
+        "close_chg": 0.18,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "—",
+        "reason": "高开+1.01%全回吐",
+        "forecast": {
+          "name": "中证1000",
+          "code": "560010",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.2,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": -1.0,
+              "text": "同上",
+              "cls": "down"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "未取到",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-8.72%破位/位置1.1%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收+0.18%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "高开全回吐"
+        }
+      }
+    ],
+    "hk": [
+      {
+        "name": "港股金融",
+        "close_chg_text": "-0.82%",
+        "close_chg": -0.82,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "—",
+        "reason": "与A股券商同步杀跌",
+        "forecast": {
+          "name": "港股金融",
+          "code": "513190",
+          "direction": "▼",
+          "confidence": "L",
+          "score": -0.45,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-1.93%破位/位置0%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "收-0.82%",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "与A股券商同步"
+        }
+      },
+      {
+        "name": "港股创新药",
+        "close_chg_text": "+0.16%",
+        "close_chg": 0.16,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "—",
+        "reason": "盘中一度 +4.82%，尾盘全部回吐",
+        "forecast": {
+          "name": "港股创新药",
+          "code": "513120",
+          "direction": "△",
+          "confidence": "L",
+          "score": -0.2,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-5.51%/放量1.33倍",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 0.0,
+              "text": "盘中+4.82%收盘仅+0.16%(全回吐)",
+              "cls": "flat"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "盘中大幅回吐，与A股医药链同步崩塌"
+        }
+      },
+      {
+        "name": "恒生科技",
+        "close_chg_text": "+1.20%",
+        "close_chg": 1.2,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "港股资金回流",
+        "reason": "港股独立走强",
+        "forecast": {
+          "name": "恒生科技",
+          "code": "513130",
+          "direction": "▲",
+          "confidence": "L",
+          "score": 0.35,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": 0.0,
+              "text": "恒指期货+0.02%(尾盘由+1.37%回落)",
+              "cls": "flat"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "港股资金回流",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-3.96%破位/位置12.5%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 1.0,
+              "text": "收+1.20%独立走强",
+              "cls": "up"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "港交所:TMT/AI占今年港股IPO募资额约七成",
+              "cls": "up"
+            }
+          ],
+          "risk": "恒指期货已回落至平，独立行情可持续性待验"
+        }
+      },
+      {
+        "name": "港股互联网",
+        "close_chg_text": "+1.20%",
+        "close_chg": 1.2,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "同上",
+        "reason": "同上",
+        "forecast": {
+          "name": "港股互联网",
+          "code": "513330",
+          "direction": "▲",
+          "confidence": "L",
+          "score": 0.35,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "资金",
+              "score": 1.0,
+              "text": "同上",
+              "cls": "up"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-1.63%/位置28.0%",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 1.0,
+              "text": "收+1.20%",
+              "cls": "up"
+            },
+            {
+              "label": "消息",
+              "score": 1.0,
+              "text": "同上",
+              "cls": "up"
+            }
+          ],
+          "risk": "同上"
+        }
+      },
+      {
+        "name": "恒生红利",
+        "close_chg_text": "+2.29%",
+        "close_chg": 2.29,
+        "main": "未取到",
+        "medium": "未取到",
+        "retail": "未取到",
+        "structure": "同上",
+        "reason": "放量1.6倍领涨",
+        "forecast": {
+          "name": "恒生红利",
+          "code": "513080",
+          "direction": "▲",
+          "confidence": "L",
+          "score": 0.3,
+          "dims": [
+            {
+              "label": "外盘",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "资金",
+              "score": 0.0,
+              "text": "同上",
+              "cls": "flat"
+            },
+            {
+              "label": "技术",
+              "score": 0.0,
+              "text": "-2.99%/放量1.6倍",
+              "cls": "flat"
+            },
+            {
+              "label": "情绪",
+              "score": 1.0,
+              "text": "收+2.29%领涨",
+              "cls": "up"
+            },
+            {
+              "label": "消息",
+              "score": 0.0,
+              "text": "—",
+              "cls": "flat"
+            }
+          ],
+          "risk": "放量领涨，需防高位兑现"
+        }
+      }
+    ],
+    "advice": [
+      [
+        "房地产 512200",
+        "加仓首选",
+        "✅ 可小仓加（1/3）",
+        "机构 +6.51亿稳定吸筹 + 北上广深4城新政细则全落地（硬催化）+ 收 +2.29% 封近最高。唯一\"机构买+政策硬+价格强\"三者齐备的方向"
+      ],
+      [
+        "军工 512660",
+        "可持有不加",
+        "⚠️ 持有，不追加",
+        "机构 +29.34亿全场第二，但今日已涨 +2.72%、属罗斯福号/霍尔木兹地缘脉冲，且尾盘机构小幅回撤。已持有者持有，未持有者不追"
+      ],
+      [
+        "半导体 159995 / 科创50 588000",
+        "观察，暂不加",
+        "❌ 周一先观望",
+        "机构 +34.22亿全场最大净买入是唯一亮点，但连8跌 + 20日位置0% + 尾盘机构从+56.43撤到+34.22，\"机构买价格跌\"尚未确认见底。等美股收盘定格 + 周一盘中确认机构曲线重新抬升再加"
+      ],
+      [
+        "港股创新药 513120 / 恒生科技 513130 / 港股互联网 513330",
+        "持有不动",
+        "⚠️ 持有，不追加",
+        "港股独立走强（恒生科技/港股互联网 +1.20%、恒生红利 +2.29%），但恒指期货尾盘已从 +1.37% 回落至 +0.02%，独立性存疑；港股创新药盘中 +4.82% 收盘仅 +0.16% 全部回吐"
+      ],
+      [
+        "医药医疗 512170 / 创新药A股 515120",
+        "⚠️ 明确不加，持有者可减",
+        "✅ 可减 1/3",
+        "机构盘中 +16.38亿 → 收盘 -13.21亿（净反转 29.6亿），收 -2.13% 放量 1.52 倍；创新药A股 -1.82% 连5跌。放量杀跌 + 机构与价格背离，反弹需时间"
+      ],
+      [
+        "券商 512000",
+        "可减",
+        "✅ 可减 1/3",
+        "机构 -14.76亿派发持续加剧，中金合并事件今日登记日落地=利好出尽，收 -0.80%"
+      ],
+      [
+        "有色金属 512400 / 稀土永磁 159711",
+        "可减",
+        "✅ 可减 1/3",
+        "价涨量出——机构 -14.02亿/-7.43亿，散户 +18.75亿/+8.93亿接盘，收盘却涨 +0.79%/+0.63%。次日回落概率高，趁高位减"
+      ],
+      [
+        "煤炭 515220 / 钢铁 515210 / 农业种植 159825",
+        "可小幅减",
+        "⚠️ 可减",
+        "收红但机构净流出（-5.05/-1.01/+0.43亿），煤炭更是缩量 0.47 倍虚涨，无机构支撑"
+      ],
+      [
+        "固态电池 BK0968 / 电池 159755 / 新能源车 515030",
+        "不抄底",
+        "❌ 不操作",
+        "机构 -24.58亿（全场最大流出）/-16.92亿/-16.92亿 + 散户单边接盘 + 长安预减 -68%~-58%。趋势未止跌"
+      ],
+      [
+        "食品饮料 515170 / 银行 512800 / 红利低波 515080",
+        "持有不动",
+        "❌ 不加",
+        "多头排列未破但机构已流出（-0.51/-2.28亿），20日位置高位（食品饮料100%/银行88.6%），避险溢价兑现中"
+      ],
+      [
+        "创业板50 159949 / 中证500 / 中证1000 / AI应用 / CPO / 光伏 / 机器人 / AI算力 / 消费电子 / 港股金融",
+        "持有不动",
+        "❌ 不加",
+        "破位或机构派发，无独立催化"
+      ]
+    ],
+    "checks": [
+      [
+        "20261015-1655（昨日收盘后）",
+        "▼H×4 + ▼M×13 + ▼L×10 + ▲2 + △5",
+        "7/32 = 21.9%",
+        "全线看跌被证伪，32 板块仅 8 个收跌"
+      ],
+      [
+        "20261016-1039（盘中）",
+        "▲16 / △16 / ▼0",
+        "12/32 = 37.5%",
+        "过度乐观"
+      ],
+      [
+        "20261016-1058（盘中）",
+        "▲16 / △16 / ▼0",
+        "12/32 = 37.5%",
+        "同上"
+      ],
+      [
+        "20261016-1357（盘中）",
+        "▲8 / △20 / ▼4",
+        "18/32 = 56.2%",
+        "大幅改善"
+      ],
+      [
+        "20261016-1416（尾盘）",
+        "▲6 / △17 / ▼9",
+        "19/32 = 59.4%",
+        "当日最准"
+      ]
+    ]
+  }
+}
