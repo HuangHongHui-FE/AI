@@ -4,3 +4,9 @@ node_modules/
 **/dist/
 # PDF 原书 112MB, 超 GitHub 100MB 上限, 不入库
 docs/*.pdf
+
+# 本地试验/样板仓库：含 node_modules、dmg、视频，体积过大不入库
+try/
+*.tar.gz
+*.dmg
+.DS_Store

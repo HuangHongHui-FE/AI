@@ -86,6 +86,35 @@ export async function uploadArticleImage(filePath) {
   return data.url;
 }
 
+export async function updateDraft({ mediaId, title, author, digest, content, thumbMediaId }) {
+  const token = await getAccessToken();
+  const url = `${BASE}/draft/update?access_token=${token}`;
+  const payload = {
+    media_id: mediaId,
+    index: 0,
+    articles: {
+      title,
+      author: author || config.author || '',
+      digest: digest || '',
+      content,
+      content_source_url: '',
+      thumb_media_id: thumbMediaId,
+      need_open_comment: 1,
+      only_fans_can_comment: 0,
+    },
+  };
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json();
+  if (data.errcode) {
+    throw new Error(`更新草稿失败：${data.errcode} ${data.errmsg}`);
+  }
+  return mediaId;
+}
+
 export async function createDraft({ title, author, digest, content, thumbMediaId }) {
   const token = await getAccessToken();
   const url = `${BASE}/draft/add?access_token=${token}`;
