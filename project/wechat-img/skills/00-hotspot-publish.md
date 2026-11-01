@@ -53,8 +53,8 @@ curl 搜狗新闻→必应→百度 m 站多源兜底链，摘出人名/数字/�
 ### ⑤ 写作维度轮换 → [[04-writing-pools]]
 先跑 `node src/recent.js 5` 读近 5 篇已用维度喂 prompt；按账号定位 + 生成要求 + 标题贴原词 + 各轮换池（开头钩子/结构配方/叙事口吻/切入角度/段间衔接/CTA/格式池/收口方式）每篇随机抽、与近 5 篇不撞。
 
-### ⑥ 生成 + 自查 + 推草稿 + 写日志 → [[05-generate-publish]]
-生成 article.json（正文禁引封面文件）→ preflight.js 硬门 → 自查 A/B/C（不过回炉）→ 串行推草稿（禁并发）→ 写日志（字段格式不可变，recent.js 靠它解析）。
+### ⑥ 生成 + 自查 + 朱雀 + 推草稿 + 写日志 → [[05-generate-publish]]
+生成 article.json（正文禁引封面文件）→ preflight.js 硬门 → 自查 A/B/C（不过回炉）→ **朱雀 AIGC 检测 ≤0.3**（正文纯文本贴 matrix.tencent.com/ai-detect，不过按过检写法回炉）→ 串行推草稿（禁并发）→ 写日志（字段格式不可变，recent.js 靠它解析）。
 
 ---
 
@@ -65,6 +65,7 @@ curl 搜狗新闻→必应→百度 m 站多源兜底链，摘出人名/数字/�
 | 选热点（从五榜挑） | **用户** | ✅ 每次换 |
 | 去重/过滤/红线检查 | Claude 提醒 | ✅ 每次换 |
 | 找图 + 生成 article.json + 自查 | Claude | ✅ 每次换 |
+| 朱雀 AIGC 检测（≤0.3） | 用户贴文实测 / Claude 按过检写法自检 | ✅ 每篇必过 |
 | 推草稿（`src/index.js`） | 脚本，Claude 调 | ❌ 不动代码 |
 | 排版 / CTA / 封面规范 | 见 [[05-generate-publish]] / [[04-writing-pools]] | ❌ 不动 |
 | 日志 `logs/YYYY-MM-DD.md` | Claude 更新 | ✅ 每次加 |

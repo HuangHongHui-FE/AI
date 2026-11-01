@@ -45,7 +45,7 @@
 ### ④ 写作维度轮换 → [[04-writing-pools]]
 先跑 `node src/recent.js 5` 读近 5 篇已用维度喂 prompt；按账号定位 + 生成要求（800-1200 字、先事实后感悟、禁六段全套）+ 各轮换池每篇随机抽、与近 5 篇不撞。
 
-### ⑤ 生成 + 自查 + 推草稿 + 写日志 → [[05-generate-publish]]
+### ⑤ 生成 + 自查 + 朱雀 + 推草稿 + 写日志 → [[05-generate-publish]]
 生成 article.json（正文禁引封面文件）→ preflight.js 硬门 → 自查 A/B/C（不过回炉）→ 串行推草稿（禁并发）→ 写日志（字段格式不可变，recent.js 靠它解析）。
 
 ---
