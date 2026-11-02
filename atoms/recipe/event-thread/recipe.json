@@ -1,0 +1,32 @@
+{
+  "name": "event-thread",
+  "version": "0.1.0",
+  "description": "事件脉络梳理：抓事实 → 校验事实卡 → 校验通过后写作 → 自查 → 排版 → 封面 → 推草稿",
+  "notes": "事实卡是硬门槛：无来源的节点不许进发布流程；fact-card 通过才落 facts.json 给写作消费",
+  "atoms": [
+    { "id": "fetch-facts", "args": { "query": "{{user.query}}", "min": 8 } },
+    { "id": "fact-card", "args": { "facts": "{{user.facts}}" } },
+    {
+      "id": "write-article",
+      "args": { "topic": "{{user.query}}", "facts": "{{step.fact-card}}/facts.json" }
+    },
+    { "id": "selfcheck", "args": { "article": "{{step.write-article}}/article.json" } },
+    { "id": "format-html", "args": { "md": "{{step.selfcheck}}/body.md", "title": "{{user.title}}" } },
+    {
+      "id": "cover-image",
+      "args": { "image": "{{user.cover_source}}", "out": "{{runDir}}/06-cover-image/cover.jpg" }
+    },
+    {
+      "id": "wechat-draft",
+      "args": {
+        "html": "{{step.format-html}}/content.html",
+        "cover": "{{runDir}}/06-cover-image/cover.jpg",
+        "title": "{{user.title}}"
+      }
+    }
+  ],
+  "overrides": {
+    "selfcheck": { "ruleset": "wechat-img" },
+    "wechat-draft": { "account": "wechatimg" }
+  }
+}

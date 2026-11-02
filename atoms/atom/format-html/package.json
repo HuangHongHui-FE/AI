@@ -1,0 +1,11 @@
+{
+  "name": "@atoms/format-html",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.mjs",
+  "bin": { "atom-format-html": "src/index.mjs" },
+  "dependencies": {
+    "marked": "^12.0.2"
+  }
+}

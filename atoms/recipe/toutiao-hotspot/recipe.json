@@ -1,0 +1,39 @@
+{
+  "name": "toutiao-hotspot",
+  "version": "0.1.0",
+  "description": "今日头条热点：抓榜 → 用户选点 → 找图 → 抓事实 → 写作 → 自查 → 排版 → 填头条编辑器（人工点发布）",
+  "notes": "头条无草稿 API，最后一步是半自动：标题+正文自动填入，封面与「预览并发布」由人工操作",
+  "atoms": [
+    { "id": "hotlist", "stopForUser": true },
+    {
+      "id": "find-image",
+      "args": { "subject": "{{user.subject}}", "event": "{{user.event}}", "target": 10 }
+    },
+    { "id": "fetch-facts", "args": { "query": "{{user.query}}" } },
+    {
+      "id": "write-article",
+      "args": {
+        "topic": "{{user.query}}",
+        "facts": "{{step.fetch-facts}}/facts-raw.json",
+        "images": 2
+      }
+    },
+    { "id": "title-hook", "args": { "raw": "{{user.raw_title}}" } },
+    { "id": "selfcheck", "args": { "article": "{{step.write-article}}/article.json" } },
+    {
+      "id": "format-html",
+      "args": { "md": "{{step.selfcheck}}/body.md", "title": "{{user.title}}" }
+    },
+    {
+      "id": "toutiao-publish",
+      "args": {
+        "article": "{{step.write-article}}/article.json",
+        "html": "{{step.format-html}}/content.html",
+        "cover": "{{step.find-image}}/001-主图.jpg"
+      }
+    }
+  ],
+  "overrides": {
+    "selfcheck": { "ruleset": "toutiao" }
+  }
+}

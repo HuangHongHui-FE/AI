@@ -1,0 +1,26 @@
+{
+  "name": "atoms",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "原子技能库：可任意组合成完整流程的独立技能仓库",
+  "workspaces": [
+    "atom/*",
+    "recipe/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "setup": "npm install && node atom/scripts/setup-check.mjs",
+    "lint:paths": "node atom/scripts/lint-paths.mjs",
+    "gc": "node atom/scripts/gc.mjs",
+    "accounts": "node atom/scripts/accounts.mjs",
+    "demo": "node recipe/demo-trace/run.mjs",
+    "test": "node atom/scripts/test-all.mjs",
+    "test:all": "node atom/scripts/test-all.mjs --with-source"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}

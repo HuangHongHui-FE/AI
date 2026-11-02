@@ -1,0 +1,11 @@
+{
+  "name": "@atoms/find-image",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.mjs",
+  "bin": { "atom-find-image": "src/index.mjs" },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "podcast",
+  "version": "0.1.0",
+  "description": "商业财经播客：写口播稿 → 生成 mp3 → 排版成公众号正文（顶部放音频链接）→ 推草稿",
+  "notes": "正文是稿件的精华摘要，完整内容在音频里；口播稿第一人称正当，selfcheck 用 podcast 规则集",
+  "atoms": [
+    {
+      "id": "tts-audio",
+      "args": { "text-file": "{{user.script_file}}", "out": "{{step.tts-audio}}/episode.mp3" }
+    },
+    {
+      "id": "selfcheck",
+      "args": { "article": "{{user.article}}", "ruleset": "podcast" }
+    },
+    {
+      "id": "format-html",
+      "args": { "md": "{{step.selfcheck}}/body.md", "title": "{{user.title}}" }
+    },
+    {
+      "id": "cover-image",
+      "args": { "image": "{{user.cover_source}}", "out": "{{runDir}}/04-cover-image/cover.jpg" }
+    },
+    {
+      "id": "wechat-draft",
+      "args": {
+        "html": "{{step.format-html}}/content.html",
+        "cover": "{{runDir}}/04-cover-image/cover.jpg",
+        "title": "{{user.title}}"
+      }
+    }
+  ],
+  "overrides": {
+    "wechat-draft": { "account": "wechatimg" },
+    "cover-image": { "style": "plain" }
+  }
+}

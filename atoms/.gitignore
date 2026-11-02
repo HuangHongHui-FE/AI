@@ -1,0 +1,19 @@
+# 依赖
+node_modules/
+
+# 凭据：绝不入库
+.env
+.env.*
+!.env.example
+
+# 运行留痕：产物大，不入库（结构由 docs 说明）
+runs/*
+!runs/.gitkeep
+
+# 缓存与临时
+cache/
+.tmp/
+*.log
+
+# 系统
+.DS_Store

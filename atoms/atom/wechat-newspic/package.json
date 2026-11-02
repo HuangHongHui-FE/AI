@@ -1,0 +1,8 @@
+{
+  "name": "@atoms/wechat-newspic",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.mjs",
+  "bin": { "atom-wechat-newspic": "src/index.mjs" }
+}

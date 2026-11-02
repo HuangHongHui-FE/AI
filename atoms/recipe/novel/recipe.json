@@ -1,0 +1,17 @@
+{
+  "name": "novel",
+  "version": "0.1.0",
+  "description": "番茄小说：写章节 → 查找错别字与格式问题 → 存草稿（人工在作家后台发布）",
+  "notes": "fanqie-publish 只存草稿，绝不自动发布；章节文件首行 `# 第N章 标题` 会被提取为章节名",
+  "atoms": [
+    {
+      "id": "selfcheck",
+      "args": { "article": "{{user.article}}", "ruleset": "wechat-img" }
+    },
+    {
+      "id": "fanqie-publish",
+      "args": { "book": "{{user.book}}", "file": "{{user.chapter_file}}" }
+    }
+  ],
+  "overrides": {}
+}

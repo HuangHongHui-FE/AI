@@ -1,0 +1,11 @@
+{
+  "name": "@atoms/tts-audio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.mjs",
+  "bin": { "atom-tts-audio": "src/index.mjs" },
+  "dependencies": {
+    "node-edge-tts": "^1.2.10"
+  }
+}

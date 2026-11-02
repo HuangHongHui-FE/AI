@@ -1,0 +1,32 @@
+{
+  "name": "wechat-tietu",
+  "version": "0.1.0",
+  "description": "公众号贴图（图片消息/小绿书）：找图 → 用户筛图 → 统一转 9:16 竖图 → 写文案 → 推图片消息草稿",
+  "notes": "筛图后目录里剩下的图就是最终张数，img-normalize 按 9:16 模糊填充，wechat-newspic 以目录为准",
+  "atoms": [
+    {
+      "id": "find-image",
+      "stopForUser": true,
+      "args": { "subject": "{{user.subject}}", "event": "{{user.event}}", "target": 20 }
+    },
+    {
+      "id": "img-normalize",
+      "args": {
+        "src-dir": "{{step.find-image}}",
+        "out-dir": "{{step.img-normalize}}",
+        "preset": "tietu-9x16"
+      }
+    },
+    {
+      "id": "wechat-newspic",
+      "args": {
+        "title": "{{user.title}}",
+        "images-dir": "{{step.img-normalize}}",
+        "body-file": "{{user.body_file}}"
+      }
+    }
+  ],
+  "overrides": {
+    "wechat-newspic": { "account": "dychatimg" }
+  }
+}

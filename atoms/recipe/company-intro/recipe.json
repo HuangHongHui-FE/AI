@@ -1,0 +1,32 @@
+{
+  "name": "company-intro",
+  "version": "0.1.0",
+  "description": "公司拆解（求职向）：抓 K 线 → 写作 → 自查 → 排版 → 封面 → 推草稿",
+  "notes": "求职跳槽向的九段拆解（薪资/加班/跳槽认可度/评分），不是商业分析",
+  "atoms": [
+    {
+      "id": "kline",
+      "args": { "code": "{{user.code}}", "period": "month", "out": "{{step.kline}}/chart.jpg", "title": "{{user.company}}" }
+    },
+    { "id": "write-article", "args": { "topic": "{{user.company}}", "images": 1 } },
+    { "id": "selfcheck", "args": { "article": "{{step.write-article}}/article.json" } },
+    { "id": "format-html", "args": { "md": "{{step.selfcheck}}/body.md", "title": "{{user.title}}" } },
+    {
+      "id": "cover-image",
+      "args": { "image": "{{step.kline}}/chart.jpg", "out": "{{runDir}}/05-cover-image/cover.jpg" }
+    },
+    {
+      "id": "wechat-draft",
+      "args": {
+        "html": "{{step.format-html}}/content.html",
+        "cover": "{{runDir}}/05-cover-image/cover.jpg",
+        "title": "{{user.title}}",
+        "embed-cover": false
+      }
+    }
+  ],
+  "overrides": {
+    "selfcheck": { "ruleset": "company" },
+    "wechat-draft": { "account": "wechatimg" }
+  }
+}

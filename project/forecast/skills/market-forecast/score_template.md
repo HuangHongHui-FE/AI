@@ -58,8 +58,8 @@
 - 外盘：纳指{{NDX}}%/费半{{SOX}}%/A50期指{{A50}}%/恒指期货{{HSI}}% — overseas.json
 - 全球利率：美债10Y {{US10Y}}%({{US10Y_CHG}}bp)/30Y {{US30Y}}%/2Y {{US2Y}}%；美元指数{{DXY}}；中国10Y {{CN10Y}}%；中美利差{{SPREAD}}% — overseas.json
 - 市场情绪：赚钱效应{{SENT_RATIO}}%/情绪温度{{SENT_TEMP}}(涨停{{SENT_ZT}}/跌停{{SENT_DT}}) — sentiment.json
-- 财报事件：{{EARNINGS_STATUS}} — earnings.json
-- 板块龙头业绩预告：{{LEADERS_FORECAST}} — earnings.json/a_leaders
+- 财报事件：{{EARNINGS_STATUS}} — earnings.json（**报告期{{REPORT_LABEL}}；公告时间取 EITIME 实际入库时间，非 NOTICE_DATE**）
+- 板块龙头实际财报：{{LEADERS_FORECAST}} — earnings.json/a_leaders（status=已披露财报/仅预告/未披露，含 yoy 同比 / qoq 环比 / 毛利率）
 - 资金面：{{FLOW_STATUS}} — flow.json
 - 盘中分时资金：{{FLOW_INTRADAY_STATUS}} — flow_intraday.json
 - 是否放量：{{VOLUME_STATUS}} — **history.json(vol_ratio=今额/前5日均额,≥1.2放量/≤0.8缩量)**

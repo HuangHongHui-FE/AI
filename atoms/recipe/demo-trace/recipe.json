@@ -1,0 +1,19 @@
+{
+  "name": "demo-trace",
+  "version": "0.1.0",
+  "description": "骨架验证用配方：不调真实 atom，只验证 run 目录、manifest、停手点记录是否合规",
+  "atoms": [
+    { "id": "hotlist", "stopForUser": true },
+    { "id": "find-image", "stopForUser": true },
+    { "id": "fetch-facts" },
+    { "id": "write-article" },
+    { "id": "selfcheck" },
+    { "id": "format-html" },
+    { "id": "cover-image" },
+    { "id": "wechat-draft" }
+  ],
+  "overrides": {
+    "selfcheck": { "ruleset": "wechat-img" },
+    "wechat-draft": { "account": "wechatimg" }
+  }
+}
