@@ -1,0 +1,26 @@
+{
+  "slug": "atoms-test",
+  "panels": [
+    {
+      "bg1": "#FFF7E8",
+      "bg2": "#FFE9C7",
+      "scene": [{ "type": "sofa" }, { "type": "window" }],
+      "actors": [{ "type": "zhoujianguo", "x": 300, "hipY": 900, "emo": "smile", "pose": "stand" }],
+      "props": [],
+      "bubbles": [{ "x": 380, "y": 260, "w": 280, "h": 110, "text": "早上好" }],
+      "label": "01·测试"
+    },
+    {
+      "bg1": "#E8F0FF",
+      "bg2": "#D6E4FF",
+      "scene": [{ "type": "table" }],
+      "actors": [
+        { "type": "linxiao", "x": 260, "hipY": 900, "emo": "happy", "pose": "stand" },
+        { "type": "zhouxiaoman", "x": 460, "hipY": 900, "emo": "smile", "pose": "stand" }
+      ],
+      "props": [{ "type": "heart" }],
+      "bubbles": [],
+      "label": "02·测试"
+    }
+  ]
+}
