@@ -5,7 +5,9 @@
 
 import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { spawnSync } from "node:child_process";
 import { markdownToHtml, fullPageHtml, pickRandomThemeName, themeByName } from "../src/lib/render.mjs";
 import { THEME_NAMES } from "../references/themes.mjs";
 
@@ -127,15 +129,24 @@ check("预览页不含 CTA", !/关注|点赞|在看|转发/.test(page));
 
 // 7. 与源 html.js 逐字节对比
 if (srcHtml) {
-  const mod = await import(srcHtml);
+  // 两个实现都在模块顶层调 marked.setOptions，同进程加载会互相覆盖全局配置，
+  // 必须每个实现单独起子进程渲染
+  const renderInChild = (implUrl, md, theme) => {
+    const code = `import(${JSON.stringify(implUrl)}).then(m => process.stdout.write(m.markdownToHtml(${JSON.stringify(md)}, ${JSON.stringify(theme)})))`;
+    const r = spawnSync(process.execPath, ["--input-type=module", "-e", code], { encoding: "utf8" });
+    if (r.status !== 0) throw new Error(`子进程渲染失败：${r.stderr}`);
+    return r.stdout;
+  };
+  const selfImpl = pathToFileURL(join(dirname(fileURLToPath(import.meta.url)), "..", "src", "lib", "render.mjs")).href;
+  const srcImpl = pathToFileURL(resolve(srcHtml)).href;
   for (const t of ["ocean", "minimal", "warm", "ink", "wine", "graphite", "coral"]) {
     if (!THEME_NAMES.includes(t)) continue;
-    const a = markdownToHtml(MD, t);
-    const b = mod.markdownToHtml(MD, t);
+    const a = renderInChild(selfImpl, MD, t);
+    const b = renderInChild(srcImpl, MD, t);
     check(`与源 html.js 一致：${t}`, a === b, a === b ? `${a.length} 字节` : `atom ${a.length} vs src ${b.length}`);
   }
 } else {
-  console.log("（未给 --src-html，跳过与源项目的一致性对比）");
+  console.log("（未给 --src-html，跳过与源实现的一致性对比）");
 }
 
 const failN = results.filter((r) => !r.ok).length;

@@ -16,5 +16,8 @@ cache/
 .tmp/
 *.log
 
+# ai-flavor 的朱雀实测反馈（本地累积，不入库）
+atom/ai-flavor/data/
+
 # 系统
 .DS_Store

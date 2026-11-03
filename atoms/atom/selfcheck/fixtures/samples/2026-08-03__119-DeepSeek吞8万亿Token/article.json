@@ -1,0 +1,9 @@
+{
+  "title": "DeepSeek日吞8万亿Token，开胃",
+  "digest": "DeepSeek V4 Flash上线，单日8万亿Token为免费5万亿加付费3万亿，周调用7.22万亿居首。",
+  "body_markdown": "一个国产模型单日能吃下8万亿Token，这事搁几年前没人敢想。\n\nDeepSeek V4 Flash正式版上线后，单日处理量里，5万亿Token是免费试用额度消耗，3万亿是开发者通过OpenCode平台付费使用，两头加起来8万亿。\n\n## 一周7.22万亿，调用量第一\n\n模型API分发平台OpenRouter最新数据显示，上周（7月27日至8月2日）DeepSeek V4 Flash以7.22万亿Token的周调用量位居第一。\n\n1. 免费试用额度消耗5万亿\n2. OpenCode平台付费使用3万亿\n\n==免费5万亿加付费3万亿==，两个平台的数对上，说明正式版上线后调用量和用户规模都涨了一截。8万亿这个数，不只是个数字，它后头是成千上万的开发者在调API，是真有人在用，不是刷榜刷出来的。真用的人多，量才撑得起来，这道理跟超市收银台一样，路过的人多了，东西才卖得动。\n\n![DeepSeek模型与V4 Flash](input/119-DeepSeek吞8万亿Token-内图1.jpg)\n\n:::stat 8万亿 DeepSeek V4 Flash单日处理Token量，5万亿免费加3万亿付费:::\n\n## 国产模型，挤进第一梯队\n\n咋说呢，行里人都看在眼里——Token调用量这个维度，DeepSeek已经跟国际第一梯队比着跑了。V4 Flash正式版能扛住单日8万亿的量，靠的是后头算力堆得够、架构优化得勤。技术这东西，跑着跑着就出差距，==Token是最硬的那把尺==。\n\n![AI算力与数据中心](input/119-DeepSeek吞8万亿Token-内图2.jpg)\n\n我自己这阵子写东西也常切到DeepSeek，响应快、便宜、能扛长上下文——一个免费量能扛5万亿Token，这手笔搁两年前不敢想。去年R1在农历新年前夕横空出世，引发全球震动，英伟达市值单日蒸发5930亿美元；今年V4 Flash又把单日调用量顶到8万亿这一档。国产模型这口气，是连着喘上来的。\n\nOpenRouter那头的人只说了一句：上周DeepSeek V4 Flash，调用量第一。",
+  "cta_question": "你是不是也早把DeepSeek养成日常了？",
+  "cta_follow": "点 个 关 注 不 迷 路",
+  "cover_style": "full-darken-center",
+  "theme": "sand"
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // 全量回归：跑所有带 fixtures/regression.mjs 的原子
 // 用法：node atom/scripts/test-all.mjs [--with-source] [--only <atom>]
-// --with-source 额外跑与 project 源实现的一致性对比（需要源项目路径存在）
+// --with-source 额外跑与源实现的一致性对比（源实现已固化在 fixtures/reference/）
 
 import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
@@ -13,14 +13,15 @@ const withSource = args.includes("--with-source");
 const onlyIdx = args.indexOf("--only");
 const only = onlyIdx >= 0 ? args[onlyIdx + 1] : null;
 
-// 与源项目对比时需要额外传的参数（源路径不写死在 fixture 里，由这里注入）
+// 与源实现对比时额外传的参数
+// 基准已固化在各自 fixtures/ 下，atoms 不再依赖 ../project/
 const SOURCE_ARGS = {
-  "selfcheck": [
-    "--src-root", join(atomsRoot(), "..", "project", "wechat-img", "output"),
-    "--old-preflight", join(atomsRoot(), "..", "project", "wechat-img", "src", "preflight.js"),
+  selfcheck: [
+    "--src-root", join(atomsRoot(), "atom", "selfcheck", "fixtures", "samples"),
+    "--old-preflight", join(atomsRoot(), "atom", "selfcheck", "fixtures", "reference", "preflight.js"),
   ],
-  "cover-image": ["--src-cover", join(atomsRoot(), "..", "project", "wechat-img", "src", "cover.js")],
-  "format-html": ["--src-html", join(atomsRoot(), "..", "project", "wechat-img", "src", "html.js")],
+  "cover-image": ["--src-cover", join(atomsRoot(), "atom", "cover-image", "fixtures", "reference", "cover.js")],
+  "format-html": ["--src-html", join(atomsRoot(), "atom", "format-html", "fixtures", "reference", "html.js")],
 };
 
 // recipe 的回归（编排器：模板/停手点/续跑/manifest）

@@ -21,10 +21,10 @@ mkdir -p /tmp/atomtest && cd /Users/zcy1/code_self/AI/atoms
 
 | 用途 | 路径 |
 |---|---|
-| 一篇真实历史稿件 | `../project/wechat-img/output/2026-10-20/01-上海抢金/article.json` |
-| 该稿件配套封面 | `../project/wechat-img/output/2026-10-20/01-上海抢金/cover.jpg` |
-| 张竖图（640x870） | `../project/wechat-img/input/20260822-04-台媒造谣北京冰箱/03-冰箱.jpg` |
-| 一张横图 | `../project/wechat-img/input/20260822-02-台风沙德尔/03-台风登陆现场.jpg` |
+| 一篇真实历史稿件 | `testdata/article.json` |
+| 该稿件配套封面 | `testdata/cover.jpg` |
+| 张竖图（640x870） | `testdata/台媒造谣北京冰箱/03-冰箱.jpg` |
+| 一张横图 | `testdata/台风沙德尔/03-台风登陆现场.jpg` |
 
 ---
 
@@ -34,9 +34,9 @@ mkdir -p /tmp/atomtest && cd /Users/zcy1/code_self/AI/atoms
 node atom/scripts/lint-paths.mjs
 ```
 
-**应该看到**：`lint-paths: 通过（检查 79 个文件）`
+**应该看到**：`lint-paths: 通过（检查 81 个文件）`
 
-这一条挂了说明有硬编码路径或密钥，先别往下。
+这一条挂了说明有四类问题之一：硬编码绝对路径 / 跨 atom import / 内嵌密钥 / **相对引用逃出 atoms 仓库**（依赖 `../project` 之类的外部目录）。先别往下。
 
 ---
 
@@ -88,26 +88,19 @@ npm test
 npm run test:all
 ```
 
-比 `npm test` 多跑三组**逐字节对比**，把 `project/` 里的旧实现请出来当裁判：
+比 `npm test` 多跑三组**逐字节对比**。基准实现已固化在各自 `fixtures/reference/`，不依赖外部项目：
 
-| 裁判 | 怎么比 | 应该看到 |
-|---|---|---|
-| `project/wechat-img/src/preflight.js` | 670 篇历史稿逐篇判 FAIL/PASS | 一致率 **100.0%**，新更严 0、新更松 0 |
-| `project/wechat-img/src/html.js` | 6 个主题渲染同一篇 markdown | `✓ 与源 html.js 一致：ocean — 5984 字节`（6 行全 ✓） |
-| `project/wechat-img/src/cover.js` | 6 种布局处理同一张图 | `✓ 与源 cover.js 一致：plain — a7905285`（6 行全 ✓） |
+| 基准 | 位置 | 怎么比 | 应该看到 |
+|---|---|---|---|
+| 旧 preflight | `atom/selfcheck/fixtures/reference/preflight.js` | 685 篇历史稿逐篇判 FAIL/PASS | 一致率 **100.0%**，新更严 0、新更松 0 |
+| 旧 html.js | `atom/format-html/fixtures/reference/html.js` | 6 个主题渲染同一篇 markdown | `✓ 与源 html.js 一致：ocean — 5984 字节`（6 行全 ✓） |
+| 旧 cover.js | `atom/cover-image/fixtures/reference/cover.js` | 6 种布局处理同一张图 | `✓ 与源 cover.js 一致：plain — a7905285`（6 行全 ✓） |
+
+历史稿样本在 `atom/selfcheck/fixtures/samples/`（685 篇，只存 `article.json`，约 1.8MB）。
 
 **这一步为什么重要**：它证明新代码不是「重写了一个差不多的东西」，而是「逐字节等价」。
 
-想看 dedup-log 的对比就手动跑（这条不在 `test:all` 里）：
-
-```bash
-cd ../project/wechat-img && node src/recent.js 5 > /tmp/a.txt
-cd ../../atoms
-node atom/dedup-log/src/index.mjs --logs ../project/wechat-img/logs --n 5 2>/tmp/b.txt >/dev/null
-diff /tmp/a.txt /tmp/b.txt && echo "完全一致"
-```
-
-**应该看到**：`完全一致`（没有任何 diff 输出）
+> `dedup-log` 与旧 `recent.js` 的逐字符一致，是在迁移时一次性比对完成的，没有固化成回归项；如需复验，用 `testdata/logs` 造一份已知输出对比即可。
 
 ---
 
@@ -157,7 +150,7 @@ cat /tmp/atomtest/facts/facts.md
 ```bash
 # 先把上面那篇真实稿件转成 markdown 供后续使用
 node -e "
-const a=JSON.parse(require('fs').readFileSync('../project/wechat-img/output/2026-10-20/01-上海抢金/article.json','utf8'));
+const a=JSON.parse(require('fs').readFileSync('testdata/article.json','utf8'));
 require('fs').writeFileSync('/tmp/atomtest/article.md', a.body_markdown);
 console.log('标题:',a.title,'| 正文',a.body_markdown.length,'字');
 "
@@ -171,21 +164,21 @@ open /tmp/atomtest/fmt/preview.html
 
 ```bash
 # 封面：横图
-node atom/cover-image/src/index.mjs   --image ../project/wechat-img/input/20260822-02-台风沙德尔/03-台风登陆现场.jpg   --out /tmp/atomtest/cover.jpg
+node atom/cover-image/src/index.mjs   --image testdata/台风沙德尔/03-台风登陆现场.jpg   --out /tmp/atomtest/cover.jpg
 open /tmp/atomtest/cover.jpg
 ```
 **应该看到**：一张 900x383 的横图（2.35:1），主体完整没被切碎。
 
 ```bash
 # 封面：竖图（640x870，这是重点，我修过这条）
-node atom/cover-image/src/index.mjs   --image ../project/wechat-img/input/20260822-04-台媒造谣北京冰箱/03-冰箱.jpg   --out /tmp/atomtest/cover-v.jpg
+node atom/cover-image/src/index.mjs   --image testdata/台媒造谣北京冰箱/03-冰箱.jpg   --out /tmp/atomtest/cover-v.jpg
 open /tmp/atomtest/cover-v.jpg
 ```
 **应该看到**：人物主体完整，而不是被压扁/只剩腰部。原图顶部的文字/水印应该被裁掉了。
 
 ```bash
 # 贴图竖图：把整个 input 目录的图转成 1080x1920
-node atom/img-normalize/src/index.mjs   --src-dir ../project/wechat-img/input/20260822-02-台风沙德尔   --out-dir /tmp/atomtest/tietu --preset tietu-9x16
+node atom/img-normalize/src/index.mjs   --src-dir testdata/台风沙德尔   --out-dir /tmp/atomtest/tietu --preset tietu-9x16
 open /tmp/atomtest/tietu/03-台风登陆现场.jpg
 ```
 **应该看到**：原图完整居中，上下是**模糊的同一张图**填充，不拉伸不变形。
@@ -263,7 +256,7 @@ node atom/wechat-draft/src/index.mjs \
 ```bash
 cat > /tmp/atomtest/with-img.html <<'EOF'
 <p>这是正文第一段。</p>
-<p><img src="../project/wechat-img/input/20260822-02-台风沙德尔/03-台风登陆现场.jpg" alt="台风现场"></p>
+<p><img src="testdata/台风沙德尔/03-台风登陆现场.jpg" alt="台风现场"></p>
 <p>这是正文第二段。</p>
 EOF
 
@@ -312,7 +305,7 @@ node atom/toutiao-publish/src/index.mjs --login
 
 ```bash
 node atom/toutiao-publish/src/index.mjs \
-  --article ../project/wechat-img/output/2026-10-20/01-上海抢金/article.json \
+  --article testdata/article.json \
   --html /tmp/atomtest/fmt/content.html \
   --cover /tmp/atomtest/cover.jpg
 ```
@@ -330,19 +323,19 @@ node atom/toutiao-publish/src/index.mjs --inspect --auth-dir .cache/toutiao
 ## 第 7 步：番茄（需要登录态文件）
 
 ```bash
-# 先列书，确认鉴权有效
-node atom/fanqie-publish/src/index.mjs --list --auth ../project/novel/.auth/fanqie.json
+# 先列书，确认鉴权有效（.cache/fanqie/fanqie.json 是你的登录态文件，含 cookie + csrfToken）
+node atom/fanqie-publish/src/index.mjs --list --auth .cache/fanqie/fanqie.json
 ```
 **应该看到**：列出你账号下的书（book_id + 书名 + 字数）。
 
-⚠️ 我测的时候这个 token 已经过期了（返回「登录信息有误」）。如果报这个，需要重新抓 cookie + csrfToken 写回那个文件。
+⚠️ 登录态约 3 个月过期。报「登录信息有误」时，重新抓 cookie + csrfToken 写回该文件。
 
 ```bash
 # 存草稿
 node atom/fanqie-publish/src/index.mjs \
   --book <你的book_id> \
   --file 某章.md \
-  --auth ../project/novel/.auth/fanqie.json
+  --auth .cache/fanqie/fanqie.json
 ```
 **应该看到**：`✓ 已存入草稿箱：item_id=...`
 然后去番茄作家后台看草稿箱。

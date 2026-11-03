@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-// 防回潮 lint：拦截硬编码绝对路径、跨 atom import、内嵌密钥三类问题.
+// 防回潮 lint：拦截硬编码绝对路径、跨 atom import、内嵌密钥、跳出仓库的相对引用四类问题.
 // 用法：node atom/scripts/lint-paths.mjs [--fix-hint]
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { dirname, join, relative, resolve, sep } from "node:path";
 import { atomsRoot } from "../../_shared/paths.mjs";
 
 const ROOT = atomsRoot();
@@ -48,6 +48,19 @@ function checkCrossAtom(file, text) {
   return null;
 }
 
+// 检查相对引用是否逃出 atoms 仓库（本仓库必须自包含，不能依赖 ../project 等外部目录）
+function checkEscape(file, text) {
+  const escaped = [];
+  const re = /(?:from|import\()\s*['"`](\.\.?\/[^'"`]+)['"`]/g;
+  let m;
+  while ((m = re.exec(text))) {
+    const abs = resolve(dirname(file), m[1]);
+    // 允许指向仓库根本身之外的 node_modules（第三方包），其余一律拦
+    if (abs !== ROOT && !abs.startsWith(ROOT + sep)) escaped.push(m[1]);
+  }
+  return escaped.length ? `相对引用逃出 atoms 仓库：${escaped.join("、")}（本仓库必须自包含）` : null;
+}
+
 const files = collect(ROOT);
 const problems = [];
 for (const f of files) {
@@ -60,6 +73,8 @@ for (const f of files) {
   }
   const cross = checkCrossAtom(f, text);
   if (cross) problems.push({ file: rel, line: 0, id: "cross-atom", msg: cross });
+  const escape = checkEscape(f, text);
+  if (escape) problems.push({ file: rel, line: 0, id: "escape-repo", msg: escape });
 }
 
 if (problems.length) {
