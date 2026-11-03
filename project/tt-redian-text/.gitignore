@@ -1,6 +1,0 @@
-node_modules/
-.auth/
-logs/
-cache/
-*.log
-.DS_Store
