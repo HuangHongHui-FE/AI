@@ -12,7 +12,7 @@ import { parseArgs, emit, fail, log } from "../../../_shared/io.mjs";
 import { COVER_STYLES, pickRandomCoverStyle } from "./lib/layouts.mjs";
 import { generateCover } from "./lib/compose.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["image", "out", "out-dir", "style", "random", "exclude", "list"] });
 
 async function main() {
   // --list 只打印布局名，方便 recipe/用户选
@@ -31,13 +31,17 @@ async function main() {
   // 布局选择：--random 随机避撞 > --style 显式 > 默认 plain（2026-08-26 起纯图）
   const exclude = args.exclude ? String(args.exclude).split(",").map((s) => s.trim()) : [];
   const style = args.random ? pickRandomCoverStyle(exclude) : String(args.style || "plain");
+  // 未知布局直接报错，避免拼错名字时静默降级（53402 规避策略会因此失效）
   if (!COVER_STYLES.includes(style)) {
-    log(`⚠ 未知布局「${style}」，回退 plain；可选：${COVER_STYLES.join(", ")}`);
+    fail(`未知布局「${style}」；可选：${COVER_STYLES.join(", ")}`);
   }
 
   const res = await generateCover({ imagePath, outPath, style });
-  log(`✓ 封面 ${res.w}x${res.h} 布局=${res.style} 模式=${res.mode} → ${res.outPath}`);
-  emit({ ok: true, file: res.outPath, style: res.style, w: res.w, h: res.h, mode: res.mode, ratio: (res.w / res.h).toFixed(2) }, 0);
+  log(`✓ 封面 ${res.w}x${res.h} 布局=${res.style} 模式=${res.mode} 裁切=${res.crop} → ${res.outPath}`);
+  emit(
+    { ok: true, file: res.outPath, style: res.style, w: res.w, h: res.h, mode: res.mode, crop: res.crop, ratio: (res.w / res.h).toFixed(2) },
+    0,
+  );
 }
 
 main().catch((e) => fail(e.message));

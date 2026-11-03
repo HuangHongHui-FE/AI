@@ -12,7 +12,7 @@ import { parseArgs, emit, fail, log, EXIT } from "../../../_shared/io.mjs";
 import { nowIso } from "../../../_shared/time.mjs";
 import { toutiaoSearch, ensureUrls, clusterSummary } from "./lib/toutiao.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["query", "variants", "min", "out-dir"] });
 
 async function main() {
   const query = String(args.query || args._[0] || "").trim();

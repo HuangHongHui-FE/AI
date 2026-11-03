@@ -14,7 +14,7 @@ import { parseArgs, emit, fail, log, EXIT } from "../../../_shared/io.mjs";
 import { sniffFormat } from "../../../_shared/sniff.mjs";
 import { PRESETS, normalizeOne, normalizeDir } from "./lib/normalize.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["src", "src-dir", "out", "out-dir", "preset", "width", "height", "quality", "check-dir"] });
 
 // 解析目标尺寸：--preset 优先，其次 --width/--height 同时给
 function resolveTarget() {

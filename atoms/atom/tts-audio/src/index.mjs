@@ -14,7 +14,7 @@ import { parseArgs, emit, fail, log, EXIT } from "../../../_shared/io.mjs";
 import { cleanScript, splitScript } from "./lib/script.mjs";
 import { concatMp3, estimateDurationSec } from "./lib/concat.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["text", "text-file", "json", "out", "voice", "rate", "max-chunk", "plan", "format", "lang", "pitch", "volume", "out-dir"] });
 
 // 取文稿：--json 读 article.script/body_markdown，--text-file 读文件，--text 直接给
 function loadScript() {

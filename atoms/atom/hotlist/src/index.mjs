@@ -11,7 +11,7 @@ import { PLATFORMS } from "./lib/platforms.mjs";
 import { validateHotlist } from "../../../_shared/schema/index.mjs";
 import { nowIso } from "../../../_shared/time.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["limit", "out", "out-dir", "platforms"] });
 const allKeys = Object.keys(PLATFORMS);
 const keys = args.platforms ? String(args.platforms).split(",").map((s) => s.trim()) : allKeys;
 const limit = Number(args.limit || 20);

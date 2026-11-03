@@ -11,7 +11,7 @@ import { basename, join, resolve } from "node:path";
 import { parseArgs, emit, fail, log, EXIT } from "../../../_shared/io.mjs";
 import { validateEvent, isOngoing, splitByParts } from "./lib/validate.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["facts", "facts-dir", "today", "out-dir", "quiet"] });
 
 // 本地日期 YYYY-MM-DD（不用 toISOString，那是 UTC，凌晨会差一天）
 function todayLocal() {

@@ -14,7 +14,7 @@ import { parseArgs, emit, fail, log } from "../../../_shared/io.mjs";
 import { analyze, renderPrompt } from "./lib/analyze.mjs";
 import { appendArticle } from "./lib/append.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["logs", "n", "append", "exclude-only", "out-dir"] });
 
 // 追加模式：dims.json = { date, no, title, dims:{...}, note? }
 function doAppend(logsDir) {

@@ -27,12 +27,15 @@ export function bizFail(obj, msg) {
 }
 
 // 解析 --key value 与 --flag 形式的参数；位置参数收进 _
-export function parseArgs(argv = process.argv.slice(2)) {
+// known 传入时：未声明的长参数直接报错，避免拼错参数名时静默用默认值
+export function parseArgs({ argv = process.argv.slice(2), known = null } = {}) {
   const out = { _: [] };
+  const unknown = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a.startsWith("--")) {
       const key = a.slice(2);
+      if (known && !known.includes(key)) unknown.push(key);
       const next = argv[i + 1];
       if (next === undefined || next.startsWith("--")) out[key] = true;
       else {
@@ -40,6 +43,10 @@ export function parseArgs(argv = process.argv.slice(2)) {
         i++;
       }
     } else out._.push(a);
+  }
+  if (unknown.length) {
+    const opts = known.join(" / --");
+    fail(`未知参数：${unknown.map((k) => `--${k}`).join("、")}（可用：--${opts}）`);
   }
   return out;
 }

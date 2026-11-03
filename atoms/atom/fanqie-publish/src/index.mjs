@@ -11,7 +11,7 @@ import { join, resolve } from "node:path";
 import { parseArgs, emit, fail, log, EXIT } from "../../../_shared/io.mjs";
 import { listBooks, saveDraft } from "./lib/api.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["book", "file", "title", "auth", "list", "dry-run", "out-dir"] });
 
 // 登录态：--auth 指定，否则 FANQIE_AUTH_DIR，否则 .cache/fanqie
 function authFile() {

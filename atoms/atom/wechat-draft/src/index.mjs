@@ -16,9 +16,10 @@ import { uploadPermanentImage, createDraft, verifyToken } from "./lib/wechat-api
 import { collectImages, findMissing, findCoverClash, uploadAndReplace, prependCoverImage } from "./lib/body.mjs";
 import { clearTokenCache } from "./lib/token.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["html", "cover", "title", "digest", "author", "account", "out-dir", "dry-run", "verify", "clear-token", "cache-dir", "allow-missing-img", "embed-cover"] });
 
 // 凭据上下文：账号、缓存目录（由参数传入，atom 不自行决定位置）
+// 只在真正要调微信接口时才调用——dry-run 与缺图/撞脸等本地校验不需要凭据
 function buildCtx() {
   loadEnv();
   let account;
@@ -52,11 +53,12 @@ function finish(outDir, result, code) {
 }
 
 async function main() {
-  const ctx = buildCtx();
   const outDir = args["out-dir"] ? resolve(String(args["out-dir"])) : null;
 
   // --verify：只验证 token 可用性，供发布前预检（42001 过期、40164 IP 白名单）
+  // 这里必须凭据，所以单独解析
   if (args.verify) {
+    const ctx = buildCtx();
     const v = await verifyToken(ctx);
     finish(outDir, { ok: v.ok, account: ctx.alias, step: "verify-token", ...v, at: nowIso() }, v.ok ? 0 : 1);
     return;
@@ -64,6 +66,7 @@ async function main() {
 
   // --clear-token：清掉该账号的 token 缓存后退出
   if (args["clear-token"]) {
+    const ctx = buildCtx();
     clearTokenCache(ctx.cacheDir, ctx.alias);
     finish(outDir, { ok: true, account: ctx.alias, step: "clear-token", at: nowIso() }, 0);
     return;
@@ -101,7 +104,8 @@ async function main() {
       {
         ok: true,
         dry_run: true,
-        account: ctx.alias,
+        // dry-run 不解析凭据，账号名仅用于回显
+        account: String(args.account || "default"),
         title,
         cover: coverPath,
         images: present.map((it) => basename(it.abs)),
@@ -112,6 +116,9 @@ async function main() {
     );
     return;
   }
+
+  // 真推才解析凭据：缺图/撞脸/dry-run 都在此之前完成，新环境可先验本地链路
+  const ctx = buildCtx();
 
   log(`[1/3] 上传正文图 ${present.length} 张…`);
   const up = await uploadAndReplace(ctx, html, present);

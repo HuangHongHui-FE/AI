@@ -14,7 +14,7 @@ import { parseArgs, emit, fail, log, EXIT } from "../../../_shared/io.mjs";
 import { buildPrompt } from "./lib/prompt.mjs";
 import { verifyArticle } from "./lib/verify.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["topic", "facts", "dedup", "images", "title", "out-dir", "verify", "dims", "quiet"] });
 
 // 读 JSON 文件；不存在时返回 null（可选输入）
 function readJson(p) {

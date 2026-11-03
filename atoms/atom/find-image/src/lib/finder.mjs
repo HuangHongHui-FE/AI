@@ -17,6 +17,24 @@ function buildQueries(subject, event) {
   return [...new Set(list.filter(Boolean))];
 }
 
+// 事件相关度：标题与事件词的字符二元组重叠比例（英文/数字也适用，不依赖中文分词）
+// 实测「全运会夺冠」对「全运会跳水…夺冠」得 0.75，对「全红婵世界杯夺金」得 0
+function eventOverlap(title, event) {
+  const ev = String(event || "").trim();
+  if (!ev) return 0;
+  const grams = (s) => {
+    const set = new Set();
+    for (let i = 0; i < s.length - 1; i++) set.add(s.slice(i, i + 2));
+    return set;
+  };
+  const evGrams = grams(ev);
+  if (!evGrams.size) return 0;
+  const titleGrams = grams(String(title || ""));
+  let hit = 0;
+  for (const g of evGrams) if (titleGrams.has(g)) hit++;
+  return hit / evGrams.size;
+}
+
 // 采集候选：图库渠道 + 新闻渠道，统一过滤
 async function collectCandidates({ subject, event, history, maxAgeMonths }) {
   const queries = buildQueries(subject, event);
@@ -82,7 +100,8 @@ async function collectCandidates({ subject, event, history, maxAgeMonths }) {
 }
 
 // 分档：强相关 / 部分相关 / 新闻；返回三个桶
-function bucketize(cands, keywords) {
+// strong 内部按事件相关度排序——主体对了但事件不对的图排后面，封面主图优先取事件命中的
+function bucketize(cands, keywords, event = "") {
   const strong = [];
   const partial = [];
   const news = [];
@@ -99,11 +118,13 @@ function bucketize(cands, keywords) {
     if (c.strong || fullMatch) strong.push(c);
     else if (isRelevant(c.title, c.url, keywords)) partial.push(c);
   }
+  // 事件命中优先：同为主体强相关时，标题贴事件的排前面
+  if (event) strong.sort((a, b) => eventOverlap(b.title, event) - eventOverlap(a.title, event));
   return { strong, partial, news };
 }
 
 // 按档位下载：强相关 → 部分相关 → 新闻，凑够目标即停
-async function downloadBuckets({ strong, partial, news }, { outDir, target }) {
+async function downloadBuckets({ strong, partial, news }, { outDir, target, event = "" }) {
   const items = [];
   let idx = nextIndex(outDir);
   let skippedNoDate = 0;
@@ -139,6 +160,8 @@ async function downloadBuckets({ strong, partial, news }, { outDir, target }) {
         source: c.source,
         url: c.url,
         age_months: c.age,
+        // 事件相关度，供主图挑选时优先取事件命中的图
+        event_overlap: Number(eventOverlap(c.title, event).toFixed(2)),
       });
       idx++;
       log(`✓ ${file} ${got.w}x${got.h} ${c.source}`);
@@ -171,10 +194,13 @@ export async function findImages({
     const lv = levels[i];
     const r = await collectCandidates({ subject: lv, event, history, maxAgeMonths });
     keywords = r.keywords;
-    const buckets = bucketize(r.cands, keywords);
-    log(`「${lv}」强相关 ${buckets.strong.length} · 部分相关 ${buckets.partial.length} · 新闻 ${buckets.news.length}`);
+    const buckets = bucketize(r.cands, keywords, event);
+    const eventHits = buckets.strong.filter((c) => eventOverlap(c.title, event) > 0).length;
+    log(
+      `「${lv}」强相关 ${buckets.strong.length}（事件命中 ${eventHits}）· 部分相关 ${buckets.partial.length} · 新闻 ${buckets.news.length}`,
+    );
 
-    const res = await downloadBuckets(buckets, { outDir, target });
+    const res = await downloadBuckets(buckets, { outDir, target, event });
     skippedNoDate += res.skippedNoDate;
     dupSkipped += res.dupSkipped;
     items = res.items;
@@ -193,12 +219,20 @@ export async function findImages({
     return { subject: usedSubject, event, count: 0, images: [], skipped_no_date: skippedNoDate, dup_skipped: dupSkipped, keywords };
   }
 
-  // 主图命名：优先「够宽 + 像素最多」的一张作封面候选
+  // 主图命名：优先「事件强命中 + 够宽 + 像素最多」的一张作封面候选
+  // 事件命中优先——同是主体强相关时，世界杯旧图和全运会现场图要选后者；
+  // 阈值 0.5 才有区分度（0.25 的「跌到同一场奥运」也算 >0，会把旧图选成主图）
   // 不能只按比例挑——实测同一新闻会出 450x294 横幅缩略图和 956x1594 大图，
   // 纯按比例会选中缩略图当封面，清晰度不够
   const widthOk = items.filter((it) => it.ratio >= 1.3); // 封面要横图，竖图裁 2.35:1 会切掉主体
-  const pool = widthOk.length ? widthOk : items;
+  const strongEvent = widthOk.filter((it) => (it.event_overlap || 0) >= 0.5);
+  const eventOk = widthOk.filter((it) => (it.event_overlap || 0) > 0);
+  const pool = strongEvent.length ? strongEvent : eventOk.length ? eventOk : widthOk.length ? widthOk : items;
   const best = pool.reduce((a, b) => {
+    // 事件度优先：同为主体强相关时，全运会现场图要赢过世界杯旧图
+    const ea = a.event_overlap || 0;
+    const eb = b.event_overlap || 0;
+    if (ea !== eb) return ea > eb ? a : b;
     const pa = a.w * a.h;
     const pb = b.w * b.h;
     // 像素总数优先；同量级时取更宽的（更适合裁封面）
@@ -236,7 +270,9 @@ export function writeManifestMd(result, outDir) {
   ];
   for (const it of images) {
     const use = it.file === "001-主图.jpg" ? "【封面主图】" : it.ratio >= 1.6 ? "可做封面/内图" : "内图";
-    lines.push(`- ${it.file} — ${it.w}x${it.h} 比例${it.ratio} ${it.source} ${use} ${it.title}`);
+    // 事件命中度写进清单，用户筛图时能一眼看出哪几张真贴着这次事件
+    const ev = it.event_overlap > 0 ? `[事件${Math.round(it.event_overlap * 100)}%]` : "[事件0%]";
+    lines.push(`- ${it.file} — ${it.w}x${it.h} 比例${it.ratio} ${it.source} ${use} ${ev} ${it.title}`);
   }
   if (skipped_no_date > 0) lines.push("", `> 已跳过无日期戳的旧图 ${skipped_no_date} 张`);
   if (dup_skipped > 0) lines.push("", `> 已跳过重复内容图 ${dup_skipped} 张（不同 URL 指向同一张图）`);

@@ -12,7 +12,7 @@ import { parseArgs, emit, fail, log, EXIT } from "../../../_shared/io.mjs";
 import { RULESETS, RULESET_NAMES } from "../references/rulesets.mjs";
 import { selfcheck } from "./lib/engine.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["article", "ruleset", "out-dir", "quiet", "list"] });
 
 async function main() {
   if (args.list) {

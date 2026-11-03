@@ -34,7 +34,9 @@ export function checkTitle(title) {
   if (CLICKBAIT.test(t)) errors.push(`标题党词（震惊/速看/刚刚/突发）：${t}`);
 
   // 标题须含一个具体信息点：人名/地名/数字/机构/动作词
-  const hasInfo = /\d|[一-龥]{2,}(?:部|局|委|院|公司|集团|大学|医院|舰|机|车)/.test(t);
+  // 权威媒体主体也算（「央视曝光…」不该因为央视不在机构后缀表里就报缺辨识度）
+  const AUTHORITY = /央视|新华社|人民日报|政法委|最高法|最高检|公安部|教育部|卫健委|工信部|应急管理部/;
+  const hasInfo = /\d|[一-龥]{2,}(?:部|局|委|院|公司|集团|大学|医院|舰|机|车)/.test(t) || AUTHORITY.test(t);
   if (!hasInfo) warns.push("标题未见具体信息点（数字/机构/主体），可能缺辨识度");
 
   return { ok: errors.length === 0, errors, warns, chars: c };
@@ -59,14 +61,16 @@ export function compressTitle(raw) {
 
   // 还超：按逗号切，优先保留前半（主体+动作通常在前）与含数字的片段
   const parts = s.split(/[，,]/).map((p) => p.trim()).filter(Boolean);
-  const withNum = parts.filter((p) => /\d/.test(p));
-  const kept = [];
-  for (const p of [...parts.slice(0, 2), ...withNum]) {
-    const cand = [...kept, p].join("，");
-    if (charCount(cand) > MAX_CHARS) break;
-    if (!kept.includes(p)) kept.push(p);
-  }
-  s = kept.join("，") || parts[0] || s;
+  const head = parts.slice(0, 2);
+  const nums = parts.filter((p) => /\d/.test(p) && !head.includes(p));
+  const joinParts = (arr) => arr.filter(Boolean).join("，");
+  // 逐级退化：前半+数字 > 前半1+数字 > 前半，保证数字片段优先于后半
+  const picked = [
+    joinParts([...head, ...nums]),
+    joinParts([head[0], ...nums]),
+    joinParts(head),
+  ].find((x) => charCount(x) <= MAX_CHARS);
+  s = picked || parts[0] || s;
 
   // 仍超：硬截断到 22 字（保证不超限，宁可断句不完整）
   if (charCount(s) > MAX_CHARS) {

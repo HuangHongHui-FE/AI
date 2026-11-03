@@ -13,7 +13,7 @@ import { parseArgs, emit, fail, log } from "../../../_shared/io.mjs";
 import { markdownToHtml, fullPageHtml, pickRandomThemeName } from "./lib/render.mjs";
 import { THEME_NAMES } from "../references/themes.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["md", "out-dir", "theme", "title", "exclude", "list"] });
 
 // 纯文字提取：用于校验正文非空、统计字数
 function plainText(html) {

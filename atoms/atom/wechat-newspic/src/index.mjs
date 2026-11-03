@@ -15,7 +15,7 @@ import { sniffFile } from "../../../_shared/sniff.mjs";
 import { nowIso } from "../../../_shared/time.mjs";
 import { uploadPermanentImage, createNewspicDraft } from "./lib/api.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["title", "images-dir", "body", "body-file", "cover", "digest", "account", "out-dir", "dry-run", "cache-dir"] });
 
 // 凭据上下文：账号 + token 缓存目录（由参数传入，atom 不自行决定位置）
 function buildCtx() {

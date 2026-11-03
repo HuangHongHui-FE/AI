@@ -12,7 +12,7 @@ import { parseArgs, emit, fail, log, EXIT } from "../../../_shared/io.mjs";
 import { fetchKline } from "./lib/sources.mjs";
 import { drawKline } from "./lib/draw.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["code", "period", "limit", "source", "out", "title", "json", "currency", "out-dir"] });
 
 async function main() {
   const code = String(args.code || args._[0] || "").trim();

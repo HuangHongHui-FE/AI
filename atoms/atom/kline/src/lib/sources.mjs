@@ -68,21 +68,40 @@ export async function fetchEastmoney(code, period = "month", limit = 0) {
   return { source: "eastmoney", code: secid, period, rows: out };
 }
 
-// 腾讯源：qfqmonth / qfqday / qfqweek 字段，顺序 日期,开,收,高,低,量
-export async function fetchTencent(code, period = "month", limit = 0) {
-  const txCode = toTencentCode(code);
-  const interval = PERIODS[period]?.tencent || "month";
-  const n = limit > 0 ? limit : 320;
+// 腾讯单次请求：返回原始行数组（不足 2 条时由调用方决定是否换后缀重试）
+async function fetchTencentRows(txCode, interval, n) {
   const url = `https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=${txCode},${interval},,,${n},qfq`;
   const res = await fetch(url, { headers: { "User-Agent": UA } });
   if (!res.ok) throw new Error(`腾讯 HTTP ${res.status}`);
   const j = await res.json();
   const node = j?.data?.[txCode] || j?.data?.[Object.keys(j?.data || {})[0]];
   const rows = node?.[`qfq${interval}`] || node?.[interval];
-  if (!Array.isArray(rows) || rows.length < 2) throw new Error("腾讯返回 K 线为空");
-  let out = rows.map(normalizeRow).filter((r) => r.close > 0);
-  if (limit > 0) out = out.slice(-limit);
-  return { source: "tencent", code: txCode, period, rows: out };
+  return Array.isArray(rows) ? rows : [];
+}
+
+// 腾讯源：qfqmonth / qfqday / qfqweek 字段，顺序 日期,开,收,高,低,量
+// 美股无交易所后缀时腾讯只返当天 1 条（usAAPL），须补 .N（纽交所）/ .OQ（纳斯达克）才有历史
+export async function fetchTencent(code, period = "month", limit = 0) {
+  const base = toTencentCode(code);
+  const interval = PERIODS[period]?.tencent || "month";
+  const n = limit > 0 ? limit : 320;
+  const candidates = /^us[A-Z]+$/i.test(base) ? [base, `${base}.N`, `${base}.OQ`] : [base];
+  let lastErr = null;
+  for (const txCode of candidates) {
+    try {
+      const rows = await fetchTencentRows(txCode, interval, n);
+      if (rows.length < 2) {
+        lastErr = new Error("腾讯返回 K 线为空");
+        continue;
+      }
+      let out = rows.map(normalizeRow).filter((r) => r.close > 0);
+      if (limit > 0) out = out.slice(-limit);
+      return { source: "tencent", code: txCode, period, rows: out };
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw lastErr || new Error("腾讯返回 K 线为空");
 }
 
 // 主入口：东财优先，失败自动回落腾讯（返回里 source 标明实际用的哪个源）

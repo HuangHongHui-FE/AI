@@ -13,7 +13,7 @@ import { bingCandidates } from "./lib/sources.mjs";
 import { validateImageManifest } from "../../../_shared/schema/index.mjs";
 import { nowIso } from "../../../_shared/time.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["subject", "event", "out-dir", "target", "history", "max-age-months", "query", "url", "out"] });
 
 // 单张模式：只取一张图（封面兜底场景），优先用指定 URL，否则搜第一张
 async function singleImage() {

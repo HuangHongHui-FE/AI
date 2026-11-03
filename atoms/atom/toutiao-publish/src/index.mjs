@@ -14,7 +14,7 @@ import { parseArgs, emit, fail, log, EXIT } from "../../../_shared/io.mjs";
 import { nowIso } from "../../../_shared/time.mjs";
 import { login, hasAuth } from "./lib/auth.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["article", "html", "cover", "out-dir", "dry-run", "login", "inspect", "auth-dir", "hold-sec"] });
 
 // 动态导入 playwright：--dry-run / --login 检测失败时应给出明确提示，而不是模块加载错
 async function loadPlaywright() {

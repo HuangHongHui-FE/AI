@@ -12,7 +12,7 @@ import { join, resolve } from "node:path";
 import { parseArgs, emit, fail, log, EXIT } from "../../../_shared/io.mjs";
 import { checkTitle, compressTitle, expandTitle, charCount, MAX_CHARS } from "./lib/title.mjs";
 
-const args = parseArgs();
+const args = parseArgs({ known: ["raw", "event", "check", "dedup", "out-dir"] });
 
 // 从 dedup 结果里取近 N 篇的标题原词，判断是否撞车
 function findDuplicates(dedupPath, title) {
