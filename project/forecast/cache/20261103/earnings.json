@@ -1,6 +1,6 @@
 {
   "date": "20261103",
-  "ts": "15:28:10",
+  "ts": "16:49:33",
   "report_period": "2026-09-30",
   "report_label": "三季报",
   "a_leaders": [
@@ -883,6 +883,13 @@
   "a_leaders_note": "各板块龙头三季报;公告时间取EITIME(实际入库时间),非NOTICE_DATE(报告期标注日);港股龙头不在此A股接口",
   "recent_disclosed": [
     {
+      "code": "873074",
+      "name": "富士智能",
+      "announce": "2026-11-03 16:10:29",
+      "yoy": -13.7202793406,
+      "qoq": -5.4688
+    },
+    {
       "code": "874884",
       "name": "龙行天下",
       "announce": "2026-11-02 20:30:39",
@@ -918,8 +925,8 @@
       "qoq": -10.0078
     }
   ],
-  "recent_count": 5,
-  "recent_note": "近3日已公告5家(全量,按实际公告时间倒序)",
+  "recent_count": 6,
+  "recent_note": "近3日已公告6家(全量,按实际公告时间倒序)",
   "us": [
     {
       "name": "Tesla",
