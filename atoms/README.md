@@ -1,7 +1,7 @@
 # atoms —— 原子技能库
 
-把散落在 `project/` 各项目里的能力拆成独立小技能，可任意组合成完整流程。
-**本项目不改动 `project/` 任何代码**，两者并行存在。
+把原本散落在 `project/` 各项目里的能力拆成独立小技能，可任意组合成完整流程。
+**本仓库不依赖任何外部项目**：对比基准固化在 `atom/*/fixtures/reference/`，测试素材在 `testdata/`，删掉 `project/` 也能独立运行。
 
 ## 目录
 
@@ -36,13 +36,13 @@ npx playwright install chromium    # toutiao-publish 用
 2. **不写死路径** —— 自身资源用 `import.meta.url` 推导，业务路径由参数传入
 3. **凭据只从环境变量读** —— 源码里零密钥，`.env` 永不入库
 
-## 现状：17 个原子全部实现
+## 现状：18 个原子全部实现
 
 | 层 | 原子 |
 |---|---|
 | A 情报 | `hotlist` `find-image` `fetch-facts` `fact-card` `kline` |
 | B 创作 | `write-article` `title-hook` `format-html` `cover-image` `img-normalize` `tts-audio` |
-| C 质量 | `selfcheck` `dedup-log` |
+| C 质量 | `selfcheck` `ai-flavor` `dedup-log` |
 | D 分发 | `wechat-draft` `wechat-newspic` `toutiao-publish` `fanqie-publish` |
 
 详细清单与调用契约见 `atom/SKILL.md`，每个原子的说明见各自的 `SKILL.md`。
