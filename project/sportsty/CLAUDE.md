@@ -2,14 +2,14 @@
 
 在这个目录里收到「写两篇/写一篇 赛事分析稿」「照上次那个格式写」之类的要求时，按本文件执行，不要另起炉灶。
 
-样板稿在仓库 `output/2026-10-29/01-切尔西VS曼联/`、`02-曼城VS布莱顿/`（若已被清理，看 `template/`）。**格式、字数、结尾块逐字照抄，不要自由发挥。**
+样板稿在 `output/2026-10-29/01-切尔西VS曼联/`、`02-曼城VS布莱顿/`（若已被清理，看 `template/`）。**格式、字数、结尾块逐字照抄，不要自由发挥。**
 
 ---
 
 ## 产出物
 
 ```
-sportsty/output/YYYY-MM-DD/NN-主队VS客队/
+output/YYYY-MM-DD/NN-主队VS客队/
   article.json   你写
   media.jpg      配图（实拍，非文字图表）
   cover.jpg      publish.mjs 自动裁（没有才生成）
@@ -61,8 +61,8 @@ print('\n'.join(x.strip() for x in t.split('\n') if x.strip())[:4000])"
 ## 第 2 步 · 配图（必须实拍，不能是文字图表）
 
 ```bash
-node ../src/find_img.cjs --batch "英超" "切尔西 曼联" /tmp/img1 8
-# 或单张：node ../src/find_img.cjs --news "关键词" /tmp/x.jpg
+node src/find_img.cjs --batch "英超" "切尔西 曼联" /tmp/img1 8
+# 或单张：node src/find_img.cjs --news "关键词" /tmp/x.jpg
 ```
 
 看图挑一张：**横向、有球员/教练/球场、无大面积水印、跟这一场的具体情节有关**（例如发布会、晋级庆祝）。看一眼 `manifest.md` 里的来源标题再决定。挑好后存成该篇目录下的 `media.jpg`。

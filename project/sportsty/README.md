@@ -8,6 +8,7 @@
 sportsty/
 ├─ CLAUDE.md              写作与发布的完整规则（Claude 进这个目录会自动读）
 ├─ publish.mjs            裁封面 → 上传内图 → 推/更新草稿
+├─ src/                   自带的微信发布模块（wechat.js / config.js）与找图脚本 find_img.cjs
 ├─ template/
 │  ├─ cta.html            结尾固定块（逐字照抄，含名片）
 │  └─ article.example.json  article.json 骨架
@@ -17,8 +18,8 @@ sportsty/
 ## 第一次在新电脑上跑
 
 ```bash
-git clone <repo> && cd <repo>
-npm install                      # 依赖装在仓库根，sportsty 复用 src/ 里的微信模块
+git clone <repo> && cd <repo>/project/sportsty
+npm install                      # 依赖装在本目录，自带 src/ 微信模块，不依赖 wechat-img
 cp .env.example .env             # 填 WECHAT_APPID / WECHAT_APPSECRET（.env 不入库）
 ```
 
@@ -46,10 +47,10 @@ node publish.mjs output/2026-10-31/01-xxx output/2026-10-31/02-yyy
 
 ## 依赖
 
-- Node ≥ 18（仓库根 `npm install` 一次即可）
+- Node ≥ 18（本目录 `npm install` 一次即可）
 - `sharp`：裁封面、处理图片
-- `../src/find_img.cjs`：找图（必应/新闻源）
-- `../src/wechat.js`：取 token、传图、建/改草稿
+- `src/find_img.cjs`：找图（必应/新闻源）
+- `src/wechat.js`：取 token、传图、建/改草稿
 
 ## 注意
 

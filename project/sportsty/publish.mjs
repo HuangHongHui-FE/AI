@@ -7,11 +7,11 @@ import { existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// 允许在 sportsty/ 目录下直接跑：显式读仓库根的 .env（必须在引入 config/wechat 之前）
-dotenv.config({ path: fileURLToPath(new URL("../.env", import.meta.url)) });
+// 读本项目根的 .env（必须在引入 config/wechat 之前）
+dotenv.config({ path: fileURLToPath(new URL("./.env", import.meta.url)) });
 const sharp = (await import("sharp")).default;
 const { uploadPermanentImage, uploadArticleImage, createDraft, updateDraft } =
-  await import("../src/wechat.js");
+  await import("./src/wechat.js");
 
 const args = process.argv.slice(2);
 const dry = args.includes("--dry-run");
