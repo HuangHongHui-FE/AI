@@ -1,0 +1,11 @@
+{
+  "name": "@atoms/fund-ocr",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.mjs",
+  "bin": { "atom-fund-ocr": "src/index.mjs" },
+  "dependencies": {
+    "tesseract.js": "^7.0.0"
+  }
+}

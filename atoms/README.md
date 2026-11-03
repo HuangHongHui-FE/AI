@@ -36,14 +36,14 @@ npx playwright install chromium    # toutiao-publish 用
 2. **不写死路径** —— 自身资源用 `import.meta.url` 推导，业务路径由参数传入
 3. **凭据只从环境变量读** —— 源码里零密钥，`.env` 永不入库
 
-## 现状：21 个原子全部实现
+## 现状：31 个原子全部实现
 
 | 层 | 原子 |
 |---|---|
-| A 情报 | `hotlist` `find-image` `fetch-facts` `fact-card` `kline` `market-fetch` |
-| B 创作 | `write-article` `title-hook` `format-html` `cover-image` `img-normalize` `tts-audio` `comic-draw` `result-page` |
-| C 质量 | `selfcheck` `ai-flavor` `dedup-log` |
-| D 分发 | `wechat-draft` `wechat-newspic` `toutiao-publish` `fanqie-publish` |
+| A 情报 | `hotlist` `find-image` `fetch-facts` `fact-card` `kline` `market-fetch` `forecast-dashboard` `holdings-analysis` `fund-ocr` |
+| B 创作 | `write-article` `real-story-pack` `title-hook` `format-html` `cover-image` `img-normalize` `tts-audio` `comic-draw` `result-page` `gif-clip` `video-cut` `publish-kit` |
+| C 质量 | `selfcheck` `ai-flavor` `dedup-log` `copyright-check` |
+| D 分发 | `wechat-draft` `wechat-newspic` `toutiao-publish` `fanqie-publish` `wechat-browser-draft` `video-channel-draft` |
 
 详细清单与调用契约见 `atom/SKILL.md`，每个原子的说明见各自的 `SKILL.md`。
 
@@ -73,7 +73,7 @@ npx playwright install chromium    # toutiao-publish 用
 | `cover-image` | 6 种布局逐字节对比 `cover.js` | **完全一致** |
 | `dedup-log` | n=3/5/10/20 对比 `recent.js` | **逐字符一致** |
 
-### 回归测试（9 项，全程不联网）
+### 回归测试（26 项，全程不联网）
 
 | 项 | 断言 | 覆盖重点 |
 |---|---|---|
@@ -86,6 +86,19 @@ npx playwright install chromium    # toutiao-publish 用
 | `wechat-newspic` | 12 | payload / 张数跟随目录 / 封面复用 |
 | `wechat-draft` | 11 | token 缓存 / 42001 重试 / 缺图与撞脸双拦截 |
 | `hotlist` | 5 | 五平台解析 + 跨榜重叠 |
+| `recipe/forecast` | 12 | 抓数/渲染两步链 + 续跑 |
+| `forecast-dashboard` | 13 | 两种版式 + JSON 侧车 |
+| `holdings-analysis` | 25 | 文本/JSON 输入 + 板块映射 + 建议 |
+| `fund-ocr` | 11 | 切片 / `--plan` / 可选真实 OCR |
+| `real-story-pack` | 20 | 12 类锚点 / 红线 / 抽象表达 |
+| `gif-clip` | 10 | 本地视频真实切片 |
+| `video-cut` | 13 | 批量文件名解析 + 真实四段剪辑 |
+| `copyright-check` | 14 | 三项硬指标 + 缺项 WARN |
+| `publish-kit` | 18 | 内嵌首图 / 物料 / 短标题检查 |
+| `wechat-browser-draft` | 14 | 参数校验 / Python 可编译 / Playwright |
+| `video-channel-draft` | 10 | 短标题清洗与长度拦截 |
+| `recipe/mingchangmian` | 11 | 6 步链 + 续跑 |
+| `recipe/mingchangmian-video` | 9 | 8 步链 + 顺序 |
 
 ## 命令速查
 

@@ -1,0 +1,8 @@
+{
+  "name": "@atoms/holdings-analysis",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.mjs",
+  "bin": { "atom-holdings-analysis": "src/index.mjs" }
+}

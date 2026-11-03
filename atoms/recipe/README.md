@@ -103,7 +103,10 @@ node recipe/<name>/run.mjs --only hotlist,find-image
 | `event-thread` | 事件脉络梳理（7 步） | ✅ 已建 |
 | `company-intro` | 公司拆解（6 步） | ✅ 已建 |
 | `podcast` | 商业财经播客（5 步） | ✅ 已建 |
-| `manga` | 漫画 | 待建 |
+| `manga` | 条漫（6 步） | ✅ 已建 |
 | `novel` | 番茄小说（2 步） | ✅ 已建 |
+| `forecast` | 板块涨跌预测（抓数 + 结果页） | ✅ 已建 |
+| `mingchangmian` | 名场面图文（GIF → 物料） | ✅ 已建 |
+| `mingchangmian-video` | 名场面视频（剪辑 → 物料） | ✅ 已建 |
 
 新建配方的原子都已就位，缺的只是 `recipe.json` + `SKILL.md`——这正是「新增一个项目 = 新写一份配置，不写代码」的验证。

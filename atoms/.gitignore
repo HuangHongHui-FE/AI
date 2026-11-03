@@ -15,6 +15,8 @@ cache/
 .cache/
 .tmp/
 *.log
+.tessdata/
+*.traineddata
 
 # ai-flavor 的朱雀实测反馈（本地累积，不入库）
 atom/ai-flavor/data/

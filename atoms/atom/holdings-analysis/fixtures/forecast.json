@@ -1,0 +1,8 @@
+{
+  "新能源车": { "dir": "▼", "conf": "M", "score": -0.88, "estPct": -1.5, "risk": "机构派发" },
+  "半导体": { "dir": "▼", "conf": "H", "score": -1.75, "estPct": -3.0, "risk": "费半拖累" },
+  "AI算力/AI": { "dir": "▼", "conf": "M", "score": -1.0, "estPct": -1.5, "risk": "费半拖累" },
+  "机器人": { "dir": "▼", "conf": "L", "score": -0.55, "estPct": -1.0, "risk": "纳指拖累" },
+  "恒生科技": { "dir": "△", "conf": "L", "score": 0.15, "estPct": 0.3, "risk": "美股承压" },
+  "黄金": { "dir": "▲", "conf": "M", "score": 0.75, "estPct": 1.0, "risk": "地缘避险" }
+}

@@ -1,6 +1,6 @@
 ---
 name: atom 原子技能总索引
-description: 21 个原子技能的清单与调用契约。每个原子只做一件事，输入 → 输出，可被任意 recipe 组合。原子之间禁止互相 import，组合只发生在 recipe 层。
+description: 31 个原子技能的清单与调用契约。每个原子只做一件事，输入 → 输出，可被任意 recipe 组合。原子之间禁止互相 import，组合只发生在 recipe 层。
 ---
 
 # atom 原子技能总索引
@@ -24,7 +24,7 @@ node atom/<name>/src/index.mjs --out <路径> [业务参数]
 
 每个原子的详细说明见各自的 `SKILL.md`。
 
-## 原子清单（17 个，全部已实现）
+## 原子清单（31 个，全部已实现）
 
 ### A 情报层
 
@@ -36,12 +36,16 @@ node atom/<name>/src/index.mjs --out <路径> [业务参数]
 | `fact-card` | 事实条目 | 校验通过的 `facts.json` | ✅ 硬拦无来源/模糊日期 |
 | `kline` | 股票代码 | 日/周/月 K 线 + 走势图 | ✅ 东财主源腾讯兜底 |
 | `market-fetch` | 输出目录 | 行情/日K/外盘/资金/情绪/财报/新闻 | ✅ 9 个 Python 脚本 · 降级不中断 · 🧪 |
+| `forecast-dashboard` | 预测 HTML + 快照 JSON | 多区域看板 HTML | ✅ 表格/卡片两版 · 🧪 |
+| `holdings-analysis` | 持仓 + 预测 JSON | 盈亏估算 + 调仓建议 | ✅ JSON/文本输入 · 🧪 |
+| `fund-ocr` | 持仓截图 | 切片 + OCR 文本 | ✅ 可只切片 · 🧪 |
 
 ### B 创作层
 
 | 原子 | 输入 | 输出 | 状态 |
 |---|---|---|---|
 | `write-article` | 事实 + 避撞清单 | 写作 prompt + 成稿校验 | ✅ 8 维池 157 项 · 抽骨架不抽标签 |
+| `real-story-pack` | 初稿 | 包装 prompt / 锚点覆盖校验 | ✅ 12 类真实感锚点 · 弱检测 · 🧪 |
 | `title-hook` | 热点原词 | 合规标题 | ✅ 贴原词 + 压缩/补全 |
 | `format-html` | markdown + theme | 微信 HTML | ✅ 20 主题 · 与源逐字节一致 · 🧪 |
 | `cover-image` | 图片 + 布局 | 2.35:1 封面 | ✅ 22 布局 · 竖图补救 · 🧪 |
@@ -49,6 +53,9 @@ node atom/<name>/src/index.mjs --out <路径> [业务参数]
 | `tts-audio` | 文稿 | mp3 | ✅ 无 ffmpeg 依赖 |
 | `comic-draw` | panels JSON | 条漫单格 + 长条漫 | ✅ 老周家内置 5 角色 · 🧪 |
 | `result-page` | 分析 markdown | 结果页 HTML | ✅ 方向速览卡片 · 🧪 |
+| `gif-clip` | 视频 URL/本地文件 + 时间段 | GIF | ✅ yt-dlp / ffmpeg 两条路径 · 🧪 |
+| `video-cut` | 源视频 + 标题 + 钩子段 | 四段成品 mp4 | ✅ 单条/批量 · 🧪 |
+| `publish-kit` | 正文 HTML + 首图 GIF | copy.html + 发布物料.md | ✅ 内嵌首图 · 短标题检查 · 🧪 |
 
 ### C 质量层
 
@@ -57,6 +64,7 @@ node atom/<name>/src/index.mjs --out <路径> [业务参数]
 | `selfcheck` | 稿件 + 规则集 | FAIL/WARN | ✅ 5 规则集 · 685 篇回归 100% 一致 · 🧪 |
 | `ai-flavor` | 稿件正文 | AI 味得分 + 逐条证据 | ✅ 9 条规则 · 朱雀反馈校准 · 🧪 |
 | `dedup-log` | 维度 + 近 N 篇 | 避撞结果 + 日志追加 | ✅ 两代格式兼容 · 🧪 |
+| `copyright-check` | 成片 + 镜头/解说说长 | 三项版权硬指标 | ✅ 缺项记 WARN 不算全过 · 🧪 |
 
 ### D 分发层
 
@@ -66,6 +74,8 @@ node atom/<name>/src/index.mjs --out <路径> [业务参数]
 | `wechat-newspic` | 图片列表 + 文案 | media_id | ✅ 贴图 newspic · 🧪 |
 | `toutiao-publish` | 标题+正文+图 | 编辑器已填 | ✅ 半自动（人工点发布） |
 | `fanqie-publish` | 章节 md | 草稿 | ✅ 只存草稿不发布 · 🧪 |
+| `wechat-browser-draft` | article.json | 草稿箱草稿 | ✅ 浏览器自动化 · 只存草稿 · 🧪 |
+| `video-channel-draft` | 成片 + 文案 | 视频号草稿 | ✅ 浏览器自动化 · 短标题拦截 · 🧪 |
 
 🧪 = 有离线回归测试（`fixtures/regression.mjs`）
 

@@ -1,0 +1,8 @@
+{
+  "name": "@atoms/copyright-check",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.mjs",
+  "bin": { "atom-copyright-check": "src/index.mjs" }
+}

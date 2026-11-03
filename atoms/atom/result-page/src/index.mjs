@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { parseArgs, emit, fail, log } from "../../../_shared/io.mjs";
 
-const args = parseArgs({ known: ["md", "out", "quiet"] });
+const args = parseArgs({ known: ["md", "out", "out-dir", "quiet"] });
 const HERE = dirname(fileURLToPath(import.meta.url));
 const SCRIPT = join(HERE, "py", "md2html.py");
 
@@ -21,7 +21,9 @@ async function main() {
 
   const outPath = args.out
     ? resolve(String(args.out))
-    : mdPath.replace(/\.md$/i, "") + ".html";
+    : args["out-dir"]
+      ? join(resolve(String(args["out-dir"])), "report.html")
+      : mdPath.replace(/\.md$/i, "") + ".html";
   mkdirSync(dirname(outPath), { recursive: true });
 
   // 渲染交给 Python 脚本（样式与结果页布局都在里面，改样式改 py 不改这里）

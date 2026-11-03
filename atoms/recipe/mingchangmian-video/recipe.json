@@ -1,0 +1,83 @@
+{
+  "name": "mingchangmian-video",
+  "version": "0.1.0",
+  "description": "名场面视频：剪四段成品 → 切 GIF 首图 → Claude 写正文 → 自查/版权检查 → 排版 → 封面 → 出物料",
+  "notes": "copyright-check 需要 --clip（原片镜头时长）和 --speech-sec（原创解说时长），缺一项会判未通过；视频号推送为可选手动步骤。",
+  "atoms": [
+    {
+      "id": "video-cut",
+      "args": {
+        "mode": "single",
+        "source": "{{user.source}}",
+        "title": "{{user.title}}",
+        "hook-range": "{{user.hook_range}}",
+        "cta": "{{user.cta}}",
+        "media-root": "{{user.media_root}}",
+        "out": "{{step.video-cut}}/final.mp4"
+      }
+    },
+    {
+      "id": "gif-clip",
+      "args": {
+        "source": "{{user.source}}",
+        "start": "{{user.start}}",
+        "end": "{{user.end}}",
+        "name": "{{user.name}}",
+        "out-dir": "{{step.gif-clip}}"
+      }
+    },
+    {
+      "id": "selfcheck",
+      "args": {
+        "article": "{{user.article}}",
+        "ruleset": "wechat-img"
+      }
+    },
+    {
+      "id": "ai-flavor",
+      "args": {
+        "article": "{{user.article}}"
+      }
+    },
+    {
+      "id": "copyright-check",
+      "args": {
+        "video": "{{step.video-cut}}/final.mp4",
+        "clip": "{{user.clip}}",
+        "speech-sec": "{{user.speech-sec}}"
+      }
+    },
+    {
+      "id": "format-html",
+      "args": {
+        "md": "{{step.selfcheck}}/body.md",
+        "title": "{{user.title}}"
+      }
+    },
+    {
+      "id": "cover-image",
+      "args": {
+        "image": "{{step.gif-clip}}/{{user.name}}.gif",
+        "out": "{{step.cover-image}}/cover.jpg",
+        "style": "plain"
+      }
+    },
+    {
+      "id": "publish-kit",
+      "args": {
+        "article": "{{user.article}}",
+        "html": "{{step.format-html}}/content.html",
+        "gif": "{{step.gif-clip}}/{{user.name}}.gif",
+        "cover": "{{step.cover-image}}/cover.jpg",
+        "video": "{{step.video-cut}}/final.mp4",
+        "out-dir": "{{step.publish-kit}}",
+        "date": "{{user.date}}"
+      }
+    }
+  ],
+  "overrides": {
+    "selfcheck": {
+      "ruleset": "wechat-img"
+    }
+  }
+}

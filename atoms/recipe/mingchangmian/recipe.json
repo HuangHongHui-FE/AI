@@ -1,0 +1,63 @@
+{
+  "name": "mingchangmian",
+  "version": "0.1.0",
+  "description": "名场面图文：切 GIF 首图 → Claude 写正文 → 自查 → 排版 → 封面 → 出物料",
+  "notes": "正文与 article.json 由 Claude 写；gif-clip 只负责从视频切 GIF；终点是物料，不自动推送。08-推草稿箱为可选手动步骤。",
+  "atoms": [
+    {
+      "id": "gif-clip",
+      "args": {
+        "source": "{{user.source}}",
+        "start": "{{user.start}}",
+        "end": "{{user.end}}",
+        "name": "{{user.name}}",
+        "out-dir": "{{step.gif-clip}}",
+        "cookies-from-browser": "{{user.cookies_from_browser}}"
+      }
+    },
+    {
+      "id": "selfcheck",
+      "args": {
+        "article": "{{user.article}}",
+        "ruleset": "wechat-img"
+      }
+    },
+    {
+      "id": "ai-flavor",
+      "args": {
+        "article": "{{user.article}}"
+      }
+    },
+    {
+      "id": "format-html",
+      "args": {
+        "md": "{{step.selfcheck}}/body.md",
+        "title": "{{user.title}}"
+      }
+    },
+    {
+      "id": "cover-image",
+      "args": {
+        "image": "{{step.gif-clip}}/{{user.name}}.gif",
+        "out": "{{step.cover-image}}/cover.jpg",
+        "style": "plain"
+      }
+    },
+    {
+      "id": "publish-kit",
+      "args": {
+        "article": "{{user.article}}",
+        "html": "{{step.format-html}}/content.html",
+        "gif": "{{step.gif-clip}}/{{user.name}}.gif",
+        "cover": "{{step.cover-image}}/cover.jpg",
+        "out-dir": "{{step.publish-kit}}",
+        "date": "{{user.date}}"
+      }
+    }
+  ],
+  "overrides": {
+    "selfcheck": {
+      "ruleset": "wechat-img"
+    }
+  }
+}

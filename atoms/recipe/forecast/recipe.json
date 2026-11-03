@@ -1,0 +1,21 @@
+{
+  "name": "forecast",
+  "version": "0.1.0",
+  "description": "板块涨跌预测：抓全量盘面数据 → Claude 五维打分写分析 → 渲染结果页 HTML",
+  "notes": "market-fetch 只抓数；五维打分/底部信号/T+1 回检由 Claude 按 references/market-forecast.md 完成；result-page 只渲染，不生成分析",
+  "atoms": [
+    {
+      "id": "market-fetch",
+      "args": {
+        "out-dir": "{{step.market-fetch}}"
+      }
+    },
+    {
+      "id": "result-page",
+      "args": {
+        "md": "{{user.md}}"
+      }
+    }
+  ],
+  "overrides": {}
+}
