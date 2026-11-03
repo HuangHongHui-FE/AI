@@ -12,6 +12,7 @@ runs/*
 
 # 缓存与临时
 cache/
+.cache/
 .tmp/
 *.log
 
