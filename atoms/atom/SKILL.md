@@ -1,6 +1,6 @@
 ---
 name: atom 原子技能总索引
-description: 18 个原子技能的清单与调用契约。每个原子只做一件事，输入 → 输出，可被任意 recipe 组合。原子之间禁止互相 import，组合只发生在 recipe 层。
+description: 21 个原子技能的清单与调用契约。每个原子只做一件事，输入 → 输出，可被任意 recipe 组合。原子之间禁止互相 import，组合只发生在 recipe 层。
 ---
 
 # atom 原子技能总索引
@@ -35,6 +35,7 @@ node atom/<name>/src/index.mjs --out <路径> [业务参数]
 | `fetch-facts` | 热点关键词 | 带来源的事实条目 + 事件簇 | ✅ 头条搜索 |
 | `fact-card` | 事实条目 | 校验通过的 `facts.json` | ✅ 硬拦无来源/模糊日期 |
 | `kline` | 股票代码 | 日/周/月 K 线 + 走势图 | ✅ 东财主源腾讯兜底 |
+| `market-fetch` | 输出目录 | 行情/日K/外盘/资金/情绪/财报/新闻 | ✅ 9 个 Python 脚本 · 降级不中断 · 🧪 |
 
 ### B 创作层
 
@@ -46,6 +47,8 @@ node atom/<name>/src/index.mjs --out <路径> [业务参数]
 | `cover-image` | 图片 + 布局 | 2.35:1 封面 | ✅ 22 布局 · 竖图补救 · 🧪 |
 | `img-normalize` | 任意图片 | 标准 JPEG / 指定比例 | ✅ 防假 jpg + 模糊填充 |
 | `tts-audio` | 文稿 | mp3 | ✅ 无 ffmpeg 依赖 |
+| `comic-draw` | panels JSON | 条漫单格 + 长条漫 | ✅ 老周家内置 5 角色 · 🧪 |
+| `result-page` | 分析 markdown | 结果页 HTML | ✅ 方向速览卡片 · 🧪 |
 
 ### C 质量层
 

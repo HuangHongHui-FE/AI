@@ -4,13 +4,25 @@
   "description": "公众号热点图文：抓榜 → 用户选点 → 找图 → 用户筛图 → 抓事实 → 生成写作 prompt → 【人写正文】 → 自查 → 排版 → 封面 → 推草稿",
   "notes": "写正文这一步由 Claude 完成（不是脚本）——write-article 只产出 prompt 与维度，正文落到 04-write-article/article.json 后再续跑",
   "atoms": [
-    { "id": "hotlist", "stopForUser": true },
+    {
+      "id": "hotlist",
+      "stopForUser": true
+    },
     {
       "id": "find-image",
       "stopForUser": true,
-      "args": { "subject": "{{user.subject}}", "event": "{{user.event}}", "target": 20 }
+      "args": {
+        "subject": "{{user.subject}}",
+        "event": "{{user.event}}",
+        "target": 20
+      }
     },
-    { "id": "fetch-facts", "args": { "query": "{{user.query}}" } },
+    {
+      "id": "fetch-facts",
+      "args": {
+        "query": "{{user.query}}"
+      }
+    },
     {
       "id": "write-article",
       "args": {
@@ -21,15 +33,29 @@
     },
     {
       "id": "selfcheck",
-      "args": { "article": "{{step.write-article}}/article.json" }
+      "args": {
+        "article": "{{step.write-article}}/article.json"
+      }
+    },
+    {
+      "id": "ai-flavor",
+      "args": {
+        "article": "{{step.write-article}}/article.json"
+      }
     },
     {
       "id": "format-html",
-      "args": { "md": "{{step.selfcheck}}/body.md", "title": "{{user.title}}" }
+      "args": {
+        "md": "{{step.selfcheck}}/body.md",
+        "title": "{{user.title}}"
+      }
     },
     {
       "id": "cover-image",
-      "args": { "image": "{{step.find-image}}/001-主图.jpg", "out": "{{runDir}}/07-cover-image/cover.jpg" }
+      "args": {
+        "image": "{{step.find-image}}/001-主图.jpg",
+        "out": "{{runDir}}/07-cover-image/cover.jpg"
+      }
     },
     {
       "id": "wechat-draft",
@@ -41,8 +67,14 @@
     }
   ],
   "overrides": {
-    "selfcheck": { "ruleset": "wechat-img" },
-    "wechat-draft": { "account": "wechatimg" },
-    "cover-image": { "style": "plain" }
+    "selfcheck": {
+      "ruleset": "wechat-img"
+    },
+    "wechat-draft": {
+      "account": "wechatimg"
+    },
+    "cover-image": {
+      "style": "plain"
+    }
   }
 }

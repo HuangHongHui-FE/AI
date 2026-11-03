@@ -80,13 +80,14 @@ for (const step of spec.atoms) {
   seq++;
   if (only && !only.includes(step.id)) continue;
 
+  // 步骤目录先登记，参数里的 {{step.<自己>}} 才能解析出路径（否则会变成 "/xxx"）
+  const stepPath = join(run.dir, stepName(seq, step.id));
+  ctx.steps.set(step.id, stepPath);
+
   // 参数 = 步骤 args（可含模板）+ 配方 overrides + 命令行 --account
   const rawArgs = argsFor(step.id);
   if (args.account) rawArgs.account = String(args.account); // 命令行优先级最高
   const stepArgs = resolveDeep(rawArgs, ctx);
-
-  const stepPath = join(run.dir, stepName(seq, step.id));
-  ctx.steps.set(step.id, stepPath);
 
   // 续跑：该步已成功完成则跳过（重跑会覆盖产出，且已有产出被下游依赖）
   const done = run.manifest.steps.find((x) => x.dir === stepName(seq, step.id) && x.exit_code === 0);

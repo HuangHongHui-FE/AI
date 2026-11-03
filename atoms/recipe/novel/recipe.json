@@ -6,11 +6,23 @@
   "atoms": [
     {
       "id": "selfcheck",
-      "args": { "article": "{{user.article}}", "ruleset": "wechat-img" }
+      "args": {
+        "article": "{{user.article}}",
+        "ruleset": "wechat-img"
+      }
+    },
+    {
+      "id": "ai-flavor",
+      "args": {
+        "article": "{{user.article}}"
+      }
     },
     {
       "id": "fanqie-publish",
-      "args": { "book": "{{user.book}}", "file": "{{user.chapter_file}}" }
+      "args": {
+        "book": "{{user.book}}",
+        "file": "{{user.chapter_file}}"
+      }
     }
   ],
   "overrides": {}

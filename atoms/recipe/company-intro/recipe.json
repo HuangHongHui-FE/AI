@@ -6,14 +6,45 @@
   "atoms": [
     {
       "id": "kline",
-      "args": { "code": "{{user.code}}", "period": "month", "out": "{{step.kline}}/chart.jpg", "title": "{{user.company}}" }
+      "args": {
+        "code": "{{user.code}}",
+        "period": "month",
+        "out": "{{step.kline}}/chart.jpg",
+        "title": "{{user.company}}"
+      }
     },
-    { "id": "write-article", "args": { "topic": "{{user.company}}", "images": 1 } },
-    { "id": "selfcheck", "args": { "article": "{{step.write-article}}/article.json" } },
-    { "id": "format-html", "args": { "md": "{{step.selfcheck}}/body.md", "title": "{{user.title}}" } },
+    {
+      "id": "write-article",
+      "args": {
+        "topic": "{{user.company}}",
+        "images": 1
+      }
+    },
+    {
+      "id": "selfcheck",
+      "args": {
+        "article": "{{step.write-article}}/article.json"
+      }
+    },
+    {
+      "id": "ai-flavor",
+      "args": {
+        "article": "{{step.write-article}}/article.json"
+      }
+    },
+    {
+      "id": "format-html",
+      "args": {
+        "md": "{{step.selfcheck}}/body.md",
+        "title": "{{user.title}}"
+      }
+    },
     {
       "id": "cover-image",
-      "args": { "image": "{{step.kline}}/chart.jpg", "out": "{{runDir}}/05-cover-image/cover.jpg" }
+      "args": {
+        "image": "{{step.kline}}/chart.jpg",
+        "out": "{{runDir}}/05-cover-image/cover.jpg"
+      }
     },
     {
       "id": "wechat-draft",
@@ -26,7 +57,11 @@
     }
   ],
   "overrides": {
-    "selfcheck": { "ruleset": "company" },
-    "wechat-draft": { "account": "wechatimg" }
+    "selfcheck": {
+      "ruleset": "company"
+    },
+    "wechat-draft": {
+      "account": "wechatimg"
+    }
   }
 }

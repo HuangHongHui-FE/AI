@@ -6,19 +6,37 @@
   "atoms": [
     {
       "id": "tts-audio",
-      "args": { "text-file": "{{user.script_file}}", "out": "{{step.tts-audio}}/episode.mp3" }
+      "args": {
+        "text-file": "{{user.script_file}}",
+        "out": "{{step.tts-audio}}/episode.mp3"
+      }
     },
     {
       "id": "selfcheck",
-      "args": { "article": "{{user.article}}", "ruleset": "podcast" }
+      "args": {
+        "article": "{{user.article}}",
+        "ruleset": "podcast"
+      }
+    },
+    {
+      "id": "ai-flavor",
+      "args": {
+        "article": "{{user.article}}"
+      }
     },
     {
       "id": "format-html",
-      "args": { "md": "{{step.selfcheck}}/body.md", "title": "{{user.title}}" }
+      "args": {
+        "md": "{{step.selfcheck}}/body.md",
+        "title": "{{user.title}}"
+      }
     },
     {
       "id": "cover-image",
-      "args": { "image": "{{user.cover_source}}", "out": "{{runDir}}/04-cover-image/cover.jpg" }
+      "args": {
+        "image": "{{user.cover_source}}",
+        "out": "{{runDir}}/04-cover-image/cover.jpg"
+      }
     },
     {
       "id": "wechat-draft",
@@ -30,7 +48,11 @@
     }
   ],
   "overrides": {
-    "wechat-draft": { "account": "wechatimg" },
-    "cover-image": { "style": "plain" }
+    "wechat-draft": {
+      "account": "wechatimg"
+    },
+    "cover-image": {
+      "style": "plain"
+    }
   }
 }

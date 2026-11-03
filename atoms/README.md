@@ -36,12 +36,12 @@ npx playwright install chromium    # toutiao-publish 用
 2. **不写死路径** —— 自身资源用 `import.meta.url` 推导，业务路径由参数传入
 3. **凭据只从环境变量读** —— 源码里零密钥，`.env` 永不入库
 
-## 现状：18 个原子全部实现
+## 现状：21 个原子全部实现
 
 | 层 | 原子 |
 |---|---|
-| A 情报 | `hotlist` `find-image` `fetch-facts` `fact-card` `kline` |
-| B 创作 | `write-article` `title-hook` `format-html` `cover-image` `img-normalize` `tts-audio` |
+| A 情报 | `hotlist` `find-image` `fetch-facts` `fact-card` `kline` `market-fetch` |
+| B 创作 | `write-article` `title-hook` `format-html` `cover-image` `img-normalize` `tts-audio` `comic-draw` `result-page` |
 | C 质量 | `selfcheck` `ai-flavor` `dedup-log` |
 | D 分发 | `wechat-draft` `wechat-newspic` `toutiao-publish` `fanqie-publish` |
 
