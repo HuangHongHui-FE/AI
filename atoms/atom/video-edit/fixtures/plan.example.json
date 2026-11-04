@@ -1,0 +1,141 @@
+{
+  "source": "素材/033-我是练习时长两年半的个人练习生.mp4",
+  "out": "成品/033-剪辑版.mp4",
+  "output": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "fit": "pad",
+    "codec": "h264",
+    "crf": 18,
+    "preset": "medium"
+  },
+  "grade": {
+    "contrast": 1.06,
+    "saturation": 1.12,
+    "brightness": 0,
+    "vignette": true,
+    "grain": 3,
+    "sharpen": 0.3
+  },
+  "overlays": {
+    "watermark": "名场面",
+    "watermarkPosition": "topRight",
+    "progressBar": true
+  },
+  "audio": {
+    "loudnorm": -14,
+    "truePeak": -1.2,
+    "sfx": true
+  },
+  "segments": [
+    {
+      "name": "hook",
+      "start": 12.85,
+      "end": 13.35,
+      "zoom": 1.12,
+      "text": [
+        {
+          "content": "全程高能",
+          "size": 82,
+          "position": "bottomRight",
+          "color": "yellow",
+          "border": 5,
+          "box": true,
+          "boxColor": "red@0.75"
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "stillAt": 27.5,
+      "duration": 1.2,
+      "text": [
+        {
+          "content": "练习时长两年半",
+          "size": 92,
+          "typewriter": { "step": 0.1 }
+        }
+      ],
+      "transition": { "type": "fadewhite", "duration": 0.1 }
+    },
+    {
+      "name": "basketball",
+      "start": 13.0,
+      "end": 16.0,
+      "speed": 1.5,
+      "zoom": 1.08,
+      "transition": { "type": "cut" }
+    },
+    {
+      "name": "reverse",
+      "start": 16.5,
+      "end": 17.5,
+      "reverse": true,
+      "audioLead": 0.2,
+      "transition": { "type": "wipeleft", "duration": 0.12 }
+    },
+    {
+      "name": "dance",
+      "start": 30.0,
+      "end": 32.0,
+      "speed": 1.25,
+      "kenBurns": [1.0, 1.1],
+      "transition": { "type": "circleopen", "duration": 0.18 }
+    },
+    {
+      "name": "grid",
+      "grid": {
+        "cols": 2,
+        "rows": 2,
+        "cells": [
+          { "start": 26.0, "end": 28.0 },
+          { "start": 30.0, "end": 32.0 },
+          { "start": 34.0, "end": 36.0 },
+          { "start": 38.0, "end": 40.0 }
+        ]
+      },
+      "text": ["四宫格"],
+      "transition": { "type": "pixelize", "duration": 0.15 }
+    },
+    {
+      "name": "pip",
+      "start": 40.0,
+      "end": 42.0,
+      "pip": {
+        "start": 13.0,
+        "end": 15.0,
+        "width": 0.28,
+        "position": "bottomRight"
+      },
+      "effects": { "glitch": false },
+      "transition": { "type": "dissolve", "duration": 0.1 }
+    },
+    {
+      "name": "climax",
+      "start": 47.0,
+      "end": 48.5,
+      "speed": 0.5,
+      "kenBurns": [1.0, 1.18],
+      "effects": { "glitch": true, "pixelize": { "from": 0.4, "to": 0.7, "size": 24 } },
+      "transition": { "type": "fadewhite", "duration": 0.06 }
+    },
+    {
+      "name": "end",
+      "stillAt": 56.1,
+      "duration": 1.4,
+      "text": [
+        {
+          "content": "两年半",
+          "size": 110,
+          "position": "center",
+          "color": "white",
+          "border": 6,
+          "box": true,
+          "boxColor": "#ff2d55@0.85"
+        }
+      ],
+      "transition": { "type": "fadeblack", "duration": 0.25 }
+    }
+  ]
+}

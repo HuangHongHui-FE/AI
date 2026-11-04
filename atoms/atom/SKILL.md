@@ -1,6 +1,6 @@
 ---
 name: atom 原子技能总索引
-description: 31 个原子技能的清单与调用契约。每个原子只做一件事，输入 → 输出，可被任意 recipe 组合。原子之间禁止互相 import，组合只发生在 recipe 层。
+description: 32 个原子技能的清单与调用契约。每个原子只做一件事，输入 → 输出，可被任意 recipe 组合。原子之间禁止互相 import，组合只发生在 recipe 层。
 ---
 
 # atom 原子技能总索引
@@ -24,7 +24,7 @@ node atom/<name>/src/index.mjs --out <路径> [业务参数]
 
 每个原子的详细说明见各自的 `SKILL.md`。
 
-## 原子清单（31 个，全部已实现）
+## 原子清单（32 个，全部已实现）
 
 ### A 情报层
 
@@ -55,6 +55,7 @@ node atom/<name>/src/index.mjs --out <路径> [业务参数]
 | `result-page` | 分析 markdown | 结果页 HTML | ✅ 方向速览卡片 · 🧪 |
 | `gif-clip` | 视频 URL/本地文件 + 时间段 | GIF | ✅ yt-dlp / ffmpeg 两条路径 · 🧪 |
 | `video-cut` | 源视频 + 标题 + 钩子段 | 四段成品 mp4 | ✅ 单条/批量 · 🧪 |
+| `video-edit` | 源视频 + edit.json 计划 | 成片 mp4 + 手法清单 | ✅ 10 类手法参数化 · 分屏/画中画/变速/倒放/竖屏 · 🧪 |
 | `publish-kit` | 正文 HTML + 首图 GIF | copy.html + 发布物料.md | ✅ 内嵌首图 · 短标题检查 · 🧪 |
 
 ### C 质量层
@@ -96,6 +97,7 @@ npm run test:all      # 额外跑与 project 源实现的一致性对比
 | `fanqie-publish` | 14 | 三步顺序 / **绝不调发布接口** / HTML 转义 |
 | `dedup-log` | 16 | 解析 / 扎堆 / 追加幂等 / 尾巴段保护 |
 | `hotlist` | 5 | 五平台解析 + 重叠检测 |
+| `video-edit` | 21 | 计划校验 / dry-run / 真实渲染 / grid/pip/倒放/定格/音效 |
 
 ## 多公众号
 

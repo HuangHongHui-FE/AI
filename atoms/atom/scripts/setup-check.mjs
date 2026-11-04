@@ -20,8 +20,8 @@ add(".env 已创建", existsSync(join(ROOT, ".env")), "cp .env.example .env 后�
 
 // 可选外部二进制：缺失不阻断，只提示
 const bins = [
-  ["ffmpeg", "音频拼接（podcast）"],
-  ["python3", "evolver 进化脚本"],
+  ["ffmpeg", "video-edit / video-cut / gif-clip"],
+  ["python3", "evolver 进化脚本 / imageio-ffmpeg"],
 ];
 for (const [bin, why] of bins) {
   let ok = false;
@@ -30,6 +30,24 @@ for (const [bin, why] of bins) {
     ok = true;
   } catch {}
   add(`${bin} 可用`, ok, `缺失：${why}`);
+}
+
+// 视频原子优先用 imageio-ffmpeg 提供的 ffmpeg；没有也可以走 PATH
+let imageioOk = false;
+for (const py of ["python3", "python"]) {
+  try {
+    execSync(`${py} -c "import imageio_ffmpeg"`, { stdio: "ignore" });
+    imageioOk = true;
+    break;
+  } catch {}
+}
+add("imageio-ffmpeg 可用", imageioOk, "pip3 install imageio-ffmpeg（video-edit / video-cut / gif-clip 需要）");
+if (imageioOk) {
+  const f = checks.find((c) => c.name.startsWith("ffmpeg 可用"));
+  if (f) {
+    f.ok = true;
+    f.name = "ffmpeg 可用（PATH 或 imageio-ffmpeg）";
+  }
 }
 
 for (const c of checks) {
