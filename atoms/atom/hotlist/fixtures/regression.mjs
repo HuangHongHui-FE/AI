@@ -12,11 +12,18 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 // 每个平台的最低期望：至少解析出多少条、哪些字段必须有值
 const EXPECT = {
   toutiao: { min: 30, fields: ["title", "heat"] },
-  baidu: { min: 30, fields: ["title"] },
+  baidu: { min: 30, fields: ["title", "heat"] },
   douyin: { min: 30, fields: ["title", "heat"] },
   bilibili: { min: 15, fields: ["title", "heat"] },
   weibo: { min: 30, fields: ["title"] },
 };
+
+// 读 fixture 并按平台定义解析：有 parse 的平台（百度）fixture 是 HTML，其余是 JSON
+function loadFixture(key) {
+  const def = PLATFORMS[key];
+  const text = readFileSync(join(HERE, "raw", `${key}.${def.parse ? "html" : "json"}`), "utf8");
+  return def.parse ? def.parse(text) : JSON.parse(text);
+}
 
 let failed = 0;
 let total = 0; // 断言总数，用于统一输出「N/N 通过」
@@ -26,7 +33,7 @@ for (const [key, exp] of Object.entries(EXPECT)) {
   total++;
   let json;
   try {
-    json = JSON.parse(readFileSync(join(HERE, "raw", `${key}.json`), "utf8"));
+    json = loadFixture(key);
   } catch (e) {
     console.log(`✗ ${key}: fixture 缺失或损坏（${e.message}）`);
     failed++;
@@ -61,7 +68,7 @@ for (const [key, exp] of Object.entries(EXPECT)) {
 const all = {};
 for (const key of Object.keys(PLATFORMS)) {
   try {
-    all[key] = { ok: true, label: PLATFORMS[key].label, items: PLATFORMS[key].extract(JSON.parse(readFileSync(join(HERE, "raw", `${key}.json`), "utf8"))) };
+    all[key] = { ok: true, label: PLATFORMS[key].label, items: PLATFORMS[key].extract(loadFixture(key)) };
   } catch {}
 }
 const { findOverlap } = await import("../src/lib/overlap.mjs");

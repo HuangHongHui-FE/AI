@@ -78,11 +78,13 @@ const waiting = [];
 
 for (const step of spec.atoms) {
   seq++;
-  if (only && !only.includes(step.id)) continue;
 
   // 步骤目录先登记，参数里的 {{step.<自己>}} 才能解析出路径（否则会变成 "/xxx"）
+  // 必须在 --only 过滤之前登记：只跑后半段时，前半段的产出路径仍要能被模板解析
   const stepPath = join(run.dir, stepName(seq, step.id));
   ctx.steps.set(step.id, stepPath);
+
+  if (only && !only.includes(step.id)) continue;
 
   // 参数 = 步骤 args（可含模板）+ 配方 overrides + 命令行 --account
   const rawArgs = argsFor(step.id);

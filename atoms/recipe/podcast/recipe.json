@@ -35,14 +35,14 @@
       "id": "cover-image",
       "args": {
         "image": "{{user.cover_source}}",
-        "out": "{{runDir}}/04-cover-image/cover.jpg"
+        "out": "{{step.cover-image}}/cover.jpg"
       }
     },
     {
       "id": "wechat-draft",
       "args": {
         "html": "{{step.format-html}}/content.html",
-        "cover": "{{runDir}}/04-cover-image/cover.jpg",
+        "cover": "{{step.cover-image}}/cover.jpg",
         "title": "{{user.title}}"
       }
     }

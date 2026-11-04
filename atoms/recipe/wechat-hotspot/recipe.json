@@ -14,7 +14,7 @@
       "args": {
         "subject": "{{user.subject}}",
         "event": "{{user.event}}",
-        "target": 20
+        "target": 40
       }
     },
     {
@@ -54,14 +54,14 @@
       "id": "cover-image",
       "args": {
         "image": "{{step.find-image}}/001-主图.jpg",
-        "out": "{{runDir}}/07-cover-image/cover.jpg"
+        "out": "{{step.cover-image}}/cover.jpg"
       }
     },
     {
       "id": "wechat-draft",
       "args": {
         "html": "{{step.format-html}}/content.html",
-        "cover": "{{runDir}}/07-cover-image/cover.jpg",
+        "cover": "{{step.cover-image}}/cover.jpg",
         "title": "{{user.title}}"
       }
     }

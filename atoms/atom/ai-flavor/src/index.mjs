@@ -11,7 +11,7 @@ import { existsSync, mkdirSync, readFileSync, appendFileSync, writeFileSync } fr
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs, emit, fail, log } from "../../../_shared/io.mjs";
-import { scoreText, RULES, charCount } from "./lib/rules.mjs";
+import { scoreText, RULES, LEVEL_MEDIUM } from "./lib/rules.mjs";
 
 const args = parseArgs({
   known: ["article", "text", "out-dir", "json", "quiet", "feedback", "label", "zhuque", "note", "feedback-file", "calibrate"],
@@ -98,8 +98,8 @@ function calibrate() {
       `${r.label.padEnd(14)} ${String(r.ai_mean).padEnd(7)} ${String(r.human_mean).padEnd(9)} ${String(r.separation).padEnd(7)} ${r.cur_weight} → ${r.suggest_weight}`,
     );
   }
-  const hitRate = rows.filter((r) => (r.local_score >= 30) === (r.label === "ai")).length / rows.length;
-  log(`\n当前阈值（≥30 判 AI）与本批实测的一致率：${(hitRate * 100).toFixed(1)}%`);
+  const hitRate = rows.filter((r) => (r.local_score >= LEVEL_MEDIUM) === (r.label === "ai")).length / rows.length;
+  log(`\n当前阈值（≥${LEVEL_MEDIUM} 判 AI）与本批实测的一致率：${(hitRate * 100).toFixed(1)}%`);
   return { samples: { ai: ai.length, human: human.length }, rules: out, agreement: Number(hitRate.toFixed(3)) };
 }
 
@@ -123,6 +123,10 @@ async function main() {
     log(`\nAI 味预检：${title || "（无标题）"}（${r.stats.chars} 字 / ${r.stats.sentences} 句）`);
     log(`得分 ${r.score}/100 → ${r.level === "high" ? "高（大概率被检测出 AI）" : r.level === "medium" ? "中（建议润色）" : "低（接近人写）"}`);
     for (const h of r.hits) log(`  · [${h.strength}] ${h.label}${h.hits.length ? `：${h.hits[0]}` : ""}`);
+    if (r.hits.length) {
+      log("\n优先改：");
+      for (const h of r.hits.slice(0, 3)) log(`  · ${h.advice}`);
+    }
     log("\n提示：这是本地预检，最终以朱雀实测为准；实测后可 --feedback 记录，--calibrate 校准规则权重");
   }
 

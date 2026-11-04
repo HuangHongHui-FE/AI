@@ -61,16 +61,33 @@ stdout 为 JSON（结构化结果），stderr 为人读榜单。
 | 平台 | 接口 | 备注 |
 |---|---|---|
 | 今日头条 | `toutiao.com/hot-event/hot-board/` | 50 条，带 HotValue |
-| 百度热搜 | `top.baidu.com/api/board?platform=wise` | **必须 platform=wise**，PC 端是 JS 渲染 |
+| 百度热搜 | `top.baidu.com/board?tab=realtime` | HTML 里内嵌 `<!--s-data:{...}-->`，带 hotScore；wise 接口只有排名没有热度 |
 | 抖音热榜 | `iesdouyin.com/web/api/v2/hotsearch/billboard/word/` | 带 active_time 实时证明 |
 | B站热搜 | `api.bilibili.com/x/web-interface/search/square` | 20 条 |
 | 微博热搜 | `weibo.com/ajax/side/hotSearch` | **PC 端**免登录；m 端会跳访客系统 |
 
 知乎抓不到（官方 API 401 要登录 token），已放弃；四榜+微博重叠度高，够用。
 
+## 终端展示
+
+stderr 先给平台总览，再逐榜列明细，每条带热度值和热度条：
+
+```
+【平台总览】5 个平台可用，共 100 条
+  今日头条    20 条   最高 1967.1万   新疆军区数千名新兵夜间紧急拉动演练
+  百度热搜    20 条   最高 790.5万    不断开创黄河保护治理工作新局面
+  ...
+
+【今日头条】20 条
+   1. 1967.1万   ████████████  新疆军区数千名新兵夜间紧急拉动演练
+   2. 1779.9万   ███████████   高市早苗以怪异姿势面见日本天皇
+```
+
+热度条按**该平台最热一条**归一，只能比同榜——各平台热度算法不同，跨榜不可比；跨榜要看的是 `overlaps`。
+
 ## 已知坑
 
-1. **百度必须移动端 UA + `platform=wise`**，PC 端 HTML 无热词
+1. **百度改成抓 HTML 里的 `s-data`**，wise 接口没有热度数字；页面结构变了会在 `parse` 里直接报「找不到 s-data」
 2. **微博必须带 `Referer: https://weibo.com/`**，裸请求偶发 302
 3. **m 端微博接口返回「Sina Visitor System」**，别再试
 4. **tophub.today 拿不到内容**——页面 JS 异步加载，curl 下 HTML 里没有热词（`tt-redian-text` 那份实现依赖它，已不可用）

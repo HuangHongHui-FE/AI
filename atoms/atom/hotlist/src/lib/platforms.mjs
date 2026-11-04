@@ -31,17 +31,22 @@ export const PLATFORMS = {
 
   baidu: {
     label: "百度热搜",
-    url: "https://top.baidu.com/api/board?platform=wise&tab=realtime",
-    headers: { "User-Agent": UA_MOBILE },
-    // 百度：data.cards[].content[].content[]，嵌套两层，无稳定热度数字
+    // 页面里内嵌 <!--s-data:{...}--> 才带 hotScore；wise 接口只有排名没有热度
+    url: "https://top.baidu.com/board?tab=realtime",
+    headers: { "User-Agent": UA_PC },
+    parse: (text) => {
+      const m = text.match(/<!--s-data:([\s\S]*?)-->/);
+      if (!m) throw new Error("页面里找不到 s-data，结构可能已变");
+      return JSON.parse(m[1]);
+    },
+    // 百度：data.cards[].content[] → query / word / hotScore
     extract: (json) => {
       const out = [];
       for (const card of json.data?.cards || []) {
-        for (const block of card.content || []) {
-          for (const it of block.content || []) {
-            if (!it.word) continue;
-            out.push({ rank: out.length + 1, title: it.word, heat: String(it.hotScore || ""), url: it.url || "" });
-          }
+        for (const it of card.content || []) {
+          const title = it.word || it.query;
+          if (!title) continue;
+          out.push({ rank: out.length + 1, title, heat: fmtHeat(it.hotScore), url: it.url || it.rawUrl || "" });
         }
       }
       return out;
